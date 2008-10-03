@@ -1,28 +1,20 @@
+BACKUPDIR= ~/Backups
+SOURCEDIR=source
 
-CC=g++
-CC_OPT=-Wall -ansi
+all: safebak 
+	cd $(SOURCEDIR); make
 
-PROG=robo
+safebak:
+	-rar u $(BACKUPDIR)/"safe-robo-`date '+%F-%R'`.bak.rar" $(SOURCEDIR)/ *.c* *.h *.txt
 
-SRC:=$(shell ls *.cpp)
-OBJ=$(SRC:.cpp=.o)
-DEP=$(OBJ:.o=.d)
-
-$(PROG): $(OBJ)
-	@echo "Linkando $(PROG)..." 
-	$(CC) $(CC_OPT) $(OBJ) -o $(PROG)
-	@echo "Feito."
-
--include $(DEP)
-
-%.o: %.cpp
-	@echo "Compilando $*.cpp..."
-	$(CC) $(CC_OPT) -c $*.cpp -o $*.o
-	@echo "Gerando dependencias of $*.cpp..."
-	$(CC) $(CC_OPT) -MM $*.cpp > $*.d
-	@echo "Feito."
-
+bak: clean
+	svn commit
+	-rm $(BACKUPDIR)/safe-robo*
+	-rar u $(BACKUPDIR)/"robo-`date '+%F'`.bak.rar" *
+	scp $(BACKUPDIR)/"robo-`date '+%F'`.bak.rar" tabajara.icmc.usp.br:~/projeto/bak
+	
 clean:
-	@echo "Limpando..."
-	@rm -rf $(PROG) *.o *.d *~ *# "#*"
-	@echo "Feito."
+	cd $(SOURCEDIR); make clean
+
+gprof: 
+	cd $(SOURCEDIR); make gprof
