@@ -52,7 +52,7 @@ class CelulaEsparsa
 		~CelulaEsparsa ()                             /* denstructor */
 		{
 //			delete (p_linha);
-			delete (p_coluna);
+//			delete (p_coluna);
 		}
 		/* ====================  OPERATORS     ======================================= */
 
@@ -101,7 +101,7 @@ class MatrizEsparsa
 
 		/* ====================  METHODS       ======================================= */
     int adicionarCelula(int l, int c, float valor);
-    int adicionarCelula_dupla(int l, int c, float valor);
+    int adicionarCelulaDupla(int l, int c, float valor);
     int *menorCaminho(int origem, int destino);
 //		bool existe(int l, int c);
 
