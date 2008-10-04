@@ -71,7 +71,7 @@ MatrizEsparsa::adicionarCelula ( int l, int c, float v )
 {
 	CelulaEsparsa *aux, *nova;
 	aux = getCelula(l, c);
-printf("Adicionando [%d, %d] = %f\n", l, c, v);getchar();
+printf("Adicionando [%d, %d] = %f\n", l, c, v);
 	if(aux != NULL) {
 		cerr << "Celula [" << l << ", " << c << "] Já existe! Sobreescrevendo o valor."  << endl;
 		aux->setValor(v);
@@ -96,7 +96,7 @@ printf("Adicionando [%d, %d] = %f\n", l, c, v);getchar();
 		nova->setProxLinha(aux->getProxLinha());
 		aux->setProxLinha(nova);
 
-		aux = &linha[c];
+		aux = &linha[l];
 		/* Enquanto a proxima celula existir, ou a pocisao da coluna for depois da nova celula */
 		while((aux->getProxColuna() != NULL) && (aux->getProxColuna()->getColuna() < c)) {
 			aux = aux->getProxColuna();
@@ -106,11 +106,15 @@ printf("Adicionando [%d, %d] = %f\n", l, c, v);getchar();
 		aux->setProxColuna(nova);
 	}
 
-	imprimir();getchar();
 
-	cerr << "addCelula incompleto!!!" << endl;
 	return 0;
 }		/* -----  end of method MatrizEsparsa::adicionarCelula  ----- */
+
+	int
+MatrizEsparsa::adicionarCelulaDupla ( int l, int c, float v )
+{
+	return (adicionarCelula(l, c, v) | adicionarCelula(c, l, v));
+}		/* -----  end of method MatrizEsparsa::adicionarCelulaDupla  ----- */
 
 	CelulaEsparsa
 *MatrizEsparsa::getCelula ( int l, int c )
@@ -148,9 +152,9 @@ MatrizEsparsa::imprimir (  )
 {
 	int l, c;
 	for ( l = 0; l < (int)linha.size(); l += 1 )
-		for ( c = 0; c < (int)coluna.size(); c += 1 ) {
-			cout << "[" << l << ", " << c << "]=>" << getValor(l, c) << endl;
-		}
-			return ;
+		for ( c = 0; c < (int)coluna.size(); c += 1 )
+			if(getCelula(l, c) != NULL)
+				cout << "[" << l << ", " << c << "]=>" << getValor(l, c) << endl;
+	return ;
 }		/* -----  end of method MatrizEsparsa::imprimir  ----- */
 

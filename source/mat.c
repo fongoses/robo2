@@ -7,43 +7,6 @@
 //CelulaEsparsa *linha = NULL;
 //CelulaEsparsa *coluna = NULL;
 
-
-int MatrizEsparsa::adicionar_celula_dupla(int l, int c, float valor)
-{
-  int erro_x_y = adicionar_celula(c, l, valor);
-//			if(total_colunas > 21) {printf("7");imprimir_celula(raiz->getProxColuna[21]);getchar();}
-  int erro_y_x = adicionar_celula(l, c, valor);
-//			if(total_colunas > 21) {printf("8");imprimir_celula(raiz->getProxColuna[21]);getchar();}
-
-  if(erro_x_y + erro_y_x == 0)
-  {
-    return(0);
-  } else 
-  {
-    return(1);
-  }
-}
-
-void MatrizEsparsa::imprimir_celula(CelulaEsparsa c) {
-
-  printf("\nCelula [  %2i  ,   %2i  ]\n", c.l, c.c);
-  printf("Valor  [   %7.2f    ]\n", c.valor);
-//  printf("Proxs  [%2i, %2i]\n", px, py);
-  printf("Proxs  [");
-  if(c.getProxLinha == NULL) {
-		printf(" NULL ");
-  } else {
-    printf("%2i, %2i",c.getProxLinha->l, c.getProxLinha->c);
-  }
-	printf("][");
-  if(c.getProxColuna == NULL) {
-		printf(" NULL ");
-  } else {
-    printf("%2i, %2i",c.getProxColuna->l, c.getProxColuna->c);
-  }
-	printf("]\n");
-}
-
 void MatrizEsparsa::imprimir_matriz_esp()
 {
   CelulaEsparsa *linha, *coluna;

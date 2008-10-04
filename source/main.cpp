@@ -23,9 +23,12 @@ main ( int argc, char *argv[] )
 {
 	MatrizEsparsa M;
 
-	M.adicionarCelula(1, 1, 1);
-	M.adicionarCelula(5, 5, 5);
-	M.adicionarCelula(2, 2, 2);
+	M.adicionarCelulaDupla(1, 1, 1);
+	M.adicionarCelulaDupla(5, 5, 5);
+	M.adicionarCelulaDupla(5, 1, 51);
+	M.adicionarCelulaDupla(2, 2, 2);
+	M.adicionarCelulaDupla(9, 9, 9);
+	M.imprimir();
 
 	return EXIT_SUCCESS;
 }				/* ----------  end of function main  ---------- */
