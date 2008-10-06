@@ -1,0 +1,2 @@
+usar typedef para todos os tipos bizarros: pairs, maps.
+Criar metodos de procura

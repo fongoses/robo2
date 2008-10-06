@@ -17,14 +17,25 @@
  */
 #ifndef  MAPA_INC
 #define  MAPA_INC
+#include	<cstdio>
+#include	<iostream>
 
 #include	<map>
+#include	<list>
 
-#include "matriz_esparsa.h"
+//#include "matriz_esparsa.h"
 //#include "funcoes.h"
 #include	"ponto.h"
 
+using namespace std;
 
+/*-----------------------------------------------------------------------------
+ *  Definicao dos tipos para o codigo ficar mais claro
+ *-----------------------------------------------------------------------------*/
+typedef map<int, Ponto> MapaVertices;
+typedef map<pair<int, int>, float> MapaPesos;
+typedef pair<int, int> Aresta;
+typedef list<int> ListaVertices;
 ///*
 // * =====================================================================================
 // *        Class:  Vertice
@@ -87,8 +98,11 @@ class Mapa
 		/* ====================  METHODS       ======================================= */
 		void adicionarVertice (int noh, Ponto p );
 		void adicionarAresta (int vA, int vB);
+		ListaVertices verticesAdjacentes (int v );
+		bool adjacente (int vA, int vB);
 
 		/* ====================  ACCESS        ======================================= */
+		float get_peso ( int vA, int vB );
 
 		/* ====================  INQUIRY       ======================================= */
 
@@ -97,40 +111,40 @@ class Mapa
 
 	private:
 //		vector<Vertice> vertice;
-		map<int,Ponto> vertice;
-		map<pair<int, int>, float> peso;
+		MapaVertices vertice;
+		MapaPesos peso;
 //		MatrizEsparsa matriz;
 
 }; /* -----  end of class  Mapa  ----- */
 
-class Mapa_old {
-  private:
-    int total_vertices, maior_vertice;
-
-  public:
-    float x0, y0;
-    Mapa_old(float x, float y, int total_vertices); /* Posicao inicial do Robo */
-
-    void adicionar_vertice(int index, float x, float y);
-//		void adicionar_vertice(Vertice v);
-		void adicionar_aresta(int vA, int vB);
-    int *menor_caminho_fator(int origem, int destino);
-    int *dijkstra(int origem, int destino);
-    int *menor_caminho(int origem, int destino, float *peso);
-    int *dijkstra(int origem, int destino, float *peso);
-    int **todos_os_caminhos(int origem, int destino, float **lista_pesos);
-
-    int *salas_adjacentes(int vertice, int *quais);
-    float get_peso(int vA, int vB);
-//		Vertice get_vertice(int noh);
-
-    bool adjacente(int vA, int vB);
-    bool eh_sala(int v);
-
-		int extract_min(float *dist, int *ja_foi);
-
-//		Vertice *vertices;
-    MatrizEsparsa *matriz;
-};
+//class Mapa_old {
+//  private:
+//    int total_vertices, maior_vertice;
+//
+//  public:
+//    float x0, y0;
+//    Mapa_old(float x, float y, int total_vertices); /* Posicao inicial do Robo */
+//
+//    void adicionar_vertice(int index, float x, float y);
+////		void adicionar_vertice(Vertice v);
+//		void adicionar_aresta(int vA, int vB);
+//    int *menor_caminho_fator(int origem, int destino);
+//    int *dijkstra(int origem, int destino);
+//    int *menor_caminho(int origem, int destino, float *peso);
+//    int *dijkstra(int origem, int destino, float *peso);
+//    int **todos_os_caminhos(int origem, int destino, float **lista_pesos);
+//
+//    int *salas_adjacentes(int vertice, int *quais);
+//    float get_peso(int vA, int vB);
+////		Vertice get_vertice(int noh);
+//
+//    bool adjacente(int vA, int vB);
+//    bool eh_sala(int v);
+//
+//		int extract_min(float *dist, int *ja_foi);
+//
+////		Vertice *vertices;
+//    MatrizEsparsa *matriz;
+//};
     
 #endif   /* ----- #ifndef MAPA_INC  ----- */
