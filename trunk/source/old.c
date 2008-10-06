@@ -359,10 +359,3 @@ printf("Procurando todos os caminhos %i - %i\n", origem, destino);
   return(lista_caminhos_final);
 }
 
-TVertice Mapa::get_vertice(int noh) {
-	return(vertices[noh]);
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void TVertice::imprimirf() {
-}

@@ -18,6 +18,9 @@
 
 #include	"mapa.h"
 
+/*-----------------------------------------------------------------------------
+ * ====================  LIFECYCLE     =======================================
+ *-----------------------------------------------------------------------------*/
 /*
  *--------------------------------------------------------------------------------------
  *       Class:  Mapa
@@ -52,6 +55,9 @@ Mapa::~Mapa ()
 {
 }  /* -----  end of method Mapa::~Mapa  (destructor)  ----- */
 
+/*-----------------------------------------------------------------------------
+ * ====================  OPERATORS     ======================================= *
+ *-----------------------------------------------------------------------------*/
 /*
  *--------------------------------------------------------------------------------------
  *       Class:  Mapa
@@ -70,6 +76,9 @@ Mapa::operator = ( const Mapa &other )
 	return *this;
 }  /* -----  end of method Mapa::operator =  (assignment operator)  ----- */
 
+/*-----------------------------------------------------------------------------
+ * ====================  METHODS       ======================================= *
+ *-----------------------------------------------------------------------------*/
 /*
  *--------------------------------------------------------------------------------------
  *       Class:  Mapa
@@ -77,18 +86,19 @@ Mapa::operator = ( const Mapa &other )
  * Description:  Adiciona um vertice no mapa
  *--------------------------------------------------------------------------------------
  */
-	void
+	int
 Mapa::adicionarVertice ( int noh, Ponto p )
 {
 	cout	<< "Adicionando o vertice " << noh << ".\n";
  /* Verifica se o vertice ja existe */
-	if (vertice.find(noh) == vertice.end()) {
+	if (!existeVertice(noh)) {
 		vertice[noh] = p;
 		cout << "Feito.\n";
 	} else {
 		cerr << "Vertice " << noh << " já existe.\n";
+		return 0;
 	}
-	return ;
+	return 1;
 }		/* -----  end of method Mapa::adicionarVertice  ----- */
 
 /*
@@ -99,44 +109,50 @@ Mapa::adicionarVertice ( int noh, Ponto p )
  *							 O peso e' a distancia euclidiana entre os pontos dos vertices
  *--------------------------------------------------------------------------------------
  */
-	void
+	int
 Mapa::adicionarAresta ( int vA, int vB )
 {
 	Aresta aresta;
 	cout	<< "Adicionando a aresta " << vA << "-" << vB << ".\n";
 
 	/* Veriticando se o vertice vA existe */
-	if ( vertice.find(vA) != vertice.end()) {
+	if (existeVertice(vA)) {
 		aresta.first = vA;
 	} else {
 		cerr << "Vertice " << vA << " não existe.\n";
-		return ;
+		return 0;
 	}
 
 	/* Veriticando se o vertice vB existe */
-	if ( vertice.find(vB) != vertice.end()) {
+	if (existeVertice(vB)) {
 		aresta.second = vB;
 	} else {
 		cerr << "Vertice " << vB << " não existe.\n";
-		return ;
+		return 0;
 	}
 
 
  /* Verifica se o vertice ja existe */
-	if (peso.find(aresta) == peso.end()) {
+	if (!existeAresta(aresta)) {
 		peso[aresta] = vertice[vA].distancia(vertice[vB]);
 		cout	<< "Feito.\n";
+	} else {
+		cerr << "Aresta " << vA << "-" << vB << " já existe.\n";
+		return 0;
+	}
 
-		aresta.first = vB;
-		aresta.second = vA;
+	aresta.first = vB;
+	aresta.second = vA;
 
+	if (!existeAresta(aresta)) {
 		cout	<< "Adicionando a aresta " << vB << "-" << vA << ".\n";
 		peso[aresta] = vertice[vB].distancia(vertice[vA]);
 		cout	<< "Feito.\n";
 	} else {
-		cerr << "Aresta " << vA << "-" << vB << " já existe.\n";
+		cerr << "Aresta " << vB << "-" << vA << " já existe.\n";
+		return 0;
 	}
-	return ;
+	return 1;
 }		/* -----  end of method Mapa::adicionarAresta  ----- */
 
 /*
@@ -159,7 +175,7 @@ Mapa::verticesAdjacentes ( int v )
 	{
 		v2 = (*it_v).first;
 		aresta.second = v2;
-		if ( peso.find(aresta) != peso.end()) {
+		if (existeAresta(aresta)) {
 			cout << v2 << " adjacente ao " << v << ",\n";
 			resp.push_back(v2);
 		}
@@ -182,9 +198,69 @@ Mapa::adjacente ( int vA, int vB )
 	aresta.first = vA;
 	aresta.second = vB;
 
-	return (peso.find(aresta) != peso.end());
+	return (existeAresta(aresta));
 }		/* -----  end of method Mapa::adjacente  ----- */
 
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Mapa
+ *      Method:  existeAresta
+ * Description:  Retorna se a aresta a existe ou nao
+ *--------------------------------------------------------------------------------------
+ */
+	bool
+Mapa::existeAresta ( Aresta a )
+{
+	return peso.find(a) != peso.end();
+}		/* -----  end of method Mapa::existeAresta  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Mapa
+ *      Method:  existeVertice
+ * Description:  Retorna se o vertice v existe
+ *--------------------------------------------------------------------------------------
+ */
+	bool
+Mapa::existeVertice ( int v )
+{
+	return vertice.find(v) != vertice.end();
+}		/* -----  end of method Mapa::existeVertice  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Mapa
+ *      Method:  imprimir
+ * Description:  Imprimi todo o mapa
+ *--------------------------------------------------------------------------------------
+ */
+	void
+Mapa::imprimir ()
+{
+	MapaVertices::iterator it_v;
+	MapaPesos::iterator it_a;
+	Aresta a;
+
+	cout	<< "Vertices:\n";
+	for( it_v = vertice.begin(); it_v != vertice.end(); it_v++) {
+		cout << (*it_v).first /* noh */ << " -> " 
+			   << (*it_v).second /* ponto */ << endl;
+	}
+
+	cout	<< "Arestas:\n";
+	for( it_a = peso.begin(); it_a != peso.end(); it_a++) {
+		a = (*it_a).first; /* aresta */
+		cout << a.first /* vA */ << "-" 
+			   << a.second /* vB */ << " => " 
+				 << (*it_a).second /* peso */ << endl;
+	}
+	return ;
+}		/* -----  end of method Mapa::imprimir  ----- */
+
+/*-----------------------------------------------------------------------------
+ * ====================  ACCESS        ======================================= *
+ *-----------------------------------------------------------------------------*/
 /*
  *--------------------------------------------------------------------------------------
  *       Class:  Mapa
@@ -200,7 +276,7 @@ Mapa::get_peso ( int vA, int vB )
 	aresta.first = vA;
 	aresta.second = vB;
 
-	if (peso.find(aresta) != peso.end()) {
+	if (existeAresta(aresta)) {
 		return peso[aresta];
 	} else {
 		cerr << "Aresta " << vA << "-" << vB << " não existe.\n";
@@ -208,3 +284,24 @@ Mapa::get_peso ( int vA, int vB )
 	}
 }		/* -----  end of method Mapa::get_peso  ----- */
 
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Mapa
+ *      Method:  get_vertice
+ * Description:  Retorna o ponto do vertice v
+ *--------------------------------------------------------------------------------------
+ */
+	Ponto
+Mapa::get_vertice ( int v )
+{
+	if (existeVertice(v)) {
+		return vertice[v];
+	} else {
+		cerr << "Vertice " << v << " não existe.\n";
+		return *(new Ponto);
+	}
+}		/* -----  end of method Mapa::get_vertice  ----- */
+
+/*-----------------------------------------------------------------------------
+ * ====================  INQUIRY       ======================================= *
+ *-----------------------------------------------------------------------------*/

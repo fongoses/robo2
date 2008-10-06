@@ -30,10 +30,13 @@ using namespace std;
 /*-----------------------------------------------------------------------------
  *  Definicao dos tipos para o codigo ficar mais claro
  *-----------------------------------------------------------------------------*/
+typedef pair<int, Ponto> Vertice;
+typedef pair<int, int> Aresta;
+
+typedef list<int> ListaVertices;
+
 typedef map<int, Ponto> MapaVertices;
 typedef map<pair<int, int>, float> MapaPesos;
-typedef pair<int, int> Aresta;
-typedef list<int> ListaVertices;
 
 /*
  * =====================================================================================
@@ -54,13 +57,18 @@ class Mapa
 		const Mapa& operator = ( const Mapa &other ); /* assignment operator */
 
 		/* ====================  METHODS       ======================================= */
-		void adicionarVertice (int noh, Ponto p );
-		void adicionarAresta (int vA, int vB);
+		int adicionarVertice (int noh, Ponto p );
+		int adicionarAresta (int vA, int vB);
 		ListaVertices verticesAdjacentes (int v );
 		bool adjacente (int vA, int vB);
+		bool existeVertice ( int v );
+		bool existeAresta (Aresta a);
+
+		void imprimir();
 
 		/* ====================  ACCESS        ======================================= */
 		float get_peso ( int vA, int vB );
+		Ponto get_vertice ( int v );
 
 		/* ====================  INQUIRY       ======================================= */
 
