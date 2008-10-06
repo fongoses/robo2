@@ -98,18 +98,10 @@ int *Mapa::dijkstra(int origem, int destino, float *peso) {
 	int *path, *caminho_final, qtde_nos, v, *ja_foi, u, cont = 0, aux;
 	celula_esp *cel_v;
 	caminho_t *aux_c;
-//	mvprintw(10, 0, "Dijkstra origem = %i destino = %i\n", origem, destino);getchar();
-
-//	cel_v = matriz->get_raiz();
-//	while(cel_v->prox_l != NULL)
-//		cel_v = cel_v->prox_l;
-
-//	total_vertices = cel_v->l;
 
 	dist = (float *)malloc(sizeof(float) * (total_vertices + 1));	
 	path = (int *)malloc(sizeof(int) *     (total_vertices + 1));	
 	ja_foi = (int *)malloc(sizeof(int) *   (total_vertices + 1));	
-//	printf("DIJKSTRA!!\n");
 
 	for(int v = 1; v <= total_vertices; v++) {
 		dist[v] = INFINITO;
@@ -118,28 +110,15 @@ int *Mapa::dijkstra(int origem, int destino, float *peso) {
 	}
 
 	dist[origem] = 0;
-//	printf("maior v = %i\n", total_vertices);
-
-	/* para todos os u no total de vertices */
-//	cel_u = matriz->get_raiz();
 	while(cont <= total_vertices) {
 		u = extract_min(dist, ja_foi);
-//		printf("%i\n", u);
 		cont++;
 		ja_foi[u] = 1;
 		/* pra cada v adj u*/
     cel_v = matriz->get_linha(u);
     while(cel_v->prox_c != NULL) {
       cel_v = cel_v->prox_c;
-//			matriz->imprimir_celula(*cel_v);
-//			printf("u\n");
-//			matriz->imprimir_celula(*cel_u);
 			
-//	for(int v = 1; v <= total_vertices; v++) {
-//		printf("(%i)[%2i]%2i %9.2f ", ja_foi[v], v, path[v], dist[v]);
-//	}
-//			printf("\n(%i) %f > %f + %f\n", ja_foi[cel_v->c], dist[cel_v->c], dist[u], cel_v->valor);
-//	getchar();
 			if((ja_foi[cel_v->c] != 1) && (dist[cel_v->c] > dist[u] + cel_v->valor)) {
 				dist[cel_v->c] = dist[u] + cel_v->valor;
 				path[cel_v->c] = u;
@@ -154,33 +133,24 @@ int *Mapa::dijkstra(int origem, int destino, float *peso) {
 	while(v != origem) {
 		inserir_caminho(&aux_c, v);
 		qtde_nos++;
-//		printf("%i %i\n", qtde_nos, v);getchar();
 		v = path[v];
 	}
 	inserir_caminho(&aux_c, origem);
 	qtde_nos++;
-//			printf("nos=%i\n", qtde_nos);
 
   caminho_final = (int *)malloc(sizeof(int) * (qtde_nos + 1));
   caminho_final[0] = qtde_nos;
   v = 1;
   while(aux_c != NULL) {
-//    printf("%i %i ", v, aux_c->noh);getchar();
     caminho_final[v++] = aux_c->noh;
     aux_c = aux_c->prox;
   }
 
 	for(v = 1; v <= qtde_nos/2 + 1; v++) {
-//		for(u = 1; u <= qtde_nos; u++) {
-//			printf("%2i ", caminho_final[u]);
-//		}
-//		printf("(%i)<->(%i)", v, qtde_nos - v + 1);
-//		printf("[%i]<=>[%i]\n", caminho_final[v], caminho_final[qtde_nos - v + 1]);getchar();
 		aux = caminho_final[v];
 		caminho_final[v] = caminho_final[qtde_nos - v + 1];
 		caminho_final[qtde_nos - v + 1] = aux;
 	}
-//	printf("%f, %i\n", *peso, caminho_final[0]);getchar();
   return(caminho_final);
 }
 
