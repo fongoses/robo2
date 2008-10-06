@@ -30,13 +30,6 @@
 MatrizEsparsa::MatrizEsparsa ()
 {
   raiz = new CelulaEsparsa();
-//	linha = new CelulaEsparsa();
-//	coluna = new CelulaEsparsa();
-
-//	raiz->linha = linha;
-//	raiz->coluna = coluna;
-
-//	total_linhas = total_colunas = -1;
 }  /* -----  end of method MatrizEsparsa::MatrizEsparsa  (constructor)  ----- */
 
 /*
