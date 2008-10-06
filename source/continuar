@@ -1,1 +1,1 @@
-vim -O matriz_esparsa.cpp mat.c matriz_esparsa.h
+vim -O mapa.cpp old.c mapa.h
