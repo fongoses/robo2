@@ -16,19 +16,15 @@
  * =====================================================================================
  */
 
-#include	"matriz_esparsa.h"
+#include	"mapa.h"
+#include	"ponto.h"
 
 	int
 main ( int argc, char *argv[] )
 {
-	MatrizEsparsa M;
+	Mapa M;
 
-	M.adicionarCelulaDupla(1, 1, 1);
-	M.adicionarCelulaDupla(5, 5, 5);
-	M.adicionarCelulaDupla(5, 1, 51);
-	M.adicionarCelulaDupla(2, 2, 2);
-	M.adicionarCelulaDupla(9, 9, 9);
-	M.imprimir();
-
+	M.adicionarVertice(1, *(new Ponto(1, 1)));
+	M.adicionarVertice(1, *(new Ponto(1, 2)));
 	return EXIT_SUCCESS;
 }				/* ----------  end of function main  ---------- */

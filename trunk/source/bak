@@ -46,6 +46,7 @@ MatrizEsparsa::MatrizEsparsa ()
  * Description:  destructor
  *--------------------------------------------------------------------------------------
  */
+
 MatrizEsparsa::~MatrizEsparsa()
 {
   CelulaEsparsa *aux, *l, *c;
@@ -65,116 +66,113 @@ MatrizEsparsa::~MatrizEsparsa()
   delete(raiz);
 }  /* -----  end of method MatrizEsparsa::~MatrizEsparsa  (constructor)  ----- */
 
-/*
- *--------------------------------------------------------------------------------------
- *       Class:  MatrizEsparsa
- *      Method:  adicionarCelula
- * Description:  Adiciona uma celula na matriz
- *--------------------------------------------------------------------------------------
- */
 	int
 MatrizEsparsa::adicionarCelula ( int l, int c, float v )
 {
 	CelulaEsparsa *aux, *nova;
-	aux = get_celula(l, c);
+	aux = getCelula(l, c);
 printf("Adicionando [%d, %d] = %f\n", l, c, v);
 	if(aux != NULL) {
 		cerr << "Celula [" << l << ", " << c << "] Já existe! Sobreescrevendo o valor."  << endl;
 		aux->setValor(v);
 	} else {
 		/* Aumentando os dimensoes da matriz, se necessario */
-		if(c + 1 > (int)coluna.size()) {
-			coluna.resize(c + 1);
+//		while(c + 1> (int)coluna.size()) {
+//			coluna.push_back(aux2);
+//	imprimir();cout << 10;
+//			cout << coluna.size() << "/" << c << endl;getchar();
+//		}
+//	imprimir();getchar();cout << 10.50 << endl;
+		while(l + 1> (int)linha.size()) {
+			aux = new CelulaEsparsa();
+			aux->setLinha((int)linha.size());
+			aux->setColuna(0);
+			linha.push_back(*aux);
 		}
-		if(l + 1 > (int)linha.size()) {
-			linha.resize(l + 1);
-		}
+
+//		for(int i = (int)coluna.size(); i < c; i++) {
+//			coluna.push_back(i);
+//		}
+//		if(c + 10 > (int)coluna.size()) {
+//			coluna.resize(c + 5);
+//		}
+//		if(l + 10 > (int)linha.size()) {
+//			linha.resize(l + 5);
+//		}
 
 		nova = new CelulaEsparsa(l, c, v);
 
 		/* localizando a posicao onde a nova celula tem que ser inserida */
-		aux = &coluna[c];
-		/* Enquanto a proxima celula existir, ou a pocisao da linha for depois da nova celula */
-		while((aux->getProxLinha() != NULL) && (aux->getProxLinha()->get_linha() < l)) {
-			aux = aux->getProxLinha();
-		}
+//		aux = &coluna[c];
+//		/* Enquanto a proxima celula existir, ou a pocisao da linha for depois da nova celula */
+//		while((aux->getProxLinha() != NULL) && (aux->getProxLinha()->getLinha() < l)) {
+//			aux = aux->getProxLinha();
+//		}
 
-		nova->setProxLinha(aux->getProxLinha());
-		aux->setProxLinha(nova);
+//		nova->setProxLinha(aux->getProxLinha());
+//		aux->setProxLinha(nova);
 
 		aux = &linha[l];
+		aux->imprimir();getchar();
+if(aux->getProxColuna() != NULL) {cout << aux->getProxColuna()->getColuna() << endl;getchar();}
 		/* Enquanto a proxima celula existir, ou a pocisao da coluna for depois da nova celula */
-		while((aux->getProxColuna() != NULL) && (aux->getProxColuna()->get_coluna() < c)) {
+		while((aux->getProxColuna() != NULL) && (aux->getProxColuna()->getColuna() > c)) {
 			aux = aux->getProxColuna();
+		aux->imprimir();getchar();
 		}
 
+cout << "A Anterior" << endl;aux->imprimir();cout << "nova" << endl;nova->imprimir();getchar();
 		nova->setProxColuna(aux->getProxColuna());
+cout << "X Anterior" << endl;aux->imprimir();cout << "nova" << endl;nova->imprimir();getchar();
 		aux->setProxColuna(nova);
+cout << "D Anterior" << endl;aux->imprimir();cout << "nova" << endl;nova->imprimir();getchar();
 	}
 
 
+	cerr << "addCelula incompleto!!!" << endl;
 	return 0;
 }		/* -----  end of method MatrizEsparsa::adicionarCelula  ----- */
 
-/*
- *--------------------------------------------------------------------------------------
- *       Class:  MatrizEsparsa
- *      Method:  adicionarCelulaDupla
- * Description:  Adiciona duas celulas simetricas
- *--------------------------------------------------------------------------------------
- */
-	int
-MatrizEsparsa::adicionarCelulaDupla ( int l, int c, float v )
-{
-	return (adicionarCelula(l, c, v) | adicionarCelula(c, l, v));
-}		/* -----  end of method MatrizEsparsa::adicionarCelulaDupla  ----- */
-
 	CelulaEsparsa
-*MatrizEsparsa::get_celula ( int l, int c )
+*MatrizEsparsa::getCelula ( int l, int c )
 {
-	CelulaEsparsa *aux;
-	if((l <= (int)linha.size() || c <= (int)coluna.size())) {
+	CelulaEsparsa *aux;;
+	if((l <= (int)linha.size()/* || c <= (int)coluna.size()*/)) {
 		/* localizando a posicao onde a nova celula tem que ser inserida */
-		aux = &coluna[c];
+		aux = &linha[c];
 		/* Enquanto a proxima celula existir, ou a pocisao da linha for depois da nova celula */
-		while((aux->getProxLinha() != NULL) && (aux->getProxLinha()->get_linha() != l)) {
-			aux = aux->getProxLinha();
+		while((aux->getProxColuna() != NULL) && (aux->getProxColuna()->getColuna() != l)) {
+			aux = aux->getProxColuna();
 		}
-		return aux->getProxLinha();
+		return aux->getProxColuna();
 	} else {
 		return NULL;
 	}
-}		/* -----  end of method MatrizEsparsa::get_celula  ----- */
+}		/* -----  end of method MatrizEsparsa::getCelula  ----- */
 
-/*
- *--------------------------------------------------------------------------------------
- *       Class:  MatrizEsparsa
- *      Method:  get_valor
- * Description:  
- *--------------------------------------------------------------------------------------
- */
 	float
-MatrizEsparsa::get_valor ( int l, int c )
+MatrizEsparsa::getValor ( int l, int c )
 {
 	CelulaEsparsa *aux;
 
-	aux = get_celula(l, c);
+	aux = getCelula(l, c);
 	if(aux != NULL) {
-		return aux->get_valor();
+		return aux->getValor();
 	} else {
 		return -FLT_MAX;
 	}
 
-}		/* -----  end of method MatrizEsparsa::get_valor  ----- */
+}		/* -----  end of method MatrizEsparsa::getValor  ----- */
 
 	void
 MatrizEsparsa::imprimir (  )
 {
 	int l, c;
 	for ( l = 0; l < (int)linha.size(); l += 1 )
-		for ( c = 0; c < (int)coluna.size(); c += 1 )
-			if(get_celula(l, c) != NULL)
-				cout << "[" << l << ", " << c << "]=>" << get_valor(l, c) << endl;
-	return ;
+		for ( c = 0; c < (int)linha.size(); c += 1 )
+			if(getCelula(l, c) != NULL)
+				cout << "[" << l << ", " << c << "]=>" << getValor(l, c) << endl;
+
+			return ;
 }		/* -----  end of method MatrizEsparsa::imprimir  ----- */
 

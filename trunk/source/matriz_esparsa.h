@@ -15,6 +15,9 @@
  *
  * =====================================================================================
  */
+#ifndef MATRIZ_ESPARSA_H
+#define	MATRIZ_ESPARSA_H			/*  */
+
 #include	<iostream>
 #include	<vector>
 
@@ -61,9 +64,9 @@ class CelulaEsparsa
 		/* ====================  ACCESS        ======================================= */
 		CelulaEsparsa *getProxLinha() {	return p_linha; };
 		CelulaEsparsa *getProxColuna() {	return p_coluna; };
-		float getValor() {return valor; };
-		int getLinha () { return linha; }; 
-		int getColuna () { return coluna; }; 
+		float get_valor() {return valor; };
+		int get_linha () { return linha; }; 
+		int get_coluna () { return coluna; }; 
 
 		void setProxLinha(CelulaEsparsa *p) { p_linha = p; };
 		void setProxColuna(CelulaEsparsa *p) { p_coluna = p; };
@@ -98,6 +101,7 @@ class MatrizEsparsa
 		~MatrizEsparsa ();                             /* destructor */
 
 		/* ====================  OPERATORS     ======================================= */
+		const MatrizEsparsa& operator = (const MatrizEsparsa &other);
 
 		/* ====================  METHODS       ======================================= */
     int adicionarCelula(int l, int c, float valor);
@@ -111,12 +115,11 @@ class MatrizEsparsa
 
 
 		/* ====================  ACCESS        ======================================= */
-    float getValor(int l, int c);
+    float get_valor(int l, int c);
 
-    CelulaEsparsa *getCelula(int l, int c);
-    CelulaEsparsa *getLinha(int l);
-    CelulaEsparsa *getColuna(int c);
-		CelulaEsparsa *getRaiz();
+    CelulaEsparsa *get_celula(int l, int c);
+    CelulaEsparsa *get_linha(int l);
+    CelulaEsparsa *get_coluna(int c);
 
 		/* ====================  INQUIRY       ======================================= */
 
@@ -130,3 +133,4 @@ class MatrizEsparsa
 
 }; /* -----  end of class  MatrizEsparsa  ----- */
 
+#endif
