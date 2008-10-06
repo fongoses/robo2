@@ -22,6 +22,7 @@
 
 #include	<map>
 #include	<list>
+#include	<vector>
 
 #include	"ponto.h"
 
@@ -34,6 +35,8 @@ typedef pair<int, Ponto> Vertice;
 typedef pair<int, int> Aresta;
 
 typedef list<int> ListaVertices;
+
+typedef vector<int> VetorVertices;
 
 typedef map<int, Ponto> MapaVertices;
 typedef map<pair<int, int>, float> MapaPesos;
@@ -59,10 +62,14 @@ class Mapa
 		/* ====================  METHODS       ======================================= */
 		int adicionarVertice (int noh, Ponto p );
 		int adicionarAresta (int vA, int vB);
+
 		ListaVertices verticesAdjacentes (int v );
+
 		bool adjacente (int vA, int vB);
 		bool existeVertice ( int v );
 		bool existeAresta (Aresta a);
+
+		ListaVertices dijkstra(int origem, int destino);
 
 		void imprimir();
 

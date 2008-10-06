@@ -231,6 +231,34 @@ Mapa::existeVertice ( int v )
 /*
  *--------------------------------------------------------------------------------------
  *       Class:  Mapa
+ *      Method:  dijkstra
+ * Description:  Calcula o menor caminho entre os vertices origem e destino
+ *							 usando Dijkstra
+ *--------------------------------------------------------------------------------------
+ */
+	ListaVertices
+Mapa::dijkstra ( int origem, int destino )
+{
+	int qtde_vertices = vertice.size(), u;
+	VetorVertices d(qtde_vertices, INT_MAX), pi(qtde_vertices, -1);
+	ListaVertices resp;
+	MapaVertices S, Q(vertice);
+
+	while(Q.size() > 0) {
+		u = extract_min(Q);
+		S[u] = Q[u];
+		Q.erase(u);
+	}
+	
+
+
+	cout << "Organizar ordem da saida dos vertices no dijksra.\n";
+	return resp;
+}		/* -----  end of method Mapa::dijkstra  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Mapa
  *      Method:  imprimir
  * Description:  Imprimi todo o mapa
  *--------------------------------------------------------------------------------------
@@ -273,6 +301,9 @@ Mapa::get_peso ( int vA, int vB )
 {
 	Aresta aresta;
 
+	if(vA == vB ) {
+		return 0;
+	}
 	aresta.first = vA;
 	aresta.second = vB;
 
