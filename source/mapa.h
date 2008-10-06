@@ -86,6 +86,7 @@ class Mapa
 
 		/* ====================  METHODS       ======================================= */
 		void adicionarVertice (int noh, Ponto p );
+		void adicionarAresta (int vA, int vB);
 
 		/* ====================  ACCESS        ======================================= */
 
@@ -97,7 +98,7 @@ class Mapa
 	private:
 //		vector<Vertice> vertice;
 		map<int,Ponto> vertice;
-		map<pair<int, int>, float> pesos;
+		map<pair<int, int>, float> peso;
 //		MatrizEsparsa matriz;
 
 }; /* -----  end of class  Mapa  ----- */

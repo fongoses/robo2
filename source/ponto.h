@@ -18,7 +18,6 @@
 #ifndef  PONTO_INC
 #define  PONTO_INC
 
-#include	<iostream>
 using namespace std;
 
 /*
@@ -35,11 +34,12 @@ class Ponto
 		Ponto (float x, float y);
 
 		/* ====================  OPERATORS     ======================================= */
-
-		/* ====================  OPERATIONS    ======================================= */
 		friend ostream& operator<<(ostream& out, const Ponto& p);
 		const Ponto& operator=(const Ponto &P);
-		bool operator==(Ponto p);
+		bool operator==(const Ponto &P);
+
+		/* ====================  METHODS       ======================================= */
+		float distancia (const Ponto &P);
 
 		/* ====================  ACCESS        ======================================= */
 		float get_x();
