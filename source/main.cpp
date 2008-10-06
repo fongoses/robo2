@@ -29,7 +29,7 @@ main ( int argc, char *argv[] )
 	Mapa M;
 
 
-	M.adicionarVertice(1, *(new Ponto(1, 1)));
+	M.adicionarVertice(1, *(new Ponto(1, 2)));
 	M.adicionarVertice(2, *(new Ponto(2, 2)));
 	M.adicionarVertice(3, *(new Ponto(3, 2)));
 	M.adicionarVertice(4, *(new Ponto(4, 2)));
@@ -49,6 +49,8 @@ main ( int argc, char *argv[] )
 	else cout << "1 não adjacente ao 2.\n";
 	if(M.adjacente(1, 4)) cout << "1 adjacente ao 4.\n";
 	else cout << "1 não adjacente ao 4.\n";
+
+	M.imprimir();
 
 	return EXIT_SUCCESS;
 }				/* ----------  end of function main  ---------- */
