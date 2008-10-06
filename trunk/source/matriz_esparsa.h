@@ -54,8 +54,6 @@ class CelulaEsparsa
 
 		~CelulaEsparsa ()                             /* denstructor */
 		{
-//			delete (p_linha);
-//			delete (p_coluna);
 		}
 		/* ====================  OPERATORS     ======================================= */
 
@@ -107,7 +105,6 @@ class MatrizEsparsa
     int adicionarCelula(int l, int c, float valor);
     int adicionarCelulaDupla(int l, int c, float valor);
     int *menorCaminho(int origem, int destino);
-//		bool existe(int l, int c);
 
     void imprimir();
     void imprimirLinha(int l);
@@ -127,7 +124,6 @@ class MatrizEsparsa
 	protected:
 
 	private:
-//		int total_linhas, total_colunas;
 		CelulaEsparsa *raiz;
 		vector<CelulaEsparsa> linha, coluna;
 

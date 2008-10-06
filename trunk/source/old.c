@@ -8,11 +8,6 @@
 #include "mapa.h"
 #include "ants.h"
 
-
-float Mapa::get_peso(int vA, int vB) {
-  return(matriz->get_valor(vA, vB));
-}
-
 int *Mapa::menor_caminho_fator(int origem, int destino) {
   agente_t agente, agente2, agente_menor;
   fila_agente_t *fila = NULL; 
