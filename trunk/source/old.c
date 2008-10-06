@@ -9,30 +9,6 @@
 #include "ants.h"
 
 
-void Mapa::adicionar_vertice(TVertice v) {
-//	printf("Adicionando vertice %d [%5.2f, %5.2f, %3i]\n", total_vertices, v.x, v.y, v.P);
-  if(v.noh > total_vertices) {
-		vertices = (TVertice *)realloc(vertices, sizeof(TVertice) * (v.noh + 1));
-		for(int i = total_vertices + 1; i <= v.noh; i++) {
-		  vertices[v.noh].x = -1;
-		  vertices[v.noh].y = -1;
-		  vertices[v.noh].P = -1;
-		}
-		total_vertices = v.noh;
-	}
-  vertices[v.noh].x = v.x;
-  vertices[v.noh].y = v.y;
-  vertices[v.noh].P = v.P;
-}
-
-void Mapa::adicionar_vertice(int index, float x, float y) {
-//  printf("Adicionando vertice %d = [%5.2f, %5.2f]\n", index, x, y);
-  vertices[index].x = x - x0;
-  vertices[index].y = y - y0;
-//  printf("Adicionado vertice %d = [%5.2f, %5.2f]\n", index, vertices[index].x, vertices[index].y);getchar();
-
-}
-
 void Mapa::adicionar_aresta(int vA, int vB) {
 	float peso = sqrt(pow(vertices[vA].x - vertices[vB].x, 2) +
 									  pow(vertices[vA].y - vertices[vB].y, 2));

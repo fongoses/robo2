@@ -24,7 +24,13 @@ main ( int argc, char *argv[] )
 {
 	Mapa M;
 
-	M.adicionarVertice(1, *(new Ponto(1, 1)));
-	M.adicionarVertice(1, *(new Ponto(1, 2)));
+	M.adicionarAresta(1, 2);getchar();
+
+	M.adicionarVertice(1, *(new Ponto(1, 1)));getchar();
+	M.adicionarAresta(1, 2);getchar();
+	M.adicionarVertice(1, *(new Ponto(1, 2)));getchar();
+
+	M.adicionarVertice(2, *(new Ponto(2, 2)));getchar();
+	M.adicionarAresta(1, 2);getchar();
 	return EXIT_SUCCESS;
 }				/* ----------  end of function main  ---------- */

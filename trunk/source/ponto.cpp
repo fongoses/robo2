@@ -15,6 +15,8 @@
  *
  * =====================================================================================
  */
+#include	<iostream>
+#include	<cmath>
 
 #include	"ponto.h"
 
@@ -93,6 +95,13 @@ Ponto::set_y ( float value )
 	return ;
 }		/* -----  end of method Ponto::set_y  ----- */
 
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Ponto
+ *      Method:  set
+ * Description:  Atribio os valores vx e vy no ponto.x e ponto.y respectivamente
+ *--------------------------------------------------------------------------------------
+ */
 	void
 Ponto::set ( float vx, float vy)
 {
@@ -102,12 +111,26 @@ Ponto::set ( float vx, float vy)
 	return ;
 }		/* -----  end of method Ponto::set  ----- */
 
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Ponto
+ *      Method:  operator <<
+ * Description:  
+ *--------------------------------------------------------------------------------------
+ */
 ostream& operator<<(ostream& out, const Ponto& p)
 {
   out<<"(" << p.x << ", " << p.y << ")" <<endl;
 	return out;
-}
+}		/* -----  end of method Ponto::operator <<  ----- */
 
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Ponto
+ *      Method:  operator =
+ * Description:  operador de atribuicao
+ *--------------------------------------------------------------------------------------
+ */
 const Ponto& Ponto::operator = ( const Ponto &P )
 {
 	if( this != &P) {
@@ -115,9 +138,30 @@ const Ponto& Ponto::operator = ( const Ponto &P )
 		y = P.y;
 	}
 	return *this;
-}
+}		/* -----  end of method Ponto::operator =  ----- */
 
-bool Ponto::operator==(Ponto P)
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Ponto
+ *      Method:  operator ==
+ * Description:  Operador igualdade
+ *--------------------------------------------------------------------------------------
+ */
+bool Ponto::operator==(const Ponto &P)
 {
-	return ((x == P.get_x()) && (y == P.get_y()))	;
-}
+	return ((x == P.x) && (y == P.y))	;
+}		/* -----  end of method Ponto::operator ==  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Ponto
+ *      Method:  distancia
+ * Description:  Retorna a distancia euclidiana entre o ponto da classe e o ponto P
+ *--------------------------------------------------------------------------------------
+ */
+	float
+Ponto::distancia ( const Ponto &P )
+{
+	return sqrt(pow(x - P.x, 2) + pow(y - P.y, 2));
+}		/* -----  end of method Ponto::distancia  ----- */
+
