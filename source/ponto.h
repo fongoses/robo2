@@ -17,6 +17,7 @@
  */
 #ifndef  PONTO_INC
 #define  PONTO_INC
+#include	<ostream>
 
 using namespace std;
 

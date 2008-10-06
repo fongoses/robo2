@@ -9,62 +9,6 @@
 #include "ants.h"
 
 
-void Mapa::adicionar_aresta(int vA, int vB) {
-	float peso = sqrt(pow(vertices[vA].x - vertices[vB].x, 2) +
-									  pow(vertices[vA].y - vertices[vB].y, 2));
-
-	matriz->adicionar_celula_dupla(vA, vB, peso);
-}
-
-int *Mapa::salas_adjacentes(int vertice, int *quais) {
-  celula_esp *celula;
-  int s, qtde_salas = 0;
-
-//  celula = (celula_esp *)malloc(sizeof(celula_esp));
-  celula = matriz->get_linha(vertice);
-//  quais[total_salas] = -1; //Garante um "fim de vetor" no final do vetor
-//  printf("Procurando salas adjacentes ao vertice %d:", vertice);
-//  while(celula->prox_c != NULL) {
-//    celula = celula->prox_c;
-//    for(s = 1; s <= total_salas; s++) {
-//      quais[qtde_salas] = -1;
-//      if(!sala[s].visitada && (celula->c == sala[s].vertice)) {
-//        printf(" %d", s);
-//        quais[qtde_salas++] = s;
-//      }
-//    }
-//  }
-
-//	printf("ARRUMAR SALAS ADJACENTES!!!\n");
-
-  return(quais);
-}
-
-bool Mapa::eh_sala(int v) {
-//  for(int s = 1; s <= total_salas; s++) {
-//    if(sala[s].vertice == v) {
-//      return(true);
-//    }
-//  }
-//	printf("ARRUMAR EH SALA!!!\n");
-  return(false);
-}
-
-bool Mapa::adjacente(int vA, int vB) {
-  celula_esp *celula;
-  bool resp = false;
-
-  celula = matriz->get_linha(vA);
-  while(celula->prox_c != NULL) {
-    celula = celula->prox_c;
-    if(celula->c == vB) {
-      resp = true;
-    }
-  }
-
-  return(resp);
-}
-
 float Mapa::get_peso(int vA, int vB) {
   return(matriz->get_valor(vA, vB));
 }
