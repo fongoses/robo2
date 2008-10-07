@@ -47,7 +47,7 @@
 #define HOST "localhost"
 #define PORT 6665
 
-
+using namespace PlayerCc;
 /*
  * =====================================================================================
  *        Class:  Robo
@@ -61,7 +61,7 @@ class Robo
 		/* ====================  LIFECYCLE     ======================================= */
 		Robo ();                             /* constructor      */
 		Robo ( const Robo &other );   /* copy constructor */
-    Robo(float x, float y, int vertice, int t_atualizar, int t_total, Mapa *map);
+    Robo(Vertice v_inicial, Mapa mapa);
 		~Robo ();                            /* destructor       */
 
 		/* ====================  OPERATORS     ======================================= */
@@ -82,7 +82,7 @@ class Robo
 
 		/* ====================  ACCESS        ======================================= */
     int get_vertice();
-    void set_vertice(int v);
+    void set_vertice(Vertice v);
 
 		/* ====================  INQUIRY       ======================================= */
 
@@ -90,10 +90,17 @@ class Robo
 	protected:
 
 	private:
-    Mapa *mapa;
-		int indo_vertice, vertice;
+		PlayerClient *player_client;
+		Position2dProxy *position;
+		LaserProxy *laser;
+
+    Mapa mapa;
+		Vertice vertice;
+
+		int indo_vertice;
 		float indo_x, indo_y;
 		int *caminho;
+
 
 }; /* -----  end of class  Robo  ----- */
 
