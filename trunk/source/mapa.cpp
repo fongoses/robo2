@@ -313,6 +313,25 @@ Mapa::dijkstra ( int origem, int destino )
 /*
  *--------------------------------------------------------------------------------------
  *       Class:  Mapa
+ *      Method:  carregarMapa
+ * Description:  Carrega o mapa de um arquivo
+ *--------------------------------------------------------------------------------------
+ */
+	void
+Mapa::carregarMapa ( string mapa )
+{
+	ifstream arq;
+
+	arq.open("mapa");
+	if(arq.is_open()){
+		cout << "Abriu!\n";
+	}
+	return ;
+}		/* -----  end of method Mapa::carregarMapa  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Mapa
  *      Method:  imprimir
  * Description:  Imprimi todo o mapa
  *--------------------------------------------------------------------------------------

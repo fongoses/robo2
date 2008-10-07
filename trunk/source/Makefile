@@ -1,5 +1,10 @@
 CC=g++
-CC_OPT=-Wall -ansi
+FLAGS=-Wall -ansi
+OPENCV= -L/usr/local/lib -lcxcore -lcv -lhighgui -lcvaux -lml -I/usr/local/include/opencv
+PLAYERFLAGS=  `pkg-config --cflags playerc++ --libs playerc++` 
+NCURSES= -lncurses
+GPROOF= -g -pg
+CC_OPT= $(FLAGS) $(PLAYERFLAGS)
 
 PROG=robo2
 
@@ -7,23 +12,12 @@ SRC:=$(shell ls *.cpp)
 OBJ=$(SRC:.cpp=.o)
 DEP=$(OBJ:.o=.d)
 
-#have_a := $(wildcard $(PROG))
-
 $(PROG): $(OBJ)
 	@echo "Linkando $(PROG)..." 
-	$(CC) $(CC_OPT) $(OBJ) -o $(PROG)
+	$(CC) $(CC_OPT2) $(OBJ) -o $(PROG)
 	@echo "Feito."
 	@echo "Executando programa..."
 	@./$(PROG)
-
-#ifeq ($(strip $(have_a)),)
-# 
-#	@echo "we don't have A"
-# 
-#else
-# 
-#	@echo "we have A"
-#endif
 
 -include $(DEP)
 

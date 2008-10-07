@@ -19,7 +19,9 @@
 #define  MAPA_INC
 #include	<cstdio>
 #include	<iostream>
+#include	<fstream>
 #include	<cfloat>
+#include	<string>
 
 #include	<map>
 #include	<list>
@@ -72,6 +74,8 @@ class Mapa
 		bool existeAresta (Aresta a);
 
 		ListaVertices dijkstra(int origem, int destino);
+
+		void carregarMapa(string mapa);
 
 		void imprimir();
 

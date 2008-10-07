@@ -38,7 +38,7 @@ Ponto::Ponto ()
  * Description:  constructor com valores
  *--------------------------------------------------------------------------------------
  */
-Ponto::Ponto (float x, float y)
+Ponto::Ponto (double x, double y)
 {
 	this->x = x;
 	this->y = y;
@@ -50,7 +50,7 @@ Ponto::Ponto (float x, float y)
  *      Method:  get_x
  *--------------------------------------------------------------------------------------
  */
-	float
+	double
 Ponto::get_x (  )
 {
 	return x;
@@ -63,7 +63,7 @@ Ponto::get_x (  )
  *--------------------------------------------------------------------------------------
  */
 	void
-Ponto::set_x ( float value )
+Ponto::set_x ( double value )
 {
 	x	= value;
 	return ;
@@ -75,7 +75,7 @@ Ponto::set_x ( float value )
  *      Method:  get_y
  *--------------------------------------------------------------------------------------
  */
-	float
+	double
 Ponto::get_y (  )
 {
 	return y;
@@ -88,7 +88,7 @@ Ponto::get_y (  )
  *--------------------------------------------------------------------------------------
  */
 	void
-Ponto::set_y ( float value )
+Ponto::set_y ( double value )
 {
 	y	= value;
 	return ;
@@ -102,7 +102,7 @@ Ponto::set_y ( float value )
  *--------------------------------------------------------------------------------------
  */
 	void
-Ponto::set ( float vx, float vy)
+Ponto::set ( double vx, double vy)
 {
 	x = vx;
 	y = vy;
@@ -158,7 +158,7 @@ bool Ponto::operator==(const Ponto &P)
  * Description:  Retorna a distancia euclidiana entre o ponto da classe e o ponto P
  *--------------------------------------------------------------------------------------
  */
-	float
+	double
 Ponto::distancia ( const Ponto &P )
 {
 	return sqrt(pow(x - P.x, 2) + pow(y - P.y, 2));

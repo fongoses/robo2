@@ -32,7 +32,7 @@ class Ponto
 	public:
 		/* ====================  LIFECYCLE     ======================================= */
 		Ponto ();                             /* constructor */
-		Ponto (float x, float y);
+		Ponto (double x, double y);
 
 		/* ====================  OPERATORS     ======================================= */
 		friend ostream& operator<<(ostream& out, const Ponto& p);
@@ -40,14 +40,14 @@ class Ponto
 		bool operator==(const Ponto &P);
 
 		/* ====================  METHODS       ======================================= */
-		float distancia (const Ponto &P);
+		double distancia (const Ponto &P);
 
 		/* ====================  ACCESS        ======================================= */
-		float get_x();
-		float get_y();
-		void set_x(float x);
-		void set_y(float y);
-		void set(float x, float y);
+		double get_x();
+		double get_y();
+		void set_x(double x);
+		void set_y(double y);
+		void set(double x, double y);
 
 		/* ====================  INQUIRY       ======================================= */
 
@@ -55,7 +55,7 @@ class Ponto
 	protected:
 
 	private:
-		float x, y;
+		double x, y;
 
 }; /* -----  end of class  Ponto  ----- */
 
