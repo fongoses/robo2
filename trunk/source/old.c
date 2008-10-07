@@ -1,331 +1,271 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <signal.h>
+#include <sys/wait.h>
+#include <math.h>
+#include <libplayerc++/playerc++.h>
 #include <time.h>
 #include <ncurses.h>
-#include <math.h>
-#include <ncurses.h>
 
-#include "mapa.h"
-#include "ants.h"
+#include "funcoes.h"
+#include "robo.h"
+//#include "matriz_esparsa.h"
 
-int *Mapa::menor_caminho_fator(int origem, int destino) {
-  agente_t agente, agente2, agente_menor;
-  fila_agente_t *fila = NULL; 
-  celula_esp *celula;
-  int *caminho_final, qtde_nos, x;
-  caminho_t *aux_c;
+//#include <sys/types.h>
+//#include <argz.h>
+//#include <string.h>
+//#include <errno.h>
+//#include <termios.h>
 
-//printf("Procurando menor caminho %i - %i\n", origem, destino);
-  if(origem == destino) {
-    caminho_final = (int *)malloc(sizeof(int));
-    caminho_final[0] = 0;
-    return(caminho_final);
-  }
+using namespace PlayerCc;
 
-//  celula = (celula_esp *)malloc(sizeof(celula_esp));
-  agente.noh = origem;
-  agente.caminho = NULL;
-  inserir_caminho(&agente.caminho, origem);
-  agente.soma = 0.0;
-  agente.fator = 0.0;
-  inserir_agente(&fila, agente);
-  while(fila != NULL) {
-    agente = remove_agente(&fila);
-    celula = matriz->get_linha(agente.noh);
-    while(celula->prox_c != NULL) {
-      celula = celula->prox_c;
-      if(!no_caminho(agente, celula->c)) {
-        /*Copiando e "andando" o agente */
-        agente2 = copiar_agente(agente);
-        agente2.soma += celula->valor;
-        agente2.noh = celula->c;
-        inserir_caminho(&agente2.caminho, celula->c);
+int device_index = 0;
 
-        if(agente2.noh == destino) {
-          agente_menor = copiar_agente(agente2);
-        } else {
-          inserir_agente(&fila, agente2);
-        }
-      }
-    }
-  }
-  qtde_nos = 0;
-  aux_c = agente_menor.caminho;
-  while(aux_c != NULL) {
-    aux_c = aux_c->prox;
-    qtde_nos++;
-  }
-
-  caminho_final = (int *)malloc(sizeof(int) * (qtde_nos + 1));
-  aux_c = agente_menor.caminho;
-  caminho_final[0] = qtde_nos;
-  x = 1;
-  while(aux_c != NULL) {
-    caminho_final[x++] = aux_c->noh;
-//    printf("%i ", aux_c->noh);
-    aux_c = aux_c->prox;
-  }
-  printf("\n");
-
-  return(caminho_final);
+PlayerClient player_client(HOST, PORT);
+Position2dProxy position(&player_client, 1);
+LaserProxy laser(&player_client, 0);
+            
+Robo::Robo() {
+  printf("nao pode!\n");getchar();
 }
 
-int Mapa::extract_min(float *dist, int *ja_foi) {
-	float min = INFINITO;
-	int m;
+Robo::Robo(float x, float y, int vertice, int t_atualizar, int t_total, Mapa *map){
 
-	for(int i = 1; i <= total_vertices; i++) {
-//		printf("(%i) %2i=%12.5f ", ja_foi[i], i, dist[i]);
-		if(ja_foi[i] != 1) {
-			if(min >= dist[i]) {
-				min = dist[i];
-				m = i;
-			}
+  mapa = map;
+  set_vertice(vertice);
+	position.SetOdometry(x, y, 0);
+}
+
+Robo::~Robo(){
+  printf("tchau!\n");
+//  player_client.Disconnect();
+}
+
+void Robo::desconectar(){
+  printf("tchau!\n");
+//  player_client.Disconnect();
+}
+
+void Robo::calcular(float x, float y, float *dist, int *angulo) {
+  float dx, dy, hipotenusa, seno, cosseno, angulo_rad;
+
+  player_client.Read();
+
+  dx = x - position.GetXPos();
+  dy = y - position.GetYPos();
+
+  hipotenusa = sqrt(dx * dx + dy * dy);
+
+  cosseno = dx / hipotenusa;
+  seno = dy / hipotenusa;
+
+
+  /* Quadrantes I e II */
+  if(seno >= 0) {
+    angulo_rad = acos(cosseno);
+  /* Quadrante III */
+  } else if((seno < 0) && (cosseno < 0)){
+    angulo_rad = 180 / GRAD_TO_RAD - asin(seno);
+  /* Quadrante IV */
+  } else {
+    angulo_rad = asin(seno);
+  }
+
+  *dist = hipotenusa;
+  *angulo = (int)(angulo_rad * GRAD_TO_RAD);
+}
+
+int Robo::ir_para(float x, float y, float dist_ajuste) {
+  float fim_a_rad;
+  int fim_a;
+  float dist, vel, inclinacao_anda, y0_anda;
+  float dif, dif2, vel_rot, inclinacao_rot, y0_rot;
+  float metros, aux;
+//  time_t aux_t, relogio;
+//  bool primeira_vez = true, virando = false, muito_perto = false, virar_muito = false, meia_volta = false;
+	bool sair = false;
+
+//  mvprintw(15, 0, "Andando");refresh();
+
+  inclinacao_anda = (MAX_VEL_ANDA / 2 - MIN_VEL_ANDA) / (MAX_DIST - MIN_DIST);
+  y0_anda = MIN_VEL_ANDA - inclinacao_anda * MIN_DIST;
+
+  inclinacao_rot = (MAX_VEL_ROT  - MIN_VEL_ROT) / (MAX_DIF - MIN_DIF);
+  y0_rot = MIN_VEL_ROT - inclinacao_rot * MIN_DIF;
+
+  indo_x = x; 
+  indo_y = y;
+
+
+  /* Inicializa variaveis */
+    player_client.Read();
+	if(dist_ajuste != 0)
+		vel =	position.GetXSpeed();
+	else
+	  vel = 0;
+  vel_rot = 0;
+
+  do {
+    player_client.Read();
+
+    calcular(x, y, &metros, &fim_a);
+
+    if(fim_a * fim_a == 180 * 180) {
+      fim_a--;
+    }
+
+    if (fim_a > 179) {
+      fim_a -= 360;
+    } else if (fim_a < -179) {
+      fim_a += 360;
+    }
+
+    dist = ((indo_x - position.GetXPos())*(indo_x - position.GetXPos()) +
+            (indo_y - position.GetYPos())*(indo_y - position.GetYPos()));
+
+    dif = (fim_a - position.GetYaw() * GRAD_TO_RAD)*(fim_a - position.GetYaw() * GRAD_TO_RAD);
+    dif2 = 360*360 - dif;
+
+//    if(dist > MAX_DIST) {
+//      vel = MAX_VEL_ANDA;
+//    } else if (dist > MIN_DIST) {
+//      vel = MIN_VEL_ANDA;
+//    }
+
+//    if((laser[ 60] < MIN_DIST*2) || (laser[120] < MIN_DIST*2))
+//    {
+//      vel = 0;
+//    }
+
+/* calcula velocidade de rotacao em funcao da distancia do angulo destino */
+    if(MENOR(dif, dif2) > MAX_DIF) {
+      vel_rot = MAX_VEL_ROT;
+    } else if (MENOR(dif, dif2) > DIF_ERRO) {
+      vel_rot = MIN_VEL_ROT;
+    } else {
+      vel_rot = 0;
+    }
+/*SEM DESVIO*/
+    if(MENOR(dif, dif2) > 15*15)
+			vel = 0;
+		else
+			vel += 0.01;
+	/*FIM*/
+
+    fim_a_rad = fim_a / GRAD_TO_RAD;
+
+/* Verifica para qual lado é mais curto virar */
+    if(((dif < dif2) && (fim_a_rad < position.GetYaw())) ||
+       ((dif > dif2) && (fim_a_rad > position.GetYaw()))) {
+      vel_rot = -vel_rot;
+    } 
+    
+    aux = 0;
+    
+//    if(laser[  0] < MAX_DIST) aux += (MAX_DIST - laser[  0]) * 5;
+//    if(laser[ 30] < MAX_DIST) aux += (MAX_DIST - laser[ 30]) * 3;
+//    if(laser[ 60] < MAX_DIST) aux += (MAX_DIST - laser[ 60]) * 1;
+//    if(laser[120] < MAX_DIST) aux -= (MAX_DIST - laser[120]) * 1;
+//    if(laser[150] < MAX_DIST) aux -= (MAX_DIST - laser[150]) * 3;
+//    if(laser[179] < MAX_DIST) aux -= (MAX_DIST - laser[179]) * 5;
+
+//    if((laser[ 60] > MAX_DIST) && (laser[120] > MAX_DIST))
+//    {
+//      vel *= 1.5;
+//    }
+
+//    vel_rot += aux / 15;
+    position.SetSpeed(vel, vel_rot);
+
+	  imprimir_dados();
+//		printw("%f > %f", dist, DIST_ERRO + dist_ajuste);
+
+  } while ((!sair) && (dist > DIST_ERRO + dist_ajuste*0));
+
+  position.SetSpeed(0, 0);
+//  mvprintw(15, 0, "Parado ");refresh();
+//  printf("Foi para (%.1f, %.1f). Ajuste = %5.2f\n", x, y, dist_ajuste);getchar();
+
+  return !sair;
+}
+
+int Robo::ir_para(float x, float y) {
+  return ir_para(x, y, 0);
+}
+
+int Robo::ir_para(int vertice){
+  return ir_para(vertice, 0);
+}
+
+int Robo::ir_para(int vertice, float dist_ajuste){
+//  printf("Indo para vertice %d\n", vertice);
+	indo_vertice = vertice;
+  bool sair = !ir_para(mapa->vertices[vertice].x, mapa->vertices[vertice].y, dist_ajuste);
+  set_vertice(vertice);
+  return !sair;
+}
+
+void Robo::imprimir_dados(){
+	int l = 0, c;
+  mvprintw(l++, 0, "*********************************************************");
+  mvprintw(l++, 0, "Posicao: [%6.2f, %6.2f, %6.2f]", position.GetXPos(), position.GetYPos(), position.GetYaw() * GRAD_TO_RAD);
+	mvprintw(l++, 0, "Destino: [%6.2f, %6.2f]", indo_x, indo_y);
+  mvprintw(l++, 0, "Velocidade: %6.3f Rotacao: %6.3f", position.GetXSpeed(), position.GetYawSpeed());
+	mvprintw(l++, 0, "Caminho: ");
+	for(c = 1; c < caminho[0] + 1; c++ ){
+		if(caminho[c] == indo_vertice){
+			attron(A_BOLD);
+			printw(" %i", caminho[c]);
+			attroff(A_BOLD);
+		} else {
+			printw(" %i", caminho[c]);
 		}
 	}
-//		printf("min %i=%f\n", m, min);
-	return(m);
-}
+	printw("\n");
+	mvprintw(l++, 0, "*********************************************************\n");
 
-int *Mapa::dijkstra(int origem, int destino) {
-	float peso = 0;
-	return(dijkstra(origem, destino, &peso));
-}
-			
-int *Mapa::dijkstra(int origem, int destino, float *peso) {
-
-	float *dist;
-	int *path, *caminho_final, qtde_nos, v, *ja_foi, u, cont = 0, aux;
-	celula_esp *cel_v;
-	caminho_t *aux_c;
-
-	dist = (float *)malloc(sizeof(float) * (total_vertices + 1));	
-	path = (int *)malloc(sizeof(int) *     (total_vertices + 1));	
-	ja_foi = (int *)malloc(sizeof(int) *   (total_vertices + 1));	
-
-	for(int v = 1; v <= total_vertices; v++) {
-		dist[v] = INFINITO;
-		path[v] = 0;
-		ja_foi[v] = 0;
+	
+	
+	if(getch() == 27) {
+		endwin();
+		exit(0);
 	}
-
-	dist[origem] = 0;
-	while(cont <= total_vertices) {
-		u = extract_min(dist, ja_foi);
-		cont++;
-		ja_foi[u] = 1;
-		/* pra cada v adj u*/
-    cel_v = matriz->get_linha(u);
-    while(cel_v->prox_c != NULL) {
-      cel_v = cel_v->prox_c;
-			
-			if((ja_foi[cel_v->c] != 1) && (dist[cel_v->c] > dist[u] + cel_v->valor)) {
-				dist[cel_v->c] = dist[u] + cel_v->valor;
-				path[cel_v->c] = u;
-			}
-		}
-	}
-
-	*peso = dist[destino];
-	aux_c = NULL;
-	v = destino;
-	qtde_nos = 0;
-	while(v != origem) {
-		inserir_caminho(&aux_c, v);
-		qtde_nos++;
-		v = path[v];
-	}
-	inserir_caminho(&aux_c, origem);
-	qtde_nos++;
-
-  caminho_final = (int *)malloc(sizeof(int) * (qtde_nos + 1));
-  caminho_final[0] = qtde_nos;
-  v = 1;
-  while(aux_c != NULL) {
-    caminho_final[v++] = aux_c->noh;
-    aux_c = aux_c->prox;
-  }
-
-	for(v = 1; v <= qtde_nos/2 + 1; v++) {
-		aux = caminho_final[v];
-		caminho_final[v] = caminho_final[qtde_nos - v + 1];
-		caminho_final[qtde_nos - v + 1] = aux;
-	}
-  return(caminho_final);
+	refresh();
 }
 
-
-int *Mapa::menor_caminho(int origem, int destino, float *peso) {
-  agente_t agente, agente2, agente_menor;
-  fila_agente_t *fila = NULL; 
-  celula_esp *celula;
-  float minimo_encontrado = INFINITO;
-  int *caminho_final, qtde_nos, x;
-  caminho_t *aux_c;
-
-//printw("Procurando menor caminho (Ants)%i - %i", origem, destino);
-  if(origem == destino) {
-    caminho_final = (int *)malloc(sizeof(int) * 1);
-    caminho_final[0] = 0;
-    *peso = 0;
-    return(caminho_final);
+void Robo::teste()
+{
+//    position.SetSpeed(1, 0);
+  position.ResetOdometry();
+  position.SetSpeed(1, 0.01);
+  while(1)
+  {
+    player_client.Read();
   }
-
-//  celula = (celula_esp *)malloc(sizeof(celula_esp));
-  agente.noh = origem;
-  agente.caminho = NULL;
-  inserir_caminho(&agente.caminho, origem);
-  agente.soma = 0.0;
-  inserir_agente(&fila, agente);
-//	mvprintw(12, 5, "Inserindo agente da fila: %3d", agente.noh);refresh();getchar();
-  while(fila != NULL) {
-    agente = remove_agente(&fila);
-
-/*		mvprintw(11, 5, "Fila:");
-		aux_f = fila;
-		while(aux_f != NULL) {
-			printw(" %i", aux_f->agente.noh);
-			aux_f = aux_f->prox;
-		}printw("     ");refresh();
-
-		mvprintw(12, 5, "Removendo agente da fila: %3d", agente.noh);
-		mvprintw(13, 5, "Caminho:");
-		aux_c = agente.caminho;
-		while(aux_c != NULL) {
-			printw(" %i", aux_c->noh);
-			aux_c = aux_c->prox;
-		}printw("     ");refresh();getchar();*/
-    celula = matriz->get_linha(agente.noh);
-    while(celula->prox_c != NULL) {
-      celula = celula->prox_c;
-      if((agente.soma + celula->valor < minimo_encontrado) && (!no_caminho(agente, celula->c))) {
-        /*Copiando e "andando" o agente */
-        agente2 = copiar_agente(agente);
-        agente2.soma += celula->valor;
-        agente2.noh = celula->c;
-        inserir_caminho(&agente2.caminho, celula->c);
-
-        if(agente2.noh == destino) {
-          agente_menor = copiar_agente(agente2);
-          minimo_encontrado = agente_menor.soma;
-        } else {
-          inserir_agente(&fila, agente2);
-/*		mvprintw(11, 5, "Fila:");
-		aux_f = fila;
-		while(aux_f != NULL) {
-			printw(" %i", aux_f->agente.noh);
-			aux_f = aux_f->prox;
-		}printw("     ");refresh();
-					mvprintw(12, 5, "Inserindo agente da fila: %3d", agente2.noh);refresh();getchar();*/
-
-        }
-      }
-    }
-  }
-  qtde_nos = 0;
-  aux_c = agente_menor.caminho;
-  while(aux_c != NULL) {
-    aux_c = aux_c->prox;
-    qtde_nos++;
-  }
-
-  caminho_final = (int *)malloc(sizeof(int) * (qtde_nos + 1));
-  aux_c = agente_menor.caminho;
-  caminho_final[0] = qtde_nos;
-  *peso = agente_menor.soma;
-  x = 1;
-  while(aux_c != NULL) {
-    caminho_final[x++] = aux_c->noh;
-    aux_c = aux_c->prox;
-  }
-
-  return(caminho_final);
 }
 
-int **Mapa::todos_os_caminhos(int origem, int destino, float **lista_pesos) {
-  agente_t agente, agente2;
-  fila_agente_t *fila = NULL; 
-  celula_esp *celula;
-  int qtde_nos, qtde_caminhos, **lista_caminhos_final;
-  caminho_t *aux_c;
-  lista_caminhos_t *aux_lc, *lista_caminhos = NULL;
-
-printf("Procurando todos os caminhos %i - %i\n", origem, destino);
-  if(origem == destino) {
-
-    lista_caminhos_final = (int **)malloc(sizeof(int*));
-    lista_caminhos_final[0] = (int *)malloc(sizeof(int));
-    lista_caminhos_final[0][0] = 0;
-    *lista_pesos = (float *)malloc(sizeof(float));
-    *lista_pesos[0] = 0;
-    return(lista_caminhos_final);
-  }
-
-//  celula = (celula_esp *)malloc(sizeof(celula_esp));
-  agente.noh = origem;
-  agente.caminho = NULL;
-  inserir_caminho(&agente.caminho, origem);
-  agente.soma = 0.0;
-  inserir_agente(&fila, agente);
-  qtde_caminhos = 0;
-  while(fila != NULL) {
-    agente = remove_agente(&fila);
-    celula = matriz->get_linha(agente.noh);
-    while(celula->prox_c != NULL) {
-      celula = celula->prox_c;
-      if(!no_caminho(agente, celula->c)) {
-        /*Copiando e "andando" o agente */
-        agente2 = copiar_agente(agente);
-        agente2.soma += celula->valor;
-        agente2.noh = celula->c;
-        inserir_caminho(&agente2.caminho, celula->c);
-
-        if(agente2.noh == destino) {
-          printf("caminho %d\n", qtde_caminhos++);
-          novo_caminho(&lista_caminhos, agente2.caminho);
-        } else {
-          inserir_agente(&fila, agente2);
-        }
-      }
-    }
-  }
-
-  qtde_caminhos = 0;
-  aux_lc = lista_caminhos;
-  while(aux_lc != NULL) {
-    aux_lc = aux_lc->prox;
-    qtde_caminhos++;
-  }
-
-  lista_caminhos_final = (int **)malloc(sizeof(int *) * (qtde_caminhos + 1));
-  lista_caminhos_final[0] = (int *)malloc(sizeof(int));
-  lista_caminhos_final[0][0] = qtde_caminhos;
-  *lista_pesos = (float *)malloc(sizeof(float) * (qtde_caminhos + 1));
-  *lista_pesos [0] = 0;
-  aux_lc = lista_caminhos;
-  for(int x = 1; x <= qtde_caminhos; x++) {
-//printf("caminho %d\n", x);
-
-    qtde_nos = 0;
-    aux_c = aux_lc->caminho;
-    while(aux_c != NULL) {
-      aux_c = aux_c->prox;
-      qtde_nos++;
-    }
-    lista_caminhos_final[x] = (int *)malloc(sizeof(int) * (qtde_nos + 1));
-    aux_c = aux_lc->caminho;
-    lista_caminhos_final[x][0] = qtde_nos;
-    *lista_pesos[x] = -1;//Calcular pesos 
-    for(int y = 1; y <= qtde_nos; y++) {
-      lista_caminhos_final[x][y] = aux_c->noh;
-//    printf("%i ", aux_c->noh);
-      aux_c = aux_c->prox;
-    }
-//  printf("\n");
-  aux_lc = aux_lc->prox;
-  }
-//  getchar();
-
-  return(lista_caminhos_final);
+int **Robo::todos_os_caminhos(int destino, float **pesos) {
+  return(mapa->todos_os_caminhos(get_vertice(), destino, pesos));
 }
+
+int *Robo::menor_caminho(int destino) {
+  float peso;
+//  caminho = mapa->dijkstra(get_vertice(), destino, &peso);
+  caminho = mapa->menor_caminho(get_vertice(), destino, &peso);
+  return(caminho);
+}
+int *Robo::menor_caminho(int destino, float *peso) {
+  caminho = mapa->menor_caminho(get_vertice(), destino, peso);
+  return(caminho);
+}
+
+int Robo::get_vertice() {
+  return(vertice);
+}
+
+void Robo::set_vertice(int v) {
+  this->vertice = v;
+}
+
 

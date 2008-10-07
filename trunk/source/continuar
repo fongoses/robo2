@@ -1,1 +1,1 @@
-vim -O mapa.cpp old.c mapa.h
+vim -O robo.cpp old.c robo.h
