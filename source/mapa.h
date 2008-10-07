@@ -19,10 +19,12 @@
 #define  MAPA_INC
 #include	<cstdio>
 #include	<iostream>
+#include	<cfloat>
 
 #include	<map>
 #include	<list>
 #include	<vector>
+#include	<algorithm>
 
 #include	"ponto.h"
 

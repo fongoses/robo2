@@ -239,20 +239,74 @@ Mapa::existeVertice ( int v )
 	ListaVertices
 Mapa::dijkstra ( int origem, int destino )
 {
-	int qtde_vertices = vertice.size(), u;
-	VetorVertices d(qtde_vertices, INT_MAX), pi(qtde_vertices, -1);
-	ListaVertices resp;
-	MapaVertices S, Q(vertice);
+	int u, v, menor_d;
+//	VetorVertices d(qtde_vertices, INT_MAX), antec(qtde_vertices, -1);
+	VetorVertices::iterator it_v;
+	ListaVertices resp, adj;
+	ListaVertices::iterator it_adj;
+	MapaVertices Q(vertice);
+	map<int, float> d;
+	map<int, float>::iterator it_d, it_menor;
+	map<int, int> antec;
+	map<int, int>::iterator it_a;
+	MapaVertices::iterator it_m;
+	Aresta aresta;
+
+	for (it_m = Q.begin(); it_m != Q.end(); it_m++) 
+		d[(*it_m).first] = FLT_MAX;
+	d[origem] = 0.0;
 
 	while(Q.size() > 0) {
-		u = extract_min(Q);
-		S[u] = Q[u];
+		/* extract_min */
+//		cout	<< "Vetor: ";
+//		for (it_d = d.begin(); it_d != d.end(); it_d++) 
+//			cout << (*it_d).first << "=>" << (*it_d).second << " ";
+//		cout << endl;
+//
+//		cout	<< "Q: ";
+//		for (it_m = Q.begin(); it_m != Q.end(); it_m++) 
+//			cout << (*it_m).first << " ";
+//		cout << endl;getchar();
+
+		menor_d = INT_MAX;
+		for (it_d = d.begin(); it_d != d.end(); it_d++) {/* Procura o menor d que existe em Q */
+//			cout << "Menor: " << menor_d << " Procurando: " << (*it_d).first << "=>" << (*it_d).second << endl;getchar();
+			if(Q.find((*it_d).first) != Q.end()) {/* se existe em ! */
+				if((*it_d).second < menor_d) {
+					menor_d = (*it_d).second;
+					it_menor = it_d;
+				}
+			}
+		}
+		u = (*it_menor).first;
+
+//		cout	<< "Retirando " << u << endl;getchar();
 		Q.erase(u);
+		/* fim extract_min */
+
+		adj = verticesAdjacentes(u);
+		for ( it_adj = adj.begin(); it_adj != adj.end(); it_adj++) {
+			v = *it_adj;
+
+			aresta.first = u;
+			aresta.second = v;
+			if(d[v] > d[u] + peso[aresta]) {
+				d[v] = d[u] + peso[aresta];
+				antec[v] = u;
+			}
+		}
 	}
-	
+	for(it_a = antec.begin(); it_a != antec.end(); it_a++) {
+		cout << (*it_a).first << "=>" << (*it_a).second << endl;
+	}
 
+	u = destino;
+	resp.push_front(destino);
+	while(u != origem) {
+		resp.push_front(antec[u]);
+		u = antec[u];
+	}
 
-	cout << "Organizar ordem da saida dos vertices no dijksra.\n";
 	return resp;
 }		/* -----  end of method Mapa::dijkstra  ----- */
 
