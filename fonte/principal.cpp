@@ -30,10 +30,16 @@ main ( int argc, char *argv[] )
 {
 	Mapa mapa;
 	Robo *robo1;
+	Salas sala;
 	Ponto p;
 
-	p = mapa.carregarMapa("/home/heitor/robo2/mapas/rep.txt");
-	robo1 = new Robo(p, mapa, true);
+	p = mapa.carregarMapa("/home/heitor/robo2/mapas/rep.txt", &sala);
+	robo1 = new Robo(p, mapa);
+
+	mapa.imprimir();
+
+	robo1->irPara(mapa.get_vertice(1));
+	getchar();
 
 	return EXIT_SUCCESS;
 }				/* ----------  end of function main  ---------- */

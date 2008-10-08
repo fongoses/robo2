@@ -119,7 +119,7 @@ Ponto::set ( float vx, float vy)
  */
 ostream& operator<<(ostream& out, const Ponto& p)
 {
-  out<<"(" << p.x << ", " << p.y << ")" <<endl;
+  out<<"(" << p.x << ", " << p.y << ")";
 	return out;
 }		/* -----  end of method Ponto::operator <<  ----- */
 

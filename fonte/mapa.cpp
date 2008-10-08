@@ -41,7 +41,10 @@ Mapa::Mapa ()
  */
 Mapa::Mapa ( const Mapa &other )
 {
-	printf("MAPA Construtor copia nao feito\n");getchar();
+	if ( this != &other ) {
+		vertice = other.vertice;
+		peso = other.peso;
+	}
 }  /* -----  end of method Mapa::Mapa  (copy constructor)  ----- */
 
 /*
@@ -140,17 +143,17 @@ Mapa::adicionarAresta ( int vA, int vB )
 		return 0;
 	}
 
-	aresta.first = vB;
-	aresta.second = vA;
-
-	if (!existeAresta(aresta)) {
-		cout	<< "Adicionando a aresta " << vB << "-" << vA << ".\n";
-		peso[aresta] = vertice[vB].distancia(vertice[vA]);
-		cout	<< "Feito.\n";
-	} else {
-		cerr << "Aresta " << vB << "-" << vA << " já existe.\n";
-		return 0;
-	}
+//	aresta.first = vB;
+//	aresta.second = vA;
+//
+//	if (!existeAresta(aresta)) {
+//		cout	<< "Adicionando a aresta " << vB << "-" << vA << ".\n";
+//		peso[aresta] = vertice[vB].distancia(vertice[vA]);
+//		cout	<< "Feito.\n";
+//	} else {
+//		cerr << "Aresta " << vB << "-" << vA << " já existe.\n";
+//		return 0;
+//	}
 	return 1;
 }		/* -----  end of method Mapa::adicionarAresta  ----- */
 
@@ -239,7 +242,6 @@ Mapa::existeVertice ( int v )
 Mapa::dijkstra ( int origem, int destino )
 {
 	int u, v, menor_d;
-//	VetorVertices d(qtde_vertices, INT_MAX), antec(qtde_vertices, -1);
 	VetorVertices::iterator it_v;
 	ListaVertices resp, adj;
 	ListaVertices::iterator it_adj;
@@ -257,19 +259,8 @@ Mapa::dijkstra ( int origem, int destino )
 
 	while(Q.size() > 0) {
 		/* extract_min */
-//		cout	<< "Vetor: ";
-//		for (it_d = d.begin(); it_d != d.end(); it_d++) 
-//			cout << (*it_d).first << "=>" << (*it_d).second << " ";
-//		cout << endl;
-//
-//		cout	<< "Q: ";
-//		for (it_m = Q.begin(); it_m != Q.end(); it_m++) 
-//			cout << (*it_m).first << " ";
-//		cout << endl;getchar();
-
 		menor_d = INT_MAX;
 		for (it_d = d.begin(); it_d != d.end(); it_d++) {/* Procura o menor d que existe em Q */
-//			cout << "Menor: " << menor_d << " Procurando: " << (*it_d).first << "=>" << (*it_d).second << endl;getchar();
 			if(Q.find((*it_d).first) != Q.end()) {/* se existe em ! */
 				if((*it_d).second < menor_d) {
 					menor_d = (*it_d).second;
@@ -279,7 +270,6 @@ Mapa::dijkstra ( int origem, int destino )
 		}
 		u = (*it_menor).first;
 
-//		cout	<< "Retirando " << u << endl;getchar();
 		Q.erase(u);
 		/* fim extract_min */
 
@@ -317,12 +307,12 @@ Mapa::dijkstra ( int origem, int destino )
  *--------------------------------------------------------------------------------------
  */
 	Ponto
-Mapa::carregarMapa ( string mapa )
+Mapa::carregarMapa ( string mapa, Salas *sala)
 {
 	ifstream arq;
-	Ponto ini;
+	Ponto ini, p;
 	float x, y;
-	int n;
+	int n, a, b;
 
 	cout	<< "Abrindo mapa " << mapa << ".\n";
 	cout	<< "MAPA carregarMapa acertar o problema de local para abrir arquivo\n";
@@ -333,7 +323,24 @@ Mapa::carregarMapa ( string mapa )
 		ini.set(x, y);
 
 		arq >> n >> x >> y; /* Lendo os vertices */
+		do {
+			p.set(x, y);
+			adicionarVertice(n, p);
+			arq >> n >> x >> y; /* Lendo os vertices */
+		} while ( n != -1 );				/* -----  end do-while  ----- */
 
+		arq >> a >> b; /* Lendo as arestas */
+		do {
+			adicionarAresta(a, b);
+			adicionarAresta(b, a);
+			arq >> a >> b; /* Lendo as arestas */
+		} while ( a != -1 );				/* -----  end do-while  ----- */
+
+		arq >> n >> a >> b; /* Lendo as salas */
+		do {
+			sala->adicionarSala(n, a, b);
+			arq >> n >> a >> b; /* Lendo as salas */
+		} while ( n != -1 );				/* -----  end do-while  ----- */
 
 		return ini;
 	} else {

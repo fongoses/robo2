@@ -32,5 +32,5 @@ $(PROG): $(OBJ)
 
 clean:
 	@echo "Limpando..."
-	@rm -rf $(PROG) *.o *.d *~ *# "#*"
+	@rm -rf ../$(PROG) *.o *.d *~ *# "#*"
 	@echo "Feito."
