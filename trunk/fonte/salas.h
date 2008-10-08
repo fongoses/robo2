@@ -22,10 +22,12 @@
 using namespace std;
 
 typedef struct _sala {
-	int noh;
+	int vertice;
 	int P;
 	int U;
 }sSala;				/* ----------  end of struct _sala  ---------- */
+		
+typedef map<int, sSala> MapaSala;
 
 /*
  * =====================================================================================
@@ -46,10 +48,18 @@ class Salas
 		const Salas& operator = ( const Salas &other ); /* assignment operator */
 
 		/* ====================  METHODS       ======================================= */
-		void adicionarSala(int num, int noh, int P);
+		void adicionarSala(int num, int vertice, int P);
 		bool existeSala(int num);
+		void atualizar(time_t t);
+		void visitar(int s);
+
+		void imprimir();
 
 		/* ====================  ACCESS        ======================================= */
+		int get_maiorU(int *U = NULL);
+		int get_vertice( int s );
+
+		void set_ultima_atualizacao(time_t t);
 
 		/* ====================  INQUIRY       ======================================= */
 
@@ -59,7 +69,7 @@ class Salas
 	private:
 		time_t ultima_atualizacao;
 
-		map<int, sSala> sala;
+		MapaSala sala;
 
 }; /* -----  end of class  Salas  ----- */
 

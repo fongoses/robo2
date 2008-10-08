@@ -31,14 +31,31 @@ main ( int argc, char *argv[] )
 	Mapa mapa;
 	Robo *robo1;
 	Salas sala;
-	Ponto p;
+	Vertice v;
+	time_t tempo, inicio;
+	int visitar_sala;
 
-	p = mapa.carregarMapa("/home/heitor/robo2/mapas/rep.txt", &sala);
-	robo1 = new Robo(p, mapa);
+	v = mapa.carregarMapa("/home/heitor/robo2/mapas/rep.txt", &sala);
+	robo1 = new Robo(v, mapa, true);
 
 	mapa.imprimir();
+	sala.set_ultima_atualizacao(time(&tempo)-1);
+	sala.atualizar(tempo);
+	inicio = tempo;
+	sala.imprimir();
 
-	robo1->irPara(mapa.get_vertice(1));
+	while(tempo - inicio < 30 * 60) { /* rodar por 30 minutos */
+		visitar_sala = sala.get_maiorU();
+		cout << "Indo para sala " << visitar_sala << " vertice " << sala.get_vertice(visitar_sala)<< endl; 
+		tempo += robo1->irPara(sala.get_vertice(visitar_sala));
+//		cout	<< "Demorou no total " << tempo << "s.\n";
+		sala.atualizar(tempo);
+		sala.visitar(visitar_sala);
+		sala.imprimir();
+		cout << "Tempo total: " << tempo - inicio << endl;
+	}
+
+
 	getchar();
 
 	return EXIT_SUCCESS;

@@ -39,8 +39,11 @@ Robo::Robo ()
  * Description:  constructor com o vertice inicial do robô
  *--------------------------------------------------------------------------------------
  */
-Robo::Robo (Ponto pos_inicial, Mapa m, bool _simular)
+Robo::Robo (Vertice v_inicial, Mapa m, bool _simular)
 {
+	Ponto pos_inicial = v_inicial.second;
+
+	vertice = v_inicial.first;
 	simular = _simular;
 	mapa = m;
 	cout	<< "Posicao inicial: " << pos_inicial << ".\n";
@@ -50,6 +53,7 @@ Robo::Robo (Ponto pos_inicial, Mapa m, bool _simular)
 		laser = new LaserProxy(player_client, 0);
 
 		position->SetOdometry(pos_inicial.get_x(), pos_inicial.get_y(), 0);
+		irPara(vertice);
 	}
 }  /* -----  end of method Robo::Robo  (constructor)  ----- */
 
@@ -103,18 +107,28 @@ Robo::operator = ( const Robo &other )
  *       Class:  Robo
  *      Method:  irPara
  * Description:  Vai para a posicao do ponto p 
+ *							 e retorna o tempo que demorou para chegar (s)
  *--------------------------------------------------------------------------------------
  */
-	void
+	int
 Robo::irPara ( Ponto p )
 {
+	time_t tempo;
 	cout	<< "Indo para ponto: " << p << endl;
 	if(!simular) {
+		cout	<< "ROBO::irPara Arrumar o tempo\n";
 		position->GoTo(p.get_x(), p.get_y(), 0);
+		while(!chegou(p));
+		return -1;
 	} else {
 		cout	<< "Simulando\n";
+		tempo = floor(p.distancia(mapa.get_ponto(vertice)) / SIMULACAO_VEL + 0.5);
+		cout << "Distancia entre: " << p << " e " << mapa.get_ponto(vertice) << " = " << p.distancia(mapa.get_ponto(vertice)) 
+			   << " Velocidade: " <<  SIMULACAO_VEL << " ";
+		
+		cout	<< "Demorou " << tempo << "s.\n";
 	}
-	return ;
+	return tempo;
 }		/* -----  end of method Robo::irPara  ----- */
 
 /*
@@ -122,21 +136,22 @@ Robo::irPara ( Ponto p )
  *       Class:  Robo
  *      Method:  irPara
  * Description:  Vai para o vertice v
+ *							 e retorna o tempo que demorou para chegar (s)
  *--------------------------------------------------------------------------------------
  */
-	void
+	int
 Robo::irPara ( int v )
 {
 	ListaVertices caminho;
 	ListaVertices::iterator it_c;
+	int tempo = 0;
 
-	caminho =  mapa.dijkstra(vertice.first, v);
+	caminho =  mapa.dijkstra(vertice, v);
 	for(it_c = caminho.begin(); it_c != caminho.end(); it_c++) {
-		irPara(*it_c);
-		while(!chegou(*it_c));
+		tempo += irPara(mapa.get_ponto(*it_c));
 	}
 
-	return ;
+	return tempo;
 }		/* -----  end of method Robo::irPara  ----- */
 
 /*
@@ -151,9 +166,9 @@ Robo::chegou ( Ponto p )
 {
 	Ponto atual;
 
-	player_client.Read();
-	atual.set_x(position.GetXPos());
-	atual.set_y(position.GetYPos());
+	player_client->Read();
+	atual.set_x(position->GetXPos());
+	atual.set_y(position->GetYPos());
 	return atual.distancia(p) < DISTANCIA_ERRO;
 }		/* -----  end of method Robo::chegou  ----- */
 
@@ -168,7 +183,7 @@ Robo::chegou ( Ponto p )
  *--------------------------------------------------------------------------------------
  */
 	void
-Robo::set_vertice ( Vertice v )
+Robo::set_vertice ( int v )
 {
 	vertice = v;
 	return ;

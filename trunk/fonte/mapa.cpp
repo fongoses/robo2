@@ -253,6 +253,8 @@ Mapa::dijkstra ( int origem, int destino )
 	MapaVertices::iterator it_m;
 	Aresta aresta;
 
+	cout << "Procurando caminho entre " << origem << " e " << destino << endl;
+
 	for (it_m = Q.begin(); it_m != Q.end(); it_m++) 
 		d[(*it_m).first] = FLT_MAX;
 	d[origem] = 0.0;
@@ -303,14 +305,15 @@ Mapa::dijkstra ( int origem, int destino )
  *--------------------------------------------------------------------------------------
  *       Class:  Mapa
  *      Method:  carregarMapa
- * Description:  Carrega o mapa de um arquivo e retorna o ponto inicial do robo
+ * Description:  Carrega o mapa de um arquivo e retorna o ponto e o vertice inicial do robo
  *--------------------------------------------------------------------------------------
  */
-	Ponto
+	Vertice
 Mapa::carregarMapa ( string mapa, Salas *sala)
 {
 	ifstream arq;
 	Ponto ini, p;
+	Vertice v;
 	float x, y;
 	int n, a, b;
 
@@ -319,8 +322,10 @@ Mapa::carregarMapa ( string mapa, Salas *sala)
 	arq.open(mapa.c_str());
 	if(arq.is_open()){
 		cout << "Abriu!\n";
-		arq >> x >> y;/* Lendo a posicao inicial do robo */
+		arq >> n >> x >> y;/* Lendo a posicao inicial do robo */
 		ini.set(x, y);
+		v.first = n;
+		v.second = p;
 
 		arq >> n >> x >> y; /* Lendo os vertices */
 		do {
@@ -342,11 +347,11 @@ Mapa::carregarMapa ( string mapa, Salas *sala)
 			arq >> n >> a >> b; /* Lendo as salas */
 		} while ( n != -1 );				/* -----  end do-while  ----- */
 
-		return ini;
+		return v;
 	} else {
 		cout	<< "Problema para abrir " << mapa << ".\n";
 	}
-	return ini;
+	return v;
 }		/* -----  end of method Mapa::carregarMapa  ----- */
 
 /*
@@ -411,12 +416,12 @@ Mapa::get_peso ( int vA, int vB )
 /*
  *--------------------------------------------------------------------------------------
  *       Class:  Mapa
- *      Method:  get_vertice
+ *      Method:  get_ponto
  * Description:  Retorna o ponto do vertice v
  *--------------------------------------------------------------------------------------
  */
 	Ponto
-Mapa::get_vertice ( int v )
+Mapa::get_ponto ( int v )
 {
 	if (existeVertice(v)) {
 		return vertice[v];
@@ -424,7 +429,7 @@ Mapa::get_vertice ( int v )
 		cerr << "Vertice " << v << " não existe.\n";
 		return *(new Ponto);
 	}
-}		/* -----  end of method Mapa::get_vertice  ----- */
+}		/* -----  end of method Mapa::get_ponto  ----- */
 
 /*-----------------------------------------------------------------------------
  * ====================  INQUIRY       ======================================= *
