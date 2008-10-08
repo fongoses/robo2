@@ -76,13 +76,13 @@ class Mapa
 
 		ListaVertices dijkstra(int origem, int destino);
 
-		Ponto carregarMapa(string mapa, Salas *sala);
+		Vertice carregarMapa(string mapa, Salas *sala);
 
 		void imprimir();
 
 		/* ====================  ACCESS        ======================================= */
 		float get_peso ( int vA, int vB );
-		Ponto get_vertice ( int v );
+		Ponto get_ponto ( int v );
 
 		/* ====================  INQUIRY       ======================================= */
 

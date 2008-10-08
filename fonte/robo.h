@@ -22,8 +22,9 @@
 
 #include "mapa.h"
 
-#define	DISTANCIA_ERRO	0.1		/* Erro permitido na distancia (m) */
+#define	DISTANCIA_ERRO	0.3		/* Erro permitido na distancia (m) */
 
+#define	SIMULACAO_VEL 1			/* Velocidade da simulacao (m/s) */
 /*-----------------------------------------------------------------------------
  *  CODIGO ANTIGO
  *-----------------------------------------------------------------------------*/
@@ -70,15 +71,15 @@ class Robo
 		/* ====================  LIFECYCLE     ======================================= */
 		Robo ();                             /* constructor      */
 		Robo ( const Robo &other );   /* copy constructor */
-    Robo(Ponto pos_inicial, Mapa mapa, bool simular = false);
+    Robo(Vertice v_inicial, Mapa mapa, bool simular = false);
 		~Robo ();                            /* destructor       */
 
 		/* ====================  OPERATORS     ======================================= */
 		const Robo& operator = ( const Robo &other ); /* assignment operator */
 
 		/* ====================  METHODS       ======================================= */
-		void irPara( Ponto p); /* Vai para a posicao indicada pelo ponto p */
-		void irPara( int v ); /* Vai para o vertice v */
+		int irPara( Ponto p); /* Vai para a posicao indicada pelo ponto p */
+		int irPara( int v ); /* Vai para o vertice v */
 
 		bool chegou( Ponto p); /* Verifica se o robo chegou na posicai do ponto p */
 
@@ -99,7 +100,7 @@ class Robo
     int **todos_os_caminhos(int destino, float **pesos);
 
 		/* ====================  ACCESS        ======================================= */
-    void set_vertice(Vertice v);
+    void set_vertice(int v);
 
 
 
@@ -116,7 +117,7 @@ class Robo
 		LaserProxy *laser;
 
     Mapa mapa;
-		Vertice vertice;
+		int vertice;
 
 		bool simular;
 

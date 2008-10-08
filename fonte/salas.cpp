@@ -30,6 +30,7 @@
  */
 Salas::Salas ()
 {
+	ultima_atualizacao = 0;
 }  /* -----  end of method Salas::Salas  (constructor)  ----- */
 
 /*
@@ -83,12 +84,12 @@ Salas::operator = ( const Salas &other )
  *--------------------------------------------------------------------------------------
  */
 	void
-Salas::adicionarSala ( int num, int noh, int P )
+Salas::adicionarSala ( int num, int vertice, int P )
 {
 	cout	<< "Adicionando sala " << num << ".\n";
 	if(!existeSala(num)) {
 		sSala aux;
-		aux.noh = noh;
+		aux.vertice = vertice;
 		aux.P = P;
 		aux.U = 0;
 		sala[num] = aux;
@@ -112,9 +113,116 @@ Salas::existeSala ( int num )
 	return sala.find(num) != sala.end();
 }		/* -----  end of method Salas::existeSala  ----- */
 
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Salas
+ *      Method:  atualizar
+ * Description:  Atualiza as urgencias das salas decorrido t segundos
+ *--------------------------------------------------------------------------------------
+ */
+	void
+Salas::atualizar ( time_t t )
+{
+	MapaSala::iterator it_s;
+	time_t diferenca = t - ultima_atualizacao;
+	ultima_atualizacao = t;
+
+	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
+		it_s->second.U += diferenca * it_s->second.P;
+	}
+	return ;
+}		/* -----  end of method Salas::atualizar  ----- */
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Salas
+ *      Method:  visitar
+ * Description:  Visita a sala s
+ *--------------------------------------------------------------------------------------
+ */
+	void
+Salas::visitar ( int s )
+{
+	sala[s].U = 0;
+	return ;
+}		/* -----  end of method Salas::visitar  ----- */
+
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Salas
+ *      Method:  imprimir
+ * Description:  Imprimi as salas
+ *--------------------------------------------------------------------------------------
+ */
+	void
+Salas::imprimir ( )
+{
+	MapaSala::iterator it_s;
+
+
+	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
+		cout << it_s->first << " => vertice = " << it_s->second.vertice <<
+															" P = " << it_s->second.P <<
+															" U = " << it_s->second.U << endl;
+
+	}
+	return ;
+}		/* -----  end of method Salas::imprimir  ----- */
+
 /*-----------------------------------------------------------------------------
  * ====================  ACCESS        ======================================= *
  *-----------------------------------------------------------------------------*/
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Salas
+ *      Method:  get_maiorU
+ * Description:  Retorna a sala com maior grau de urgencia
+ *--------------------------------------------------------------------------------------
+ */
+	int
+Salas::get_maiorU ( int *U )
+{
+	int maiorU = 0, s;
+	MapaSala::iterator it_s;
+
+	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
+		if(it_s->second.U > maiorU) {
+			s = it_s->first;
+			maiorU = it_s->second.U;
+		}
+	}
+	if(U != NULL) {
+		*U = maiorU;
+	}
+	return s;
+}		/* -----  end of method Salas::get_maiorU  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Salas
+ *      Method:  get_vertice
+ * Description:  Retorna o vertice da sala s
+ *--------------------------------------------------------------------------------------
+ */
+	int
+Salas::get_vertice ( int s )
+{
+	return sala.find(s)->second.vertice;
+}		/* -----  end of method Salas::get_vertice  ----- */
+
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Salas
+ *      Method:  set_ultima_atualizacao
+ *--------------------------------------------------------------------------------------
+ */
+	void
+Salas::set_ultima_atualizacao ( time_t t )
+{
+	ultima_atualizacao	= t;
+	return ;
+}		/* -----  end of method Salas::set_ultima_atualizacao  ----- */
 
 /*-----------------------------------------------------------------------------
  * ====================  INQUIRY       ======================================= *
