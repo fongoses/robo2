@@ -55,8 +55,5 @@ main ( int argc, char *argv[] )
 		cout << "Tempo total: " << tempo - inicio << endl;
 	}
 
-
-	getchar();
-
 	return EXIT_SUCCESS;
 }				/* ----------  end of function main  ---------- */
