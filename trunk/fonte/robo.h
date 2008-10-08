@@ -22,6 +22,11 @@
 
 #include "mapa.h"
 
+#define	DISTANCIA_ERRO	0.1		/* Erro permitido na distancia (m) */
+
+/*-----------------------------------------------------------------------------
+ *  CODIGO ANTIGO
+ *-----------------------------------------------------------------------------*/
 #define GRAD_TO_RAD 57.29577951
 
 /* Define para Virar */
@@ -48,6 +53,9 @@
 #define HOST "localhost"
 #define PORT 6665
 
+/*-----------------------------------------------------------------------------
+ *  FIM CODIGO ANTIGO
+ *-----------------------------------------------------------------------------*/
 using namespace PlayerCc;
 /*
  * =====================================================================================
@@ -69,7 +77,10 @@ class Robo
 		const Robo& operator = ( const Robo &other ); /* assignment operator */
 
 		/* ====================  METHODS       ======================================= */
-		void irPara( Ponto p);
+		void irPara( Ponto p); /* Vai para a posicao indicada pelo ponto p */
+		void irPara( int v ); /* Vai para o vertice v */
+
+		bool chegou( Ponto p); /* Verifica se o robo chegou na posicai do ponto p */
 
 
 

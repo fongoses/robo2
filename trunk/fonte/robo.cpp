@@ -102,7 +102,7 @@ Robo::operator = ( const Robo &other )
  *--------------------------------------------------------------------------------------
  *       Class:  Robo
  *      Method:  irPara
- * Description:  Vai para a posicao do vertice v
+ * Description:  Vai para a posicao do ponto p 
  *--------------------------------------------------------------------------------------
  */
 	void
@@ -116,6 +116,46 @@ Robo::irPara ( Ponto p )
 	}
 	return ;
 }		/* -----  end of method Robo::irPara  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Robo
+ *      Method:  irPara
+ * Description:  Vai para o vertice v
+ *--------------------------------------------------------------------------------------
+ */
+	void
+Robo::irPara ( int v )
+{
+	ListaVertices caminho;
+	ListaVertices::iterator it_c;
+
+	caminho =  mapa.dijkstra(vertice.first, v);
+	for(it_c = caminho.begin(); it_c != caminho.end(); it_c++) {
+		irPara(*it_c);
+		while(!chegou(*it_c));
+	}
+
+	return ;
+}		/* -----  end of method Robo::irPara  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Robo
+ *      Method:  chegou
+ * Description:  Retorna se o robo chegou na posicao do ponto p ou nao
+ *--------------------------------------------------------------------------------------
+ */
+	bool
+Robo::chegou ( Ponto p )
+{
+	Ponto atual;
+
+	player_client.Read();
+	atual.set_x(position.GetXPos());
+	atual.set_y(position.GetYPos());
+	return atual.distancia(p) < DISTANCIA_ERRO;
+}		/* -----  end of method Robo::chegou  ----- */
 
 /*-----------------------------------------------------------------------------
  * ====================  ACCESS        ======================================= *

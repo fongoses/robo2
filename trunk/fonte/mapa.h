@@ -29,6 +29,7 @@
 #include	<algorithm>
 
 #include	"ponto.h"
+#include	"salas.h"
 
 using namespace std;
 
@@ -75,7 +76,7 @@ class Mapa
 
 		ListaVertices dijkstra(int origem, int destino);
 
-		Ponto carregarMapa(string mapa);
+		Ponto carregarMapa(string mapa, Salas *sala);
 
 		void imprimir();
 
