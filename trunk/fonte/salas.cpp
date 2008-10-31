@@ -120,17 +120,20 @@ Salas::existeSala ( int num )
  * Description:  Atualiza as urgencias das salas decorrido t segundos
  *--------------------------------------------------------------------------------------
  */
-	void
+	int
 Salas::atualizar ( time_t t )
 {
 	MapaSala::iterator it_s;
 	time_t diferenca = t - ultima_atualizacao;
 	ultima_atualizacao = t;
+	int UTotal = 0;
+//	cout << "Atualizando " << diferenca << " segundos\n"; getchar();
 
 	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
 		it_s->second.U += diferenca * it_s->second.P;
+		UTotal += it_s->second.U;
 	}
-	return ;
+	return UTotal;
 }		/* -----  end of method Salas::atualizar  ----- */
 /*
  *--------------------------------------------------------------------------------------
@@ -140,8 +143,9 @@ Salas::atualizar ( time_t t )
  *--------------------------------------------------------------------------------------
  */
 	void
-Salas::visitar ( int s )
+Salas::visitar ( int s ) 
 {
+	cout << "Visitando sala: " << s << ".\n";
 	sala[s].U = 0;
 	return ;
 }		/* -----  end of method Salas::visitar  ----- */

@@ -84,6 +84,8 @@ class Mapa
 		float get_peso ( int vA, int vB );
 		Ponto get_ponto ( int v );
 
+		int get_vertice(Ponto P); /* Retorna o vertice mais proximo do ponto P */
+
 		/* ====================  INQUIRY       ======================================= */
 
 		/* ====================  DATA MEMBERS  ======================================= */

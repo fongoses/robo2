@@ -46,7 +46,7 @@ Robo::Robo (Vertice v_inicial, Mapa m, bool _simular)
 	vertice = v_inicial.first;
 	simular = _simular;
 	mapa = m;
-	cout	<< "Posicao inicial: " << pos_inicial << ".\n";
+	cout	<< "Posicao inicial: " << pos_inicial << "[" << mapa.get_vertice(pos_inicial) << "].\n";
 	if(!simular) {
 		player_client = new PlayerClient(HOST, PORT);
 		position = new Position2dProxy(player_client, 1);
@@ -114,7 +114,8 @@ Robo::operator = ( const Robo &other )
 Robo::irPara ( Ponto p )
 {
 	time_t tempo;
-	cout	<< "Indo para ponto: " << p << endl;
+	vertice = mapa.get_vertice(p);
+	cout	<< "Indo para ponto: " << p << "[" << vertice << "].\n";
 	if(!simular) {
 		cout	<< "ROBO::irPara Arrumar o tempo\n";
 		position->GoTo(p.get_x(), p.get_y(), 0);
@@ -123,10 +124,10 @@ Robo::irPara ( Ponto p )
 	} else {
 		cout	<< "Simulando\n";
 		tempo = floor(p.distancia(mapa.get_ponto(vertice)) / SIMULACAO_VEL + 0.5);
-		cout << "Distancia entre: " << p << " e " << mapa.get_ponto(vertice) << " = " << p.distancia(mapa.get_ponto(vertice)) 
-			   << " Velocidade: " <<  SIMULACAO_VEL << " ";
+//		cout << "Distancia entre: " << p << " e " << mapa.get_ponto(vertice) << " = " << p.distancia(mapa.get_ponto(vertice)) 
+//			   << " Velocidade: " <<  SIMULACAO_VEL << " ";
 		
-		cout	<< "Demorou " << tempo << "s.\n";
+//		cout	<< "Demorou " << tempo << "s.\n";
 	}
 	return tempo;
 }		/* -----  end of method Robo::irPara  ----- */
@@ -147,6 +148,7 @@ Robo::irPara ( int v )
 	int tempo = 0;
 
 	caminho =  mapa.dijkstra(vertice, v);
+	caminho.pop_front(); /* Remove o primeiro vertice do caminho que e' onde o robo esta */
 	for(it_c = caminho.begin(); it_c != caminho.end(); it_c++) {
 		tempo += irPara(mapa.get_ponto(*it_c));
 	}
@@ -188,6 +190,19 @@ Robo::set_vertice ( int v )
 	vertice = v;
 	return ;
 }		/* -----  end of method Robo::set_vertice  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Robo
+ *      Method:  get_vertice
+ * Description:  Retorna o vertice onde o robo se encontra
+ *--------------------------------------------------------------------------------------
+ */
+	int
+Robo::get_vertice ( )
+{
+	return vertice;
+}		/* -----  end of method Robo::get_vertice  ----- */
 
 
 /*-----------------------------------------------------------------------------

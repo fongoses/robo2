@@ -50,7 +50,7 @@ class Salas
 		/* ====================  METHODS       ======================================= */
 		void adicionarSala(int num, int vertice, int P);
 		bool existeSala(int num);
-		void atualizar(time_t t);
+		int atualizar(time_t t);
 		void visitar(int s);
 
 		void imprimir();
