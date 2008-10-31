@@ -178,7 +178,7 @@ Mapa::verticesAdjacentes ( int v )
 		v2 = (*it_v).first;
 		aresta.second = v2;
 		if (existeAresta(aresta)) {
-			cout << v2 << " adjacente ao " << v << ",\n";
+//			cout << v2 << " adjacente ao " << v << ",\n";
 			resp.push_back(v2);
 		}
 	}
@@ -253,7 +253,7 @@ Mapa::dijkstra ( int origem, int destino )
 	MapaVertices::iterator it_m;
 	Aresta aresta;
 
-	cout << "Procurando caminho entre " << origem << " e " << destino << endl;
+//	cout << "Procurando caminho entre " << origem << " e " << destino << endl;
 
 	for (it_m = Q.begin(); it_m != Q.end(); it_m++) 
 		d[(*it_m).first] = FLT_MAX;
@@ -287,9 +287,9 @@ Mapa::dijkstra ( int origem, int destino )
 			}
 		}
 	}
-	for(it_a = antec.begin(); it_a != antec.end(); it_a++) {
-		cout << (*it_a).first << "=>" << (*it_a).second << endl;
-	}
+//	for(it_a = antec.begin(); it_a != antec.end(); it_a++) {
+//		cout << (*it_a).first << "=>" << (*it_a).second << endl;
+//	}
 
 	u = destino;
 	resp.push_front(destino);
@@ -312,7 +312,7 @@ Mapa::dijkstra ( int origem, int destino )
 Mapa::carregarMapa ( string mapa, Salas *sala)
 {
 	ifstream arq;
-	Ponto ini, p;
+	Ponto p;
 	Vertice v;
 	float x, y;
 	int n, a, b;
@@ -323,7 +323,7 @@ Mapa::carregarMapa ( string mapa, Salas *sala)
 	if(arq.is_open()){
 		cout << "Abriu!\n";
 		arq >> n >> x >> y;/* Lendo a posicao inicial do robo */
-		ini.set(x, y);
+		p.set(x, y);
 		v.first = n;
 		v.second = p;
 
@@ -347,10 +347,12 @@ Mapa::carregarMapa ( string mapa, Salas *sala)
 			arq >> n >> a >> b; /* Lendo as salas */
 		} while ( n != -1 );				/* -----  end do-while  ----- */
 
+		arq.close();
 		return v;
 	} else {
 		cout	<< "Problema para abrir " << mapa << ".\n";
 	}
+	arq.close();
 	return v;
 }		/* -----  end of method Mapa::carregarMapa  ----- */
 
@@ -430,6 +432,30 @@ Mapa::get_ponto ( int v )
 		return *(new Ponto);
 	}
 }		/* -----  end of method Mapa::get_ponto  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Mapa
+ *      Method:  get_vertice
+ * Description:  Retorna o vertice mais proximo do ponro P
+ *--------------------------------------------------------------------------------------
+ */
+	int
+Mapa::get_vertice ( Ponto P )
+{
+	float menor = FLT_MAX, dist;
+	int resp = -1;
+	MapaVertices::iterator it_v;
+
+	for(it_v = vertice.begin(); it_v != vertice.end(); it_v++) {
+		dist = P.distancia((*it_v).second);
+		if( dist < menor) {
+			menor = dist;
+			resp = (*it_v).first;
+		}
+	}
+	return resp;
+}		/* -----  end of method Mapa::get_vertice  ----- */
 
 /*-----------------------------------------------------------------------------
  * ====================  INQUIRY       ======================================= *
