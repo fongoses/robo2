@@ -1,0 +1,85 @@
+%=======================================================
+% Projeto de Mestrado
+%
+% Monografia pala qualificação de Mestardo do ICMC
+%
+% Novembro de 2008
+%
+% Autor: Heitor Luis Polidoro
+%
+% Orientador: Prof. Denis Fernando Wolf
+%======================================================
+
+\documentclass[12pt,a4paper,twoside,openright,final]{report}
+\usepackage{monoproj}
+
+\begin{document}
+	%--------------------------------------------------------
+	% Capa e Folha de Rosto
+	%--------------------------------------------------------
+	\title{Navegação e Monitoramento de Ambientes Internos Utilizando Robôs Móveis}
+	\author{Heitor Luis Polidoro}
+	\supervisor{Prof. Dr. Denis Fernando Wolf}
+	\date{São Carlos / SP\\Novembro de 2007}
+	\concarea{Robótica Móvel, Monitoramento, Navegação.}
+	\maketitle
+	%--------------------------------------------------------
+
+	\cleardoublepage
+	\setcounter{page}{1}
+	\pagenumbering{roman}
+	
+	%--------------------------------------------------------
+	% Agradecimento
+	%--------------------------------------------------------
+	\include{agradecimento}
+	%--------------------------------------------------------
+	% Dedicatória
+	%--------------------------------------------------------
+	\include{dedicatoria}
+	%--------------------------------------------------------
+	% Resumo
+	%--------------------------------------------------------
+	\include{resumo}
+	%--------------------------------------------------------
+	
+	%--------------------------------------------------------
+	% Sumario e Lista de Figuras, Tabelas, Algoritmos etc.
+	%--------------------------------------------------------
+	\tableofcontents
+	\listoffigures
+	\listoftables
+	\listofalgorithms
+	%--------------------------------------------------------
+	
+	\cleardoublepage
+	\setcounter{page}{1}
+	\pagenumbering{arabic}
+	
+	%--------------------------------------------------------
+	% Corpo da Monografia
+	%--------------------------------------------------------
+	\include{introducao}
+	\include{revisao}
+	\include{estadoatual}
+	\include{conclusoes}
+	\include{comentarios}
+	%--------------------------------------------------------
+	
+	%--------------------------------------------------------
+	% Referencias Bibliograficas
+	%--------------------------------------------------------
+	\pagestyle{referencest}
+%	\bibliographystyle{plain}
+	\bibliographystyle{cell}
+	\bibliography{bibliografia} 
+	%--------------------------------------------------------
+	
+	%--------------------------------------------------------
+	% Apendices, Anexos e Glossario
+	%--------------------------------------------------------
+	\appendix
+	\include{projeto1}
+	%--------------------------------------------------------
+
+\end{document}
