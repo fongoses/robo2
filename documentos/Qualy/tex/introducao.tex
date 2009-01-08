@@ -1,51 +1,10 @@
-%==========================================================
-% Projeto de Mestardo
-% 
-% Capitulo 1: Introducao.
-% 
-% Autor
-% Heitor Luis Polidoro
-% 
-% Orientador
-% Prof. Dr. Denis Fernando Wolf
-%==========================================================
+\chapter{Introdu��o}
 
-\pagestyle{chapterst}
+\section{Contextualiza��o}
 
-\chapter{Introdução}
-\label{introducao}
+\section{Quest�es em Aberto}
 
-\section{Contextualização e Motivação}
-\label{contextualizacao_motivacao}
-A robótica consiste em uma área multidisciplinar de pesquisa, envolvendo elementos de engenharia mecânica, elétrica, computação e áreas de humanas como psicologia e estudos do comportamento de animais.
+\section{Objetivos e Justificativa}
 
-Inicialmente, os robôs foram utilizados para automação industrial, mas com a evolução tecnológica os robôs passaram a ser utilizados em outras áreas como: medicina de precisão, ambientes perigosos, entretenimento, serviços domésticos, etc. Nesse contexto surgiram as pesquisas para o desenvolvimento de robôs móveis autônomos, que sejam capazes de atuar em ambientes reais e reagir a situações desconhecidas de forma inteligente.
-
-Entre todas essas diversas aplicações da robótica móvel, pode-se citar o robô Sojourner (Figura \ref{fig:exemplo_robos}a) da NASA, que explora, envia fotos e outras informações do planeta Marte para a Terra \cite{Nasa2007}, e o robô desenvolvido pela universidade Camegie Mellon, chamado Groundhog, que explora minas abandonadas, que além do risco de desabamento, em muitos casos também contém gases tóxicos \cite{Thrun2004}.
-
-A comunidade científica aposta que sistemas robóticos estejam cada vez mais presentes em nossa vida cotidiana, o que torna esta área de pesquisa extremamente promissora e desafiadora. Segundo Bill Gates, estamos entrando numa nova era da computação, comparando os robôs industriais com os mainframes de antigamente, e prevê que existirá um robô em cada casa no futuro \cite{Gates2007}.
-
-A robótica móvel, além de ser uma área de grande potencial científico, empresas de tecnologia estão cada vez mais investindo em produtos. Como por exemplo o desenvolvimento de robôs que realizam trabalhos domésticos autonomamente,  entre os quais o aspirador de pó Roomba da IRobot \cite{IRobot2007} (Figura \ref{fig:exemplo_robos}b) e o robô cortador de grama Robomow (Figura \ref{fig:exemplo_robos}c) da Friendly Robotics \cite{FriendlyRobotics2007}. Ambos apresentam sucesso comercial. 
-
-\figura{imagens/exemplo_robos.jpg}{0.4}{Exemplos de robôs.}{fig:exemplo_robos}
-
-Neste projeto de pesquisa, a robótica é vista de uma perspectiva da ciência da computação, mais especificamente das áreas de inteligência artificial e algoritmo e estrutura de dados. Nesse contexto, o maior desafio no desenvolvimento de robôs móveis é a capacidade de interagir com o ambiente e tomar decisões corretas para que suas tarefas sejam executadas com êxito. Robôs móveis autônomos devem ser capazes de atuar em ambientes desconhecidos e dinâmicos e de reagir diante de situações imprevistas. Devido à utilização de robôs móveis em ambientes dinâmicos, ou seja, ambientes em que o robô pode encontrar objetos não presentes na sua representação de mundo, ou não encontrar algum objeto que estava presente, os dados provenientes dos sensores, na grande maioria dos casos, possuem ruídos e imprecisões, o que dificulta as tarefas de navegação e exploração \cite{Bianchi2003}.  A interação com o ambiente é realizada através de sensores (câmeras de vídeo, LASERs, sonares, bússolas e sensores de deslocamento) e atuadores (rodas e manipuladores). 
-
-O processamento das informações obtidas por sensores não é uma tarefa trivial. Por exemplo, apesar de ser fácil para seres humanos entenderem as imagens de uma câmera de vídeo, obter automaticamente informações úteis através do processamento dessas imagens por um computador é uma tarefa difícil que vem sendo estudada por pesquisadores da área de visão computacional. Mesmo depois de décadas de estudos, essa área ainda apresenta limitações e problemas a serem resolvidos.  
-
-A motivação deste projeto está em expandir os conhecimentos nas áreas de navegação e exploração de ambientes internos, com utilização de técnicas de inteligência artificial, o interesse particular por robótica, o contato anterior com o robô que será utilizado para os testes reais, a familiaridade com a ferramenta de desenvolvimento e com a ferramenta de simulação Player/Stage \cite{Gerkey2001} e, também, a possibilidade de dar continuidade ao projeto iniciado na disciplina \textit{Projeto Supervisionado ou de Graduação I}, colocando em prática conceitos aprendidos nas disciplinas cursadas na graduação. Para tanto, é proposto uma aplicação de robótica móvel para o monitoramento de ambientes internos, onde, normalmente, nesses ambientes, existem regiões criticas que possuem prioridade distintas para serem monitoradas, analisando e avaliando diferentes algoritmos de definição da seqüência de visita das áreas.
-
-
-\section{Objetivos do Trabalho}
-\label{objetivos_trabalho}
-Esse projeto tem como objetivos ampliar os conhecimentos do aluno na área de robótica móvel, bem como possibilitar uma experiência prática na aplicação de conceitos aprendidos em disciplinas cursadas na graduação. Para isso, é proposto o desenvolvimento e avaliação de algoritmos de determinação da seqüência em que as áreas devem ser visitadas em um ambiente interno, utilizando algoritmos de navegação, incluindo o desvio de obstáculos, determinando qual a melhor trajetória entre as áreas visitadas, dando continuidade ao projeto de título \textit{Desenvolvimento de técnicas de monitoramento de ambientes internos utilizando-se robôs móveis}, iniciado na disciplina \textit{Projeto Supervisionado ou de Graduação I}.
-
-Esta monografia apresenta o desenvolvimento e avaliação de algoritmos para determinar a seqüência das áreas a serem visitadas em ambientes internos com o objetivo de monitoramento destes ambientes utilizando-se um robô móvel. O problema a ser resolvido consiste na divisão de um ambiente previamente conhecido em áreas de interesse. A cada uma dessas áreas é atribuído um valor (peso) referente a sua importância de monitoramento. A prioridade com que o robô deve visitar determinadas áreas é calculada com base na importância dessas áreas e no tempo decorrido desde a sua última visita. Áreas de maior importância devem ser visitadas mais freqüentemente. 
-
-As avaliações consistem na comparação dos algoritmos. Serão utilizados dois critérios de comparação, um critério de pontuação final, onde a pontuação é calculada pela somatória dos pontos de cada sala, e os pontos de cada sala são calculados multiplicando a freqüência absoluta de visitas pela prioridade. O segundo critério é um gráfico mostrando a progressão da somatória dos graus de urgência de todas as salas.
-
-
-%\section{Organização da Monografia}
-%\label{organizacao_monografia}
-%Organização da monografia.
+\section{Organiza��o da Monografia}
 
