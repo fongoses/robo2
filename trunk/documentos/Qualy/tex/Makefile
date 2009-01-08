@@ -4,6 +4,4 @@ all:
 	pdflatex qualy.tex
 	@mv qualy.pdf ..
 	acroread ../qualy.pdf
-
-clean:
 	@./.apagar.sh
