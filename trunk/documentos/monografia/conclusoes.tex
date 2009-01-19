@@ -1,0 +1,37 @@
+%==========================================================
+% SCE=567 Projeto Supervisionado ou de Graduacao II
+% 
+% Capitulo 4: Conclusoes e Trabalhos Futuros.
+% 
+% Autor
+% Heitor Luis Polidoro
+% 
+% Orientador
+% Prof. Dr. Denis Fernando Wolf
+%==========================================================
+
+\chapter{Conclusões e Trabalhos Futuros}
+\label{conclusoes_trabalhos_futuros}
+Analisando os resultados obtidos descritos na seção \ref{resultados_obtidos}, podemos concluir que o desempenho do algoritmo 1 foi inferior em todos os testes, obtendo sempre uma pontuação menor e um grau de urgência total superior aos outros algoritmos. Os algoritmos 2 e 3 alternaram seu desempenho, sendo o algoritmo 2 melhor na pontuação do mapa 1, mas praticamente empatado com o algoritmo 3 no mapa 2 como mostra a tabela \ref{tab:comp_pontos}.
+\begin{table}
+\begin{center}\begin{tabular}{|c|c|c|c|}
+\hline
+  &  Algoritmo 1 &  Algoritmo 2 & Algoritmo 3 \\ 
+\hline 
+ Mapa 1 &  227 &  385 & 288 \\ 
+\hline 
+ Mapa 2 &  90 &  124 & 122 \\ 
+\hline 
+\end{tabular}
+\caption{Comparação da Pontuação dos Algoritmos nos Mapas.}
+\label{tab:comp_pontos}
+\end{center}\end{table}
+
+Analisando melhor esses dados, podemos verificar que no Mapa 1 (Figura \ref{fig:mapa_rep}), o Algoritmo 2 visitou com maior freqüência as salas de maior prioridade (Salas 1 e 3), como mostra na Tabela \ref{tab:freq_pontos_2_1}. Porém, as salas 7, 11 e 12 não foram visitadas. E as salas 6 e 9 que estão no caminho foram visitadas com muita freqüência. No caso do Algoritmo 3 o robô visitou todas as salas pelo menos uma vez, entretanto visitou com freqüência semelhante salas com prioridades opostas, como as salas 1, 2 e 3 (Tabela \ref{tab:freq_pontos_3_1}.
+
+Ao analisarmos os gráficos obtemos conclusões diferentes. Pois no gráfico da Figura \ref{fig:grafico_rep_30m} mostra claramente um desempenho melhor do Algoritmo 3, mantendo o Grau de Urgência Total sempre inferior aos outros algoritmos. No entanto, no gráfico da Figura \ref{fig:grafico_andar_30m} os algoritmos 2 e 3 tem um desempenho equivalente, e no final do gráfico existe uma mudança brusca.
+
+Com isso, é possível afirmar que o desempenho dos algoritmos desenvolvidos variam de acordo com a necessidade da aplicação.
+
+Como continuação desse projeto, pretende-se desenvolver um projeto semelhante utilizando uma equipe de robôs móveis, criando novos algoritmos de determinação de trajetória, alternando entre se haverá comunicação entre os robôs, se os robôs serão totalmente autônomos ou obedecerão a um mestre.
+
