@@ -145,7 +145,7 @@ Salas::atualizar ( time_t t )
 	void
 Salas::visitar ( int s ) 
 {
-	cout << "Visitando sala: " << s << ".\n";
+//	cout << "Visitando sala: " << s << ".\n";
 	sala[s].U = 0;
 	return ;
 }		/* -----  end of method Salas::visitar  ----- */

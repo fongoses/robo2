@@ -94,21 +94,24 @@ main ( int argc, char *argv[] )
 			ListaVertices::iterator it_c, it_a;
 			while(tempo - inicio < TOTAL * 60) { /* rodar por TOTAL minutos */
 				visitar_sala = sala.get_maiorU();
-				cout << "Indo para sala " << visitar_sala << " vertice " << sala.get_vertice(visitar_sala)<< endl; 
+//				cout << "Indo para sala " << visitar_sala << " vertice " << sala.get_vertice(visitar_sala)<< endl; 
 				caminho = mapa.dijkstra(robo1->get_vertice(), visitar_sala);
 				caminho.pop_front(); /* Removendo o vertice atual do caminho */
 				for(it_c = caminho.begin(); it_c != caminho.end(); it_c++) {
 					adjacentes = mapa.verticesAdjacentes(robo1->get_vertice()); /* Verifica se existe salas adjacentes ao vertice atual */
 					for(it_a = adjacentes.begin(); it_a != adjacentes.end(); it_a++) { 
-						cout << "Visitando sala adjacente " << *it_a << endl;
-						tempo += robo1->irPara(*it_a); /* Visita todas as salas adjacentes ao vertice atual */
+						if(sala.existeSala(*it_a)) {
+//							cout << "Visitando sala adjacente " << *it_a << endl;
+							tempo += robo1->irPara(*it_a); /* Visita todas as salas adjacentes ao vertice atual */
+							sala.visitar(*it_a);
+						}
 					}
 					tempo += robo1->irPara(*it_c);
 				}
 				while( tempo - anterior > ATUALIZACAO) {
 					anterior += ATUALIZACAO;
 					U = sala.atualizar(anterior);
-					arq << anterior << "\t" << U << endl;
+					arq << anterior - inicio << "\t" << U << endl;
 				}
 				sala.visitar(visitar_sala);
 				tempo += VISITAR_SALA;
