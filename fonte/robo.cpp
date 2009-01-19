@@ -122,7 +122,7 @@ Robo::irPara ( Ponto p )
 		while(!chegou(p));
 		return -1;
 	} else {
-		cout	<< "Simulando\n";
+//		cout	<< "Simulando\n";
 		tempo = floor(p.distancia(mapa.get_ponto(vertice)) / SIMULACAO_VEL + 0.5);
 //		cout << "Distancia entre: " << p << " e " << mapa.get_ponto(vertice) << " = " << p.distancia(mapa.get_ponto(vertice)) 
 //			   << " Velocidade: " <<  SIMULACAO_VEL << " ";

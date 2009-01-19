@@ -22,6 +22,7 @@
 #include	<fstream>
 #include	<cfloat>
 #include	<string>
+#include	<climits>
 
 #include	<map>
 #include	<list>
