@@ -1,7 +1,9 @@
 all:
-	@rm -f ../qualy.pdf
-	@pdflatex qualy.tex
-	pdflatex qualy.tex
-	@mv qualy.pdf ..
-	acroread ../qualy.pdf
+	@rm -f ../Qualy.pdf
+	@pdflatex Qualy.tex
+	bibtex Qualy
+	@pdflatex Qualy.tex
+	pdflatex Qualy.tex
+	@mv Qualy.pdf ..
+	acroread ../Qualy.pdf
 	@./.apagar.sh
