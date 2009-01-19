@@ -1,7 +1,7 @@
 all:
 	@rm -f ../Qualy.pdf
 	@pdflatex Qualy.tex
-	bibtex Qualy
+	@bibtex Qualy
 	@pdflatex Qualy.tex
 	pdflatex Qualy.tex
 	@mv Qualy.pdf ..
