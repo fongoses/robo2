@@ -1,6 +1,4 @@
 %==========================================================
-% SCE=567 Projeto Supervisionado ou de Graduacao II
-% 
 % Capitulo 2: Revisao Bibliografica.
 % 
 % Autor
@@ -13,146 +11,146 @@
 \chapter{Revisão Bibliográfica}
 \label{revisao_bibliografica}
 
-Esta seção descreve as seguintes técnicas utilizadas no desenvolvimento das atividades do projeto: o paradigma da robótica (Seção \ref{paradigmas_da_robotica}), o algoritmo de desvio de obstáculos (Seção \ref{desvio_de_obstaculos}), a busca de menor caminho (Seção \ref{busca_do_menor_caminho}) e o controle do robô (Seção \ref{controle_do_robo}).
-
-\section{Paradigmas da Robótica}
-\label{paradigmas_da_robotica}
-Um paradigma é uma filosofia, um conjunto de regras, técnicas que definem uma abordagem de um tipo de problema. Os paradigmas robóticos são as definições de como a ``inteligência'' dos robôs pode ser estruturada. Existem três primitivas básicas: SENTIR, PLANEJAR e AGIR; e a forma como são organizadas é que diferenciam os paradigmas. A primitiva SENTIR é responsável por adquirir informações sobre o mundo. A primitiva PLANEJAR recebe as informações adquiridas do mundo e gera as ações que o robô deve seguir. E a primitiva AGIR comanda diretamente os atuadores do robô \cite{Bianchi2003}. Utilizando-se dessas primitivas, é possível caracterizar até o momento três paradigmas robóticos: o Deliberativo (ou Hierárquico), o Reativo e o Híbrido Reativo / Deliberativo. 
-
-\subsection{Paradigma Deliberativo}
-\label{paradigma_deliberativo}
-O paradigma deliberativo foi o primeiro paradigma robótico, e as primitivas estão organizadas como mostra a Figura \ref{fig:paradigma_deliberativo}. 
- 
-O problema principal desse paradigma é a velocidade de resposta, pois os processos de criação dos modelos de mundo e de planejamentos exigem muito processamento, fazendo com que demore para obter uma resposta, e como as primitivas estão organizadas em seqüência, o robô precisa esperar que uma primitiva seja executada por completo para seguir para a outra \cite{Bianchi2003}.
-Porém tem-se preferência por utilizar o paradigma deliberativo quando o mundo puder ser modelado com precisão, as incertezas são limitadas e o ambiente não muda durante a execução \cite{FariaTese2006}.
-As arquiteturas mais conhecidas que utilizam o paradigma deliberativo são: SOAR (do inglês, \textit{State, Operator and Result}), \textit{Blackboard}, NCH (do inglês, \textit{Nested Hierarchical Controller}) PRODIGY e NASREM (do inglês, \textit{NASA/NBS Standard Reference Model}).
-
-\figura{Imagens/paradigma_deliberativo}{1}{Paradigma Deliberativo.}{fig:paradigma_deliberativo}
-
-\subsection{Paradigma Reativo}
-\label{paradigma_reativo}
-O paradigma reativo foi inspirado no comportamento de animais. Não existe modelo de mundo, portanto não há a necessidade da primitiva PLANEJAR (Figura \ref{fig:paradigma_reativo}), fazendo com que a velocidade de resposta se torne maior que no paradigma deliberativo \cite{Bianchi2003}.
- 
-Esse paradigma é orientado a comportamentos, ou seja, o comportamento final do robô é uma combinação de vários comportamentos independentes. Isso implica que as primitivas SENTIR e AGIR se tornem locais para cada comportamento. Portanto, a ação final do robô deve ser uma integração de todas as ações geradas por cada comportamento \cite{Bianchi2003}.
-\textit{Subsumption} e Esquema Motor são exemplos de arquiteturas que utilizam o paradigma reativo.
-
-\figura{Imagens/paradigma_reativo.jpg}{1}{Paradigma Reativo.}{fig:paradigma_reativo}
-
-\subsection{Paradigma Híbrido Reativo / Deliberativo}
-\label{paradigma_hibrido}
-Embora o paradigma reativo apresente um desempenho robusto e consiga lidar com facilidade em ambientes dinâmicos e complexos, tarefas como localização, ou navegação de forma autônoma por longo período de tempo ou por grandes distâncias, requerem que o robô tenha uma certa memória do mundo \cite{Bianchi2003}. Por outro lado o paradigma deliberativo pode não conseguir responder com rapidez e eficiência a uma mudança no mundo \ref{fig:deliberativo_x_reativo}, restringindo assim, o paradigma deliberativo a nichos específicos \cite{FariaTese2006}.
-
-\figura{Imagens/deliberativo_x_reativo.jpg}{1}{Comparação entre paradigmas: Deliberativo e Reativo.}{fig:deliberativo_x_reativo}
-
-Surgiu então, a necessidade de um paradigma que unisse o melhor dos paradigmas Deliberativo e Reativo. Assim foi criado o paradigma híbrido, unindo os paradigmas anteriores de forma que os robôs não são tão lentos como no paradigma deliberativo e podem planejar ações utilizando modelos do mundo.
-Nesse paradigma, a primitiva PLANEJAR não esta ligada em seqüência com as outras (Figura \ref{fig:paradigma_hibrido}). Isso quer dizer que o planejamento é feito em um passo e os atos de SENTIR e AGIR são realizados juntos em outro passo, fazendo com que o planejamento não faça parte do ciclo principal (percepção-ação), interferindo somente quando há algo relevante\cite{Bianchi2003}.
-São exemplos de arquiteturas híbridas: AuRA (do inglês, \textit{Autonomous Robot Architecture}), \textit{Atlantis}, DAMN (do inglês, \textit{Distributed Architecture for Mobile Navigation}), TCA (do inglês, \textit{Task Control Architecture}), \textit{Saphira} e NOS.
-
-\figura{Imagens/paradigma_hibrido.jpg}{1}{Paradigma Híbrido Reativo / Deliberativo.}{fig:paradigma_hibrido}
-
-\section{Desvio de Obstáculos}
-\label{desvio_de_obstaculos}
-Para a tarefa de desvio de obstáculos utilizou-se o algoritmo de campos potencias. Esse algoritmo consiste em calcular e representar a meta e os obstáculos do ambiente como forças que atraem e repelem o robô \cite{Koren1991}\cite{Goodrich2007}. Normalmente esse algoritmo pode ser implementado de maneira simples com sensores que provêem informações sobre a distância entre o robô e os obstáculos, como sonar ou LASER, por exemplo. 
- 
-No algoritmo de campos potenciais a direção e a velocidade que o robô deve seguir são dadas pelo vetor resultante da combinação das forças de atração da meta, e repulsão dos obstáculos. Por exemplo, a Figura \ref{fig:cp_meta} mostra o vetor resultante em cada ponto, num plano contendo somente a meta.
-
-\figura{Imagens/cp_meta.jpg}{1}{Campo Potencial de Atração.}{fig:cp_meta}
-
-Para gerar esse campo, basta considerar o vetor $v = [x, y]$ como vetor gradiente $\Delta = [\Delta x, \Delta y]$ e calcular e segundo os seguintes termos:
-\begin{itemize}
-	\item Seja $(x_m, y_m)$ a posição da meta onde o robô deve chegar;
-	\item Seja $(x, y)$ a posição do robô;
-	\item Considerar a meta como um circunferência de raio $r$;
-	\item Considerar um anel de extensão de raios interno $r$ e externo $s + r$;
-	\item Seja $d$ a distância entre a meta e o robô: $d = \sqrt{(x_m - x)^2 + (y_m - y)^2}$;
-	\item Seja $\theta$ o ângulo entre a meta e o robô: $\theta = tan^{-1}\left(\frac{y_m - y}{x_m - x}\right)$;
-	\item Definir $\Delta x$ e $\Delta y$ de acordo com o seguinte:
-\end{itemize}
-\begin{center}
-\begin{tabular}{cc}
-Se $d < r$ & $\Delta x = \Delta y = 0$\\
-Se $r \leq d \leq s + r$ & $\Delta x = \alpha(d - r)cos(\theta)$ e $\Delta y = \alpha(d - r)sin(\theta)$\\
-Se $d > s + r$ & $\Delta x = \alpha cos(\theta)$ e $\Delta y = \alpha sin(\theta)$
-\end{tabular}
-\end{center}
-
-Quando $d < r$ significa que o robô está dentro da circunferência que define a meta, portanto ele deve parar. Quando $r \leq d \leq s + r$ significa que o robô está no anel de extensão (Figura \ref{fig:cp_meta_ext}), então a velocidade deverá ser proporcional à distância do robô para a meta. E, finalmente, quando $d > s + r$ significa que o robô está muito longe da meta, portanto sua velocidade é fixada em $\alpha$ , sendo $\alpha > 0$
-
-\figura{Imagens/cp_meta_ext.jpg}{1}{Anel de Extensão no Campo Potencial de Atração.}{fig:cp_meta_ext}
-
-No caso de um campo potencial de repulsão, o cálculo é similar ao cálculo de um campo potencia de atração.
-
-\begin{itemize}
-	\item Seja $(x_o, y_o)$ a posição do obstáculo onde o robô deve chegar;
-	\item Seja $(x, y)$ a posição do robô;
-	\item Considerar o obstáculo como um circunferência de raio $r$;
-	\item Considerar um anel de extensão de raios interno $r$ e externo $s + r$;
-	\item Seja $d$ a distância entre o obstáculo e o robô: $d = \sqrt{(x_o - x)^2 + (y_o - y)^2}$;
-	\item Seja $\theta$ o ângulo entre o obstáculo e o robô: $\theta = tan^{-1}\left(\frac{y_o - y}{x_o - x}\right)$;
-	\item Definir $\Delta x$ e $\Delta y$ de acordo com o seguinte:
-\end{itemize}
-\begin{center}
-\begin{tabular}{cc}
-Se $d < r$ & $\Delta x = -sign(cos(\theta)) \times \infty$ e $\Delta y = -sign(sin(\theta)) \times \infty$\\
-Se $r \leq d \leq s + r$ & $\Delta x = \beta(s + r - d)cos(\theta)$ e $\Delta y = \beta(s + r - d)sin(\theta)$\\
-Se $d > s + r$ & $\Delta x = \Delta y = 0$
-\end{tabular}
-\end{center}
-
-Dentro do raio do obstáculo ($d < r$) o campo potencial de repulsão é infinito e aponta para fora do centro do obstáculo. No anel de extensão ($r \leq d \leq s + r$) a velocidade é inversamente proporcional à distância do robô para o obstáculo. E fora do anel de extensão ($d > s + r$) o obstáculo não oferece perigo, portanto não interfere na velocidade nem na direção do robô. A Figura \ref{fig:cp_obst_ext} ilustra os vetores resultantes.
-
-\figura{Imagens/cp_obst_ext.jpg}{1}{Campo Potencial de Repulsão com Anel de Extensão.}{fig:cp_obst_ext}
-
-
-A direção e a velocidade finais do robô são correspondentes à direção e ao módulo do vetor resultante da combinação do campo potencial da meta e de todos os campos potenciais dos possíveis obstáculos, ou seja, $v = v_a + \sum v_ri$ onde $v_a$ é o vetor do campo de atração e $v_ri$ é o i-ésimo vetor do campo de repulsão (Figura \ref{fig:cp_combinacao}).
-
-\figura{Imagens/cp_combinacao.jpg}{0.5}{Campo de Atração (a), Campo de Repulsão (b), Combinação dos Campos (c).}{fig:cp_combinacao}
-
-Uma desvantagem é que as forças de atração e repulsão podem se anular em determinados pontos, gerando mínimos locais \cite{Faria2006}. Na Figura \ref{fig:cp_minimos_locais} os mínimos locais estão representados por células em branco, onde o vetor resultante tem módulo zero, impossibilitando o algoritmo de decidir para onde o robô deve seguir.
-
-\figura{Imagens/cp_minimos_locais}{0.5}{Mínimos Locais.}{fig:cp_minimos_locais}
-
-\section{Busca do Menor Caminho}
-\label{busca_do_menor_caminho}
-
-Para determinar a melhor trajetória entre as áreas do ambiente, pretende-se utilizar um algoritmo chamado \textit{Ants}, desenvolvido pelo autor. Nesse algoritmo, o ambiente (mapa topológico, já conhecido) é representado como um grafo, onde os vértices (m) representam as áreas de interesse e as arestas(n) representam a distância, ou o custo, para o robô se deslocar de uma área para a outra (Figura \ref{fig:mapa_topologico}).
-
-\figura{Imagens/mapa_topologico.jpg}{1}{Mapa Topológico.}{fig:mapa_topologico}
-
-\subsection{Ants}
-\label{ants}
-A idéia desse algoritmo é uma busca em profundidade, porém sem retroceder, visando paralelismo. Inicialmente é criado um agente no vértice inicial, e esse agente é inserido numa fila. A rotina do algoritmo consiste em:
-\begin{itemize}
-  \item Se a fila de agentes não estiver vazia, retira um agente da fila, se não finaliza a rotina;
-	\item Para cada vértice adjacente ao vértice onde se encontra o agente é criada uma cópia do agente que é colocada nesse vértice adjacente somando o peso da aresta e armazenando o caminho percorrido.
-	\item Compara-se a soma do caminho desse novo agente com a variável \texttt{minimo\_encontrado} (iniciada com $\infty$) se for menor, o novo agente é inserido no final da fila, se não ele é simplesmente descartado.
-	\item Quando um agente chega ao vértice destino, o agente é guardado, e a variável \texttt{minimo\_encontrado} é atualizada.
-\end{itemize}
-
-Essa rotina se repete até que não exista mais agentes na fila. Se o vértice destino for alcançável a partir do vértice inicial, o algoritmo \textit{Ants} retornará o menor caminho do vértice inicial até o vértice destino. 
-
-%\subsubsection{Busca em Profundidade}
-%\label{busca_em_Profundidade}
-
-%\subsubsection{Busca em Largura}
-%\label{busca_em_largura}
-
-%\subsubsection{Algoritmo de Dijkstra}
-%\label{algoritmo_de_dijkstra}
-
-\section{Controle do Robô}
-\label{controle_do_robo}
-O controle do robô será desenvolvido utilizando-se a biblioteca Player/Stage \cite{Gerkey2001}, a qual permite que sejam realizadas simulações antes que os algoritmos sejam testados com o robô real (Figura \ref{fig:gazebo_pioneer}). Essas simulações são importantes para o aperfeiçoamento dos parâmetros, como distâncias, velocidades, etc, antes do teste no Pioneer.
-
-\figura{Imagens/gazebo_pioneer.jpg}{.9}{Robô Pioneer, Simulado e Real.}{fig:gazebo_pioneer}
-
-\subsection{Player}
-\label{player}
-O Player é um servidor de rede para controlar robôs. Executando embarcado no robô, o Player provê uma interface simples e clara dos sensores e atuadores do robô sobre uma rede IP. O programa cliente ``conversa'' com o Player utilizando sockets TPC, lendo dados dos sensores, escrevendo comandos nos atuadores e configurando dispositivos em tempo de execução.
-O servidor Player foi desenvolvido para ser independente de linguagem e de plataforma. O programa cliente pode executar em qualquer máquina que tenha conexão de rede com o robô, e pode ser escrito em qualquer linguagem que suporte sockets TCP. Atualmente existem clientes disponíveis em C++, Tcl, Java em Phyton \cite{Player2007}. Futuramente, o Player não fará suposições sobre como o programa de controle do robô é estruturado, ou seja, poderá-se escrever desde programas multi-threads altamente concorrentes até programas seqüências simples.
-
-\subsection{Stage}
-\label{stage}
-O Stage é usado normalmente como um plugin para o Player, provendo uma série de dispositivos virtuais para os clientes Player. Os usuários escrevem as rotinas e algoritmos normalmente, como clientes para um servidor Player. Não é possível para clientes distinguir a diferença entre os dispositivos reais do robô e os equivalentes simulados pelo Player/Stage. Com isso clientes Player desenvolvidos usando o Stage precisarão de pouca ou nenhuma modificação para trabalhar com o robô real, e vice-versa. Em muitos casos basta somente mudar no cliente o endereço IP de onde está o servidor. O Stage também pode simular uma população de robôs móveis, sensores e objetos num ambiente bi-dimensional (Figura \ref{fig:stage}) \cite{Player2007}. Neste projeto será utilizado somente um robô e o sensor LASER.
-
-\figura{Imagens/stage.jpg}{.5}{Simulação com 5 robôs, 2 objetos, LASER, sonar e blobfinder.}{fig:stage}
+%Esta seção descreve as seguintes técnicas utilizadas no desenvolvimento das atividades do projeto: o paradigma da robótica (Seção \ref{paradigmas_da_robotica}), o algoritmo de desvio de obstáculos (Seção \ref{desvio_de_obstaculos}), a busca de menor caminho (Seção \ref{busca_do_menor_caminho}) e o controle do robô (Seção \ref{controle_do_robo}).
+%
+%\section{Paradigmas da Robótica}
+%\label{paradigmas_da_robotica}
+%Um paradigma é uma filosofia, um conjunto de regras, técnicas que definem uma abordagem de um tipo de problema. Os paradigmas robóticos são as definições de como a ``inteligência'' dos robôs pode ser estruturada. Existem três primitivas básicas: SENTIR, PLANEJAR e AGIR; e a forma como são organizadas é que diferenciam os paradigmas. A primitiva SENTIR é responsável por adquirir informações sobre o mundo. A primitiva PLANEJAR recebe as informações adquiridas do mundo e gera as ações que o robô deve seguir. E a primitiva AGIR comanda diretamente os atuadores do robô \cite{Bianchi2003}. Utilizando-se dessas primitivas, é possível caracterizar até o momento três paradigmas robóticos: o Deliberativo (ou Hierárquico), o Reativo e o Híbrido Reativo / Deliberativo. 
+%
+%\subsection{Paradigma Deliberativo}
+%\label{paradigma_deliberativo}
+%O paradigma deliberativo foi o primeiro paradigma robótico, e as primitivas estão organizadas como mostra a Figura \ref{fig:paradigma_deliberativo}. 
+% 
+%O problema principal desse paradigma é a velocidade de resposta, pois os processos de criação dos modelos de mundo e de planejamentos exigem muito processamento, fazendo com que demore para obter uma resposta, e como as primitivas estão organizadas em seqüência, o robô precisa esperar que uma primitiva seja executada por completo para seguir para a outra \cite{Bianchi2003}.
+%Porém tem-se preferência por utilizar o paradigma deliberativo quando o mundo puder ser modelado com precisão, as incertezas são limitadas e o ambiente não muda durante a execução \cite{FariaTese2006}.
+%As arquiteturas mais conhecidas que utilizam o paradigma deliberativo são: SOAR (do inglês, \textit{State, Operator and Result}), \textit{Blackboard}, NCH (do inglês, \textit{Nested Hierarchical Controller}) PRODIGY e NASREM (do inglês, \textit{NASA/NBS Standard Reference Model}).
+%
+%\figura{Imagens/paradigma_deliberativo}{1}{Paradigma Deliberativo.}{fig:paradigma_deliberativo}
+%
+%\subsection{Paradigma Reativo}
+%\label{paradigma_reativo}
+%O paradigma reativo foi inspirado no comportamento de animais. Não existe modelo de mundo, portanto não há a necessidade da primitiva PLANEJAR (Figura \ref{fig:paradigma_reativo}), fazendo com que a velocidade de resposta se torne maior que no paradigma deliberativo \cite{Bianchi2003}.
+% 
+%Esse paradigma é orientado a comportamentos, ou seja, o comportamento final do robô é uma combinação de vários comportamentos independentes. Isso implica que as primitivas SENTIR e AGIR se tornem locais para cada comportamento. Portanto, a ação final do robô deve ser uma integração de todas as ações geradas por cada comportamento \cite{Bianchi2003}.
+%\textit{Subsumption} e Esquema Motor são exemplos de arquiteturas que utilizam o paradigma reativo.
+%
+%\figura{Imagens/paradigma_reativo.jpg}{1}{Paradigma Reativo.}{fig:paradigma_reativo}
+%
+%\subsection{Paradigma Híbrido Reativo / Deliberativo}
+%\label{paradigma_hibrido}
+%Embora o paradigma reativo apresente um desempenho robusto e consiga lidar com facilidade em ambientes dinâmicos e complexos, tarefas como localização, ou navegação de forma autônoma por longo período de tempo ou por grandes distâncias, requerem que o robô tenha uma certa memória do mundo \cite{Bianchi2003}. Por outro lado o paradigma deliberativo pode não conseguir responder com rapidez e eficiência a uma mudança no mundo \ref{fig:deliberativo_x_reativo}, restringindo assim, o paradigma deliberativo a nichos específicos \cite{FariaTese2006}.
+%
+%\figura{Imagens/deliberativo_x_reativo.jpg}{1}{Comparação entre paradigmas: Deliberativo e Reativo.}{fig:deliberativo_x_reativo}
+%
+%Surgiu então, a necessidade de um paradigma que unisse o melhor dos paradigmas Deliberativo e Reativo. Assim foi criado o paradigma híbrido, unindo os paradigmas anteriores de forma que os robôs não são tão lentos como no paradigma deliberativo e podem planejar ações utilizando modelos do mundo.
+%Nesse paradigma, a primitiva PLANEJAR não esta ligada em seqüência com as outras (Figura \ref{fig:paradigma_hibrido}). Isso quer dizer que o planejamento é feito em um passo e os atos de SENTIR e AGIR são realizados juntos em outro passo, fazendo com que o planejamento não faça parte do ciclo principal (percepção-ação), interferindo somente quando há algo relevante\cite{Bianchi2003}.
+%São exemplos de arquiteturas híbridas: AuRA (do inglês, \textit{Autonomous Robot Architecture}), \textit{Atlantis}, DAMN (do inglês, \textit{Distributed Architecture for Mobile Navigation}), TCA (do inglês, \textit{Task Control Architecture}), \textit{Saphira} e NOS.
+%
+%\figura{Imagens/paradigma_hibrido.jpg}{1}{Paradigma Híbrido Reativo / Deliberativo.}{fig:paradigma_hibrido}
+%
+%\section{Desvio de Obstáculos}
+%\label{desvio_de_obstaculos}
+%Para a tarefa de desvio de obstáculos utilizou-se o algoritmo de campos potencias. Esse algoritmo consiste em calcular e representar a meta e os obstáculos do ambiente como forças que atraem e repelem o robô \cite{Koren1991}\cite{Goodrich2007}. Normalmente esse algoritmo pode ser implementado de maneira simples com sensores que provêem informações sobre a distância entre o robô e os obstáculos, como sonar ou LASER, por exemplo. 
+% 
+%No algoritmo de campos potenciais a direção e a velocidade que o robô deve seguir são dadas pelo vetor resultante da combinação das forças de atração da meta, e repulsão dos obstáculos. Por exemplo, a Figura \ref{fig:cp_meta} mostra o vetor resultante em cada ponto, num plano contendo somente a meta.
+%
+%\figura{Imagens/cp_meta.jpg}{1}{Campo Potencial de Atração.}{fig:cp_meta}
+%
+%Para gerar esse campo, basta considerar o vetor $v = [x, y]$ como vetor gradiente $\Delta = [\Delta x, \Delta y]$ e calcular e segundo os seguintes termos:
+%\begin{itemize}
+%	\item Seja $(x_m, y_m)$ a posição da meta onde o robô deve chegar;
+%	\item Seja $(x, y)$ a posição do robô;
+%	\item Considerar a meta como um circunferência de raio $r$;
+%	\item Considerar um anel de extensão de raios interno $r$ e externo $s + r$;
+%	\item Seja $d$ a distância entre a meta e o robô: $d = \sqrt{(x_m - x)^2 + (y_m - y)^2}$;
+%	\item Seja $\theta$ o ângulo entre a meta e o robô: $\theta = tan^{-1}\left(\frac{y_m - y}{x_m - x}\right)$;
+%	\item Definir $\Delta x$ e $\Delta y$ de acordo com o seguinte:
+%\end{itemize}
+%\begin{center}
+%\begin{tabular}{cc}
+%Se $d < r$ & $\Delta x = \Delta y = 0$\\
+%Se $r \leq d \leq s + r$ & $\Delta x = \alpha(d - r)cos(\theta)$ e $\Delta y = \alpha(d - r)sin(\theta)$\\
+%Se $d > s + r$ & $\Delta x = \alpha cos(\theta)$ e $\Delta y = \alpha sin(\theta)$
+%\end{tabular}
+%\end{center}
+%
+%Quando $d < r$ significa que o robô está dentro da circunferência que define a meta, portanto ele deve parar. Quando $r \leq d \leq s + r$ significa que o robô está no anel de extensão (Figura \ref{fig:cp_meta_ext}), então a velocidade deverá ser proporcional à distância do robô para a meta. E, finalmente, quando $d > s + r$ significa que o robô está muito longe da meta, portanto sua velocidade é fixada em $\alpha$ , sendo $\alpha > 0$
+%
+%\figura{Imagens/cp_meta_ext.jpg}{1}{Anel de Extensão no Campo Potencial de Atração.}{fig:cp_meta_ext}
+%
+%No caso de um campo potencial de repulsão, o cálculo é similar ao cálculo de um campo potencia de atração.
+%
+%\begin{itemize}
+%	\item Seja $(x_o, y_o)$ a posição do obstáculo onde o robô deve chegar;
+%	\item Seja $(x, y)$ a posição do robô;
+%	\item Considerar o obstáculo como um circunferência de raio $r$;
+%	\item Considerar um anel de extensão de raios interno $r$ e externo $s + r$;
+%	\item Seja $d$ a distância entre o obstáculo e o robô: $d = \sqrt{(x_o - x)^2 + (y_o - y)^2}$;
+%	\item Seja $\theta$ o ângulo entre o obstáculo e o robô: $\theta = tan^{-1}\left(\frac{y_o - y}{x_o - x}\right)$;
+%	\item Definir $\Delta x$ e $\Delta y$ de acordo com o seguinte:
+%\end{itemize}
+%\begin{center}
+%\begin{tabular}{cc}
+%Se $d < r$ & $\Delta x = -sign(cos(\theta)) \times \infty$ e $\Delta y = -sign(sin(\theta)) \times \infty$\\
+%Se $r \leq d \leq s + r$ & $\Delta x = \beta(s + r - d)cos(\theta)$ e $\Delta y = \beta(s + r - d)sin(\theta)$\\
+%Se $d > s + r$ & $\Delta x = \Delta y = 0$
+%\end{tabular}
+%\end{center}
+%
+%Dentro do raio do obstáculo ($d < r$) o campo potencial de repulsão é infinito e aponta para fora do centro do obstáculo. No anel de extensão ($r \leq d \leq s + r$) a velocidade é inversamente proporcional à distância do robô para o obstáculo. E fora do anel de extensão ($d > s + r$) o obstáculo não oferece perigo, portanto não interfere na velocidade nem na direção do robô. A Figura \ref{fig:cp_obst_ext} ilustra os vetores resultantes.
+%
+%\figura{Imagens/cp_obst_ext.jpg}{1}{Campo Potencial de Repulsão com Anel de Extensão.}{fig:cp_obst_ext}
+%
+%
+%A direção e a velocidade finais do robô são correspondentes à direção e ao módulo do vetor resultante da combinação do campo potencial da meta e de todos os campos potenciais dos possíveis obstáculos, ou seja, $v = v_a + \sum v_ri$ onde $v_a$ é o vetor do campo de atração e $v_ri$ é o i-ésimo vetor do campo de repulsão (Figura \ref{fig:cp_combinacao}).
+%
+%\figura{Imagens/cp_combinacao.jpg}{0.5}{Campo de Atração (a), Campo de Repulsão (b), Combinação dos Campos (c).}{fig:cp_combinacao}
+%
+%Uma desvantagem é que as forças de atração e repulsão podem se anular em determinados pontos, gerando mínimos locais \cite{Faria2006}. Na Figura \ref{fig:cp_minimos_locais} os mínimos locais estão representados por células em branco, onde o vetor resultante tem módulo zero, impossibilitando o algoritmo de decidir para onde o robô deve seguir.
+%
+%\figura{Imagens/cp_minimos_locais}{0.5}{Mínimos Locais.}{fig:cp_minimos_locais}
+%
+%\section{Busca do Menor Caminho}
+%\label{busca_do_menor_caminho}
+%
+%Para determinar a melhor trajetória entre as áreas do ambiente, pretende-se utilizar um algoritmo chamado \textit{Ants}, desenvolvido pelo autor. Nesse algoritmo, o ambiente (mapa topológico, já conhecido) é representado como um grafo, onde os vértices (m) representam as áreas de interesse e as arestas(n) representam a distância, ou o custo, para o robô se deslocar de uma área para a outra (Figura \ref{fig:mapa_topologico}).
+%
+%\figura{Imagens/mapa_topologico.jpg}{1}{Mapa Topológico.}{fig:mapa_topologico}
+%
+%\subsection{Ants}
+%\label{ants}
+%A idéia desse algoritmo é uma busca em profundidade, porém sem retroceder, visando paralelismo. Inicialmente é criado um agente no vértice inicial, e esse agente é inserido numa fila. A rotina do algoritmo consiste em:
+%\begin{itemize}
+%  \item Se a fila de agentes não estiver vazia, retira um agente da fila, se não finaliza a rotina;
+%	\item Para cada vértice adjacente ao vértice onde se encontra o agente é criada uma cópia do agente que é colocada nesse vértice adjacente somando o peso da aresta e armazenando o caminho percorrido.
+%	\item Compara-se a soma do caminho desse novo agente com a variável \texttt{minimo\_encontrado} (iniciada com $\infty$) se for menor, o novo agente é inserido no final da fila, se não ele é simplesmente descartado.
+%	\item Quando um agente chega ao vértice destino, o agente é guardado, e a variável \texttt{minimo\_encontrado} é atualizada.
+%\end{itemize}
+%
+%Essa rotina se repete até que não exista mais agentes na fila. Se o vértice destino for alcançável a partir do vértice inicial, o algoritmo \textit{Ants} retornará o menor caminho do vértice inicial até o vértice destino. 
+%
+%%\subsubsection{Busca em Profundidade}
+%%\label{busca_em_Profundidade}
+%
+%%\subsubsection{Busca em Largura}
+%%\label{busca_em_largura}
+%
+%%\subsubsection{Algoritmo de Dijkstra}
+%%\label{algoritmo_de_dijkstra}
+%
+%\section{Controle do Robô}
+%\label{controle_do_robo}
+%O controle do robô será desenvolvido utilizando-se a biblioteca Player/Stage \cite{Gerkey2001}, a qual permite que sejam realizadas simulações antes que os algoritmos sejam testados com o robô real (Figura \ref{fig:gazebo_pioneer}). Essas simulações são importantes para o aperfeiçoamento dos parâmetros, como distâncias, velocidades, etc, antes do teste no Pioneer.
+%
+%\figura{Imagens/gazebo_pioneer.jpg}{.9}{Robô Pioneer, Simulado e Real.}{fig:gazebo_pioneer}
+%
+%\subsection{Player}
+%\label{player}
+%O Player é um servidor de rede para controlar robôs. Executando embarcado no robô, o Player provê uma interface simples e clara dos sensores e atuadores do robô sobre uma rede IP. O programa cliente ``conversa'' com o Player utilizando sockets TPC, lendo dados dos sensores, escrevendo comandos nos atuadores e configurando dispositivos em tempo de execução.
+%O servidor Player foi desenvolvido para ser independente de linguagem e de plataforma. O programa cliente pode executar em qualquer máquina que tenha conexão de rede com o robô, e pode ser escrito em qualquer linguagem que suporte sockets TCP. Atualmente existem clientes disponíveis em C++, Tcl, Java em Phyton \cite{Player2007}. Futuramente, o Player não fará suposições sobre como o programa de controle do robô é estruturado, ou seja, poderá-se escrever desde programas multi-threads altamente concorrentes até programas seqüências simples.
+%
+%\subsection{Stage}
+%\label{stage}
+%O Stage é usado normalmente como um plugin para o Player, provendo uma série de dispositivos virtuais para os clientes Player. Os usuários escrevem as rotinas e algoritmos normalmente, como clientes para um servidor Player. Não é possível para clientes distinguir a diferença entre os dispositivos reais do robô e os equivalentes simulados pelo Player/Stage. Com isso clientes Player desenvolvidos usando o Stage precisarão de pouca ou nenhuma modificação para trabalhar com o robô real, e vice-versa. Em muitos casos basta somente mudar no cliente o endereço IP de onde está o servidor. O Stage também pode simular uma população de robôs móveis, sensores e objetos num ambiente bi-dimensional (Figura \ref{fig:stage}) \cite{Player2007}. Neste projeto será utilizado somente um robô e o sensor LASER.
+%
+%\figura{Imagens/stage.jpg}{.5}{Simulação com 5 robôs, 2 objetos, LASER, sonar e blobfinder.}{fig:stage}
