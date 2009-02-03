@@ -13,8 +13,8 @@
 \chapter{Introdução}
 \label{introducao}
 
-\section{Contextualização e Motivação}
-\label{contextualizacao_motivacao}
+\section{Contextualização}
+\label{contextualizacao}
 A robótica consiste em uma área multidisciplinar de pesquisa, envolvendo desde elementos de engenharia mecânica, elétrica, computação até áreas de humanas como psicologia e estudos do comportamento de animais.
 
 Inicialmente, os robôs foram utilizados para automação industrial, mas com a evolução tecnológica os robôs passaram a ser utilizados em outras áreas como: medicina de precisão, ambientes perigosos, ambientes insalubres, na área de entretenimento, serviços domésticos, etc. Nesse contexto surgiram as pesquisas para o desenvolvimento de robôs móveis autônomos, que sejam capazes de atuar em ambientes reais e reagir a situações desconhecidas de forma inteligente \cite{Thrun2002}.
@@ -33,21 +33,17 @@ A proposta desse projeto é desenvolver uma aplicação de robótica móvel para o mo
 
 Na literatura, um problema semelhante que vem sendo estudando há muitos anos é o Problema do caixeiro-viajante da classe de problemas de roteamento de nós, onde o caixeiro deve, dado um conjunto de cidades, partir de uma cidade base, visitar as outras somente uma vez e retornar à base \cite{Arenales2007}. 
 
-A motivação deste projeto é encontrar uma estratégia eficiente para o monitoramento de ambientes internos, para ser usado em sistemas de segurança, hospitais, ou qualquer outra situação que se adeqüe.
+\section{Motivação}
+\label{motivacao}
+A motivação deste projeto é encontrar uma estratégia e/ou um algoritmo eficiente para o monitoramento de ambientes internos, com a finalidade de ser utilizado em sistemas de segurança inteligentes, hospitais, ou qualquer outra situação em que o monitoramento de ambientes internos possa ser útil.
 
 %A motivação deste projeto está em expandir os conhecimentos nas áreas de navegação e exploração de ambientes internos, com utilização de técnicas de inteligência artificial, o interesse particular por robótica, o contato anterior com o robô que será utilizado para os testes reais, a familiaridade com a ferramenta de desenvolvimento e com a ferramenta de simulação Player/Stage \cite{Gerkey2003} e, também, a possibilidade de dar continuidade ao projeto iniciado na disciplina \textit{Projeto Supervisionado ou de Graduação I} e \textit{II}, colocando em prática conceitos aprendidos nas disciplinas cursadas na graduação.
 
+\section{Objetivo}
+\label{objetivo}
+Esse projeto tem como objetivo o desenvolvimento e comparação entre estratégias e algoritmos para determinar uma seqüência de áreas a serem visitadas em ambientes internos com a finalidade de monitoramento desses ambientes utilizando um robô móvel. O problema a ser resolvido consiste na divisão de um ambiente previamente conhecido em áreas de interesse. A cada uma dessas áreas é atribuído um valor (peso) referente a sua importância de monitoramento. A prioridade com que o robô deve visitar determinadas áreas é calculada com base na importância dessas áreas e no tempo decorrido desde a sua última visita. Áreas de maior importância devem ser visitadas mais freqüentemente. 
 
-
-
-%\section{Objetivos do Trabalho}
-%\label{objetivos_trabalho}
-%Esse projeto tem como objetivos ampliar os conhecimentos do aluno na área de robótica móvel, bem como possibilitar uma experiência prática na aplicação de conceitos aprendidos em disciplinas cursadas na graduação. Para isso, é proposto o desenvolvimento e avaliação de algoritmos de determinação da seqüência em que as áreas devem ser visitadas em um ambiente interno, utilizando algoritmos de navegação, incluindo o desvio de obstáculos, determinando qual a melhor trajetória entre as áreas visitadas, dando continuidade ao projeto de título \textit{Desenvolvimento de técnicas de monitoramento de ambientes internos utilizando-se robôs móveis}, iniciado na disciplina \textit{Projeto Supervisionado ou de Graduação I}.
-%
-%Esta monografia apresenta o desenvolvimento e avaliação de algoritmos para determinar a seqüência das áreas a serem visitadas em ambientes internos com o objetivo de monitoramento destes ambientes utilizando-se um robô móvel. O problema a ser resolvido consiste na divisão de um ambiente previamente conhecido em áreas de interesse. A cada uma dessas áreas é atribuído um valor (peso) referente a sua importância de monitoramento. A prioridade com que o robô deve visitar determinadas áreas é calculada com base na importância dessas áreas e no tempo decorrido desde a sua última visita. Áreas de maior importância devem ser visitadas mais freqüentemente. 
-%
-%As avaliações consistem na comparação dos algoritmos. Serão utilizados dois critérios de comparação, um critério de pontuação final, onde a pontuação é calculada pela somatória dos pontos de cada sala, e os pontos de cada sala são calculados multiplicando a freqüência absoluta de visitas pela prioridade. O segundo critério é um gráfico mostrando a progressão da somatória dos graus de urgência de todas as salas.
-%
+As avaliações consistem na comparação dos algoritmos e estratégias. Serão utilizados dois critérios de comparação, um critério comparando a freqüência relativa de cada sala com sua prioridade relativa, onde o melhor resultado é aquele em que a freqüência relativa se aproximar mais da prioridade relativa. O segundo critério é um gráfico mostrando a progressão da somatória dos graus de urgência de todas as salas.
 
 %\section{Organização da Monografia}
 %\label{organizacao_monografia}
