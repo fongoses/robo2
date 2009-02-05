@@ -1,0 +1,138 @@
+% This file was created with JabRef 2.4.2.
+% Encoding: UTF-8
+
+@BOOK{Arenales2007,
+  title = {Pesquisa operacional},
+  publisher = {Elsevier Campus},
+  year = {2007},
+  author = {M. N. Arenales and V. {ARMENTANO} and R. {MORABITO} and H. {YANASSE}}
+}
+
+@BOOK{Arkin1998,
+  title = {{Behavior-Based} Robotics},
+  publisher = {{MIT} Press},
+  year = {1998},
+  author = {R. C. Arkin}
+}
+
+@BOOK{Cormen2001,
+  title = {Introduction to Algorithms},
+  publisher = {{MIT} Press},
+  year = {2001},
+  author = {T. H. Cormen}
+}
+
+@BOOK{Dudek2000,
+  title = {Computational Principles of Mobile Robotics},
+  publisher = {Cambridge University Press},
+  year = {2000},
+  author = {G. Dudek and M. Jenkin}
+}
+
+@MISC{FriendlyRobotics2009,
+  author = {{FriendlyRobotics}},
+  title = {Robomow® Lawn Mower - Automatic Lawnmower},
+  howpublished = {http://www.friendlyrobotics.com/},
+  year = {2009},
+  url = {http://www.friendlyrobotics.com/}
+}
+
+@ARTICLE{Gates2007,
+  author = {B. Gates},
+  title = {A Robot in Every Home},
+  journal = {Scientific American Magazine},
+  year = {2007},
+  volume = {296},
+  pages = {58--65},
+  number = {1}
+}
+
+@INPROCEEDINGS{Gerkey2003,
+  author = {B. Gerkey and R. T. Vaughan and A. Howard},
+  title = {The player/stage project: Tools for multi-robot and distributed sensor
+	systems},
+  booktitle = {Proceedings of the 11th International Conference on Advanced Robotics},
+  year = {2003},
+  pages = {317--323}
+}
+
+@MISC{IRobot2009,
+  author = {{IRobot}},
+  title = {{iRobot} Corporation},
+  howpublished = {http://store.irobot.com/corp/index.jsp},
+  year = {2009},
+  url = {http://store.irobot.com/corp/index.jsp}
+}
+
+@MISC{NASA,
+  author = {{NASA}},
+  title = {Mars Pathfinder},
+  howpublished = {http://mpfwww.jpl.nasa.gov/default.html},
+  url = {http://mpfwww.jpl.nasa.gov/default.html}
+}
+
+@BOOK{Polidoro2007,
+  title = {Desenvolvimento De Técnicas De Monitoramento De Ambientes Internos
+	{Utilizando-Se} Robôs Móveis},
+  publisher = {{ICMC/USP}},
+  year = {2007},
+  author = {Heitor Luis Polidoro}
+}
+
+@BOOK{Russel2003,
+  title = {Artificial intelligence},
+  publisher = {{Prentice-Hall}},
+  year = {2003},
+  author = {S. J. Russel and P. Norvig}
+}
+
+@ARTICLE{Thrun2002,
+  author = {Sebastian Thrun},
+  title = {Probabilistic robotics},
+  journal = {Commun. {ACM}},
+  year = {2002},
+  volume = {45},
+  pages = {52--57},
+  number = {3},
+  abstract = {Planning and navigation algorithms exploit statistics gleaned from
+	uncertain, imperfect real-world environments to guide robots toward
+	their goals and around obstacles.},
+  doi = {10.1145/504729.504754},
+  url = {http://portal.acm.org/citation.cfm?id=504729.504754}
+}
+
+@ARTICLE{Thrun2002a,
+  author = {S. Thrun},
+  title = {Robotic Mapping: A Survey},
+  journal = {Exploring Artificial Intelligence in the New Millennium},
+  year = {2002},
+  volume = {1},
+  pages = {1--35}
+}
+
+@ARTICLE{Thrun2004,
+  author = {S. Thrun and S. Thayer and W. Whittaker and C. Baker and W. Burgard
+	and D. Ferguson and D. Hahnel and D. Montemerlo and A. Morris and
+	Z. Omohundro and C. Reverte and Whittaker W},
+  title = {Autonomous exploration and mapping of abandoned mines},
+  journal = {Robotics \& Automation Magazine, {IEEE}},
+  year = {2004},
+  volume = {11},
+  pages = {79--91},
+  number = {4},
+  abstract = {This article discusses the software architecture of an autonomous
+	robotic system designed to explore and map abandoned mines. A new
+	set of software tools is presented, enabling robots to acquire maps
+	of unprecedented size and accuracy. On 30 May 2003, the robot {"Groundhog"}
+	successfully explored and mapped a main corridor of the abandoned
+	Mathies mine near Courtney, Pennsylvania. This article also discusses
+	some of the challenges that arise in the subterranean environments
+	and some the difficulties of building truly autonomous robots.},
+  doi = {{10.1109/MRA.2004.1371614}},
+  issn = {1070-9932},
+  keywords = {abandoned underground mines,autonomous robotic system,chassis,configuration
+	space representation,data {association,Groundhog} robot,landmine
+	detection,mobile robots,simultaneous localization and mapping,software
+	architecture,subterranean environment}
+}
+
