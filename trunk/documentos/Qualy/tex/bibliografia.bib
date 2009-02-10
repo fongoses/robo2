@@ -15,6 +15,38 @@
   author = {R. C. Arkin}
 }
 
+@PHDTHESIS{Calvo2007,
+  author = {Rodrigo Calvo and Roseli Aparecida Francelin Romero},
+  title = {Arquitetura híbrida inteligente para navegação autônoma de robôs},
+  school = {Universidade de São Paulo - {ICMC}},
+  year = {2007},
+  month = mar,
+  abstract = {Este projeto consiste em um sistema de navegação autônomo baseado
+	em redes neurais nebulosas modulares capacitando o robô a alcançar
+	alvos, ou pontos metas, em ambientes desconhecidos. Inicialmente,
+	o sistema não tem habilidade para a navegação, após uma fase de experimentos
+	com algumas colisões, o mecanismo de navegação aprimora-se guiando
+	o robô ao alvo de forma eficiente. Uma arquitetura híbrida inteligente
+	é apresentada para este sistema de navegação, baseada em redes neurais
+	artificiais e lógica nebulosa. A arquitetura é hierárquica e costitiui-se
+	de dois módulos responsáveis por gerar comportamentos inatos de desvio
+	de obstáculos e de busca ao alvo. Um mecanismo de aprendizagem por
+	reforço, baseada em uma extensão da lei de Hebb, pondera os comportamentos
+	inatos conflitantes ajustando os pesos sinápticos das redes neurais
+	nos instantes de captura do alvo e de colisão contra obstáculos.
+	A abordagem consolidada em simulação é validada em ambientes reais
+	neste trabalho. Para tanto, este sistema foi implementado e testado
+	no simulador Saphira, ambiente de simulação que acompanha o robô
+	Pioneer I e que denota um estágio anterior aos testes em ambientes
+	reais por apresentar comportamentos do robô similares aos comportamentos
+	do robô móvel. Modificações na arquitetura híbrida foram necessárias
+	para adaptar o sistema de navegação simulado ao sistema incorporado
+	no Pioneer I. Experimentos em ambientes reais demonstraram a eficiência
+	e a capacidade de aprendizagem do sistema de navegação, validando
+	a arquitetura híbrida inteligente para aplicação em robôs móveis},
+  url = {http://www.teses.usp.br/teses/disponiveis/55/55134/tde-15062007-161911/}
+}
+
 @BOOK{Cormen2001,
   title = {Introduction to Algorithms},
   publisher = {{MIT} Press},
@@ -55,6 +87,63 @@
   pages = {317--323}
 }
 
+@ARTICLE{Heinen2002,
+  author = {F. J. Heinen and F. Osório},
+  title = {Sistema de Controle Híbrido para Robôs Móveis Autônomos},
+  journal = {{WTDIA/SBIA} - Workshop De Teses E Dissertações D Inteligência Artificial,
+	2002},
+  year = {2002},
+  abstract = {Neste trabalho foi desenvolvido um sistema de controle robusto para
+	robôsmóveis autônomos que é capaz de operar e de se adaptar a diferentes
+	ambientes econdições. Para isso foi proposta uma arquitetura de controle
+	híbrida {(COHBRA),integrando} as duas principais técnicas de controle
+	robótico (controle deliberativo econtrole reativo). Esta arquitetura
+	de controle utiliza uma abordagem de três camadaspara integrar uma
+	camada vital (controle reativo), uma camada funcional (seqüenciador)e
+	uma camada deliberativa (controle deliberativo). A comunicação entre
+	as diversascamadas é realizada através de uma área de memória compartilhada,
+	inspirada naabordagem Blackboard. A arquitetura de controle possui
+	um esquema de múltiplasrepresentações internas do ambiente: representação
+	poligonal, representação matricial erepresentação topológica / {semântica.O}
+	sistema de controle desenvolvido tem a capacidade de navegar em umambiente
+	dinâmico, desviando tanto de obstáculos estáticos como de obstáculos
+	móveisimprevistos. A camada deliberativa utiliza o algoritmo A* para
+	calcular um plano até oobjetivo, evitando os obstáculos conhecidos
+	presentes no mapa do ambiente. A camadavital utiliza uma série de
+	comportamentos reativos para guiar o robô até o seu objetivo,e ao
+	mesmo tempo evitar colisões com obstáculos estáticos e móveis. A
+	camadafuncional tem como principal função integrar a camada vital
+	e a camada deliberativa,fornecendo parâmetros para os comportamentos
+	da camada vital com base no planocalculado pela camada deliberativa.
+	A camada funcional também possui módulos quemonitoram o ambiente
+	e adaptam o mapa no caso de uma alteração do ambiente {serpercebida.Para}
+	garantir a robustez da arquitetura de controle, foi integrado um
+	módulolocalizador. O sistema de controle implementa a técnica de
+	localização Monte Carlo. Omódulo localizador é capaz de localizar
+	o robô no ambiente utilizando as informaçõessensoriais e um mapa.
+	O localizador é capaz de manter uma estimativa de posiçãocorreta
+	quando a localização inicial é conhecida (localização local), é capaz
+	de estimaruma posição global quando não se dispõe de informações
+	sobre a posição inicial dorobô móvel (localização global), e também
+	possui a capacidade de detectar umaestimativa de posição incorreta
+	e se relocalizar no ambiente (relocalização). Através dautilização
+	de um filtro de distância, é possível se localizar inclusive em um
+	ambientedinâmico. Este módulo localizador possui um papel de destaque
+	no sistema de controle,fornecendo uma base sólida para o controle
+	e navegação do robô móvel {autônomo.Para} a validação do sistema
+	de controle proposto, foi implementado umsimulador de robôs móveis
+	{(SimRob3D)} que permite a utilização de modelos deambiente tridimensionais,
+	bem como diversos modelos sensoriais e cinemáticos. Para avisualização
+	tridimensional do ambiente é utilizada a biblioteca {OpenGL.} O ambientepode
+	ser alterado em tempo real, e é possível a utilização de objetos
+	móveis que seguemtrajetórias predefinidas. É possível utilizar a
+	cinemática Ackerman ou a cinemáticadiferencial, e sensores tais como:
+	encoder, sonar, laser e {infravermelho.Os} resultados de diversos
+	experimentos realizados demonstraram a robustez daarquitetura proposta
+	em tarefas de localização local, localização global, relocalização
+	enavegação na presença de obstáculos estáticos e/ou móveis imprevistos.}
+}
+
 @MISC{IRobot,
   author = {{IRobot}},
   title = {{iRobot} Corporation},
@@ -67,6 +156,43 @@
   title = {Mars Pathfinder},
   howpublished = {http://mpfwww.jpl.nasa.gov/default.html},
   url = {http://mpfwww.jpl.nasa.gov/default.html}
+}
+
+@ARTICLE{Pedrosa2001,
+  author = {Diogo Pinheiro Fernandes Pedrosa and Adelardo Adelino Dantas Medeiros
+	and Pablo Javier Alsina},
+  title = {Sistema de navegação para robôs móveis autônomos},
+  journal = {Latin American Knowledge Harvester},
+  year = {2001},
+  month = oct,
+  abstract = {Um dos maiores problemas em robótica móvel diz respeito à sua navegação.
+	Conceitualmente, o ato de navegar em robótica consiste em guiar um
+	robô em um espaço de trabalho durante um determinado intervalo de
+	tempo, por um caminho que possa ser percorrido e que leve o robô
+	de uma posição e orientação iniciais para uma posição e orientação
+	finais. Esta é a principal tarefa que um robô móvel deve executar.
+	Ela implica em subproblemas que são a localização do robô no espaço
+	de trabalho, o planejamento de um caminho admissível, a geração de
+	uma trajetória e, por fim, a sua execução. Além disso, robôs móveis
+	autônomos com rodas possuem restrições cinemáticas, chamadas também
+	de restrições não-holonômicas, que fazem com que o robô não possa
+	se mover livremente em seu espaço de trabalho, limitando a quantidade
+	de caminhos admissíveis entre duas posições distintas. Este trabalho
+	aborda principalmente os subproblemas do planejamento de caminho
+	e geração de trajetória aplicado a minirrobôs móveis com rodas que
+	atuam em um projeto de futebol de robôs. O maior desafio para a navegação
+	destes veículos é determinar uma função contínua que respeite suas
+	restrições cinemáticas e evolua no tempo segundo as restrições impostas
+	pelo problema quanto à posição e orientação iniciais e finais e quanto
+	à velocidade do movimento. Propõe-se uma estratégia de geração de
+	caminho baseada em polinômios paramétricos de terceiro grau em 'x'
+	e 'y'. A orientação 'theta' do minirrobô é obtida da relação entre
+	'y' e 'x' de modo que os caminhos gerados respeitem a restrição cinemática
+	imposta. Para que a trajetória seja executada e os resultados experimentais
+	validados é apresentada uma estratégia simples de controle que atua
+	sobre as velocidades linear e angular desenvolvidas pelo robô móvel.
+	},
+  url = {http://lakh.unm.edu/handle/10229/14268}
 }
 
 @BOOK{Polidoro2007,
@@ -82,6 +208,49 @@
   publisher = {{Prentice-Hall}},
   year = {2003},
   author = {S. J. Russel and P. Norvig}
+}
+
+@ARTICLE{Scatena2004,
+  author = {Jean Miler Scatena and Eduardo Marques},
+  title = {Implementação de Mapas Topológicos para Navegação de Robôs Móveis
+	Baseada em Computação Reconfigurável.},
+  journal = {Simpósio Latino Americano em Aplicações de Lógica Programável e Processadores
+	Digitais de Sinais em Processamento de Vídeo, Visão Computacional
+	e Robótica {(SLALP} 2004)},
+  year = {2004},
+  volume = {1},
+  pages = {1--10},
+  abstract = {O presente trabalho é vinculado a duas áreas de grande pesquisa e
+	enfoque na comunidade cientifica, a área de navegação de robôs móveis
+	e a área de computação reconfigurável. Este trabalho tem como principal
+	finalidade implementar uma técnica de mapeamento para o sistema de
+	navegação de um robô móvel, em hardware reconfigurável, objetivando
+	a melhora do desempenho na execução da técnica chamada mapeamento
+	topológico, além de fornecer a capacidade de um sistema robótico
+	poder-se auto reconfigurar em tempo real. 
+	
+	Para que seja realizada esta tarefa, foram necessários pesquisas e
+	estudos a estes dois assuntos, podendo ser encontrada uma explanação
+	dos mesmos nos capítulos 3 e 4. O primeiro tema abordado foi o sistema
+	de navegação de robôs móveis com análise inicial sobre as formas
+	de navegação e mapeamento associadas com o estudo dos ambientes que
+	serão realizadas as tarefas de navegação. O segundo tema abordado
+	é sobre sistemas reconfiguráveis que tem como ênfase à construção,
+	implementação, reconfiguração assim como os principais fabricantes.
+	
+	
+	Depois de realizado todo o estudo inerente à pesquisa, anteriormente
+	citado, é implementado um sistema de navegação de robôs móveis em
+	um hardware reconfigurável utilizando o conjunto de ferramentas de
+	desenvolvimento de hardwares reconfiguráveis da empresa chamada Altera.},
+  url = {http://www.universia.com.br/materia/materia.jsp?id=4695}
+}
+
+@BOOK{Siegwart2004,
+  title = {Introduction to Autonomous Mobile Robots},
+  publisher = {{MIT} Press},
+  year = {2004},
+  author = {R. Siegwart and I. R. Nourbakhsh}
 }
 
 @ARTICLE{Thrun2002,
