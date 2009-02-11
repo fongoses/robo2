@@ -15,54 +15,43 @@
 
 \section{Contextualização}
 \label{contextualizacao}
-Os robôs são uma tecnologia utilizada para auxiliar ou substituir o homem em tarefaz em ambientes insalubres, como fundo do mar, incêndios, desarmamento de bombas, áreas com contaminação radioativa ou com gases tóxicos, ou em tarefas repetitivas como uma linha de produção industrial. Dentre as muitas definições de robô podemos destacar:
+Os robôs são uma tecnologia utilizada para auxiliar ou substituir o homem em tarefas em ambientes insalubres, como fundo do mar, incêndios, desarmamento de bombas, áreas com contaminação radioativa ou com gases tóxicos, em tarefas repetitivas como uma linha de produção industrial, em tarefas que o ser humano não é capaz de executar, ou tarefas sem valor intelectual.
+
+Entre todas essas diversas aplicações da robótica móvel, pode-se citar o robô Sojourner (Figura \ref{fig:exemplo_robos}a) da NASA, que explorou e enviou fotos e outras muitas informações do planeta Marte para a Terra \cite{NASA}, e o robô desenvolvido pela universidade Camegie Mellon, chamado Groundhog, que explora minas abandonadas, que além do risco de desabamento, em muitos casos também contém gases tóxicos \cite{Thrun2004}.
+
+Dentre as muitas definições de robô podemos destacar:
 \begin{itemize}
-	\item Dispositivo ou máquina que realiza funções normalmente associadas a seres humanos \cite{Medeiros1998}.
-	\item Máquinas que, além de serem capazes de reproduzir tarefas	e movimentos implícitos em sua contrução, complementam a parte mecânica com dispositivos eletrônicos inteligentes \cite{Medeiros1998}.
-	\item Um órgão mecânico versário equipado com atuadores e sensores sob o controle de um sistema computacional \cite{Latombe1991}.
-	\item Simplesmente um agente artificial e ativo cujo ambiente é o mundo físico \cite{Russel2003}.
+	\item Dispositivo ou máquina que realiza funções normalmente associadas a seres humanos \cite{Medeiros1998};
+	\item Máquinas que, além de serem capazes de reproduzir tarefas	e movimentos implícitos em sua contrução, complementam a parte mecânica com dispositivos eletrônicos inteligentes \cite{Medeiros1998};
+	\item Um órgão mecânico versário equipado com atuadores e sensores sob o controle de um sistema computacional \cite{Latombe1991};
+	\item Simplesmente um agente artificial e ativo cujo ambiente é o mundo físico \cite{Russell2003};
 \end{itemize}
 
-Inicialmente, os robôs foram utilizados para automação industrial, presos em posições específicas na linha de montagem, os braços robóticos podem mover-se a uma grande velocidade e precisão para realizar tarefas repetitivas. Graças a essa precisão sobre-humana é possível a construção de Notebooks e telefones portáteis. No entranto esses robôs sofrem uma fundamental disvantagem: Falta de mobilidade. Um manipulador fixo tem alcance limitado que depende de onde foi colocado. Robôs móveis, entretando, são capazes de locomoverem-se pela fábrica \cite{Siegwart2004}.
-
-A robótica consiste em uma área multidisciplinar de pesquisa, envolvendo desde elementos de engenharia mecânica, elétrica, computação até áreas de humanas como psicologia e estudos do comportamentais.
-
-
-
-
---------------------------------------------------
-mas com a evolução tecnológica os robôs passaram a ser utilizados em outras áreas como: medicina de precisão, ambientes perigosos, ambientes insalubres, na área de entretenimento, serviços domésticos, etc. Nesse contexto surgiram as pesquisas para o desenvolvimento de robôs móveis autônomos, que sejam capazes de atuar em ambientes reais e reagir a situações desconhecidas de forma inteligente \cite{Thrun2002}.
+Inicialmente, os robôs foram utilizados para automação industrial, presos em posições específicas na linha de montagem, os braços robóticos podem mover-se a uma grande velocidade e precisão para realizar tarefas repetitivas. Graças a essa precisão sobre-humana é possível a construção de \textit{Notebooks} e telefones portáteis. No entranto esses robôs sofrem uma fundamental disvantagem: Falta de mobilidade. Um manipulador fixo tem alcance limitado que depende de onde foi colocado. Robôs móveis, entretando, são capazes de locomoverem-se pela fábrica \cite{Siegwart2004}. Mas com a evolução tecnológica os robôs passaram a ser utilizados em outras áreas como: medicina de precisão, ambientes perigosos, ambientes insalubres, na área de entretenimento, serviços domésticos, etc. Nesse contexto surgiram as pesquisas para o desenvolvimento de robôs móveis autônomos, que sejam capazes de atuar em ambientes reais e reagir a situações desconhecidas de forma inteligente \cite{Thrun2002}.
 
 A comunidade científica aposta que sistemas robóticos estejam cada vez mais presentes em nossa vida cotidiana, o que torna esta área de pesquisa extremamente promissora e desafiadora. Segundo \cite{Gates2007}, estamos entrando numa nova era da computação, comparando os robôs industriais com os mainframes de antigamente, e prevê que existirá um robô em cada casa no futuro.
 
-Entre todas essas diversas aplicações da robótica móvel, pode-se citar o robô Sojourner (Figura \ref{fig:exemplo_robos}a) da NASA, que explorou e enviou fotos e outras muitas informações do planeta Marte para a Terra \cite{NASA}, e o robô desenvolvido pela universidade Camegie Mellon, chamado Groundhog, que explora minas abandonadas, que além do risco de desabamento, em muitos casos também contém gases tóxicos \cite{Thrun2004}.
+A robótica consiste em uma área multidisciplinar de pesquisa, envolvendo desde elementos de engenharia mecânica, elétrica, computação até áreas de humanas como psicologia e estudos do comportamentais. O que diferencia a robótica móvel de outras áreas de pesquisa em robótica, é a sua ênfase nos problemas relacionados com locomoção em ambientes complexos, que se modificam dinamicamente, compostos tanto por obstáculos fixos quanto por obstáculos móveis. Para operar nesses ambientes o robô deve ser capaz de adquirir e utilizar conhecimento sobre o ambiente, tais como: estimar posições dentro do ambiente (sua posição, de um obstáculo, de um \textit{landmark}, de uma meta, et al.), reconhecer obstáculos, e responder em tempo real às situações que podem ocorrer nesses ambientes. As tarefas de perceber o ambiente, se localizar no ambiente e mover-se pelo ambiente são problemas fundamentais da robótica móvel \cite{Heinen2002}. 
 
 A robótica móvel, além de ser uma área de grande potencial científico, empresas de tecnologia estão cada vez mais investindo em produtos. Como por exemplo o desenvolvimento de robôs que realizam trabalhos domésticos autonomamente,  entre os quais o aspirador de pó Roomba da IRobot \cite{IRobot} (Figura \ref{fig:exemplo_robos}b) e o robô cortador de grama Robomow (Figura \ref{fig:exemplo_robos}c) da Friendly Robotics \cite{FriendlyRobotics}. Ambos apresentam sucesso comercial. 
 
 \figura{../imagens/exemplo_robos.jpg}{0.4}{Exemplos de robôs.}{fig:exemplo_robos}
 
----------------------------------------------------------------------
-MONOGRAFIA DIOGO
-Neste projeto, a robótica é vista de uma perspectiva da ciência de computação. Nesse contexto, o maior desafio no desenvolvimento de robôs móveis é a capacidade de interagir com o ambiente e tomar decisões corretas para que suas tarefas sejam executadas com êxito \cite{Dudek2000}
+Robôs móveis podem ser classificados como: homanóides, com pernas e com rodas. Robôs com rodas são mais simples de serem construídos e mais fáceis de controlas, as rodas permitem uma maior praticidade de locomoção e dão um maior suporte estático ao robô \cite{Russell2003}. A autonomia de robôs móveis é essencial em ambientes remotos, tais como planetas distantes, onde o tempo de comunicação entre o robô e seu operador não permite seja grande o suficiente para prejudicar deciões em tempo real.
 
-Um dos maiores problemas dessa interação diz respeito à sua navegação. Navegação, conceitualmente, é o ato de guiar um robô em um espaço por um acaminho que possa ser percorrido levando o robô de uma posição e orientação iniciais para uma posição e orientação finais.
----------------------------------------------------------------------
-LIVRO
-Neste projeto, a robótica é vista de uma perspectiva da ciência de computação, no nível cognitivo do robô. Cognição representa a decisão e execução de tarefas para atingir um objetivo maior.
+Normalmente, a navegação é a principal tarefa a ser executada por um robô móvel. Esta consiste nos passos de localização do robô no ambiente, planejamento de um caminho entre a posição inicial e o destino final e a execução do movimento pelo caminho planejado. Esta tarefa pode ser mais, ou menos, complexa, depende do ambiente em que o robô se encontra \cite{Pedrosa2001}
 
-No caso de um robô móvel, o aspetco específico de cognição diretamente ligado a uma mobilidade robusta é competencia de navegação
-
----------------------------------------------------------------------
-
-A proposta desse projeto é desenvolver uma aplicação de robótica móvel para o monitoramento de ambientes internos, onde normalmente, nesses ambientes, existem regiões críticas que possuem prioridades distintas para serem monitoradas. A prioridade (urgência) da visita de cada uma dessas regiões aumenta conforme o tempo passa e essa região não é visitada. Ao ser visitada, a urgência de uma determinada região é, então, diminuída. Para a solução do problema descrito anteriormente, supões-se que o robô tenha uma descrição do ambiente em que atua (mapa). Existem diversas aplicações práticas para esse tipo de aplicação. Dentre elas, pode-se citar o desenvolvimento de um robô vigia que monitora um ambiente, dando ênfase para áreas críticas. Outro exemplo consiste em um robô que monitora a temperatura de ambientes onde esse fator é crítico.
+A proposta desse projeto é desenvolver uma aplicação de robótica móvel para o monitoramento de ambientes internos, onde normalmente, nesses ambientes, existem regiões críticas que possuem prioridades distintas para serem monitoradas. A prioridade (urgência) da visita de cada uma dessas regiões aumenta conforme o tempo passa e essa região não é visitada. Ao ser visitada, a urgência de uma determinada região é, então, zerada. Para a solução do problema descrito anteriormente, supões-se que o robô tenha uma descrição do ambiente em que atua (mapa). 
 
 Na literatura, um problema semelhante que vem sendo estudando há muitos anos é o Problema do caixeiro-viajante da classe de problemas de roteamento de nós, onde o caixeiro deve, dado um conjunto de cidades, partir de uma cidade base, visitar as outras somente uma vez e retornar à base \cite{Arenales2007}. 
 
 \section{Motivação}
 \label{motivacao}
-A motivação deste projeto é encontrar uma estratégia e/ou um algoritmo eficiente para o monitoramento de ambientes internos, com a finalidade de ser utilizado em sistemas de segurança inteligentes, hospitais, ou qualquer outra situação em que o monitoramento de ambientes internos possa ser útil.
+O desenvolvimento de sistemas para controlar robôs móveis autônomos tem se mostardo um grande desafio para a Inteligência Artificial. Diferentes abordagens de sistema de controle para robôs móveis autônomos vem sendo utilizadas em diversar áreas de pesquisa. Existem diversas aplicações possíveis para robôs móveis. Transporte, vigilância, inspeção, limpeza, exploração, auxílio a deficientes físicos, et al. \cite{Heinen2002}.
 
-%A motivação deste projeto está em expandir os conhecimentos nas áreas de navegação e exploração de ambientes internos, com utilização de técnicas de inteligência artificial, o interesse particular por robótica, o contato anterior com o robô que será utilizado para os testes reais, a familiaridade com a ferramenta de desenvolvimento e com a ferramenta de simulação Player/Stage \cite{Gerkey2003} e, também, a possibilidade de dar continuidade ao projeto iniciado na disciplina \textit{Projeto Supervisionado ou de Graduação I} e \textit{II}, colocando em prática conceitos aprendidos nas disciplinas cursadas na graduação.
+A motivação deste projeto de mestrado é desenvolver um sistema de monitoramento de ambientes internos. Existem diversas aplicações práticas para esse tipo de aplicação. Dentre elas, pode-se citar o desenvolvimento de um robô vigia que monitora um ambiente, dando ênfase para áreas de maior importância. Outro exemplo consiste em um robô que monitora a temperatura e umidade de ambientes onde esse fator é crítico. Ou até mesmo um robô para entregar remêdios a pacientes em um hospital.
+
+Durante o ano de 2006 foi iniciado o projeto de mesmo propósito. Foram desenvolvidos algoritmos de modo impírico, sem base científica, porém o projeto serviu para formar uma base de conhecimento para poder, neste projeto de mestrado, aprofundar no assunto para determinar, de modo científico, o algoritmo ou estratégia mais eficiente para o monitoramento de ambientes internos utilizando robôs móveis.
 
 \section{Objetivo}
 \label{objetivo}

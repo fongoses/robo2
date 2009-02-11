@@ -1,5 +1,6 @@
 all:
 	@rm -f ../Qualy.pdf
+	@./.apagar.sh
 	@pdflatex Qualy.tex
 	cp ../../bibliografia.bib .
 	@bibtex Qualy
