@@ -17,7 +17,7 @@
 \label{contextualizacao}
 Os robôs são uma tecnologia utilizada para auxiliar ou substituir o homem em tarefas em ambientes insalubres, como fundo do mar, incêndios, desarmamento de bombas, áreas com contaminação radioativa ou com gases tóxicos, em tarefas repetitivas como uma linha de produção industrial, em tarefas que o ser humano não é capaz de executar, ou tarefas sem valor intelectual.
 
-Entre todas essas diversas aplicações da robótica móvel, pode-se citar o robô Sojourner (Figura \ref{fig:exemplo_robos}a) da NASA, que explorou e enviou fotos e outras muitas informações do planeta Marte para a Terra \cite{NASA}, e o robô desenvolvido pela universidade Camegie Mellon, chamado Groundhog, que explora minas abandonadas, que além do risco de desabamento, em muitos casos também contém gases tóxicos \cite{Thrun2004}.
+Entre todas essas diversas aplicações da robótica móvel, pode-se citar o robô Sojourner (Figura \subref{fig:sojourner}) da NASA, que explorou e enviou fotos e outras muitas informações do planeta Marte para a Terra \cite{NASA}, e o robô desenvolvido pela universidade Camegie Mellon, chamado Groundhog, que explora minas abandonadas, que além do risco de desabamento, em muitos casos também contém gases tóxicos \cite{Thrun2004}.
 
 Dentre as muitas definições de robô podemos destacar:
 \begin{itemize}
@@ -33,9 +33,23 @@ A comunidade científica aposta que sistemas robóticos estejam cada vez mais pres
 
 A robótica consiste em uma área multidisciplinar de pesquisa, envolvendo desde elementos de engenharia mecânica, elétrica, computação até áreas de humanas como psicologia e estudos do comportamentais. O que diferencia a robótica móvel de outras áreas de pesquisa em robótica, é a sua ênfase nos problemas relacionados com locomoção em ambientes complexos, que se modificam dinamicamente, compostos tanto por obstáculos fixos quanto por obstáculos móveis. Para operar nesses ambientes o robô deve ser capaz de adquirir e utilizar conhecimento sobre o ambiente, tais como: estimar posições dentro do ambiente (sua posição, de um obstáculo, de um \textit{landmark}, de uma meta, et al.), reconhecer obstáculos, e responder em tempo real às situações que podem ocorrer nesses ambientes. As tarefas de perceber o ambiente, se localizar no ambiente e mover-se pelo ambiente são problemas fundamentais da robótica móvel \cite{Heinen2002}. 
 
-A robótica móvel, além de ser uma área de grande potencial científico, empresas de tecnologia estão cada vez mais investindo em produtos. Como por exemplo o desenvolvimento de robôs que realizam trabalhos domésticos autonomamente,  entre os quais o aspirador de pó Roomba da IRobot \cite{IRobot} (Figura \ref{fig:exemplo_robos}b) e o robô cortador de grama Robomow (Figura \ref{fig:exemplo_robos}c) da Friendly Robotics \cite{FriendlyRobotics}. Ambos apresentam sucesso comercial. 
+A robótica móvel, além de ser uma área de grande potencial científico, empresas de tecnologia estão cada vez mais investindo em produtos. Como por exemplo o desenvolvimento de robôs que realizam trabalhos domésticos autonomamente,  entre os quais o aspirador de pó Roomba da IRobot \cite{IRobot} (Figura \subref{fig:roomba}) e o robô cortador de grama Robomow (Figura \subref{fig:robomow}) da Friendly Robotics \cite{FriendlyRobotics}. Ambos apresentam sucesso comercial. 
 
-\figura{../imagens/exemplo_robos.jpg}{0.4}{Exemplos de robôs.}{fig:exemplo_robos}
+\begin{figure}[ht]
+  \centering
+	\subfigure[Sojourner]{
+    \includegraphics[width=0.4\textwidth]{../imagens/sojourner.jpg}
+		\label{fig:sojourner}}	
+	\subfigure[Roomba]{
+	  \includegraphics[width=0.4\textwidth]{../imagens/roomba.jpg}
+		\label{fig:roomba}}
+	\subfigure[Robomow]{
+	  \includegraphics[width=0.4\textwidth]{../imagens/robomow.jpg}
+		\label{fig:robomow}}
+	\label{fig:exemplo_de_robos}
+	\caption{Exemplos de robôs.}
+\end{figure}
+
 
 Robôs móveis podem ser classificados como: homanóides, com pernas e com rodas. Robôs com rodas são mais simples de serem construídos e mais fáceis de controlas, as rodas permitem uma maior praticidade de locomoção e dão um maior suporte estático ao robô \cite{Russell2003}. A autonomia de robôs móveis é essencial em ambientes remotos, tais como planetas distantes, onde o tempo de comunicação entre o robô e seu operador não permite seja grande o suficiente para prejudicar deciões em tempo real.
 
