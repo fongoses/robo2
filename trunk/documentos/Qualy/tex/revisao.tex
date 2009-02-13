@@ -20,32 +20,52 @@ Existem diversos algoritmos para buscas em grafo na literatura \cite{Cormen2001}
 
 \begin{itemize}
 	\item Passo 1: Iniciar os valores:
-			para todo $v \leftarrow V[G]$
-d[v]¿ ¿
-¿[v] ¿ nulo
-		d[s] ¿ 0
-		V[G] é o conjunto de vértices v que forma o grafo G.
-		d[v] é o vetor de distâncias do vértice s até cada vértice v.
-		¿[v] identifica o vértice de onde se origina uma conexão até v de maneira a formar um caminho mínimo.
-		Passo 2: Temos que usar dois conjuntos: S, que representa todos os vértices v onde d[v] já contém o custo do menor caminho e Q que contém os vértices restantes.
-		Passo 3: Realizamos uma série de relaxamentos das arestas:
-		Enquanto Q ¿ ø
-		u ¿ extraia-mín(Q)
-		S ¿ S U {u}
-		para cada v adjacente a u
-		se d[v] > d[u] + w(u, v) então 
-		d[v] ¿ d[u] + w(u, v)
-		¿[v] ¿ u
-		w(u, v) é o peso da aresta que vai de u a v.
-		u e v são vértices quaisquer e s é o vértice inicial.
-		extraia-mín(Q), retorna o menor elemento.
+
+\begin{algorithmic}
+	\FOR {$v \in V[G]$} 
+	\STATE$	d[v] \gets \infty$
+	\STATE$ \pi[v] \gets  nulo$
+	\ENDFOR
+	\STATE	$d[s] \gets 0$
+\end{algorithmic}
+
+	$V[G]$ é o conjunto de vértices $v$ que forma o grafo $G$.
+	$d[v]$ é o vetor de distâncias do vértice $s$ até cada vértice $v$.
+	$\pi[v]$ identifica o vértice de onde se origina uma conexão até $v$ de maneira a formar um caminho mínimo.
+
+	\item Passo 2: Temos que usar dois conjuntos: $S$, que representa todos os vértices $v$ onde $d[v]$ já contém o custo do menor caminho e $Q$ que contém os vértices restantes.
+
+	\item Passo 3: Realizamos uma série de relaxamentos das arestas:
+\begin{algorithmic}
+	\WHILE {$Q \neq \empty$}
+		\STATE$u \gets$ \texttt{extraia-mín($Q$)}
+		\STATE $S \gets S U {u}$
+		\STATE para cada v adjacente a $u$
+		\STATE se $d[v] > d[u] + w(u, v)$ então 
+		\STATE $d[v] \gets d[u] + w(u, v)$
+		\STATE $\pi[v] \gets u$
+	\ENDWHILE
+\end{algorithmic}
+		$w(u, v)$ é o peso da aresta que vai de $u$ a $v$.
+		$u$ e $v$ são vértices quaisquer e $s$ é o vértice inicial.
+		\texttt{extraia-mín($Q$)}, retorna o menor elemento.
 		
 \end{itemize}
 \section{Controle do Robô}
 \label{controle_do_robo}
 O controle do robô será desenvolvido utilizando-se a biblioteca Player/Stage \cite{Gerkey2003}, a qual permite que sejam realizadas simulações antes que os algoritmos sejam testados com o robô real (Figura \ref{fig:gazebo_pioneer}). Essas simulações são importantes para o aperfeiçoamento dos parâmetros, como distâncias, velocidades, etc, antes do teste no Pioneer.
 
-\figura{../imagens/gazebo_pioneer.jpg}{.9}{Robô Pioneer, Simulado e Real.}{fig:gazebo_pioneer}
+\begin{figure}[ht]
+	\centering
+	\subfigure[Gazebo]{
+		\includegraphics[width=0.55\textwidth]{../imagens/gazebo.jpg}
+		\label{fig:gazebo}}
+	\subfigure[Pioneer]{
+		\includegraphics[width=0.35\textwidth]{../imagens/pioneer.jpg}
+		\label{fig:pioneer}}
+	\caption{Robô Pioneer, Simulado e Real.}
+	\label{fig:gazebo_pioneer}
+\end{figure}
 
 \subsection{Player}
 \label{player}
