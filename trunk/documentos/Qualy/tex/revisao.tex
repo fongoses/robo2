@@ -22,7 +22,7 @@ Existem diversos algoritmos para buscas em grafo na literatura \cite{Cormen2001}
 	\item Passo 1: Iniciar os valores:
 
 \begin{algorithmic}
-	\FOR {$v \in V[G]$} 
+	\FORALL {$v \in V[G]$} 
 	\STATE$	d[v] \gets \infty$
 	\STATE$ \pi[v] \gets  nulo$
 	\ENDFOR
@@ -37,13 +37,14 @@ Existem diversos algoritmos para buscas em grafo na literatura \cite{Cormen2001}
 
 	\item Passo 3: Realizamos uma série de relaxamentos das arestas:
 \begin{algorithmic}
-	\WHILE {$Q \neq \empty$}
+	\WHILE {$Q \neq \emptyset $}
 		\STATE$u \gets$ \texttt{extraia-mín($Q$)}
-		\STATE $S \gets S U {u}$
-		\STATE para cada v adjacente a $u$
-		\STATE se $d[v] > d[u] + w(u, v)$ então 
-		\STATE $d[v] \gets d[u] + w(u, v)$
-		\STATE $\pi[v] \gets u$
+		\STATE $S \gets S \cup {u}$
+		\FORALL{$v$ adjacente a $u$}
+			\STATE se $d[v] > d[u] + w(u, v)$ então 
+			\STATE $d[v] \gets d[u] + w(u, v)$
+			\STATE $\pi[v] \gets u$
+		\ENDFOR
 	\ENDWHILE
 \end{algorithmic}
 		$w(u, v)$ é o peso da aresta que vai de $u$ a $v$.
@@ -69,11 +70,13 @@ O controle do robô será desenvolvido utilizando-se a biblioteca Player/Stage \ci
 
 \subsection{Player}
 \label{player}
-%O Player é um servidor de rede para controlar robôs. Executando embarcado no robô, o Player provê uma interface simples e clara dos sensores e atuadores do robô sobre uma rede IP. O programa cliente ``conversa'' com o Player utilizando sockets TPC, lendo dados dos sensores, escrevendo comandos nos atuadores e configurando dispositivos em tempo de execução.
-%O servidor Player foi desenvolvido para ser independente de linguagem e de plataforma. O programa cliente pode executar em qualquer máquina que tenha conexão de rede com o robô, e pode ser escrito em qualquer linguagem que suporte sockets TCP. Atualmente existem clientes disponíveis em C++, Tcl, Java em Phyton \cite{Player2007}. Futuramente, o Player não fará suposições sobre como o programa de controle do robô é estruturado, ou seja, poderá-se escrever desde programas multi-threads altamente concorrentes até programas seqüências simples.
-%
-%\subsection{Stage}
-%\label{stage}
-%O Stage é usado normalmente como um plugin para o Player, provendo uma série de dispositivos virtuais para os clientes Player. Os usuários escrevem as rotinas e algoritmos normalmente, como clientes para um servidor Player. Não é possível para clientes distinguir a diferença entre os dispositivos reais do robô e os equivalentes simulados pelo Player/Stage. Com isso clientes Player desenvolvidos usando o Stage precisarão de pouca ou nenhuma modificação para trabalhar com o robô real, e vice-versa. Em muitos casos basta somente mudar no cliente o endereço IP de onde está o servidor. O Stage também pode simular uma população de robôs móveis, sensores e objetos num ambiente bi-dimensional (Figura \ref{fig:stage}) \cite{Player2007}. Neste projeto será utilizado somente um robô e o sensor LASER.
-%
-%\figura{Imagens/stage.jpg}{.5}{Simulação com 5 robôs, 2 objetos, LASER, sonar e blobfinder.}{fig:stage}
+O Player é um servidor de rede para controlar robôs. Executando embarcado no robô, o Player provê uma interface simples e clara dos sensores e atuadores do robô sobre uma rede IP. O programa cliente ``conversa'' com o Player utilizando sockets TPC, lendo dados dos sensores, escrevendo comandos nos atuadores e configurando dispositivos em tempo de execução.
+O servidor Player foi desenvolvido para ser independente de linguagem e de plataforma. O programa cliente pode executar em qualquer máquina que tenha conexão de rede com o robô, e pode ser escrito em qualquer linguagem que suporte sockets TCP. Atualmente existem clientes disponíveis em C++, Tcl, Java em Phyton \cite{Player}. Futuramente, o Player não fará suposições sobre como o programa de controle do robô é estruturado, ou seja, poderá-se escrever desde programas multi-threads altamente concorrentes até programas seqüências simples.
+
+\subsection{Stage}
+\label{stage}
+O Stage é usado normalmente como um plugin para o Player, provendo uma série de dispositivos virtuais para os clientes Player. Os usuários escrevem as rotinas e algoritmos normalmente, como clientes para um servidor Player. Não é possível para clientes distinguir a diferença entre os dispositivos reais do robô e os equivalentes simulados pelo Player/Stage. Com isso clientes Player desenvolvidos usando o Stage precisarão de pouca ou nenhuma modificação para trabalhar com o robô real, e vice-versa. Em muitos casos basta somente mudar no cliente o endereço IP de onde está o servidor. O Stage também pode simular uma população de robôs móveis, sensores e objetos num ambiente bi-dimensional (Figura \ref{fig:stage}) \cite{Player}. Neste projeto será utilizado somente um robô e o sensor LASER.
+
+\figura{../imagens/stage.jpg}{.5}{Simulação com 5 robôs, 2 objetos, LASER, sonar e blobfinder.}{fig:stage}
+
+\subsubsection{Grafos}
