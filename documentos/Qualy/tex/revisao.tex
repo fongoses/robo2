@@ -80,3 +80,28 @@ O Stage é usado normalmente como um plugin para o Player, provendo uma série de 
 \figura{../imagens/stage.jpg}{.5}{Simulação com 5 robôs, 2 objetos, LASER, sonar e blobfinder.}{fig:stage}
 
 \subsubsection{Grafos}
+\label{grafos}
+Muitas aplicações em computação necessitam considerar um conjunto de conexões entre objetos. Os relacionamentos dessas conexões podem ser utilizados para responder questões como: Existe caminho de um objeto a outro? Quantos objetos podem ser alcançados a partir de um determinado objeto? Qual a menor distância entre dois objetos? Existe um tipo abstrato de dados chamado grafo que é usado para modelar essas situações \cite{Ziviani2004}
+
+Um grafo é constituido de um conjunto de vértices e um conjunto de arestas que conectam pares de vértices. Um vértice é um objeto que pode conter nomes e outros atributos. Os grafos podem ser direcionados ou não direcionados. Um grafo direcionado $G$ é um par $(V, A)$, em que $V$ é um conjunto finito de vértices e $A$ é um conjunto de arestas com uma relação binária. A Figura \subref{fig:grafo_dir} mostra um grafo direcionado com o conjunto de vértices $V = {0, 1, 2, 3, 4, 5}$ e de arestas $A = {(0, 1), (0, 3), (1, 2), (1, 3), (2, 2), (2, 3), (3, 0), (5, 4)}$. Em um grafo não direcionado as arestas $(u, v)$ e $(v, u)$ são consideradas as mesmas. A Figura \subref{fig:grefo_ndir} mostra um grafo não direcionado com o conjuntos de vértices $V = {0, 1, 2, 3, 4, 5}$ e de arestas $A = {(0, 1), (0, 2), (1, 2), (4, 5)}$. Em grafos direcionados podem existir arestas de um vértice para ele mesmo, chamades de \textit{self-loops}, como a aresta $(2, 2)$ no grafo diferionado da figura \subref{fig:grafo_dir} \cite{Ziviani2004}.
+
+\begin{figure}[ht]
+	\centering
+	\subfigure[Grafo direcionado]{
+		\includegraphics[width=0.2\textwidth]{../imagens/grafo_direcionado.jpg}
+		\label{fig:grafo_dir}}
+	\subfigure[Grafo não direcionado]{
+		\includegraphics[width=0.2\textwidth]{../imagens/grafo_nao_direcionado.jpg}
+		\label{fig:grafo_ndir}}
+	\caption{Exemplo de grafos}
+	\label{fig:exemplo_de_grafos}
+\end{figure}
+
+Em um grafo direcionado, a aresta $(u, v)$ sai do vértice $u$ e entra no vértice $v$. Se $(u, v)$ é uma aresta do grafo $G = (V, A)$, então o vértice $v$ é adjacente ao vértice $u$. Quando o grafo não é direcionado, a relação de adjacência é simétrica \cite{Ziviani2004}.
+
+Em um grafo, um caminho $(v_0, v_1, \cdots, v_k)$ forma um clico se $v_0 = v_k$ e o caminho contém pelo menos uma aresta. O ciclo é simples se os vértices $v_1, v_2, \cdots, v_k$ são distintos. O \textit{self-loop} é um ciclo de tamanho 1. Na figura \subref{fig:grafo_dir}, o caminho $(0, 1, 2, 3, 0)$ forma um ciclo. Dois caminhos $(v_0, v_1, \cdots, v_k)$ e $(v'_0, v'_1, \cdots, v'_k)$ formam o mesmo cliclo se existir um inteiro $j$ tal que $v'_i = v_{(j+i) mod k}$ para $i = 0, 1, \cdots, k - 1$. Na figura \subref{fig:grafo_dir}, o caminho $(0, 1, 3, 0)$ forma o mesmo ciclo que os caminhos $(1, 3, 0, 1)$ e $(3, 0, 1, 3)$. Um grafo sem ciclos é um grafo acíclico \cite{Ziviani2004}.
+
+Um grafo não direcionado é conectado se cada par de vértices está conectado por um caminho. Um grafo direcionado é fortemente conectado se cada dois vértices quaisquer são alcançáveis a partir um do outro. Um grafo ponderado possui pessoa associados às suas arestas. Esses pesos podem representar, por exemplo, custos ou distâncias. Um grafo completo é um grafo não direcionado no qual todos os pares de vértices são adjacentes \cite{Ziviani2004}.
+
+\subsubsection{Navegação}
+\label{navegacao}
