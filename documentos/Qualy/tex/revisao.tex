@@ -43,7 +43,7 @@ O Stage é usado normalmente como um plugin para o Player, provendo uma série de 
 \label{grafos}
 Muitas aplicações em computação necessitam considerar um conjunto de conexões entre objetos. Os relacionamentos dessas conexões podem ser utilizados para responder questões como: Existe caminho de um objeto a outro? Quantos objetos podem ser alcançados a partir de um determinado objeto? Qual a menor distância entre dois objetos? Existe um tipo abstrato de dados chamado grafo que é usado para modelar essas situações \cite{Ziviani2004}
 
-Um grafo é constituido de um conjunto de vértices e um conjunto de arestas que conectam pares de vértices. Um vértice é um objeto que pode conter nomes e outros atributos. Os grafos podem ser direcionados ou não direcionados. Um grafo direcionado $G$ é um par $(V, A)$, em que $V$ é um conjunto finito de vértices e $A$ é um conjunto de arestas com uma relação binária. A Figura \subref{fig:grafo_dir} mostra um grafo direcionado com o conjunto de vértices $V = {0, 1, 2, 3, 4, 5}$ e de arestas $A = {(0, 1), (0, 3), (1, 2), (1, 3), (2, 2), (2, 3), (3, 0), (5, 4)}$. Em um grafo não direcionado as arestas $(u, v)$ e $(v, u)$ são consideradas as mesmas. A Figura \subref{fig:grefo_ndir} mostra um grafo não direcionado com o conjuntos de vértices $V = {0, 1, 2, 3, 4, 5}$ e de arestas $A = {(0, 1), (0, 2), (1, 2), (4, 5)}$. Em grafos direcionados podem existir arestas de um vértice para ele mesmo, chamades de \textit{self-loops}, como a aresta $(2, 2)$ no grafo diferionado da figura \subref{fig:grafo_dir} \cite{Ziviani2004}.
+Um grafo é constituido de um conjunto de vértices e um conjunto de arestas que conectam pares de vértices. Um vértice é um objeto que pode conter nomes e outros atributos. Os grafos podem ser direcionados ou não direcionados. Um grafo direcionado $G$ é um par $(V, A)$, em que $V$ é um conjunto finito de vértices e $A$ é um conjunto de arestas com uma relação binária. A Figura \ref{fig:exemplo_de_grafos}\subref{fig:grafo_dir} mostra um grafo direcionado com o conjunto de vértices $V = {0, 1, 2, 3, 4, 5}$ e de arestas $A = {(0, 1), (0, 3), (1, 2), (1, 3), (2, 2), (2, 3), (3, 0), (5, 4)}$. Em um grafo não direcionado as arestas $(u, v)$ e $(v, u)$ são consideradas as mesmas. A Figura \ref{fig:exemplo_de_grafos}\subref{fig:grafo_ndir} mostra um grafo não direcionado com o conjuntos de vértices $V = {0, 1, 2, 3, 4, 5}$ e de arestas $A = {(0, 1), (0, 2), (1, 2), (4, 5)}$. Em grafos direcionados podem existir arestas de um vértice para ele mesmo, chamades de \textit{self-loops}, como a aresta $(2, 2)$ no grafo diferionado da figura \ref{fig:exemplo_de_grafos}\subref{fig:grafo_dir} \cite{Ziviani2004}.
 
 \begin{figure}[ht]
 	\centering
@@ -59,9 +59,20 @@ Um grafo é constituido de um conjunto de vértices e um conjunto de arestas que c
 
 Em um grafo direcionado, a aresta $(u, v)$ sai do vértice $u$ e entra no vértice $v$. Se $(u, v)$ é uma aresta do grafo $G = (V, A)$, então o vértice $v$ é adjacente ao vértice $u$. Quando o grafo não é direcionado, a relação de adjacência é simétrica \cite{Ziviani2004}.
 
-Em um grafo, um caminho $(v_0, v_1, \cdots, v_k)$ forma um clico se $v_0 = v_k$ e o caminho contém pelo menos uma aresta. O ciclo é simples se os vértices $v_1, v_2, \cdots, v_k$ são distintos. O \textit{self-loop} é um ciclo de tamanho 1. Na figura \subref{fig:grafo_dir}, o caminho $(0, 1, 2, 3, 0)$ forma um ciclo. Dois caminhos $(v_0, v_1, \cdots, v_k)$ e $(v'_0, v'_1, \cdots, v'_k)$ formam o mesmo cliclo se existir um inteiro $j$ tal que $v'_i = v_{(j+i) mod k}$ para $i = 0, 1, \cdots, k - 1$. Na figura \subref{fig:grafo_dir}, o caminho $(0, 1, 3, 0)$ forma o mesmo ciclo que os caminhos $(1, 3, 0, 1)$ e $(3, 0, 1, 3)$. Um grafo sem ciclos é um grafo acíclico \cite{Ziviani2004}.
+Em um grafo, um caminho $(v_0, v_1, \cdots, v_k)$ forma um clico se $v_0 = v_k$ e o caminho contém pelo menos uma aresta. O ciclo é simples se os vértices $v_1, v_2, \cdots, v_k$ são distintos. O \textit{self-loop} é um ciclo de tamanho 1. Na figura \ref{fig:exemplo_de_grafos}\subref{fig:grafo_dir}, o caminho $(0, 1, 2, 3, 0)$ forma um ciclo. Dois caminhos $(v_0, v_1, \cdots, v_k)$ e $(v'_0, v'_1, \cdots, v'_k)$ formam o mesmo cliclo se existir um inteiro $j$ tal que $v'_i = v_{(j+i) mod k}$ para $i = 0, 1, \cdots, k - 1$. Na figura \ref{fig:exemplo_de_grafos}\subref{fig:grafo_dir}, o caminho $(0, 1, 3, 0)$ forma o mesmo ciclo que os caminhos $(1, 3, 0, 1)$ e $(3, 0, 1, 3)$. Um grafo sem ciclos é um grafo acíclico \cite{Ziviani2004}.
 
-Um grafo não direcionado é conectado se cada par de vértices está conectado por um caminho. Um grafo direcionado é fortemente conectado se cada dois vértices quaisquer são alcançáveis a partir um do outro. Um grafo ponderado possui pessoa associados às suas arestas. Esses pesos podem representar, por exemplo, custos ou distâncias. Um grafo completo é um grafo não direcionado no qual todos os pares de vértices são adjacentes \cite{Ziviani2004}.
+Um grafo $G$ é definido como \textit{Hamiltoniano} se possui um ciclo contendo todos os vértices de $G$. Esse nome foi dado pois, em 1856, Willian Rowan Hamilton inventou um jogo matematico que consistia em um dodecaedro no qual cada um dos vinte vértices recebeu o nome de uma cidade. O objetivo do jogo era viajar pelas arestas do dodecaedro, visitando cada cidade exatamente uma vez e retornando para o ponto inicial \cite{Beineke1978}. A figura \ref{fig:dodecaedro_de_hamilton} mostra uma solução para o jogo.
+
+\figura{../imagens/dodecaedro_de_hamilton.jpg}{.5}{Simulação com 5 robôs, 2 objetos, LASER, sonar e blobfinder.}{fig:dodecaedro_de_hamilton}
+
+Definições segundo \cite{Gondran1984}:
+
+\begin{itemize}
+	\item Um caminho passando somenten uma vez em cada vértice de $G$ é chamado Caminho Hamiltoniano e tem comprimento de $N - 1$
+	\item Um ciclo Hamiltoniano é um ciclo que passa somente uma vez em cada vértice de $G$ e tem comprimento $N$.
+\end{itemize}
+
+Um grafo não direcionado é conectado se cada par de vértices está conectado por um caminho. Um grafo direcionado é fortemente conectado se cada dois vértices quaisquer são alcançáveis a partir um do outro. Um grafo ponderado possui pessoa associados às suas arestas. Esses pesos podem representar, por exemplo, custos ou distâncias. Um grafo completo é um grafo no qual todos os pares de vértices são adjacentes \cite{Ziviani2004}.
 
 \section{Busca do Menor Caminho}
 \label{busca_do_menor_caminho}
@@ -171,4 +182,63 @@ Diagrama de Voronoi é um metodo completo de mapa de rotas que tende à maximizar 
 
 O diagrama de Voronoi tem uma fraqueza importante no caso sensores de localização com alcance limitado. Como os algorimo maximiza a distância entre o robô e um objeto no ambiente, qualquer sensor de curto alcance no robô poderá falhar para perceber ao seu redor. Se o sensor de curto alcance está sendo usado para localização, então o caminho designado pelo diagrama de Voronoi será pobre num ponto de vista para localização \cite{Siegwart2004}.
 
-PROCURAR VANTAGEM!
+PROCURAR VANTAGEM?!
+
+\subsection{Caixeiro-viajante}
+\label{caixeiro}
+
+O problema do caixeiro-viajante envolve um conjunto de cidades é da classe de problemas de roteameno de nós, onde um caixeiro sai de uma cidade base, visita todas as cidades somente uma vez, e retorna à cidade base, otimizando um ou mais objetivos. Problemas de caixeiro-viajante são definidos em grafos orientados ou não orientados \cite{Arenales2007}
+
+A definição do problema do caixeiro-viajante é: Considere um grafo não orientado $G = (N, E)$, em que o conjunto $N$ consistem em $n$ cidades e $E$ representa o conjunto de arestas entra essas cidades. Supondo que $G$ é um grafo completo, isto é, para qualquer par de cidades $i, j \in \mathbb{N}, i \neq j$, existe uma aresta $(i, j)$. A distância entre as cidades $i$, e $j$ é $c_{ij}$, e quando $c_{ij} = c_{ji}$, o problema é dito simétrico. Um caixeiro deve visitar $n$ cidades, passando por cada cidade somente uma vez, e retornar à cidade de partida. Esse percurso é denominado ciclo Hamiltoniano do grafo $G$, e o problema consiste em determinar o ciclo Hamiltoniano, ou rota, de distância mínima. Devido à sua aplicação em diversar áreas, este é um dos problemas combinatórios mais pesquisados \cite{Arenales2007}.
+
+Defina as variáveis
+
+\begin{center}
+$
+x_{ij}=\left\{ \begin{array}{l}
+			1  \mbox{ se o caixeiro vai diretamente da cidade $i$ à cidade $j$}, i \neq j \\
+			0  \mbox{ se o caixeiro não vai da cidade $i$ à cidade $j$}, i \neq j
+		\end{array}\right.
+$
+\end{center}
+
+e considere o seguinte modelo:
+
+\begin{equation}
+	\mbox{min}\sum_{i=1}^n \sum_{j > i}c_{ij}x_{ij} 
+	\label{eq:cv-func_obj}
+\end{equation}
+
+\begin{equation}
+	\sum_{j < i} x_{ji} + \sum_{j > i} x_{ij} = 2, i = 1, \cdots, n
+	\label{eq:cv-restr1}
+\end{equation}
+
+\begin{equation}
+	x \in B^{n(n-1)/2}
+	\label{eq:cv-restr2}
+\end{equation}
+
+A função objetivo (\ref{eq:cv-func_obj}) expressa a minimização da distância total da rota, e as restrições (\ref{eq:cv-restr1}) imes que cada cidade tenha somente uma cidade sucessora imedia e uma cidade predecessora imediada, ou seja, é visitada uma única vez. Uma solução para o modelo anterior pode gerar sub-rotas desconexas (Figura \ref{fig:sub-rotas}) \cite{Arenales2007}.
+
+Seja $S$ uma sub-rota, por exemplo, $S = {1. 2. 3. 4}$ na Figura \ref{fig:sub-rotas}. A eliminação de sub-rotas pode ser obtida através da restrição
+\begin{equation}
+	\sum_{i \in S} \sum_{i \ in S \\ j > i} \leq |S| - 1, S \subset \mathbb{N}, 3 \leq |S| \leq \left\lfloor \frac{n}{2} \right\rfloor
+	\label{eq:cv-el_sub-rotas1}
+\end{equation}
+que garante que, para cada conunto $S$, existem no mínimo duas aerstas que entram e/ou saem de $S$, ou seja, existem no mínimo duas arestas entre cidades de $S$ e cidades fora de $S$. A cardinalidade de $S$ é no mínimo 3 (pois ciclo em um grafo não orientado tem pelo menos 3 vértices) e no máximo $\left\lfloor\frac{n}{2}\right\rfloor$, pois ao se eliminar ciclos com $k$ vértices, eliminamos ciclos com $n - k$ vértices. A sub-rota $S = {1, 2, 3, 4}$ é eliminada.
+\begin{center}
+	$x_{15} + x_{16} + x_{17} + x_{25} + x_{26} + x_{27} + x_{35} + x_{36} + x_{37} + x_{45} + x_{46} + x_{47} \geq 2$
+\end{center}
+
+Uma forma alternativa de eliminar sub-rotas é com a seguinte restrição
+\begin{equation}
+	\sum_{i \in S} \sum_{i \ in S \\ j > i} \leq |S| - 1, S \subset \mathbb{N}, 3 \leq |S| \leq \left\lfloor \frac{n}{2} \right\rfloor
+	\label{eq:cv-el_sub-rotas2}
+\end{equation}
+que corresponde a eliminar uma aresta da sub-rota. A sub-rota $S = {1, 2, 3, 4}$ é eliminada.
+\begin{center}
+	$x_{12} + x_{23} + x_{34} + x_{14} \leq 3$
+\end{center}
+
+Como o número de subconjuntos distintos de um conjunto de cardinalidade $k$ é $2^k$, as restrições \ref{eq:cv-el_sub-rotas1} e \ref{eq:cv-el_sub-rotas2} têm cardinalidade da ordem de $2^k$, $k \geq 6$, ou seja, o crescimento é exponencial em função do número de cidades. Para $k \leq 5$, somente a restrição \ref{eq:cv-restr1} elimina sub-rotas \cite{Arenales2007}.
