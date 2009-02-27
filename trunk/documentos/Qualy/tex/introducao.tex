@@ -1,5 +1,5 @@
 %==========================================================
-% Capitulo 1: Introducao.
+% Capitulo 1: Introdução.
 % 
 % Autor
 % Heitor Luis Polidoro
@@ -20,12 +20,12 @@ A robótica é uma tecnologia utilizada para auxiliar ou substituir o homem em tar
 Dentre as muitas definições de robô podemos destacar:
 \begin{itemize}
 	\item Dispositivo ou máquina que realiza funções normalmente associadas a seres humanos \cite{Medeiros1998};
-	\item Máquinas que, além de serem capazes de reproduzir tarefas	e movimentos implícitos em sua contrução, complementam a parte mecânica com dispositivos eletrônicos inteligentes \cite{Medeiros1998};
-	\item Um órgão mecânico versário equipado com atuadores e sensores sob o controle de um sistema computacional \cite{Latombe1991};
+	\item Máquinas que, além de serem capazes de reproduzir tarefas	e movimentos implícitos em sua construção, complementam a parte mecânica com dispositivos eletrônicos inteligentes \cite{Medeiros1998};
+	\item Um órgão mecânico versátil equipado com atuadores e sensores sob o controle de um sistema computacional \cite{Latombe1991};
 	\item Simplesmente um agente artificial e ativo cujo ambiente é o mundo físico \cite{Russell2003};
 \end{itemize}
 
-Inicialmente, os robôs foram utilizados para automação industrial, fixados em posições específicas na linha de montagem, os braços robóticos podem mover-se a uma grande velocidade e precisão para realizar tarefas repetitivas. Graças a essa precisão sobre-humana é possível a construção de \textit{Notebooks} e telefones portáteis. No entranto esses robôs sofrem uma fundamental disvantagem: Falta de mobilidade. Um manipulador fixo tem alcance limitado que depende de onde foi colocado. Robôs móveis, entretando, são capazes de locomoverem-se pela fábrica \cite{Siegwart2004}. Mas com a evolução tecnológica os robôs passaram a ser utilizados em outras áreas como: medicina de precisão, ambientes perigosos, ambientes insalubres, na área de entretenimento, serviços domésticos, etc. Nesse contexto surgiram as pesquisas para o desenvolvimento de robôs móveis autônomos, que sejam capazes de atuar em ambientes reais e reagir a situações desconhecidas de forma inteligente \cite{Thrun2002}.
+Inicialmente, os robôs foram utilizados para automação industrial, fixados em posições específicas na linha de montagem, os braços robóticos podem mover-se a uma grande velocidade e precisão para realizar tarefas repetitivas. Graças a essa precisão sobre-humana é possível a construção de \textit{Notebooks} e telefones portáteis. No entanto esses robôs sofrem uma fundamental desvantagem: Falta de mobilidade. Um manipulador fixo tem alcance limitado que depende de onde foi colocado. Robôs móveis, entretanto, são capazes de locomoverem-se pela fábrica \cite{Siegwart2004}. Mas com a evolução tecnológica os robôs passaram a ser utilizados em outras áreas como: medicina de precisão, ambientes perigosos, ambientes insalubres, na área de entretenimento, serviços domésticos, etc. Nesse contexto surgiram as pesquisas para o desenvolvimento de robôs móveis autônomos, que sejam capazes de atuar em ambientes reais e reagir a situações desconhecidas de forma inteligente \cite{Thrun2002}.
 
 Entre todas essas diversas aplicações da robótica móvel, pode-se citar o robô Sojourner (Figura \subref{fig:sojourner}) da NASA, que explorou e enviou fotos e outras muitas informações do planeta Marte para a Terra \cite{NASA}, e o robô desenvolvido pela universidade Camegie Mellon, chamado Groundhog, que explora minas abandonadas, que além do risco de desabamento, em muitos casos também contém gases tóxicos \cite{Thrun2004}.
 
@@ -38,24 +38,36 @@ A robótica móvel, além de ser uma área de grande potencial científico, empresas 
 \begin{figure}[ht]
   \centering
 	\subfigure[Sojourner]{
-    \includegraphics[width=0.4\textwidth]{../imagens/sojourner.jpg}
+    \includegraphics[width=0.4\textwidth]{imagens/sojourner.jpg}
 		\label{fig:sojourner}}	
 	\subfigure[Roomba]{
-	  \includegraphics[width=0.4\textwidth]{../imagens/roomba.jpg}
+	  \includegraphics[width=0.4\textwidth]{imagens/roomba.jpg}
 		\label{fig:roomba}}
 	\subfigure[Robomow]{
-	  \includegraphics[width=0.4\textwidth]{../imagens/robomow.jpg}
+	  \includegraphics[width=0.4\textwidth]{imagens/robomow.jpg}
 		\label{fig:robomow}}
 	\label{fig:exemplo_de_robos}
 	\caption{Exemplos de robôs.}
 \end{figure}
 
 
-Robôs móveis podem ser classificados quanto à sua mobilidade como: homanóides, com pernas e com rodas. Robôs com rodas são mais simples de serem construídos e mais fáceis de controlas, as rodas permitem uma maior praticidade de locomoção e dão um maior suporte estático ao robô \cite{Russell2003}. A autonomia de robôs móveis é essencial em ambientes remotos, tais como planetas distantes, onde o tempo de comunicação entre o robô e seu operador não permite seja grande o suficiente para prejudicar deciões em tempo real.
+Robôs móveis podem ser classificados quanto à sua mobilidade como: humanóides,
+com pernas e com rodas. Robôs com rodas são mais simples de serem construídos e
+mais fáceis de controlas, as rodas permitem uma maior praticidade de locomoção
+e dão um maior suporte estático ao robô \cite{Russell2003}. A autonomia de
+robôs móveis é essencial em ambientes remotos, tais como planetas distantes,
+onde o tempo de comunicação entre o robô e seu operador não permite seja grande
+o suficiente para prejudicar decisões em tempo real.
 
 Normalmente, a navegação é a principal tarefa a ser executada por um robô móvel. Esta consiste na localização do robô no ambiente, planejamento de um caminho entre a posição inicial e o destino final e a execução do movimento pelo caminho planejado. Esta tarefa pode ser mais, ou menos, complexa, depende do ambiente em que o robô se encontra \cite{Pedrosa2001} e das informações que ele possui.
 
-A proposta desse projeto é desenvolver uma aplicação de robótica móvel para o monitoramento de ambientes internos, onde normalmente, nesses ambientes, existem regiões críticas para serem monitoradas, cada qual com sua prioridade. A prioridade (urgência) da visita de cada uma dessas regiões aumenta conforme o tempo passa e essa região não é visitada. Ao ser visitada, a urgência de uma determinada região é, então, zerada. Para a solução do problema descrito anteriormente, supões-se que o robô tenha uma descrição do ambiente em que atua (mapa). 
+A proposta desse projeto é desenvolver uma aplicação de robótica móvel para o
+monitoramento de ambientes internos, onde normalmente, nesses ambientes,
+existem regiões críticas para serem monitoradas, cada qual com sua prioridade.
+A prioridade (urgência) da visita de cada uma dessas regiões aumenta conforme o
+tempo passa e essa região não é visitada. Ao ser visitada, a urgência de uma
+determinada região é, então, zerada. Para a solução do problema descrito
+anteriormente, supõem-se que o robô tenha uma descrição do ambiente em que atua (mapa). 
 
 \section{Motivação}
 \label{motivacao}
