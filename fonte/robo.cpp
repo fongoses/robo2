@@ -115,7 +115,8 @@ Robo::irPara ( Ponto p )
 {
 	time_t tempo;
 	vertice = mapa.get_vertice(p);
-	cout	<< "Indo para ponto: " << p << "[" << vertice << "].\n";
+//	cout	<< "Indo para ponto: " << p << "[" << vertice << "].\n";
+	cout	<< vertice << endl;
 	if(!simular) {
 		cout	<< "ROBO::irPara Arrumar o tempo\n";
 		position->GoTo(p.get_x(), p.get_y(), 0);
