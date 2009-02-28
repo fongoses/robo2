@@ -27,7 +27,7 @@ using namespace std;
 #include	"ponto.h"
 
 
-#define	ATUALIZACAO 30			/* Tempo de atualizacao(s) */
+#define	ATUALIZACAO 10			/* Tempo de atualizacao(s) */
 #define	TOTAL	3*60			/* Tempo de execucao total(m) */
 #define	VISITAR_SALA 5			/* Tempo para visitar uma sala (s) */
 
@@ -50,24 +50,24 @@ main ( int argc, char *argv[] )
 	sala.atualizar(tempo);
 	inicio = tempo;
 	sala.imprimir();
-	arq.open("../curva.txt", ifstream::trunc);
+	arq.open("/home/heitor/robo2/curva.txt", ifstream::trunc);
 	if(!arq.is_open()) {
 		cout << "Problemar para abrir curva.txt.\n";getchar();
 	}
 	anterior = tempo;/* Usado para simulacao */
 	/* Fim da iniciacao padrão */
 
-	algoritmo = 2;
+	algoritmo = 1;
 
 	switch(algoritmo) {
 		/*-----------------------------------------------------------------------------
 		 * Algoritmo 1: Estrategia greedy, vai para a sala com maior grau de urgencia
 		 *-----------------------------------------------------------------------------*/
 		case 1: {
-			cout << "Algoritmo 1\n"; getchar();
+//			cout << "Algoritmo 1\n"; getchar();
 			while(tempo - inicio < TOTAL * 60) { /* rodar por TOTAL minutos */
 				visitar_sala = sala.get_maiorU();
-				sala.imprimir();
+//				sala.imprimir();
 //				cout << "Indo para sala " << visitar_sala << " vertice " << sala.get_vertice(visitar_sala)<< endl;getchar();
 				tempo += robo1->irPara(sala.get_vertice(visitar_sala));
 //				cout << "Diferenca: " << tempo - anterior << endl;getchar();
