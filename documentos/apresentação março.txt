@@ -1,0 +1,42 @@
+Introdução
+-Robótica
+A robotica e uma tecnologia utilizada para auxiliar ou substituir o homem em
+tarefas em ambientes insalubres, como fundo do mar, inc^endios, desarmamento de bombas,
+areas com contaminac~ao radioativa ou com gases toxicos, em tarefas repetitivas como uma
+linha de produc~ao industrial, em tarefas que o ser humano n~ao e capaz de executar, ou
+em tarefas sem valor intelectual.
+
+Inicialmente, os rob^os foram utilizados para automac~ao industrial, xados em
+posic~oes especcas na linha de montagem, os bracos roboticos podem mover-se a uma
+grande velocidade e precis~ao para realizar tarefas repetitivas. No entanto esses rob^os
+sofrem uma fundamental desvantagem: Falta de mobilidade. Um manipulador xo tem
+alcance limitado que depende de onde foi colocado. Rob^os moveis, entretanto, s~ao capazes
+de locomoverem-se pela fabrica [28]. E com a evoluc~ao tecnologica os rob^os passaram a
+ser utilizados em outras areas como: medicina de precis~ao, ambientes perigosos, ambientes
+insalubres, na area de entretenimento, servicos domesticos, etc. Nesse contexto surgiram
+as pesquisas para o desenvolvimento de rob^os moveis aut^onomos, que sejam capazes de
+atuar em ambientes reais e reagir a situac~oes desconhecidas de forma inteligente [33].
+
+-Robótica Móvel
+Entre todas essas diversas aplicac~oes da robotica movel, pode-se citar o rob^o
+Sojourner (Figura 1.1(a)) da NASA, que explorou e enviou fotos e outras muitas informa-
+c~oes do planeta Marte para a Terra [21], e o rob^o desenvolvido pela universidade Camegie
+Mellon, chamado Groundhog, que explora minas abandonadas, que alem do risco de desabamento,
+em muitos casos tambem contem gases toxicos [32]. E robôs comerciais
+Como por exemplo o aspirador de po Roomba da IRobot [14]
+(Figura 1.1(b)) e o rob^o cortador de grama Robomow (Figura 1.1(c)) da Friendly Robotics que realizam trabalhos
+domesticos autonomamente
+
+-Navegação
+Normalmente, a navegac~ao e a principal tarefa a ser executada por um rob^o
+movel. Esta consiste na localizac~ao do rob^o no ambiente, planejamento de um caminho
+entre a posic~ao inicial e o destino nal e a execuc~ao do movimento pelo caminho planejado.
+Esta tarefa pode ser mais, ou menos, complexa, depende do ambiente em que o rob^o se
+encontra [24] e das informac~oes que ele possui.
+
+-Proposta
+A proposta dessa dissertac~ao e desenvolver uma aplicac~ao de robotica movel para
+o monitoramento de ambientes internos, onde normalmente, nesses ambientes, existem
+regi~oes crticas para serem monitoradas, cada qual com sua prioridade. A prioridade da visita de cada uma dessas regi~oes aumenta conforme o tempo passa e essa
+regi~ao n~ao e visitada. Ao ser visitada, a urg^encia de uma determinada regi~ao e, ent~ao,
+zerada.
