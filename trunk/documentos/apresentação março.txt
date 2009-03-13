@@ -40,3 +40,7 @@ o monitoramento de ambientes internos, onde normalmente, nesses ambientes, exist
 regi~oes crticas para serem monitoradas, cada qual com sua prioridade. A prioridade da visita de cada uma dessas regi~oes aumenta conforme o tempo passa e essa
 regi~ao n~ao e visitada. Ao ser visitada, a urg^encia de uma determinada regi~ao e, ent~ao,
 zerada.
+
+Helpmate -> Leva comida, documentos
+Hitachi -> detecta falta de objetos, pacotes, suspeitos, intrusos
+MobileRobots (pioneer) -> monitora salas, checa porta abertas
