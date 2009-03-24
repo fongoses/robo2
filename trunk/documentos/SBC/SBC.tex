@@ -1,0 +1,55 @@
+\documentclass[12pt]{article}
+
+\usepackage{sbc-template}
+
+\usepackage{graphicx,url}
+
+%\usepackage[brazil]{babel}   
+\usepackage[latin1]{inputenc}  
+
+     
+\sloppy
+
+\title{Monitoramento de Ambientes Internos Utilizando Robôs Móveis}
+
+\author{Heitor L. Polidoro\inst{1}, Denis F. Wolf\inst{1} }
+\address{Instituto de Ciências Matemáticas e de Computação -- Universidade de São Paulo
+  (USP)\\
+  \email{\{heitor, denis\}@icmc.usp.br} \\
+	-- São Carlos -- SP -- Brasil
+}
+
+\begin{document} 
+
+\maketitle
+
+\begin{abstract}
+\end{abstract}
+     
+\begin{resumo} 
+Um dos principais desafios na área de robôs móveis é o desenvolvimento de sistemas autônomos, que sejam capazes de interagirem com o ambiente, aprenderem e tomarem decisões corretas para que suas tarefas sejam executadas com êxito. Dentro desse contexto, esse trabalho aborda o problema de navegação e monitoramento de ambientes utilizando robôs móveis. Dado uma representação do ambiente (mapa topológico) e uma lista com urgências de cada uma das regiões do mapa, o robô deve estimar qual o percurso mais eficiente para monitorar esse ambiente. Uma vez que a urgência de cada região não visitada aumenta com o tempo, o trajeto do robô deve-se adaptar a essas alterações. Entre as diversas aplicações práticas desse tipo de algoritmo, destaca-se o desenvolvimento de sistemas de segurança móveis inteligentes.
+\end{resumo}
+
+
+\section{Introdução}
+A robótica consiste em uma área multidisciplinar de pesquisa, envolvendo elementos de engenharia mecânica, elétrica, computação e áreas de humanas como psicologia e estudo do comportamento de animais.
+Inicialmente, os robôs foram utilizados para automação industrial, mas com a evolução tecnológica os robôs passaram a ser utilizados em outras áreas como: medicina de precisão, ambientes perigosos, entretenimento, serviços domésticos et al. Nesse contexto surgiram as pesquisas para o desenvolvimento de robôs móveis autônomos, que sejam capazes de atuar em ambientes reais e reagir a situações desconhecidas de forma inteligente \cite{Thrun2002}.
+A comunidade científica aposta que sistemas robóticos estejam cada vez mais presentes em nossa vida cotidiana, o que torna esta área de pesquisa extremamente promissora e desafiadora. Segundo \cite{Gates2007}, estamos entrando numa nova era da computação, comparando os robôs industriais com os mainframes de antigamente, e prevê que existirá um robô em cada casa no futuro.
+Neste trabalho, a robótica é vista de uma perspectiva da ciência da computação, mais especificamente das áreas de inteligência artificial e algoritmo e estrutura de dados. Nesse contexto, o maior desafio no desenvolvimento de robôs móveis é a capacidade de interagir com o ambiente e tomar decisões corretas para que suas tarefas sejam executadas com êxito \cite{Dudek2000}. 
+A proposta desse projeto é desenvolver uma aplicação de robótica móvel para o monitoramento de ambientes internos, onde normalmente, nesses ambientes, existem regiões críticas que possuem prioridades distintas para serem monitoradas. A prioridade (urgência) da visita de cada uma dessas regiões aumenta conforme o tempo passa e essa região não é visitada. Ao ser visitada, a urgência de uma determinada região é, então, diminuída. Para a solução do problema descrito anteriormente, supões-se que o robô tenha uma descrição do ambiente em que atua (mapa). Existem diversas aplicações práticas para esse tipo de aplicação. Dentre elas, pode-se citar o desenvolvimento de um robô vigia que monitora um ambiente, dando ênfase para áreas críticas. Outro exemplo consiste em um robô que monitora a temperatura de ambientes onde esse fator é crítico.
+Na literatura, dois problemas semelhantes vem sendo estudandos há muitos anos, um é o problema do caixeiro viajante, onde um caixeiro deve visitar um número determinado de cidades passando por cada cidade somente uma vez, e o outro é o Problema de Roteamento de Veículos, do inglês Vehicle Routing Problem (VRP). Consiste em determinar um conjunto de rotas para uma frota de veículos, baseado em um ou mais depósitos, que dever ser determinadas por uma série de cidades ou clientes, geograficamente dispersos. O objetivo do VRP é a entrega para um conjunto de clientes com demandas conhecidas com rotar de custo mínimo, originando e terminando em um depósito \cite{Arenales2007}.
+
+\section{Técnicas Utilizadas}
+
+\subsection{Navegação}
+Para que o robô possa corretamente definir um trajeto a ser percorrido, é necessário que o mesmo tenha um mapa do ambiente. Mais especificamente, neste trabalho, são utilizados mapas topológicos. Um mapa topológico consiste em identificar os pontos mais representativos do ambiente e determinar a conectividade (caminho disponível) entre eles [8]. Normalmente esse tipo de mapa é representado através de grafos, onde os nós representam as regiões do ambiente e os arcos representam os caminhos que conectam essas regiões. Em alguns casos, atribui-se pesos a esses arcos, que normalmente correspondem ao custo de se mover de uma região até a outra. Na maioria dos casos, esse custo é proporcional à distância entra os pontos. Portanto, a distância é freqüentemente utilizada como peso nos arcos do grafo que representa o ambiente.
+A primeira capacidade que deve ser desenvolvida por um robô que navega em um ambiente é a habilidade de desviar de obstáculos e percorrer o trajeto desejado de forma segura. Esse é um problema amplamente estudado pela comunidade da robótica móvel e existem diversas soluções robustas para o mesmo [5]. dentre elas, destacam-se: campos potenciais [7], redes neurais, histograma de vetores de campos [1]. Neste trabalho será utilizado campos potenciais, devido à sua simplicidade e boa eficiência.
+
+\subsection{Planejamento de Trajetória}
+\section{Referências}
+
+
+\bibliographystyle{sbc}
+\bibliography{../bibliografia}
+
+\end{document}
