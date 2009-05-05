@@ -1,0 +1,3 @@
+Pegar os dados para o grafico (irPara bloqueante (atualizacao depois de chegar no destino)? Não bloqueante (atualizacao durante)? com timeout(atualizacao durante)?)
+Rever os pontos do mapa
+Executar o stage pelo programa
