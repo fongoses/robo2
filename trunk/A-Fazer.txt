@@ -1,5 +1,4 @@
 Executar o stage pelo programa
 
 
-Fazer um svn add recursivo
 Makefile do avaliador deletar os .cpp desnecessarios
