@@ -21,6 +21,9 @@
 
 using namespace std;
 
+#define	VISITAR_SALA 5			/* Tempo para visitar uma sala (s) */
+#define ATUALIZACAO 10
+
 typedef struct _sala {
 	int vertice;
 	int P;

@@ -27,9 +27,7 @@ using namespace std;
 #include	"ponto.h"
 
 
-#define	ATUALIZACAO 10			/* Tempo de atualizacao(s) */
 #define	TOTAL	3*60			/* Tempo de execucao total(m) */
-#define	VISITAR_SALA 5			/* Tempo para visitar uma sala (s) */
 
 	int
 main ( int argc, char *argv[] )

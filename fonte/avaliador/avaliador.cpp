@@ -17,39 +17,122 @@
  */
 
 #include	"../mapa.h"
+#include	"../robo.h"
 
 	int
 main ( int argc, char *argv[] )
 {
+	Robo *robo1;
 	Mapa mapa;
 	Salas sala;
 	Vertice v;
-	int vertice;
-	string arq;
+	int vertice, U, aval_ant, aval, i;
+	time_t tempo, anterior;
+	string arq_mapa, arq_rota;
 	ListaVertices rota;
+	vector<int> caminho;
 	ifstream file;
 
-	if(argc != 2){
-		cout << "Digite o mapa: ";
+
+	
+	if(argc != 3){
+		cout << "AVALIADOR Digite o mapa: ";
 //		cin >> arq;
-		arq = "tres.txt";
-		v = mapa.carregarMapa(arq, &sala);
-		cout << "Digite a tragetoria: ";
+		arq_mapa = "tres.txt";
+		cout << "AVALIADOR Digite a tragetoria: ";
 //		cin >> arq;
-		arq = "rota.txt";
-		file.open(arq.c_str());
-		cout << "Carregando rota..." << endl;
+		arq_rota = "rota.txt";
+
+		argc = 3;
+		argv = (char **)malloc(sizeof(char *) * 3);
+		for(i = 0; i < 3; i++) {
+			argv[i] = (char *)malloc(sizeof(char) * 10);
+		}
+
+		strcpy(argv[0], "avaliador.cpp");
+		strcpy(argv[1], arq_mapa.c_str());
+		strcpy(argv[2], arq_rota.c_str());
+
+		cout << "AVALIADOR Aval: " << main(argc, argv) << endl;
+		return EXIT_SUCCESS;
+	} else {
+		arq_mapa = argv[1];
+		arq_rota = argv[2];
+	}
+	
+	v = mapa.carregarMapa(arq_mapa, &sala);
+	if(arq_rota == "rota.txt") {
+		cout	<< "AVALIADOR Digite a rota: \n";
+		cin >> vertice;
+		while (vertice != -1){
+			rota.push_back(vertice);
+			cin >> vertice;
+		}
+	} else {
+		file.open(arq_rota.c_str());
+		cout << "AVALIADOR Carregando rota... ";
 		if(file.is_open()) {
 			file >> vertice;
 			while(!file.eof()) {
-				cout << vertice << " ";
 				rota.push_back(vertice);
 				file >> vertice;
 			}
 		}
-	} else {
-		v = mapa.carregarMapa(argv[1], &sala);
+	}
+	cout << endl;
+
+
+	robo1 = new Robo(v, mapa, true);
+
+	/* Iniciacao padrao */
+	sala.set_ultima_atualizacao(time(&tempo)-1);
+	sala.atualizar(tempo);
+	anterior = tempo;
+
+	while(!rota.empty()) { /* Passando o caminho de ListaVertices (list) para vector */
+		cout << rota.front() << " ";
+		caminho.push_back(rota.front());
+		rota.pop_front();
 	}
 
-	return EXIT_SUCCESS;
+	aval = 0;
+
+	do{
+		aval_ant = aval;
+		for(unsigned int i = 0; i < caminho.size(); i++){
+//			cout << "Vertice " << caminho[i] << endl;
+			vertice = caminho[i];
+			
+			tempo += robo1->irPara(vertice);
+
+//			cout << "tempo " << tempo - anterior << " ATU " << ATUALIZACAO << endl;getchar();
+			while( tempo - anterior > ATUALIZACAO) {
+				anterior += ATUALIZACAO;
+				U = sala.atualizar(anterior);
+//  			sala.imprimir();	getchar();
+				if(aval < U)
+					aval = U;
+			}
+
+			U = sala.atualizar(tempo);
+//			if(aval < U)
+//				aval = U;
+
+//			cout << "Antes: " << U << endl;
+//			sala.imprimir();
+
+			sala.visitar(vertice);
+//			U = sala.atualizar(tempo);
+//			aval = U;
+
+//			cout << "U: " << U << endl; 
+//			sala.imprimir();			getchar();
+			tempo += VISITAR_SALA;
+		}
+
+		cout	<< "Aval = " << aval << endl; //getchar();
+	}while(aval_ant != aval);
+
+//	return EXIT_SUCCESS;
+	return aval;
 }				/* ----------  end of function main  ---------- */
