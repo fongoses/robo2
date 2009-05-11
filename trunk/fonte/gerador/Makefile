@@ -6,7 +6,7 @@ NCURSES= -lncurses
 GPROOF= -g -pg
 CC_OPT= $(FLAGS) $(PLAYERFLAGS)
 
-PROG=avaliador_loop
+PROG=gerador_loop
 
 SRC:=$(shell ls ../*.cpp | grep -v principal.cpp && ls *.cpp)
 OBJ=$(SRC:.cpp=.o)

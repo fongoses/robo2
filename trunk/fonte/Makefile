@@ -32,5 +32,9 @@ $(PROG): $(OBJ)
 
 clean:
 	@echo "Limpando..."
-	@rm -rf ../$(PROG) *.o *.d *~ *# "#*"
+	@make clean -C avaliador
+	@make clean -C gerador
 	@echo "Feito."
+
+clean2:
+	@rm -rf ../$(PROG) *.o *.d *~ *# "#*"
