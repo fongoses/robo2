@@ -38,7 +38,7 @@ main ( int argc, char *argv[] )
 	if(argc != 3){
 		cout << "AVALIADOR Digite o mapa: ";
 //		cin >> arq;
-		arq_mapa = "tres.txt";
+		arq_mapa = "quatro.txt";
 		cout << "AVALIADOR Digite a tragetoria: ";
 //		cin >> arq;
 		arq_rota = "rota.txt";
@@ -53,8 +53,9 @@ main ( int argc, char *argv[] )
 		strcpy(argv[1], arq_mapa.c_str());
 		strcpy(argv[2], arq_rota.c_str());
 
-		cout << "AVALIADOR Aval: " << main(argc, argv) << endl;
-		return EXIT_SUCCESS;
+		aval = main(argc, argv);
+		cout << "AVALIADOR Aval: " << aval << endl;
+		return aval;
 	} else {
 		arq_mapa = argv[1];
 		arq_rota = argv[2];
@@ -85,7 +86,7 @@ main ( int argc, char *argv[] )
 	robo1 = new Robo(v, mapa, true);
 
 	/* Iniciacao padrao */
-	sala.set_ultima_atualizacao(time(&tempo)-1);
+	sala.set_ultima_atualizacao(time(&tempo)-10);
 	sala.atualizar(tempo);
 	anterior = tempo;
 
@@ -94,11 +95,13 @@ main ( int argc, char *argv[] )
 		caminho.push_back(rota.front());
 		rota.pop_front();
 	}
+	cout << endl;
 
 	aval = 0;
 
 	do{
 		aval_ant = aval;
+		aval = 0;
 		for(unsigned int i = 0; i < caminho.size(); i++){
 //			cout << "Vertice " << caminho[i] << endl;
 			vertice = caminho[i];
@@ -127,10 +130,10 @@ main ( int argc, char *argv[] )
 
 //			cout << "U: " << U << endl; 
 //			sala.imprimir();			getchar();
-			tempo += VISITAR_SALA;
+//			tempo += VISITAR_SALA;
 		}
 
-		cout	<< "Aval = " << aval << endl; //getchar();
+		cout	<< "AVALIADOR Aval = " << aval << endl; //getchar();
 	}while(aval_ant != aval);
 
 //	return EXIT_SUCCESS;

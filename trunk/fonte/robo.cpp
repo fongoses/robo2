@@ -114,9 +114,8 @@ Robo::operator = ( const Robo &other )
 Robo::irPara ( Ponto p )
 {
 	time_t tempo;
-	vertice = mapa.get_vertice(p);
-//	cout	<< "Indo para ponto: " << p << "[" << vertice << "].\n";
-	cout	<< vertice << endl;
+//	cout	<< "Indo para ponto: " << p << "[" << mapa.get_vertice(p) << "].\n";
+//	cout	<< vertice << endl;
 	if(!simular) {
 		cout	<< "ROBO::irPara Arrumar o tempo\n";
 		position->GoTo(p.get_x(), p.get_y(), 0);
@@ -125,11 +124,13 @@ Robo::irPara ( Ponto p )
 	} else {
 //		cout	<< "Simulando\n";
 		tempo = floor(p.distancia(mapa.get_ponto(vertice)) / SIMULACAO_VEL + 0.5);
-//		cout << "Distancia entre: " << p << " e " << mapa.get_ponto(vertice) << " = " << p.distancia(mapa.get_ponto(vertice)) 
+//		cout << "Distancia entre: " << p << " e " << mapa.get_ponto(vertice) << " = " << p.distancia(mapa.get_ponto(vertice)); 
 //			   << " Velocidade: " <<  SIMULACAO_VEL << " ";
 		
 //		cout	<< "Demorou " << tempo << "s.\n";
+//		getchar();
 	}
+	vertice = mapa.get_vertice(p);
 	return tempo;
 }		/* -----  end of method Robo::irPara  ----- */
 
