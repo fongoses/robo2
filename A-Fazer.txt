@@ -1,4 +1,6 @@
 Executar o stage pelo programa
 
-
-Makefile do avaliador deletar os .cpp desnecessarios
+Arrumar o template para novo metodo (cabeçalho))
+AVALIADOR retornar 0 para rotas que não visitam todas as salas
+SALAS retornar um vetor com as salas
+GERADOR parte principal

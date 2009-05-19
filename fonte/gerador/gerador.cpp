@@ -33,7 +33,7 @@ main ( int argc, char *argv[])
 	if(argc != 2){
 		cout << "GERADOR Digite o mapa: ";
 //		cin >> arq;
-		arq_mapa = "tres.txt";
+		arq_mapa = "quatro.txt";
 
 		argc = 2;
 		argv = (char **)malloc(sizeof(char *) * 2);
@@ -44,13 +44,16 @@ main ( int argc, char *argv[])
 		strcpy(argv[0], "gerador.cpp");
 		strcpy(argv[1], arq_mapa.c_str());
 
-		cout << "GERADOR Aval: " << main(argc, argv) << endl;
+		main(argc, argv);
 		return EXIT_SUCCESS;
 	} else {
 		arq_mapa = argv[1];
 	}
 
 	v = mapa.carregarMapa(arq_mapa, &sala);
+	cout << "GERADOR systam call=";
+	float x = system("../../avaliador_loop quatro.txt") / 256;
+	cout << x << endl;
 
 	
 	return EXIT_SUCCESS;
