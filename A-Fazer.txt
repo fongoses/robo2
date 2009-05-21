@@ -1,6 +1,5 @@
 Executar o stage pelo programa
 
-Arrumar o template para novo metodo (cabeçalho))
-AVALIADOR retornar 0 para rotas que não visitam todas as salas
-SALAS retornar um vetor com as salas
+AVALIADOR criar uma função para o programa, para ela poder se chamada pelo gerador, sem ser system call
+					int avaliar(caminho, mapa)
 GERADOR parte principal
