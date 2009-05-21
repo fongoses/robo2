@@ -20,6 +20,12 @@
 
 #include	"../mapa.h"
 
+typedef struct _agente {
+	int vertice;
+	vector<int> rota;
+	int aval;
+} Agente;
+
 	int
 main ( int argc, char *argv[])
 {
@@ -29,6 +35,12 @@ main ( int argc, char *argv[])
 	string arq_mapa;
 	int i;
 	Vertice v;
+	list<Agente> candidatos;
+	Agente agente_atual, novo_agente
+	ListaVertices adjacentes;
+	ListaVertices::iterator it_a;
+	VetorSalas salas;
+
 
 	if(argc != 2){
 		cout << "GERADOR Digite o mapa: ";
@@ -51,6 +63,36 @@ main ( int argc, char *argv[])
 	}
 
 	v = mapa.carregarMapa(arq_mapa, &sala);
+
+	salas = sala.get_salas();/*Pegando um vetor com os vertices de todas as salas */
+	agente_atual.vertice = v.first; /*Cria um agente no vertice inicial*/
+	agente_atual.rota.push_back(agente_atual.vertice);
+	agente_atual.aval = 0;
+	candidatos.push_back(agente_atual);
+
+	while(!candidatos.empty())
+	{
+		agente_atual = candidatos.pop_front();
+		for(i = 0; (unsigned int)i < salas.size(); i++) /*Criando candidatos a partir do agente atual */
+		{
+			if(salas[i] != agente_atual.vertice)
+			{
+				novo_agente = agente_atual;
+				novo_agente.vertice = salas[i];
+				novo_agente.rota.push_back(salas[i]);
+				novo_agente.aval = /*Chamar o avaliador*/
+
+		}
+	}
+
+
+
+
+
+
+
+
+
 	cout << "GERADOR systam call=";
 	float x = system("../../avaliador_loop quatro.txt") / 256;
 	cout << x << endl;

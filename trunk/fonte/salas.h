@@ -18,6 +18,7 @@
 #include	<map>
 #include	<iostream>
 #include	<ctime>
+#include	<vector>
 
 using namespace std;
 
@@ -31,6 +32,7 @@ typedef struct _sala {
 }sSala;				/* ----------  end of struct _sala  ---------- */
 		
 typedef map<int, sSala> MapaSala;
+typedef vector<int> VetorSalas;
 
 /*
  * =====================================================================================
@@ -59,6 +61,7 @@ class Salas
 		void imprimir();
 
 		/* ====================  ACCESS        ======================================= */
+		VetorSalas get_salas();
 		int get_maiorU(int *U = NULL);
 		int get_vertice( int s );
 

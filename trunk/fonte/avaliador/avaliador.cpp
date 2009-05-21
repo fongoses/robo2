@@ -32,7 +32,9 @@ main ( int argc, char *argv[] )
 	ListaVertices rota;
 	vector<int> caminho;
 	ifstream file;
-
+	VetorSalas salas;
+	map <int, bool> visitou;
+	map <int, bool>::iterator it_s;
 
 	
 	if(argc != 3){
@@ -85,6 +87,12 @@ main ( int argc, char *argv[] )
 
 	robo1 = new Robo(v, mapa, true);
 
+	salas = sala.get_salas();
+	for(i = 0; (unsigned int)i < salas.size(); i++)
+
+		visitou[salas[i]] = false;
+
+
 	/* Iniciacao padrao */
 	sala.set_ultima_atualizacao(time(&tempo)-10);
 	sala.atualizar(tempo);
@@ -105,6 +113,8 @@ main ( int argc, char *argv[] )
 		for(unsigned int i = 0; i < caminho.size(); i++){
 //			cout << "Vertice " << caminho[i] << endl;
 			vertice = caminho[i];
+			if(visitou[vertice] == false)
+				visitou[vertice] = true;
 			
 			tempo += robo1->irPara(vertice);
 
@@ -132,6 +142,15 @@ main ( int argc, char *argv[] )
 //			sala.imprimir();			getchar();
 //			tempo += VISITAR_SALA;
 		}
+
+
+	for(it_s = visitou.begin(); it_s != visitou.end(); it_s++)
+		if(!it_s->second) {
+			printf("A rota não visita todos as salas!\n");
+			return 0;
+		}
+
+
 
 		cout	<< "AVALIADOR Aval = " << aval << endl; //getchar();
 	}while(aval_ant != aval);
