@@ -46,7 +46,7 @@ Robo::Robo (Vertice v_inicial, Mapa m, bool _simular)
 	vertice = v_inicial.first;
 	simular = _simular;
 	mapa = m;
-	cout	<< "Posicao inicial: " << pos_inicial << "[" << mapa.get_vertice(pos_inicial) << "].\n";
+//	cout	<< "Posicao inicial: " << pos_inicial << "[" << mapa.get_vertice(pos_inicial) << "].\n";
 	if(!simular) {
 		player_client = new PlayerClient(HOST, PORT);
 		position = new Position2dProxy(player_client, 1);

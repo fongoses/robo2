@@ -8,7 +8,7 @@ CC_OPT= $(FLAGS) $(PLAYERFLAGS)
 
 PROG=gerador_loop
 
-SRC:=$(shell ls ../*.cpp | grep -v principal.cpp && ls *.cpp)
+SRC:=$(shell ls ../*.cpp | grep -v principal.cpp && ls *.cpp && ls ../avaliador/*.cpp)
 OBJ=$(SRC:.cpp=.o)
 DEP=$(OBJ:.o=.d)
 
@@ -17,12 +17,12 @@ $(PROG): $(OBJ)
 	$(CC) $(CC_OPT) $(OBJ) -o ../../$(PROG)
 	@echo "Feito."
 	@echo "Executando programa..."
-	@clear
 	@./../../$(PROG)
 
 -include $(DEP)
 
 %.o: %.cpp
+	@clear
 	@echo "Compilando $*.cpp..."
 	$(CC) $(CC_OPT) -c $*.cpp -o $*.o
 	@echo "Gerando dependencias of $*.cpp..."

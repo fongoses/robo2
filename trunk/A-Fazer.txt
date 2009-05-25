@@ -1,5 +1,10 @@
 Executar o stage pelo programa
 
-AVALIADOR criar uma função para o programa, para ela poder se chamada pelo gerador, sem ser system call
-					int avaliar(caminho, mapa)
-GERADOR parte principal
+verificar o template de criar funcao
+
+AVALIADOR 
+-Verificar se na não tem algum vertice que não é sala
+
+GERADOR 
+-parte principal
+-continuar a mudanca pra classe agente
