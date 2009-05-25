@@ -86,7 +86,7 @@ Salas::operator = ( const Salas &other )
 	void
 Salas::adicionarSala ( int num, int vertice, int P )
 {
-	cout	<< "Adicionando sala " << num << ".\n";
+//	cout	<< "Adicionando sala " << num << ".\n";
 	if(!existeSala(num)) {
 		sSala aux;
 		aux.vertice = vertice;
@@ -94,7 +94,7 @@ Salas::adicionarSala ( int num, int vertice, int P )
 		aux.U = 0;
 		sala[num] = aux;
 	} else {
-		cout	<< "Sala " << num << " ja existe\n";
+//		cout	<< "Sala " << num << " ja existe\n";
 	}
 	return ;
 }		/* -----  end of method Salas::adicionarSala  ----- */

@@ -91,11 +91,11 @@ Mapa::operator = ( const Mapa &other )
 	int
 Mapa::adicionarVertice ( int noh, Ponto p )
 {
-	cout	<< "Adicionando o vertice " << noh << ".\n";
+//	cout	<< "Adicionando o vertice " << noh << ".\n";
  /* Verifica se o vertice ja existe */
 	if (!existeVertice(noh)) {
 		vertice[noh] = p;
-		cout << "Feito.\n";
+//		cout << "Feito.\n";
 	} else {
 		cerr << "Vertice " << noh << " já existe.\n";
 		return 0;
@@ -115,7 +115,7 @@ Mapa::adicionarVertice ( int noh, Ponto p )
 Mapa::adicionarAresta ( int vA, int vB )
 {
 	Aresta aresta;
-	cout	<< "Adicionando a aresta " << vA << "-" << vB << ".\n";
+//	cout	<< "Adicionando a aresta " << vA << "-" << vB << ".\n";
 
 	/* Veriticando se o vertice vA existe */
 	if (existeVertice(vA)) {
@@ -137,7 +137,7 @@ Mapa::adicionarAresta ( int vA, int vB )
  /* Verifica se o vertice ja existe */
 	if (!existeAresta(aresta)) {
 		peso[aresta] = vertice[vA].distancia(vertice[vB]);
-		cout	<< "Feito.\n";
+//		cout	<< "Feito.\n";
 	} else {
 		cerr << "Aresta " << vA << "-" << vB << " já existe.\n";
 		return 0;
@@ -317,11 +317,11 @@ Mapa::carregarMapa ( string mapa, Salas *sala)
 	float x, y;
 	int n, a, b;
 
-	cout	<< "Abrindo mapa " << mapa << ".\n";
-	cout	<< "MAPA carregarMapa acertar o problema de local para abrir arquivo\n";
+//	cout	<< "Abrindo mapa " << mapa << ".\n";
+//	cout	<< "MAPA carregarMapa acertar o problema de local para abrir arquivo\n";
 	arq.open(mapa.c_str());
 	if(arq.is_open()){
-		cout << "Abriu!\n";
+//		cout << "Abriu!\n";
 		arq >> n >> x >> y;/* Lendo a posicao inicial do robo */
 		p.set(x, y);
 		v.first = n;
@@ -350,7 +350,7 @@ Mapa::carregarMapa ( string mapa, Salas *sala)
 		arq.close();
 		return v;
 	} else {
-		cout	<< "Problema para abrir " << mapa << ".\n";
+		cerr	<< "Problema para abrir " << mapa << ".\n";
 	}
 	arq.close();
 	return v;
