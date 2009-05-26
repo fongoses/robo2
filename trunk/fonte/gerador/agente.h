@@ -15,6 +15,9 @@
  *
  * =====================================================================================
  */
+#ifndef  AGENTE_INC
+#define  AGENTE_INC
+
 #include	<vector>
 
 using namespace std;
@@ -40,9 +43,24 @@ typedef vector<int> Caminho;
 			/* ====================  OPERATORS     ======================================= */
 			const Agente& operator = ( const Agente &other ); /* assignment operator */
 
+			bool operator> (Agente &ag);
+			bool operator>= (Agente &ag);
+			bool operator< (Agente &ag);
+			bool operator<= (Agente &ag);
+
 			/* ====================  OPERATIONS    ======================================= */
+			void imprimir();
 
 			/* ====================  ACCESS        ======================================= */
+			int get_vertice();
+			 void set_vertice( int value );
+			 int get_avaliacao();
+			 void set_avaliacao( int value );
+			 Caminho get_caminho();
+			 void set_caminho( Caminho value );
+
+
+			void adicionarVertice( int vertice );
 
 			/* ====================  INQUIRY       ======================================= */
 
@@ -52,8 +70,9 @@ typedef vector<int> Caminho;
 			Caminho caminho;
 			int avaliacao;
 
+
 		private:
 
 	}; /* -----  end of class  Agente  ----- */
 
-
+#endif   /* ----- #ifndef AGENTE_INC  ----- */

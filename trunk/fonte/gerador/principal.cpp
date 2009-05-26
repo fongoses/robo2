@@ -17,6 +17,8 @@
  */
 
 #include	<cstring>
+#include	<cstdlib>
+#include	<iostream>
 
 #include	"agente.h"
 #include	"gerador.h"
