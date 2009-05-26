@@ -8,7 +8,7 @@ CC_OPT= $(FLAGS) $(PLAYERFLAGS)
 
 PROG=gerador_loop
 
-SRC:=$(shell ls ../*.cpp | grep -v principal.cpp && ls *.cpp && ls ../avaliador/*.cpp)
+SRC:=$(shell ls ../*.cpp | grep -v principal.cpp && ls ../avaliador/*.cpp | grep -v principal.cpp && ls *.cpp)
 OBJ=$(SRC:.cpp=.o)
 DEP=$(OBJ:.o=.d)
 
@@ -35,4 +35,5 @@ clean:
 	@echo "Limpando..."
 	@rm -rf ../../$(PROG) *.o *.d *~ *# "#*"
 	@make clean2 -C ..
+	@make clean -C ../avaliador
 	@echo "Feito."

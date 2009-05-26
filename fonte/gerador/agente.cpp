@@ -16,6 +16,7 @@
  * =====================================================================================
  */
 
+#include	<iostream>
 
 #include	"agente.h"
 /*
@@ -27,6 +28,8 @@
  */
 Agente::Agente ()
 {
+	vertice = -1;
+	avaliacao = 0;
 }  /* -----  end of method Agente::Agente  (constructor)  ----- */
 
 /*
@@ -52,6 +55,9 @@ Agente::Agente (int inicial)
  */
 Agente::Agente ( const Agente &other )
 {
+	vertice = other.vertice;
+	caminho = other.caminho;
+	avaliacao = other.avaliacao;
 }  /* -----  end of method Agente::Agente  (copy constructor)  ----- */
 
 /*
@@ -76,7 +82,174 @@ Agente::~Agente ()
 Agente::operator = ( const Agente &other )
 {
 	if ( this != &other ) {
+		vertice = other.vertice;
+		caminho = other.caminho;
+		avaliacao = other.avaliacao;
 	}
 	return *this;
 }  /* -----  end of method Agente::operator =  (assignment operator)  ----- */
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Agente
+ *      Method:  operator>
+ * Description:  grater then operator
+ *--------------------------------------------------------------------------------------
+ */
+	bool 
+Agente::operator> (Agente &ag)
+{
+	if(avaliacao != ag.avaliacao)
+		return avaliacao > ag.avaliacao;
+	else
+		return caminho.size() > ag.caminho.size();
+}		/* -----  end of method Agente::operator>  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Agente
+ *      Method:  operator>=
+ * Description:  grater equal then operator
+ *--------------------------------------------------------------------------------------
+ */
+	bool 
+Agente::operator>= (Agente &ag)
+{
+	return avaliacao >= ag.avaliacao;
+}		/* -----  end of method Agente::operator>=  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Agente
+ *      Method:  operator<
+ * Description:  less then operator
+ *--------------------------------------------------------------------------------------
+ */
+	bool 
+Agente::operator< (Agente &ag)
+{
+	if(avaliacao != ag.avaliacao)
+		return avaliacao < ag.avaliacao;
+	else
+		return caminho.size() < ag.caminho.size();
+}		/* -----  end of method Agente::operator<  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Agente
+ *      Method:  operator<=
+ * Description:  less equal then operator
+ *--------------------------------------------------------------------------------------
+ */
+	bool 
+Agente::operator<= (Agente &ag)
+{
+	return avaliacao <= ag.avaliacao;
+}		/* -----  end of method Agente::operator<=  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Agente
+ *      Method:  imprimir
+ * Description:  Imprime o agente
+ *--------------------------------------------------------------------------------------
+ */
+	void
+Agente::imprimir (  )
+{
+	cout << "Vertice: " << vertice << endl;
+	cout << "Caminho:";
+	for(unsigned int i = 0; i < caminho.size(); i++)
+		cout << " " << caminho[i];
+	cout << endl << "Avaliacao: " << avaliacao << endl;
+
+}		/* -----  end of method Agente::imprimir  ----- */
+
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Agente
+ *      Method:  get_vertice
+ *--------------------------------------------------------------------------------------
+ */
+	int
+Agente::get_vertice (  )
+{
+	return vertice;
+}		/* -----  end of method Agente::get_vertice  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Agente
+ *      Method:  set_vertice
+ *--------------------------------------------------------------------------------------
+ */
+	 void
+Agente::set_vertice ( int value )
+{
+	vertice	= value;
+	return ;
+}		/* -----  end of method Agente::set_vertice  ----- */
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Agente
+ *      Method:  get_avaliacao
+ *--------------------------------------------------------------------------------------
+ */
+	 int
+Agente::get_avaliacao (  )
+{
+	return avaliacao;
+}		/* -----  end of method Agente::get_avaliacao  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Agente
+ *      Method:  set_avaliacao
+ *--------------------------------------------------------------------------------------
+ */
+	 void
+Agente::set_avaliacao ( int value )
+{
+	avaliacao	= value;
+	return ;
+}		/* -----  end of method Agente::set_avaliacao  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Agente
+ *      Method:  get_caminho
+ *--------------------------------------------------------------------------------------
+ */
+	 Caminho
+Agente::get_caminho (  )
+{
+	return caminho;
+}		/* -----  end of method Agente::get_caminho  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Agente
+ *      Method:  set_caminho
+ *--------------------------------------------------------------------------------------
+ */
+	 void
+Agente::set_caminho ( Caminho value )
+{
+	caminho	= value;
+	return ;
+}		/* -----  end of method Agente::set_caminho  ----- */
+
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Agente
+ *      Method:  adicionarVertice
+ * Description:  Adiciona um vertice no caminho do Agente
+ *--------------------------------------------------------------------------------------
+ */
+	void
+Agente::adicionarVertice ( int vertice )
+{
+	caminho.push_back(vertice);
+}		/* -----  end of method Agente::adicionarVertice  ----- */
 
