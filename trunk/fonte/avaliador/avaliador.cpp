@@ -23,28 +23,28 @@ avaliar (	string arq_mapa, vector<int> caminho)
 {
 	Robo *robo1;
 	Mapa mapa;
-	Salas sala;
+	Salas salas;
 	int vertice, U, aval_ant, aval, i;
 	time_t tempo, anterior;
 	Vertice inicial;
-	VetorSalas salas;
+	VetorSalas vsalas;
 	map <int, bool> visitou;
 	map <int, bool>::iterator it_s;
 
-	inicial = mapa.carregarMapa(arq_mapa, &sala);
+	inicial = mapa.carregarMapa(arq_mapa, &salas);
 
 
 	robo1 = new Robo(inicial, mapa, true);
 
-	salas = sala.get_salas();
-	for(i = 0; (unsigned int)i < salas.size(); i++)
+	vsalas = salas.get_salas();
+	for(i = 0; (unsigned int)i < vsalas.size(); i++)
 
-		visitou[salas[i]] = false;
+		visitou[vsalas[i]] = false;
 
 
 	/* Iniciacao padrao */
-	sala.set_ultima_atualizacao(time(&tempo)-10);
-	sala.atualizar(tempo);
+	salas.set_ultima_atualizacao(time(&tempo)-10);
+	salas.atualizar(tempo);
 	anterior = tempo;
 
 
@@ -56,6 +56,11 @@ avaliar (	string arq_mapa, vector<int> caminho)
 		for(unsigned int i = 0; i < caminho.size(); i++){
 //			cout << "Vertice " << caminho[i] << endl;
 			vertice = caminho[i];
+			if(!salas.existeSala(vertice)) {
+				cerr << "O vertice " << vertice << " não é uma sala válida!" << endl;
+				return 0;
+			}
+
 			if(visitou[vertice] == false)
 				visitou[vertice] = true;
 			
@@ -64,33 +69,33 @@ avaliar (	string arq_mapa, vector<int> caminho)
 //			cout << "tempo " << tempo - anterior << " ATU " << ATUALIZACAO << endl;getchar();
 			while( tempo - anterior > ATUALIZACAO) {
 				anterior += ATUALIZACAO;
-				U = sala.atualizar(anterior);
-//  			sala.imprimir();	getchar();
+				U = salas.atualizar(anterior);
+//  			salas.imprimir();	getchar();
 				if(aval < U)
 					aval = U;
 			}
 
-			U = sala.atualizar(tempo);
+			U = salas.atualizar(tempo);
 //			if(aval < U)
 //				aval = U;
 
 //			cout << "Antes: " << U << endl;
-//			sala.imprimir();
+//			salas.imprimir();
 
-			sala.visitar(vertice);
-//			U = sala.atualizar(tempo);
+			salas.visitar(vertice);
+//			U = salas.atualizar(tempo);
 //			aval = U;
 
 //			cout << "U: " << U << endl; 
-//			sala.imprimir();			getchar();
+//			salas.imprimir();			getchar();
 //			tempo += VISITAR_SALA;
 		}
 
 
 	for(it_s = visitou.begin(); it_s != visitou.end(); it_s++)
 		if(!it_s->second) {
-			printf("A rota não visita todos as salas!\n");
-			return 0;
+			cerr << "A rota não visita todos as salas!" << endl;
+			return -aval;
 		}
 
 
