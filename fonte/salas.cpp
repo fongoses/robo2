@@ -194,6 +194,26 @@ Salas::get_salas (  )
 /*
  *--------------------------------------------------------------------------------------
  *       Class:  Salas
+ *      Method:  get_salas
+ * Description:  Retorna a lista dos vertices que são salas existentes
+ *--------------------------------------------------------------------------------------
+ */
+	VetorSalas
+Salas::get_salas ( )
+{
+	MapaSala::iterator it_s;
+	vector<int> aux;
+
+
+	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
+		aux.push_back(it_s->first);
+	}
+	return aux;
+}		/* -----  end of method Salas::imprimir  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Salas
  *      Method:  get_maiorU
  * Description:  Retorna a sala com maior grau de urgencia
  *--------------------------------------------------------------------------------------
