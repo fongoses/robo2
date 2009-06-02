@@ -25,13 +25,45 @@ using namespace std;
 #define	VISITAR_SALA 5			/* Tempo para visitar uma sala (s) */
 #define ATUALIZACAO 1
 
-typedef struct _sala {
-	int vertice;
-	int P;
-	int U;
-}sSala;				/* ----------  end of struct _sala  ---------- */
-		
-typedef map<int, sSala> MapaSala;
+
+/*
+ * =====================================================================================
+ *        Class:  Sala
+ *  Description:  Classe de uma sala
+ * =====================================================================================
+ */
+class Sala
+{
+	public:
+
+		/* ====================  LIFECYCLE     ======================================= */
+		Sala ();                             /* constructor      */
+		Sala ( const Sala &other );   /* copy constructor */
+		~Sala ();                            /* destructor       */
+
+		/* ====================  OPERATORS     ======================================= */
+		const Sala& operator = ( const Sala &other ); /* assignment operator */
+
+		bool operator == (Sala &other);
+		bool operator != (Sala &other);
+
+		/* ====================  OPERATIONS    ======================================= */
+
+		/* ====================  ACCESS        ======================================= */
+
+		/* ====================  INQUIRY       ======================================= */
+
+		/* ====================  DATA MEMBERS  ======================================= */
+		int vertice;
+		int P;
+		int U;
+	protected:
+
+	private:
+
+}; /* -----  end of class  Sala  ----- */
+
+typedef map<int, Sala> MapaSala;
 typedef vector<int> VetorSalas;
 
 /*
@@ -52,6 +84,9 @@ class Salas
 		/* ====================  OPERATORS     ======================================= */
 		const Salas& operator = ( const Salas &other ); /* assignment operator */
 
+		bool operator == (Salas &other);
+		bool operator != (Salas &other);
+
 		/* ====================  METHODS       ======================================= */
 		void adicionarSala(int num, int vertice, int P);
 		bool existeSala(int num);
@@ -67,13 +102,16 @@ class Salas
 
 		void set_ultima_atualizacao(time_t t);
 
+		MapaSala get_salas_completo();
+		void set_salas(MapaSala s);
+
 		/* ====================  INQUIRY       ======================================= */
 
 		/* ====================  DATA MEMBERS  ======================================= */
+		time_t ultima_atualizacao;
 	protected:
 
 	private:
-		time_t ultima_atualizacao;
 
 		MapaSala sala;
 

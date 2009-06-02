@@ -23,7 +23,7 @@ avaliar (	string arq_mapa, vector<int> caminho)
 {
 	Robo *robo1;
 	Mapa mapa;
-	Salas salas;
+	Salas salas, salas_ant;
 	int vertice, U, aval_ant, aval, i;
 	time_t tempo, anterior;
 	Vertice inicial;
@@ -50,8 +50,13 @@ avaliar (	string arq_mapa, vector<int> caminho)
 
 	aval = 0;
 
+	salas.ultima_atualizacao = 1717;
+	
 	do{
+		salas_ant = salas;
+		cout << "U " << salas_ant.ultima_atualizacao << endl;
 		aval_ant = aval;
+	cout << "salas\n";	salas.imprimir();	cout << "salas ant\n";	salas_ant.imprimir();getchar();
 		aval = 0;
 		for(unsigned int i = 0; i < caminho.size(); i++){
 //			cout << "Vertice " << caminho[i] << endl;
@@ -92,16 +97,21 @@ avaliar (	string arq_mapa, vector<int> caminho)
 		}
 
 
-	for(it_s = visitou.begin(); it_s != visitou.end(); it_s++)
+	for(it_s = visitou.begin(), it_s++; it_s != visitou.end(); it_s++)
+	{
+//		cout << "Sala " << it_s->first << " visitou " << it_s->second << endl;
 		if(!it_s->second) {
 			cerr << "A rota não visita todos as salas!" << endl;
-			return -aval;
+//			return -aval;
 		}
+	}
 
 
+	cout << "salas\n";	salas.imprimir();	cout << "salas ant\n";	salas_ant.imprimir();getchar();
 
 //		cout	<< "AVALIADOR Aval = " << aval << endl; //getchar();
-	}while(aval_ant != aval);
+//	}while(aval_ant != aval);
+	}while(salas_ant != salas);
 
 //	return EXIT_SUCCESS;
 	return aval;

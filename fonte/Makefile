@@ -22,6 +22,7 @@ $(PROG): $(OBJ)
 -include $(DEP)
 
 %.o: %.cpp
+	@clear
 	@echo "Compilando $*.cpp..."
 	$(CC) $(CC_OPT) -c $*.cpp -o $*.o
 	@echo "Gerando dependencias of $*.cpp..."
