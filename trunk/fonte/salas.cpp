@@ -23,6 +23,107 @@
  *-----------------------------------------------------------------------------*/
 /*
  *--------------------------------------------------------------------------------------
+ *       Class:  Sala
+ *      Method:  Sala
+ * Description:  constructor
+ *--------------------------------------------------------------------------------------
+ */
+Sala::Sala ()
+{
+}  /* -----  end of method Sala::Sala  (constructor)  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Sala
+ *      Method:  Sala
+ * Description:  copy constructor
+ *--------------------------------------------------------------------------------------
+ */
+Sala::Sala ( const Sala &other )
+{
+}  /* -----  end of method Sala::Sala  (copy constructor)  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Sala
+ *      Method:  ~Sala
+ * Description:  destructor
+ *--------------------------------------------------------------------------------------
+ */
+Sala::~Sala ()
+{
+}  /* -----  end of method Sala::~Sala  (destructor)  ----- */
+
+/*-----------------------------------------------------------------------------
+ * ====================  OPERATORS     ======================================= *
+ *-----------------------------------------------------------------------------*/
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Sala
+ *      Method:  operator =
+ * Description:  assignment operator
+ *--------------------------------------------------------------------------------------
+ */
+	const Sala&
+Sala::operator = ( const Sala &other )
+{
+	if ( this != &other ) {
+		vertice = other.vertice;
+		P				= other.P;
+		U				= other.U;
+	}
+	return *this;
+}  /* -----  end of method Sala::operator =  (assignment operator)  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Sala
+ *      Method:  operator ==
+ * Description:  comparative operator
+ *--------------------------------------------------------------------------------------
+ */
+	bool
+Sala::operator == (Sala &other )
+{
+	return ((vertice == other.vertice) &&
+					(P       == other.P) &&
+					(U       == other.U));
+}  /* -----  end of method Sala::operator ==  (comparative operator)  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Sala
+ *      Method:  operator !=
+ * Description:  comparative operator
+ *--------------------------------------------------------------------------------------
+ */
+	bool
+Sala::operator != (Sala &other )
+{
+	return ((vertice != other.vertice) &&
+					(P       != other.P) &&
+					(U       != other.U));
+}  /* -----  end of method Sala::operator !=  (comparative operator)  ----- */
+
+/*-----------------------------------------------------------------------------
+ * ====================  ACCESS        ======================================= *
+ *-----------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------
+ * ====================  INQUIRY       ======================================= *
+ *-----------------------------------------------------------------------------*/
+
+
+/* ============================================================================
+ *
+ *                     CLASS SALA
+ *
+ * ============================================================================*/
+
+/*-----------------------------------------------------------------------------
+ * ====================  LIFECYCLE     =======================================
+ *-----------------------------------------------------------------------------*/
+/*
+ *--------------------------------------------------------------------------------------
  *       Class:  Salas
  *      Method:  Salas
  * Description:  constructor
@@ -69,9 +170,49 @@ Salas::~Salas ()
 Salas::operator = ( const Salas &other )
 {
 	if ( this != &other ) {
+		ultima_atualizacao = other.ultima_atualizacao;
+		sala = other.sala;/* NÃO FUNCIONA!!!!! */
 	}
 	return *this;
 }  /* -----  end of method Salas::operator =  (assignment operator)  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Salas
+ *      Method:  operator ==
+ * Description:  comparative operator
+ *--------------------------------------------------------------------------------------
+ */
+	bool
+Salas::operator == ( Salas &other )
+{
+	MapaSala::iterator it_a, it_b;
+
+	for(it_a = sala.begin(); it_a != sala.end(); it_a++, it_b++)
+		if((it_a->first != it_b->first) || (it_a->second != it_b->second))
+			return false;
+		
+	return true;
+}  /* -----  end of method Salas::operator ==  (comparative operator)  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Salas
+ *      Method:  operator !=
+ * Description:  comparative operator
+ *--------------------------------------------------------------------------------------
+ */
+	bool
+Salas::operator != ( Salas &other )
+{
+	MapaSala::iterator it_a, it_b;
+
+	for(it_a = sala.begin(); it_a != sala.end(); it_a++, it_b++)
+		if((it_a->first == it_b->first) || (it_a->second == it_b->second))
+			return false;
+		
+	return true;
+}  /* -----  end of method Salas::operator !=  (comparative operator)  ----- */
 
 /*-----------------------------------------------------------------------------
  * ====================  METHODS       ======================================= *
@@ -88,7 +229,7 @@ Salas::adicionarSala ( int num, int vertice, int P )
 {
 //	cout	<< "Adicionando sala " << num << ".\n";
 	if(!existeSala(num)) {
-		sSala aux;
+		Sala aux;
 		aux.vertice = vertice;
 		aux.P = P;
 		aux.U = 0;
@@ -163,7 +304,6 @@ Salas::imprimir ( )
 {
 	MapaSala::iterator it_s;
 
-
 	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
 		cout << it_s->first << " => vertice = " << it_s->second.vertice <<
 															" P = " << it_s->second.P <<
@@ -176,21 +316,6 @@ Salas::imprimir ( )
 /*-----------------------------------------------------------------------------
  * ====================  ACCESS        ======================================= *
  *-----------------------------------------------------------------------------*/
-//--------------------------------------------------------------------------------------
-//       Class:  Salas
-//      Method:  get_salas
-// Description:  
-//--------------------------------------------------------------------------------------
-	VetorSalas
-Salas::get_salas (  )
-{
-	MapaSala::iterator it_s;
-	VetorSalas aux;
-
-	for(it_s = sala.begin(); it_s != sala.end(); it_s++) 
-		aux.push_back(it_s->second.vertice);
-	return aux;
-}		// -----  end of method Salas::get_salas  -----
 /*
  *--------------------------------------------------------------------------------------
  *       Class:  Salas
@@ -202,11 +327,11 @@ Salas::get_salas (  )
 Salas::get_salas ( )
 {
 	MapaSala::iterator it_s;
-	vector<int> aux;
+	VetorSalas aux;
 
 
 	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
-		aux.push_back(it_s->first);
+		aux.push_back(it_s->second.vertice);
 	}
 	return aux;
 }		/* -----  end of method Salas::imprimir  ----- */
@@ -262,6 +387,16 @@ Salas::set_ultima_atualizacao ( time_t t )
 	ultima_atualizacao	= t;
 	return ;
 }		/* -----  end of method Salas::set_ultima_atualizacao  ----- */
+
+	MapaSala
+Salas::get_salas_completo()
+{
+	MapaSala::iterator it;
+	MapaSala resp;
+
+	for(it = sala.begin(); it != sala.end.(); it++)
+		resp[it->first()] = it->second();
+}
 
 /*-----------------------------------------------------------------------------
  * ====================  INQUIRY       ======================================= *

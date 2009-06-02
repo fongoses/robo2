@@ -17,12 +17,12 @@ $(PROG): $(OBJ)
 	$(CC) $(CC_OPT) $(OBJ) -o ../../$(PROG)
 	@echo "Feito."
 	@echo "Executando programa..."
-	@clear
 	@./../../$(PROG)
 
 -include $(DEP)
 
 %.o: %.cpp
+	@clear
 	@echo "Compilando $*.cpp..."
 	$(CC) $(CC_OPT) -c $*.cpp -o $*.o
 	@echo "Gerando dependencias of $*.cpp..."

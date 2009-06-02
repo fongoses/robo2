@@ -2,10 +2,12 @@ Executar o stage pelo programa
 
 verificar o template de criar funcao
 
+SALAS
+	Atribuicao de valores
+	GAMBI!
+
 AVALIADOR 
--Verificar se na não tem algum vertice que não é sala
--Arrumar outra estratégia para quando a rota não visita todas as salas.
---Talvez retornar a avaliacao e um jeito de identificar que não visitou (valor negativo?)
+	salas_ant
 
 GERADOR 
 -finalizar
