@@ -81,5 +81,7 @@ main ( int argc, char *argv[] )
 	}
 //	cout << endl;
 
+	cout << "com limite\n ";
+	avaliar(arq_mapa, caminho, 50);
 	return avaliar(arq_mapa, caminho);
 }				/* ----------  end of function main  ---------- */

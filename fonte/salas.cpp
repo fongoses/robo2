@@ -100,8 +100,8 @@ Sala::operator == (Sala &other )
 	bool
 Sala::operator != (Sala &other )
 {
-	return ((vertice != other.vertice) &&
-					(P       != other.P) &&
+	return ((vertice != other.vertice) ||
+					(P       != other.P) ||
 					(U       != other.U));
 }  /* -----  end of method Sala::operator !=  (comparative operator)  ----- */
 
@@ -171,7 +171,7 @@ Salas::operator = ( const Salas &other )
 {
 	if ( this != &other ) {
 		ultima_atualizacao = other.ultima_atualizacao;
-		sala = other.sala;/* NÃO FUNCIONA!!!!! */
+//		sala = other.sala;/* NÃO FUNCIONA!!!!! */
 	}
 	return *this;
 }  /* -----  end of method Salas::operator =  (assignment operator)  ----- */
@@ -188,6 +188,7 @@ Salas::operator == ( Salas &other )
 {
 	MapaSala::iterator it_a, it_b;
 
+	cout	<< "==\n";
 	for(it_a = sala.begin(); it_a != sala.end(); it_a++, it_b++)
 		if((it_a->first != it_b->first) || (it_a->second != it_b->second))
 			return false;
@@ -207,11 +208,11 @@ Salas::operator != ( Salas &other )
 {
 	MapaSala::iterator it_a, it_b;
 
-	for(it_a = sala.begin(); it_a != sala.end(); it_a++, it_b++)
-		if((it_a->first == it_b->first) || (it_a->second == it_b->second))
-			return false;
-		
-	return true;
+	for(it_a = sala.begin(), it_b = other.sala.begin(); it_a != sala.end(); it_a++, it_b++)
+		if((it_a->first != it_b->first) || (it_a->second != it_b->second))
+			return true;
+
+	return false;
 }  /* -----  end of method Salas::operator !=  (comparative operator)  ----- */
 
 /*-----------------------------------------------------------------------------
@@ -388,15 +389,39 @@ Salas::set_ultima_atualizacao ( time_t t )
 	return ;
 }		/* -----  end of method Salas::set_ultima_atualizacao  ----- */
 
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Salas
+ *      Method:  set_salas_completo
+ *--------------------------------------------------------------------------------------
+ */
 	MapaSala
 Salas::get_salas_completo()
 {
 	MapaSala::iterator it;
 	MapaSala resp;
 
-	for(it = sala.begin(); it != sala.end.(); it++)
-		resp[it->first()] = it->second();
-}
+
+	for(it = sala.begin(); it != sala.end(); it++)
+		resp[it->first] = it->second;
+	
+	return resp;
+}		/* -----  end of method Salas::set_salas_completo  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Salas
+ *      Method:  set_salas
+ *--------------------------------------------------------------------------------------
+ */
+	void
+Salas::set_salas(MapaSala s)
+{
+	MapaSala::iterator it;
+
+	for(it = s.begin(); it != s.end(); it++)
+		sala[it->first] = it->second;
+}		/* -----  end of method Salas::set_salas  ----- */
 
 /*-----------------------------------------------------------------------------
  * ====================  INQUIRY       ======================================= *
