@@ -2,12 +2,12 @@ Executar o stage pelo programa
 
 verificar o template de criar funcao
 
-SALAS
-	Atribuicao de valores
-	GAMBI!
 
 AVALIADOR 
-	salas_ant
+	testar mais
+	 - if (aval > limite) return 0
 
 GERADOR 
+-descartar os resultados = 0
+-não descartar os resultados negativos
 -finalizar

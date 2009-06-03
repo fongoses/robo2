@@ -19,7 +19,7 @@
 #include	"avaliador.h"
 
 	int
-avaliar (	string arq_mapa, vector<int> caminho)
+avaliar (	string arq_mapa, vector<int> caminho, int limite)
 {
 	Robo *robo1;
 	Mapa mapa;
@@ -43,20 +43,19 @@ avaliar (	string arq_mapa, vector<int> caminho)
 
 
 	/* Iniciacao padrao */
-	salas.set_ultima_atualizacao(time(&tempo)-10);
+	salas.set_ultima_atualizacao(time(&tempo));
 	salas.atualizar(tempo);
 	anterior = tempo;
 
 
 	aval = 0;
-
-	salas.ultima_atualizacao = 1717;
+getchar();
 	
 	do{
-		salas_ant = salas;
-		cout << "U " << salas_ant.ultima_atualizacao << endl;
 		aval_ant = aval;
-	cout << "salas\n";	salas.imprimir();	cout << "salas ant\n";	salas_ant.imprimir();getchar();
+		salas_ant.set_salas(salas.get_salas_completo());
+
+
 		aval = 0;
 		for(unsigned int i = 0; i < caminho.size(); i++){
 //			cout << "Vertice " << caminho[i] << endl;
@@ -102,12 +101,16 @@ avaliar (	string arq_mapa, vector<int> caminho)
 //		cout << "Sala " << it_s->first << " visitou " << it_s->second << endl;
 		if(!it_s->second) {
 			cerr << "A rota não visita todos as salas!" << endl;
-//			return -aval;
+			return -aval;
 		}
 	}
 
 
-	cout << "salas\n";	salas.imprimir();	cout << "salas ant\n";	salas_ant.imprimir();getchar();
+	cout << "Aval = " << aval << endl;
+	cout << "salas ant\n";	salas_ant.imprimir();	cout << "salas\n";	salas.imprimir();getchar();
+
+	if(aval > limite)
+		return 0;
 
 //		cout	<< "AVALIADOR Aval = " << aval << endl; //getchar();
 //	}while(aval_ant != aval);

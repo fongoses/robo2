@@ -20,4 +20,4 @@
 #include	"../robo.h"
 
 	int
-avaliar (	string arq_mapa, vector<int> caminho);
+avaliar (	string arq_mapa, vector<int> caminho, int limite = INT_MAX);
