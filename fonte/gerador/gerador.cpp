@@ -46,7 +46,7 @@ gerar ( string arq_mapa)
 	{
 		agente_atual = candidatos.front();
 		cout << "ATUAL ";
-		agente_atual.imprimir();getchar();
+//		agente_atual.imprimir();getchar();
 		candidatos.pop_front();
 		for(i = 0; (unsigned int)i < salas.size(); i++) /*Criando candidatos a partir do agente atual */
 		{
@@ -59,21 +59,26 @@ gerar ( string arq_mapa)
 				cout << "NOVO ";
 				novo_agente.imprimir();
 				cout << "MELHOR ";
-				melhor.imprimir();getchar();
+//				melhor.imprimir();getchar();
 
-				if(novo_agente.get_avaliacao() == 0 ) /* Se a avaliacao do agente for 0 significa que não é um caminho valido */
-					candidatos.push_back(novo_agente);			/* Adiciona o agente na lista de candidator */
-				else if(novo_agente < melhor) /* Se a avaliacao do agente for melhor que a atual */
+				if(novo_agente.get_avaliacao() != 0 ) /* Se a avaliacao do agente for 0 significa que não é um caminho valido */
+//					candidatos.push_back(novo_agente);			/* Adiciona o agente na lista de candidator */
+				if(((novo_agente.get_avaliacao() > 0) && (novo_agente < melhor)) || /* Se a avaliacao do agente for melhor que a atual */
+					((novo_agente.get_avaliacao() < 0) && (-novo_agente.get_avaliacao() < melhor.get_avaliacao())))
 				{
+					cout << "ADICIONADO!\n";
 					candidatos.push_back(novo_agente);			/* Adiciona o agente na lista de candidator */
-					melhor = novo_agente;		/* E atualiza a avaliacao atual */
-					cout << "Melhor!" << endl;getchar();
+					if(novo_agente.get_avaliacao() > 0){
+						melhor = novo_agente;		/* E atualiza a avaliacao atual */
+						cout << "Melhor!" << endl;
+					}
+//					getchar();
 				}
 			}
 
 		}
-		cout << "Candidatos: " << candidatos.size() << endl;getchar();
+//		cout << "Candidatos: " << candidatos.size() << endl;getchar();
 	}
-	
+	melhores.push_back(melhor);
 	return melhores;
 }		/* -----  end of function gerar  ----- */

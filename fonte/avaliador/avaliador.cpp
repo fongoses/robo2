@@ -49,7 +49,6 @@ avaliar (	string arq_mapa, vector<int> caminho, int limite)
 
 
 	aval = 0;
-getchar();
 	
 	do{
 		aval_ant = aval;
@@ -61,7 +60,7 @@ getchar();
 //			cout << "Vertice " << caminho[i] << endl;
 			vertice = caminho[i];
 			if(!salas.existeSala(vertice)) {
-				cerr << "O vertice " << vertice << " não é uma sala válida!" << endl;
+//				cerr << "O vertice " << vertice << " não é uma sala válida!" << endl;
 				return 0;
 			}
 
@@ -100,14 +99,14 @@ getchar();
 	{
 //		cout << "Sala " << it_s->first << " visitou " << it_s->second << endl;
 		if(!it_s->second) {
-			cerr << "A rota não visita todos as salas!" << endl;
+//			cerr << "A rota não visita todos as salas!" << endl;
 			return -aval;
 		}
 	}
 
 
-	cout << "Aval = " << aval << endl;
-	cout << "salas ant\n";	salas_ant.imprimir();	cout << "salas\n";	salas.imprimir();getchar();
+//	cout << "Aval = " << aval << endl;
+//	cout << "salas ant\n";	salas_ant.imprimir();	cout << "salas\n";	salas.imprimir();getchar();
 
 	if(aval > limite)
 		return 0;
