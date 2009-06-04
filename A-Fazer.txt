@@ -3,9 +3,3 @@ Executar o stage pelo programa
 verificar o template de criar funcao
 
 
-AVALIADOR 
-
-GERADOR 
--Gerar lista de melhores?
-	-Adicionar desempenhos iguais
-	-Descartar todos quando um for melhor

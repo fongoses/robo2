@@ -47,6 +47,7 @@ typedef vector<int> Caminho;
 			bool operator>= (Agente &ag);
 			bool operator< (Agente &ag);
 			bool operator<= (Agente &ag);
+			bool operator== (Agente &ag);
 
 			/* ====================  OPERATIONS    ======================================= */
 			void imprimir();

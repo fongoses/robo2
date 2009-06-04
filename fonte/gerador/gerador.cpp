@@ -45,8 +45,8 @@ gerar ( string arq_mapa)
 	while(!candidatos.empty())
 	{
 		agente_atual = candidatos.front();
-		cout << "ATUAL ";
-//		agente_atual.imprimir();getchar();
+//		cout << "ATUAL ";
+//		agente_atual.imprimir();
 		candidatos.pop_front();
 		for(i = 0; (unsigned int)i < salas.size(); i++) /*Criando candidatos a partir do agente atual */
 		{
@@ -56,29 +56,32 @@ gerar ( string arq_mapa)
 				novo_agente.set_vertice(salas[i]);
 				novo_agente.adicionarVertice(salas[i]);
 				novo_agente.set_avaliacao(avaliar(arq_mapa, novo_agente.get_caminho()));
-				cout << "NOVO ";
-				novo_agente.imprimir();
-				cout << "MELHOR ";
-//				melhor.imprimir();getchar();
-
-				if(novo_agente.get_avaliacao() != 0 ) /* Se a avaliacao do agente for 0 significa que não é um caminho valido */
-//					candidatos.push_back(novo_agente);			/* Adiciona o agente na lista de candidator */
-				if(((novo_agente.get_avaliacao() > 0) && (novo_agente < melhor)) || /* Se a avaliacao do agente for melhor que a atual */
-					((novo_agente.get_avaliacao() < 0) && (-novo_agente.get_avaliacao() < melhor.get_avaliacao())))
+//				cout << "NOVO ";
+//				novo_agente.imprimir();
+//				cout << "MELHOR ";
+//				melhor.imprimir();
+				
+				
+				if	((novo_agente.get_avaliacao() < 0) && (-novo_agente.get_avaliacao() <= melhor.get_avaliacao()))
 				{
-					cout << "ADICIONADO!\n";
+//					cout << "ADICIONADO!\n";
 					candidatos.push_back(novo_agente);			/* Adiciona o agente na lista de candidator */
-					if(novo_agente.get_avaliacao() > 0){
-						melhor = novo_agente;		/* E atualiza a avaliacao atual */
-						cout << "Melhor!" << endl;
-					}
-//					getchar();
+				} else if (novo_agente == melhor)
+				{
+//					cout	<< "IGUAL!\n";
+					melhores.push_back(novo_agente);
+				} else if ((novo_agente.get_avaliacao() > 0 ) && (novo_agente < melhor))
+				{
+					melhor = novo_agente;		/* E atualiza a avaliacao atual */
+//					cout << "MELHOR!" << endl;
+					melhores.clear();
+					melhores.push_back(novo_agente);
 				}
+
 			}
 
 		}
-//		cout << "Candidatos: " << candidatos.size() << endl;getchar();
+//		cout << "Candidatos: " << candidatos.size() << endl;
 	}
-	melhores.push_back(melhor);
 	return melhores;
 }		/* -----  end of function gerar  ----- */
