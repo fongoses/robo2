@@ -149,6 +149,19 @@ Agente::operator<= (Agente &ag)
 /*
  *--------------------------------------------------------------------------------------
  *       Class:  Agente
+ *      Method:  operator==
+ * Description:  equal operator
+ *--------------------------------------------------------------------------------------
+ */
+	bool 
+Agente::operator== (Agente &ag)
+{
+	return (avaliacao == ag.avaliacao) && (caminho.size() == ag.caminho.size());
+}		/* -----  end of method Agente::operator==  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Agente
  *      Method:  imprimir
  * Description:  Imprime o agente
  *--------------------------------------------------------------------------------------

@@ -29,6 +29,7 @@ main ( int argc, char *argv[])
 	string arq_mapa;
 	int i;
 	list<Agente> melhores;
+	list<Agente>::iterator it;
 	Agente melhor;
 
 
@@ -54,7 +55,9 @@ main ( int argc, char *argv[])
 
 
 	melhores = gerar(arq_mapa);
-	melhores.front().imprimir();
+	cout << "Melhor(es) caminho(s)\n";
+	for(it = melhores.begin(); it != melhores.end(); it++)
+		it->imprimir();
 
 
 
