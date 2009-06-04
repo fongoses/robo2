@@ -54,6 +54,7 @@ main ( int argc, char *argv[])
 
 
 	melhores = gerar(arq_mapa);
+	melhores.front().imprimir();
 
 
 
