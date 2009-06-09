@@ -24,3 +24,6 @@ using namespace std;
 
 	list<Agente>
 gerar(string arq_mapa);
+
+	void
+imprimir_agentes(list<Agente> c);
