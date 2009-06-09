@@ -95,7 +95,7 @@ avaliar (	string arq_mapa, vector<int> caminho, int limite)
 		}
 
 
-	for(it_s = visitou.begin(), it_s++; it_s != visitou.end(); it_s++)
+	for(it_s = visitou.begin(); it_s != visitou.end(); it_s++)
 	{
 //		cout << "Sala " << it_s->first << " visitou " << it_s->second << endl;
 		if(!it_s->second) {

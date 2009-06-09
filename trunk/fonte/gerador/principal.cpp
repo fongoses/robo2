@@ -36,7 +36,7 @@ main ( int argc, char *argv[])
 	if(argc != 2){
 		cout << "GERADOR Digite o mapa: ";
 //		cin >> arq;
-		arq_mapa = "quatro.txt";
+		arq_mapa = "../../mapas/tres.txt";
 
 		argc = 2;
 		argv = (char **)malloc(sizeof(char *) * 2);
