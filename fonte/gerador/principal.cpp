@@ -56,8 +56,10 @@ main ( int argc, char *argv[])
 
 	melhores = gerar(arq_mapa);
 	cout << "Melhor(es) caminho(s)\n";
-	for(it = melhores.begin(); it != melhores.end(); it++)
-		it->imprimir();
+	imprimir_agentes(melhores);
+	cout << "Avaliação: " << melhores.begin()->get_avaliacao() << endl;
+//	for(it = melhores.begin(); it != melhores.end(); it++)
+//		it->imprimir();
 
 
 
