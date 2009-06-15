@@ -56,11 +56,9 @@ avaliar (	string arq_mapa, vector<int> caminho, int limite)
 
 
 		aval = 0;
-		for(unsigned int i = 0; i < caminho.size(); i++){
-//			cout << "Vertice " << caminho[i] << endl;
+		for(unsigned int i = 0; i < caminho.size()-1; i++){
 			vertice = caminho[i];
 			if(!salas.existeSala(vertice)) {
-//				cerr << "O vertice " << vertice << " não é uma sala válida!" << endl;
 				return 0;
 			}
 
@@ -69,53 +67,31 @@ avaliar (	string arq_mapa, vector<int> caminho, int limite)
 			
 			tempo += robo1->irPara(vertice);
 
-//			cout << "tempo " << tempo - anterior << " ATU " << ATUALIZACAO << endl;getchar();
-			while( tempo - anterior > ATUALIZACAO) {
-				anterior += ATUALIZACAO;
-				U = salas.atualizar(anterior);
-//  			salas.imprimir();	getchar();
-				if(aval < U)
-					aval = U;
-			}
-
 			U = salas.atualizar(tempo);
-//			if(aval < U)
-//				aval = U;
-
-//			cout << "Antes: " << U << endl;
-//			salas.imprimir();
+			if(aval < U)
+				aval = U;
 
 			salas.visitar(vertice);
-//			U = salas.atualizar(tempo);
-//			aval = U;
-
-//			cout << "U: " << U << endl; 
-//			salas.imprimir();			getchar();
-//			tempo += VISITAR_SALA;
 		}
 
-
-	for(it_s = visitou.begin(); it_s != visitou.end(); it_s++)
-	{
-//		cout << "Sala " << it_s->first << " visitou " << it_s->second << endl;
-		if(!it_s->second) {
-//			cerr << "A rota não visita todos as salas!" << endl;
-			return -aval;
+		for(it_s = visitou.begin(); it_s != visitou.end(); it_s++)
+		{
+			if(!it_s->second) {
+				if(aval == 0) return -1;
+				else return -aval;
+			}
 		}
-	}
 
+		if(caminho[0] != caminho[caminho.size()-1])
+			if(aval == 0) return -1;
+			else return -aval;
 
-//	cout << "Aval = " << aval << endl;
-//	cout << "salas ant\n";	salas_ant.imprimir();	cout << "salas\n";	salas.imprimir();getchar();
+		
+		if(aval > limite)
+			return 0;
 
-	if(aval > limite)
-		return 0;
-
-//		cout	<< "AVALIADOR Aval = " << aval << endl; //getchar();
-//	}while(aval_ant != aval);
 	}while(salas_ant != salas);
 
-//	return EXIT_SUCCESS;
 	return aval;
 }
 

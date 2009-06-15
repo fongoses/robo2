@@ -34,29 +34,34 @@ gerar ( string arq_mapa)
 	ListaVertices adjacentes;
 	ListaVertices::iterator it_a;
 	VetorSalas salas;
+	time_t tempo, tempo_ant, inicio;
 
 	v = mapa.carregarMapa(arq_mapa, &sala);
 
 	salas = sala.get_salas();/*Pegando um vetor com os vertices de todas as salas */
 
 /* Insere somente um agente na posição inicial */
-//	agente_atual = *(new Agente(v.first));
 
+	time(&tempo);
+	inicio = tempo_ant = tempo;
 /* Insere um agente para cada sala */
 	for(i = 0; (unsigned int)i < salas.size(); i++)
 	{
 		agente_atual = *(new Agente(salas[i]));
 		candidatos.push_back(agente_atual);
+		if(i == 0)
+			melhor = *(new Agente(salas[i]));
+		else
+			melhor.adicionarVertice(salas[i]);
 	}
+	melhor.adicionarVertice(salas[0]);
+	melhor.set_avaliacao(avaliar(arq_mapa, melhor.get_caminho()));
+	melhores.push_back(melhor);
 
-//	imprimir_agentes(candidatos);
-
-	melhor.set_avaliacao(INT_MAX);
+//	melhor.set_avaliacao(INT_MAX);
 	while(!candidatos.empty())
 	{
 		agente_atual = candidatos.front();
-//		cout << "ATUAL ";
-//		agente_atual.imprimir();
 		candidatos.pop_front();
 		for(i = 0; (unsigned int)i < salas.size(); i++) /*Criando candidatos a partir do agente atual */
 		{
@@ -65,50 +70,54 @@ gerar ( string arq_mapa)
 				novo_agente = agente_atual;
 				novo_agente.set_vertice(salas[i]);
 				novo_agente.adicionarVertice(salas[i]);
-//				cout << "NOVO ";
-//				novo_agente.imprimir();getchar();
 				novo_agente.set_avaliacao(avaliar(arq_mapa, novo_agente.get_caminho()));
-//				cout << "NOVO ";
-//				novo_agente.imprimir();getchar();
-//				cout << "MELHOR ";
-//				melhor.imprimir();
-				
-				
-				if	(((novo_agente.get_avaliacao() < 0) && (-novo_agente.get_avaliacao()/2 <= melhor.get_avaliacao())) 
-						|| ((novo_agente.get_avaliacao() > 0) && (novo_agente.get_avaliacao()/2 <= melhor.get_avaliacao()) && (novo_agente > melhor)))
+	
+				if	((novo_agente.get_avaliacao() < 0) && (-novo_agente.get_avaliacao() <= melhor.get_avaliacao())) 
 				{
-					candidatos.push_back(novo_agente);			/* Adiciona o agente na lista de candidator */
-//					cout << "ADICIONADO!\n";getchar();
+//					candidatos.push_back(novo_agente);			/* Adiciona o agente na lista de candidator */
+					candidatos.push_front(novo_agente);			/* Adiciona o agente na lista de candidator */
 				} else if (novo_agente == melhor)
 				{
-//					cout	<< "IGUAL!\n";getchar();
 					melhores.push_back(novo_agente);
 				} else if ((novo_agente.get_avaliacao() > 0 ) && (novo_agente < melhor))
 				{
-//					cout << "MELHOR!" << endl;getchar();
 					melhor = novo_agente;		/* E atualiza a avaliacao atual */
-					while(!melhores.empty())
+					while(!melhores.empty()) /* Readiciona os antigos melhores como candidatos */
 					{
-						candidatos.push_back(melhores.front());
+//						candidatos.push_back(melhores.front());
+						candidatos.push_front(melhores.front());
 						melhores.pop_front();
 					}
-//					melhores.clear();
 					melhores.push_back(novo_agente);
 				} else 
 				{
-					novo_agente.imprimir();
-					cout << "DESCARTADO!" << endl;getchar();
 				}
-
 			}
-
 		}
-		cout << "Candidatos:" << endl;
-		imprimir_agentes(candidatos);
-		cout << endl << "Melhores:" << endl;
-		imprimir_agentes(melhores);
-		cout << "Avaliação: " << melhor.get_avaliacao() << endl;
-		getchar();
+	
+		if(0)
+		{
+			system("clear");
+			cout << "Candidatos:" << endl;
+			imprimir_agentes(candidatos);
+			cout << endl << "Melhores:" << endl;
+			imprimir_agentes(melhores);
+			cout << "Avaliação: " << melhor.get_avaliacao() << endl;
+			getchar();
+		}
+
+		time(&tempo);
+		if(tempo - tempo_ant >= 1)
+		{
+			system("clear");
+			cout << "Candidatos:" << endl;
+			imprimir_agentes(candidatos);
+			cout << endl << "Melhores:" << endl;
+			imprimir_agentes(melhores);
+			cout << "Avaliação: " << melhor.get_avaliacao() << endl;
+			cout << "Tempo: " << tempo - inicio << endl;
+			tempo_ant = tempo;
+		}
 	}
 	return melhores;
 }		/* -----  end of function gerar  ----- */
@@ -118,9 +127,9 @@ imprimir_agentes(list<Agente> candidatos)
 {
 	list<Agente>::iterator it;
 	Caminho caminho;
-	unsigned int i;
+	unsigned int i, max = 0;
 	
-	cout << "Tamanho: " << candidatos.size() << endl;
+	cout << "Tamanho: " << candidatos.size() << " MAX: " << candidatos.max_size()<< endl;
 	for(it = candidatos.begin(); it != candidatos.end(); it++)
 	{
 		caminho = it->get_caminho();
@@ -131,6 +140,8 @@ imprimir_agentes(list<Agente> candidatos)
 			cout << caminho[i];
 		}
 		cout << ") ";
+		max++;
+		if(max > 100) break;
 	}
 	
 	cout << endl;

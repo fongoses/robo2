@@ -2,4 +2,11 @@ Executar o stage pelo programa
 
 verificar o template de criar funcao
 
+AVALIADOR
+-Criar outra funcao de avaliar
+--Pega o máximo U de cada sala
+--Ordena em ordem descrescente
+--Trata como se fossem algarismos (o maior é o mais significativo) de base 100 (ou 1000)
 
+PAPER
+-ESCREVER!!!
