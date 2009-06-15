@@ -31,6 +31,7 @@ main ( int argc, char *argv[])
 	list<Agente> melhores;
 	list<Agente>::iterator it;
 	Agente melhor;
+//	cout << argv[0] << " " << argv[1] << endl; getchar();
 
 
 	if(argc != 2){
@@ -41,10 +42,10 @@ main ( int argc, char *argv[])
 		argc = 2;
 		argv = (char **)malloc(sizeof(char *) * 2);
 		for(i = 0; i < 2; i++) {
-			argv[i] = (char *)malloc(sizeof(char) * 10);
+			argv[i] = (char *)malloc(sizeof(char) * 20);
 		}
 
-		strcpy(argv[0], "gerador.cpp");
+		strcpy(argv[0], "../../gerador_loop");
 		strcpy(argv[1], arq_mapa.c_str());
 
 		main(argc, argv);
