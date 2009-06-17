@@ -70,6 +70,7 @@ typedef vector<int> Caminho;
 			int vertice;
 			Caminho caminho;
 			int avaliacao;
+			int tempo;
 
 
 		private:

@@ -72,6 +72,7 @@ gerar ( string arq_mapa)
 				novo_agente.adicionarVertice(salas[i]);
 				novo_agente.set_avaliacao(avaliar(arq_mapa, novo_agente.get_caminho()));
 	
+					novo_agente.imprimir();//getchar();
 				if	((novo_agente.get_avaliacao() < 0) && (-novo_agente.get_avaliacao() <= melhor.get_avaliacao())) 
 				{
 					candidatos.push_back(novo_agente);			/* Adiciona o agente na lista de candidator */
@@ -91,13 +92,14 @@ gerar ( string arq_mapa)
 					melhores.push_back(novo_agente);
 				} else 
 				{
+//					novo_agente.imprimir();
 				}
 			}
 		}
 	
-		if(0)
+		if(1)
 		{
-			system("clear");
+//			system("clear");
 			cout << "Candidatos:" << endl;
 			imprimir_agentes(candidatos);
 			cout << endl << "Melhores:" << endl;
@@ -141,7 +143,7 @@ imprimir_agentes(list<Agente> candidatos)
 		}
 		cout << ") ";
 		max++;
-		if(max > 10*0) break;
+		if(max > 100) break;
 	}
 	
 	cout << endl;

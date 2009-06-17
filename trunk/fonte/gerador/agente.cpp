@@ -30,6 +30,7 @@ Agente::Agente ()
 {
 	vertice = -1;
 	avaliacao = 0;
+	tempo = 0;
 }  /* -----  end of method Agente::Agente  (constructor)  ----- */
 
 /*
@@ -44,6 +45,7 @@ Agente::Agente (int inicial)
 	vertice = inicial;
 	caminho.push_back(inicial);
 	avaliacao = 0;
+	tempo = 0;
 }  /* -----  end of method Agente::Agente  (constructor)  ----- */
 
 /*
@@ -58,6 +60,7 @@ Agente::Agente ( const Agente &other )
 	vertice = other.vertice;
 	caminho = other.caminho;
 	avaliacao = other.avaliacao;
+	tempo = other.tempo;
 }  /* -----  end of method Agente::Agente  (copy constructor)  ----- */
 
 /*
@@ -174,6 +177,7 @@ Agente::imprimir (  )
 	for(unsigned int i = 0; i < caminho.size(); i++)
 		cout << " " << caminho[i];
 	cout << endl << "Avaliacao: " << avaliacao << endl;
+	cout << "Tempo: " << tempo << endl;
 
 }		/* -----  end of method Agente::imprimir  ----- */
 
