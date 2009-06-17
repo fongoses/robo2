@@ -102,6 +102,42 @@ Robo::operator = ( const Robo &other )
  * ====================  METHODS       ======================================= *
  *-----------------------------------------------------------------------------*/
 
+ /*
+	*--------------------------------------------------------------------------------------
+ *       Class:  Robo
+ *      Method:  calcular
+ * Description:  calcula a distancia e o angulo para um ponto p 
+ *--------------------------------------------------------------------------------------
+ */
+void Robo::calcular(float x, float y, float *dist, int *angulo) {
+  float dx, dy, hipotenusa, seno, cosseno, angulo_rad;
+
+  player_client.Read();
+
+  dx = x - position.GetXPos();
+  dy = y - position.GetYPos();
+
+  hipotenusa = sqrt(dx * dx + dy * dy);
+
+  cosseno = dx / hipotenusa;
+  seno = dy / hipotenusa;
+
+
+  /* Quadrantes I e II */
+  if(seno >= 0) {
+    angulo_rad = acos(cosseno);
+  /* Quadrante III */
+  } else if((seno < 0) && (cosseno < 0)){
+    angulo_rad = 180 / GRAD_TO_RAD - asin(seno);
+  /* Quadrante IV */
+  } else {
+    angulo_rad = asin(seno);
+  }
+
+  *dist = hipotenusa;
+  *angulo = (int)(angulo_rad * GRAD_TO_RAD);
+}
+
 /*
  *--------------------------------------------------------------------------------------
  *       Class:  Robo

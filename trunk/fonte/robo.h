@@ -24,7 +24,8 @@
 
 #define	DISTANCIA_ERRO	0.3		/* Erro permitido na distancia (m) */
 
-#define	SIMULACAO_VEL 1			/* Velocidade da simulacao (m/s) */
+#define	SIMULACAO_VEL 1.0			/* Velocidade da simulacao (m/s) */
+#define SIMULACAO_ROT 0.5			/* Velocidade angular de simulacao (rad/s) */
 /*-----------------------------------------------------------------------------
  *  CODIGO ANTIGO
  *-----------------------------------------------------------------------------*/
