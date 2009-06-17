@@ -41,6 +41,7 @@ class Ponto
 
 		/* ====================  METHODS       ======================================= */
 		float distancia (const Ponto &P);
+		float distancia_angular (float a, const Ponto &P)
 
 		/* ====================  ACCESS        ======================================= */
 		float get_x();

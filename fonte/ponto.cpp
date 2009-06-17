@@ -164,3 +164,37 @@ Ponto::distancia ( const Ponto &P )
 	return sqrt(pow(x - P.x, 2) + pow(y - P.y, 2));
 }		/* -----  end of method Ponto::distancia  ----- */
 
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Ponto
+ *      Method:  distancia_angular
+ * Description:  Retorna a distancia angular de um angulo a para virar para o ponto P
+ *--------------------------------------------------------------------------------------
+ */
+	float
+Ponto::distancia_angular ( float a, const Ponto &P )
+{
+	float dx, dy, seno, cosseno, hipotenusa, ang, resp;
+
+	dx = x - P.x;
+	dy = y - P.y;
+
+	hipotenusa = distancia(P);
+
+	seno = dy / hipotenusa;
+	cosseno = dx / hipotenusa;
+
+	if(seno >= 0) /* Quadrantes I e II */
+		ang = acos(cosseno);
+	else if (cosseno < 0) /* Quadrante III */
+		ang = -acos(cosseno);
+	else /* Quadrante IV */
+		ang = asin(seno);
+
+	resp = a - ang;
+
+	if (resp > PI)
+
+	return sqrt(pow(x - P.x, 2) + pow(y - P.y, 2));
+}		/* -----  end of method Ponto::distancia_angular  ----- */
+
