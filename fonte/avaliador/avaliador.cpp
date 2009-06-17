@@ -47,7 +47,11 @@ avaliar (	string arq_mapa, vector<int> caminho, int limite)
 	salas.atualizar(tempo);
 	anterior = tempo;
 
-
+//	cout << "AVALIADOR\nAvaliando caminho: ";
+//	for(unsigned int i = 0; i < caminho.size(); i++){
+//		cout << caminho[i] << " ";
+//	}
+//	cout << endl;
 	aval = 0;
 	
 	salas_atual.set_salas(salas.get_salas_completo());
@@ -85,8 +89,10 @@ avaliar (	string arq_mapa, vector<int> caminho, int limite)
 		}
 
 		if(caminho[0] != caminho[caminho.size()-1])
+		{
 			if(aval == 0) return -1;
 			else return -aval;
+		}
 
 		
 		if(aval > limite)

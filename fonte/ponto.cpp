@@ -172,12 +172,15 @@ Ponto::distancia ( const Ponto &P )
  *--------------------------------------------------------------------------------------
  */
 	float
-Ponto::distancia_angular ( float a, const Ponto &P )
+Ponto::distancia_angular ( float *a, const Ponto &P )
 {
 	float dx, dy, seno, cosseno, hipotenusa, ang, resp;
 
 	dx = x - P.x;
 	dy = y - P.y;
+
+//	cout << "de [" << x << "," << y << "]" << endl;
+//	cout << "para [" << P.x << "," << P.y << "]" << endl;
 
 	hipotenusa = distancia(P);
 	if(hipotenusa == 0)
@@ -186,6 +189,9 @@ Ponto::distancia_angular ( float a, const Ponto &P )
 	seno = dy / hipotenusa;
 	cosseno = dx / hipotenusa;
 
+//	cout << "sen: " << seno << endl;
+//	cout << "cos: " << cosseno << endl;
+
 	if(seno >= 0) /* Quadrantes I e II */
 		ang = acos(cosseno);
 	else if (cosseno < 0) /* Quadrante III */
@@ -193,8 +199,11 @@ Ponto::distancia_angular ( float a, const Ponto &P )
 	else /* Quadrante IV */
 		ang = asin(seno);
 
-	resp = ang - a;
+//	cout << "de " << *a << " para " << ang << endl;
+	resp = ang - *a;
+//	cout << "Resp " << resp;
 
+	*a = ang;
 	if(resp > PI)
 		resp -= 2 * PI;
 	else if (resp < -PI)
@@ -203,6 +212,5 @@ Ponto::distancia_angular ( float a, const Ponto &P )
 	return resp;
 
 
-	return sqrt(pow(x - P.x, 2) + pow(y - P.y, 2));
 }		/* -----  end of method Ponto::distancia_angular  ----- */
 

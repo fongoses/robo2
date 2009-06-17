@@ -116,7 +116,7 @@ Robo::irPara ( Ponto p )
 {
 	time_t tempo;
 	float ang_dist;
-//	cout	<< "Indo para ponto: " << p << "[" << mapa.get_vertice(p) << "].\n";
+//	cout	<< "\nIndo para ponto: " << p << "[" << mapa.get_vertice(p) << "].\n";
 //	cout	<< vertice << endl;
 	if(!simular) {
 		cout	<< "ROBO::irPara Arrumar o tempo\n";
@@ -125,12 +125,15 @@ Robo::irPara ( Ponto p )
 		return -1;
 	} else {
 //		cout	<< "Simulando\n";
-		tempo = floor(p.distancia(mapa.get_ponto(vertice)) / SIMULACAO_VEL + 0.5);
-		ang_dist = p.distancia_angular(angulo_sim, mapa.get_ponto(vertice));
+		ang_dist = mapa.get_ponto(vertice).distancia_angular(&angulo_sim, p);
+//		ang_dist = p.distancia_angular(angulo_sim, mapa.get_ponto(vertice));
 		if(ang_dist >= 0)
-			tempo += floor(ang_dist / SIMULACAO_ROT + 0.5);
+			tempo = floor(ang_dist / SIMULACAO_ROT + 0.5);
 		else
-			tempo += floor(-ang_dist / SIMULACAO_ROT + 0.5);
+			tempo = floor(-ang_dist / SIMULACAO_ROT + 0.5);
+//		cout << endl << ang_dist * GRAD_TO_RAD << " Demorou: " << tempo << endl;
+		tempo += floor(p.distancia(mapa.get_ponto(vertice)) / SIMULACAO_VEL + 0.5);
+//		cout << "Demorou no total: " << tempo << endl;
 //		cout << "Distancia entre: " << p << " e " << mapa.get_ponto(vertice) << " = " << p.distancia(mapa.get_ponto(vertice)); 
 //			   << " Velocidade: " <<  SIMULACAO_VEL << " ";
 		
