@@ -23,7 +23,7 @@ avaliar (	string arq_mapa, vector<int> caminho, int limite)
 {
 	Robo *robo1;
 	Mapa mapa;
-	Salas salas, salas_ant;
+	Salas salas, salas_ant, salas_atual;
 	int vertice, U, aval_ant, aval, i;
 	time_t tempo, anterior;
 	Vertice inicial;
@@ -50,13 +50,14 @@ avaliar (	string arq_mapa, vector<int> caminho, int limite)
 
 	aval = 0;
 	
+	salas_atual.set_salas(salas.get_salas_completo());
 	do{
 		aval_ant = aval;
-		salas_ant.set_salas(salas.get_salas_completo());
+		salas_ant.set_salas(salas_atual.get_salas_completo());
 
 
 		aval = 0;
-		for(unsigned int i = 0; i < caminho.size()-1; i++){
+		for(unsigned int i = 0; i < caminho.size(); i++){
 			vertice = caminho[i];
 			if(!salas.existeSala(vertice)) {
 				return 0;
@@ -71,6 +72,7 @@ avaliar (	string arq_mapa, vector<int> caminho, int limite)
 			if(aval < U)
 				aval = U;
 
+			salas_atual.set_salas(salas.get_salas_completo());
 			salas.visitar(vertice);
 		}
 
@@ -90,7 +92,7 @@ avaliar (	string arq_mapa, vector<int> caminho, int limite)
 		if(aval > limite)
 			return 0;
 
-	}while(salas_ant != salas);
+	}while(salas_ant != salas_atual);
 
 	return aval;
 }

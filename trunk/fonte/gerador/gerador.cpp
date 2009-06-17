@@ -74,8 +74,8 @@ gerar ( string arq_mapa)
 	
 				if	((novo_agente.get_avaliacao() < 0) && (-novo_agente.get_avaliacao() <= melhor.get_avaliacao())) 
 				{
-//					candidatos.push_back(novo_agente);			/* Adiciona o agente na lista de candidator */
-					candidatos.push_front(novo_agente);			/* Adiciona o agente na lista de candidator */
+					candidatos.push_back(novo_agente);			/* Adiciona o agente na lista de candidator */
+//					candidatos.push_front(novo_agente);			/* Adiciona o agente na lista de candidator */
 				} else if (novo_agente == melhor)
 				{
 					melhores.push_back(novo_agente);
@@ -84,8 +84,8 @@ gerar ( string arq_mapa)
 					melhor = novo_agente;		/* E atualiza a avaliacao atual */
 					while(!melhores.empty()) /* Readiciona os antigos melhores como candidatos */
 					{
-//						candidatos.push_back(melhores.front());
-						candidatos.push_front(melhores.front());
+						candidatos.push_back(melhores.front());
+//						candidatos.push_front(melhores.front());
 						melhores.pop_front();
 					}
 					melhores.push_back(novo_agente);
@@ -141,7 +141,7 @@ imprimir_agentes(list<Agente> candidatos)
 		}
 		cout << ") ";
 		max++;
-		if(max > 100) break;
+		if(max > 10*0) break;
 	}
 	
 	cout << endl;
