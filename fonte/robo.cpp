@@ -46,6 +46,7 @@ Robo::Robo (Vertice v_inicial, Mapa m, bool _simular)
 	vertice = v_inicial.first;
 	simular = _simular;
 	mapa = m;
+	angulo_sim = 0;
 //	cout	<< "Posicao inicial: " << pos_inicial << "[" << mapa.get_vertice(pos_inicial) << "].\n";
 	if(!simular) {
 		player_client = new PlayerClient(HOST, PORT);
@@ -102,42 +103,6 @@ Robo::operator = ( const Robo &other )
  * ====================  METHODS       ======================================= *
  *-----------------------------------------------------------------------------*/
 
- /*
-	*--------------------------------------------------------------------------------------
- *       Class:  Robo
- *      Method:  calcular
- * Description:  calcula a distancia e o angulo para um ponto p 
- *--------------------------------------------------------------------------------------
- */
-void Robo::calcular(float x, float y, float *dist, int *angulo) {
-  float dx, dy, hipotenusa, seno, cosseno, angulo_rad;
-
-  player_client.Read();
-
-  dx = x - position.GetXPos();
-  dy = y - position.GetYPos();
-
-  hipotenusa = sqrt(dx * dx + dy * dy);
-
-  cosseno = dx / hipotenusa;
-  seno = dy / hipotenusa;
-
-
-  /* Quadrantes I e II */
-  if(seno >= 0) {
-    angulo_rad = acos(cosseno);
-  /* Quadrante III */
-  } else if((seno < 0) && (cosseno < 0)){
-    angulo_rad = 180 / GRAD_TO_RAD - asin(seno);
-  /* Quadrante IV */
-  } else {
-    angulo_rad = asin(seno);
-  }
-
-  *dist = hipotenusa;
-  *angulo = (int)(angulo_rad * GRAD_TO_RAD);
-}
-
 /*
  *--------------------------------------------------------------------------------------
  *       Class:  Robo
@@ -150,6 +115,7 @@ void Robo::calcular(float x, float y, float *dist, int *angulo) {
 Robo::irPara ( Ponto p )
 {
 	time_t tempo;
+	float ang_dist;
 //	cout	<< "Indo para ponto: " << p << "[" << mapa.get_vertice(p) << "].\n";
 //	cout	<< vertice << endl;
 	if(!simular) {
@@ -160,6 +126,11 @@ Robo::irPara ( Ponto p )
 	} else {
 //		cout	<< "Simulando\n";
 		tempo = floor(p.distancia(mapa.get_ponto(vertice)) / SIMULACAO_VEL + 0.5);
+		ang_dist = p.distancia_angular(angulo_sim, mapa.get_ponto(vertice));
+		if(ang_dist >= 0)
+			tempo += floor(ang_dist / SIMULACAO_ROT + 0.5);
+		else
+			tempo += floor(-ang_dist / SIMULACAO_ROT + 0.5);
 //		cout << "Distancia entre: " << p << " e " << mapa.get_ponto(vertice) << " = " << p.distancia(mapa.get_ponto(vertice)); 
 //			   << " Velocidade: " <<  SIMULACAO_VEL << " ";
 		

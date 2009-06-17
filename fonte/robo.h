@@ -116,6 +116,7 @@ class Robo
 
     Mapa mapa;
 		int vertice;
+		float angulo_sim;
 
 		bool simular;
 

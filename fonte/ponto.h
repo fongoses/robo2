@@ -17,8 +17,9 @@
  */
 #ifndef  PONTO_INC
 #define  PONTO_INC
-#include	<ostream>
+#include	<iostream>
 
+#define PI 3.141592654
 using namespace std;
 
 /*
@@ -41,7 +42,7 @@ class Ponto
 
 		/* ====================  METHODS       ======================================= */
 		float distancia (const Ponto &P);
-		float distancia_angular (float a, const Ponto &P)
+		float distancia_angular (float a, const Ponto &P);
 
 		/* ====================  ACCESS        ======================================= */
 		float get_x();
@@ -56,7 +57,7 @@ class Ponto
 	protected:
 
 	private:
-		float x, y;
+		float x, y, a;
 
 }; /* -----  end of class  Ponto  ----- */
 

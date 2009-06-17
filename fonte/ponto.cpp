@@ -180,6 +180,8 @@ Ponto::distancia_angular ( float a, const Ponto &P )
 	dy = y - P.y;
 
 	hipotenusa = distancia(P);
+	if(hipotenusa == 0)
+		return 0;
 
 	seno = dy / hipotenusa;
 	cosseno = dx / hipotenusa;
@@ -191,9 +193,15 @@ Ponto::distancia_angular ( float a, const Ponto &P )
 	else /* Quadrante IV */
 		ang = asin(seno);
 
-	resp = a - ang;
+	resp = ang - a;
 
-	if (resp > PI)
+	if(resp > PI)
+		resp -= 2 * PI;
+	else if (resp < -PI)
+		resp += 2 * PI;
+
+	return resp;
+
 
 	return sqrt(pow(x - P.x, 2) + pow(y - P.y, 2));
 }		/* -----  end of method Ponto::distancia_angular  ----- */
