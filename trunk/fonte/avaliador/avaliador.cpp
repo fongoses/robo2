@@ -17,6 +17,7 @@
  */
 
 #include	"avaliador.h"
+#include	<omp.h>
 
 	int
 avaliar (	string arq_mapa, vector<int> caminho, int limite)
@@ -24,7 +25,9 @@ avaliar (	string arq_mapa, vector<int> caminho, int limite)
 	Robo *robo1;
 	Mapa mapa;
 	Salas salas, salas_ant, salas_atual;
-	int vertice, U, aval_ant, aval, i;
+	int vertice, U, aval_ant, aval, retornar;
+	bool sair=false;
+	unsigned int i;
 	time_t tempo, anterior;
 	Vertice inicial;
 	VetorSalas vsalas;
@@ -37,7 +40,7 @@ avaliar (	string arq_mapa, vector<int> caminho, int limite)
 	robo1 = new Robo(inicial, mapa, true);
 
 	vsalas = salas.get_salas();
-	for(i = 0; (unsigned int)i < vsalas.size(); i++)
+	for(i = 0; i < vsalas.size(); i++)
 
 		visitou[vsalas[i]] = false;
 
@@ -55,13 +58,17 @@ avaliar (	string arq_mapa, vector<int> caminho, int limite)
 	aval = 0;
 	
 	salas_atual.set_salas(salas.get_salas_completo());
+//	omp_set_dynamic(0);
+//	#pragma omp parallel num_threads(4) shared(salas, salas_ant, salas_atual)
 	do{
 		aval_ant = aval;
 		salas_ant.set_salas(salas_atual.get_salas_completo());
 
 
 		aval = 0;
-		for(unsigned int i = 0; i < caminho.size(); i++){
+
+//		#pragma omp parallel for private(i)
+		for(i = 0; i < caminho.size(); i++){
 			vertice = caminho[i];
 			if(!salas.existeSala(vertice)) {
 				return 0;
