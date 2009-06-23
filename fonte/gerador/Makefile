@@ -2,9 +2,10 @@ CC=g++
 FLAGS=-Wall -ansi -ldl -lm
 OPENCV= -L/usr/local/lib -lcxcore -lcv -lhighgui -lcvaux -lml -I/usr/local/include/opencv
 PLAYERFLAGS=  `pkg-config --cflags playerc++ --libs playerc++` 
+OMPFLAG= -fopenmp
 NCURSES= -lncurses
 GPROOF= -g -pg
-CC_OPT= $(FLAGS) $(PLAYERFLAGS)
+CC_OPT= $(FLAGS) $(PLAYERFLAGS) $(OMPFLAG)
 
 PROG=gerador_loop
 
