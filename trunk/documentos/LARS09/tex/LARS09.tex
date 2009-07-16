@@ -62,14 +62,14 @@ Priority & 5 & 5 & 2 & 1 & 3 & 2 & 1 & 2 & 1 & 4 & 4 & 2 & 3 \\
 \label{tab:exemplo}
 \end{table}
 
-Each room has an Urgency Factor which is derived by multiplying the room priority by the time since the last visit, as show in the equation \ref{eq:urgencia}.
+Each room has an Urgency Factor which is derived by multiplying the room priority by the time since the last visit, as show in the equation \ref{eq:urgencia}. The Urgency Factor raise proporcionaly to the room priority, and is reseted when the robot visit the room, making $t_i=0$ so $U_i = 0$.
 
 \begin{eqnarray}
 U_i= P_i \times t_i
 \label{eq:urgencia}
 \end{eqnarray}
 
-
+The Urgency Factor is used too, as an evaluation criteria(?), using an other variable called Global Urgency Factor witch is derivided by adding the Urgency Factor for all rooms (This criteria is explained better in \ref{avaliacao})
 
 
 
