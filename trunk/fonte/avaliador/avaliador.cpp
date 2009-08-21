@@ -17,7 +17,6 @@
  */
 
 #include	"avaliador.h"
-#include	<omp.h>
 
 	int
 avaliar (	string arq_mapa, vector<int> caminho, int limite)
@@ -58,8 +57,6 @@ avaliar (	string arq_mapa, vector<int> caminho, int limite)
 	aval = 0;
 	
 	salas_atual.set_salas(salas.get_salas_completo());
-//	omp_set_dynamic(0);
-//	#pragma omp parallel num_threads(4) shared(salas, salas_ant, salas_atual)
 	do{
 		aval_ant = aval;
 		salas_ant.set_salas(salas_atual.get_salas_completo());
@@ -67,7 +64,6 @@ avaliar (	string arq_mapa, vector<int> caminho, int limite)
 
 		aval = 0;
 
-//		#pragma omp parallel for private(i)
 		for(i = 0; i < caminho.size(); i++){
 			vertice = caminho[i];
 			if(!salas.existeSala(vertice)) {
