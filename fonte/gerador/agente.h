@@ -59,6 +59,7 @@ typedef vector<int> Caminho;
 			 void set_avaliacao( int value );
 			 Caminho get_caminho();
 			 void set_caminho( Caminho value );
+			 int get_tamanho();
 
 
 			void adicionarVertice( int vertice );

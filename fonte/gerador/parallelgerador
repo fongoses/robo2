@@ -16,6 +16,7 @@
  * =====================================================================================
  */
 #include	<cstdlib>
+#include	<omp.h>
 
 #include	"../mapa.h"
 #include  "../avaliador/avaliador.h"
@@ -58,7 +59,8 @@ gerar ( string arq_mapa)
 	novo_agente.set_avaliacao(avaliar(arq_mapa, novo_agente.get_caminho()));
 	melhores.push_back(novo_agente);
 //	melhor.set_avaliacao(INT_MAX);
-		if(0)
+	omp_set_dynamic(0);
+		if(1)
 		{
 			system("clear");
 			cout << "Candidatos:" << endl;
@@ -68,17 +70,22 @@ gerar ( string arq_mapa)
 			cout << "Avaliação: " << melhores.front().get_avaliacao() << endl;
 //			getchar();
 		}
+	#pragma omp parallel num_threads(candidatos.size()) shared(candidatos, melhores)
 	while(!candidatos.empty())
 	{
+		#pragma omp critical 
 		{
 			agente_atual = candidatos.front();
 			candidatos.pop_front();
-//			agente_atual.imprimir();
+			agente_atual.imprimir();
 //			getchar();
 		}
+		#pragma omp barrier 
 
+		#pragma omp parallel for private(i)
 		for(i = 0; i < salas.size(); i++) /*Criando candidatos a partir do agente atual */
 		{
+			cout<<"GERADOR i: "<<i<<endl;
 			if(salas[i] != agente_atual.get_vertice())
 			{
 				novo_agente = agente_atual;
@@ -88,6 +95,7 @@ gerar ( string arq_mapa)
 	
 //			cout<<"GERADOR\n;novo_agente.imprimir();//getchar();
 
+				#pragma omp critical
 				{
 				if	((novo_agente.get_avaliacao() < 0) && (-novo_agente.get_avaliacao() <= melhores.front().get_avaliacao())) 
 				{
@@ -115,6 +123,7 @@ gerar ( string arq_mapa)
 		}
 	
 		if(0)
+		#pragma omp critical 
 		{
 			system("clear");
 			cout << "Candidatos:" << endl;
@@ -126,13 +135,13 @@ gerar ( string arq_mapa)
 		}
 
 		time(&tempo);
-		if(tempo - tempo_ant >= 10)
+		if(tempo - tempo_ant >= 1)
 		{
 			system("clear");
 			cout << "Candidatos:" << endl;
 			imprimir_agentes(candidatos);
 			cout << endl << "Melhores:" << endl;
-//			imprimir_agentes(melhores);
+			imprimir_agentes(melhores);
 			cout << "Avaliação: " << melhores.front().get_avaliacao() << endl;
 			cout << "Tempo: " << tempo - inicio << endl;
 			tempo_ant = tempo;
@@ -149,20 +158,19 @@ imprimir_agentes(list<Agente> agentes)
 	unsigned int i, max = 0;
 	
 	cout << "Tamanho: " << agentes.size() << " MAX: " << agentes.max_size()<< endl;
-	cout << "Salas: " << agentes.front().get_tamanho();
-//	for(it = agentes.begin(); it != agentes.end(); it++)
-//	{
-//		caminho = it->get_caminho();
-//		cout << "(";
-//		for(i = 0; i < caminho.size(); i++)
-//		{
-//			if(i > 0) cout << " ";
-//			cout << caminho[i];
-//		}
-//		cout << ") ";
-//		max++;
-//		if(max > 100) break;
-//	}
+	for(it = agentes.begin(); it != agentes.end(); it++)
+	{
+		caminho = it->get_caminho();
+		cout << "(";
+		for(i = 0; i < caminho.size(); i++)
+		{
+			if(i > 0) cout << " ";
+			cout << caminho[i];
+		}
+		cout << ") ";
+		max++;
+		if(max > 100) break;
+	}
 	
 	cout << endl;
 }		/* -----  end of function imprimir_agentes  ----- */

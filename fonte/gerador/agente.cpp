@@ -260,6 +260,18 @@ Agente::set_caminho ( Caminho value )
 /*
  *--------------------------------------------------------------------------------------
  *       Class:  Agente
+ *      Method:  get_tamanho
+ * Description:  Retorna o tamanho do caminho
+ *--------------------------------------------------------------------------------------
+ */
+	int
+Agente::get_tamanho ( )
+{
+	return caminho.size();
+}		/* -----  end of method Agente::get_tamanho  ----- */
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Agente
  *      Method:  adicionarVertice
  * Description:  Adiciona um vertice no caminho do Agente
  *--------------------------------------------------------------------------------------
