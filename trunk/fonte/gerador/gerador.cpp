@@ -16,6 +16,7 @@
  * =====================================================================================
  */
 #include	<cstdlib>
+#include	<fstream>
 
 #include	"../mapa.h"
 #include  "../avaliador/avaliador.h"
@@ -165,4 +166,21 @@ imprimir_agentes(list<Agente> agentes)
 //	}
 	
 	cout << endl;
+}		/* -----  end of function imprimir_agentes  ----- */
+
+	void
+salvar_loop(char arquivo[], list<Agente> agentes)
+{
+	ofstream arq;
+	Caminho caminho;
+	unsigned int i;
+	
+	arq.open(arquivo, ifstream::trunc);
+
+	caminho = agentes.front().get_caminho();
+	for(i = 0; i < caminho.size()-1; i++)
+	{
+		arq << caminho[i] << endl;
+	}
+
 }		/* -----  end of function imprimir_agentes  ----- */
