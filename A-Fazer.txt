@@ -1,3 +1,9 @@
+Crirar modo de emergência
+
+Criar prioridades dinâmicas
+
+
+
 Executar o stage pelo programa
 
 verificar o template de criar funcao

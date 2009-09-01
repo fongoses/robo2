@@ -27,3 +27,6 @@ gerar(string arq_mapa);
 
 	void
 imprimir_agentes(list<Agente> c);
+
+	void
+salvar_loop(char arquivo[], list<Agente> agentes);
