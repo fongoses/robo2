@@ -15,10 +15,14 @@
  *
  * =====================================================================================
  */
+#ifndef  SALAS_INC
+#define  SALAS_INC
+
 #include	<map>
 #include	<iostream>
 #include	<ctime>
 #include	<vector>
+#include	<climits>
 
 using namespace std;
 
@@ -55,8 +59,8 @@ class Sala
 
 		/* ====================  DATA MEMBERS  ======================================= */
 		int vertice;
-		int P;
-		int U;
+		unsigned int P;
+		unsigned int U;
 	protected:
 
 	private:
@@ -65,6 +69,7 @@ class Sala
 
 typedef map<int, Sala> MapaSala;
 typedef vector<int> VetorSalas;
+typedef vector<int> VetorVertices;
 
 /*
  * =====================================================================================
@@ -94,8 +99,11 @@ class Salas
 		void visitar(int s);
 
 		void imprimir();
+		void zerar_prioridades();
+		void incrementar_prioridade(int s);
 
 		/* ====================  ACCESS        ======================================= */
+		VetorVertices get_salas_vertices();
 		VetorSalas get_salas();
 		int get_maiorU(int *U = NULL);
 		int get_vertice( int s );
@@ -117,3 +125,5 @@ class Salas
 
 }; /* -----  end of class  Salas  ----- */
 
+
+#endif

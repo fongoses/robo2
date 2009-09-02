@@ -1,6 +1,6 @@
 Crirar modo de emergência
 
-Criar prioridades dinâmicas
+Criar prioridades dinâmicas - OK
 
 
 

@@ -55,7 +55,7 @@ main ( int argc, char *argv[] )
 	anterior = tempo;/* Usado para simulacao */
 	/* Fim da iniciacao padrão */
 
-	algoritmo = 3;
+	algoritmo = 4;
 
 	switch(algoritmo) {
 		/*-----------------------------------------------------------------------------
@@ -133,37 +133,117 @@ main ( int argc, char *argv[] )
 			while(!arq_loop.eof())
 			{
 				loop.push_back(sala_loop);
-//				cout << "sala " << sala_loop << endl; getchar();
-			
 				arq_loop >> sala_loop;
 			}
-
-			// CARREGAR O LOOP
 
 			it_l = loop.begin();
 			while(tempo - inicio < TOTAL * 60) { /* rodar por TOTAL minutos */
 				visitar_sala = *it_l;
-//				sala.imprimir();
-//				cout << "Indo para sala " << visitar_sala << " vertice " << sala.get_vertice(visitar_sala)<< endl;getchar();
 				tempo += robo1->irPara(sala.get_vertice(visitar_sala));
-//				cout << "Diferenca: " << tempo - anterior << endl;getchar();
 				while( tempo - anterior > ATUALIZACAO) {
 					anterior += ATUALIZACAO;
 					U = sala.atualizar(anterior);
-//					cout << U; getchar();
 					arq << anterior - inicio << "\t" << U << endl;
 				}
 				sala.atualizar(tempo);
 				sala.visitar(visitar_sala);
-//				sala.imprimir();getchar();
 				tempo += VISITAR_SALA;
-//				sala.imprimir();
-//				cout << "Tempo total: " << tempo - inicio << endl;
 				if(++it_l == loop.end())
 					it_l = loop.begin();
 
 			}
 		};break;
+
+		/*-----------------------------------------------------------------------------
+		 * Algoritmo 4: Prioridades dinamicas
+		 *-----------------------------------------------------------------------------*/
+		case 4: {
+			map<int, unsigned int> chances; /* PENSAR NUM NOME MELHOR */
+			VetorSalas v_salas;
+			unsigned int i, aux;
+			time_t tempo_ER;
+
+			system("clear");
+
+			v_salas = sala.get_salas();
+
+			srand(time(NULL));
+
+			/* Gerando aleatoriamente a chances de um chamado de emergência V1*/
+/*			aux = 100;
+			for(i = 0; i < v_salas.size(); i++)
+			{
+				if(i < v_salas.size() - 1)
+					chances[v_salas[i]] = rand() % aux + 1; /* No mínimo 1% de chance */
+/*				else
+					chances[v_salas[i]] = aux + 1;
+				aux -= chances[v_salas[i]];
+				cout << "sala: " << v_salas[i] << " %: " << chances[v_salas[i]] << endl;
+			}*/
+
+			/* Gerando aleatoriamente a chances de um chamado de emergência V2*/
+			for(i = 0; i < v_salas.size(); i++)
+			{
+				chances[v_salas[i]] = 0;
+			}
+
+			for(i = 0; i < 100; i++)
+			{
+				aux = rand() % v_salas.size();
+				chances[v_salas[aux]]++;
+//				cout << "sala: " << v_salas[aux] << " %: " << chances[v_salas[aux]] << endl;getchar();
+			}
+
+			for(i = 0; i < v_salas.size(); i++)
+			{
+				cout << "sala: " << v_salas[i] << " %: " << chances[v_salas[i]] << endl;
+			}
+
+			getchar();
+			sala.zerar_prioridades();
+			tempo_ER = tempo;
+			while(tempo - inicio < TOTAL * 60) { /* rodar por TOTAL minutos */
+
+				do {
+
+					while( tempo - tempo_ER > 60 ) /* USAR DEFINE */
+					{
+						tempo_ER+=60;
+						for(i = 0; i < v_salas.size(); i++)
+						{
+							aux = rand() % 100;
+//							cout << "sala " << v_salas[i] << " " << chances[v_salas[i]] << "% " << aux << "%\n";
+							if(chances[v_salas[i]] >= aux)//rand() % 100)
+							{
+								sala.incrementar_prioridade(v_salas[i]);
+							
+//								cout << "!!\n";
+							}
+						}
+					}
+
+					tempo++;
+					sala.atualizar(tempo);
+					visitar_sala = sala.get_maiorU();
+//					cout << "Tempo total: " << tempo - tempo_ER << endl;
+//					sala.imprimir();//getchar();
+
+				}while (visitar_sala == -1);
+
+				sala.imprimir();
+				cout << "Indo para sala " << visitar_sala << " vertice " << sala.get_vertice(visitar_sala)<< endl; getchar();
+				tempo += robo1->irPara(sala.get_vertice(visitar_sala));
+				while( tempo - anterior > ATUALIZACAO) {
+					anterior += ATUALIZACAO;
+					U = sala.atualizar(anterior);
+					arq << anterior - inicio << "\t" << U << endl;
+				}
+
+				sala.atualizar(tempo);
+				sala.visitar(visitar_sala);
+				tempo += VISITAR_SALA;
+			}
+		}
 	}
 
 	return EXIT_SUCCESS;
