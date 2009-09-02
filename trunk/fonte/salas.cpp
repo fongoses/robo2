@@ -18,6 +18,17 @@
 
 #include	"salas.h"
 
+int MDC(int a, int b){
+  int resto;
+
+  while(b != 0){
+    resto = a % b;
+    a = b;
+    b = resto;
+  }
+
+  return a;
+}
 /*-----------------------------------------------------------------------------
  * ====================  LIFECYCLE     =======================================
  *-----------------------------------------------------------------------------*/
@@ -292,7 +303,6 @@ Salas::visitar ( int s )
 	return ;
 }		/* -----  end of method Salas::visitar  ----- */
 
-
 /*
  *--------------------------------------------------------------------------------------
  *       Class:  Salas
@@ -314,18 +324,76 @@ Salas::imprimir ( )
 	return ;
 }		/* -----  end of method Salas::imprimir  ----- */
 
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Salas
+ *      Method:	 zerar_prioridades 
+ * Description:  Coloca a prioridades de todas as salas em 0
+ *--------------------------------------------------------------------------------------
+ */
+	void
+Salas::zerar_prioridades ( )
+{
+	MapaSala::iterator it_s;
+
+	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
+		it_s->second.P = 0;
+		it_s->second.U = 0;
+	}
+	return ;
+}		/* -----  end of method Salas::zerar_prioridades ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Salas
+ *      Method:  incrementar_prioridade
+ * Description:  Incrementa em uma unidade a prioridade da sala indicada
+ *--------------------------------------------------------------------------------------
+ */
+	void
+Salas::incrementar_prioridade (int s)
+{
+	MapaSala::iterator it_s;
+	int mdc;
+
+	sala[s].P++;
+//	sala[s].P+=100;
+
+	/* PENSAR NUM MODO DE DIMINUIR AS PRIORIDADES QUANDO NAO FOREM PRIMAS */
+
+	for(it_s = sala.begin(); it_s != sala.end(); it_s++)
+	{
+		if(it_s->second.P <= 1) /* Se alguma prioridade for 0 ou 1 não divide */
+			return ;
+	}
+
+	mdc = sala.begin()->second.P;
+
+	for(it_s = sala.begin(); it_s != sala.end() && mdc > 1; it_s++)
+	{
+		mdc = MDC(mdc, it_s->second.P);
+//		cout << "mdc = " << mdc;getchar();
+	}
+		
+	if(mdc > 1)	
+		for(it_s = sala.begin(); it_s != sala.end(); it_s++)
+			it_s->second.P /= mdc;
+		
+	return ;
+}		/* -----  end of method Salas::incrementar_prioridade ----- */
+
 /*-----------------------------------------------------------------------------
  * ====================  ACCESS        ======================================= *
  *-----------------------------------------------------------------------------*/
 /*
  *--------------------------------------------------------------------------------------
  *       Class:  Salas
- *      Method:  get_salas
+ *      Method:  get_salas_vertices
  * Description:  Retorna a lista dos vertices que são salas existentes
  *--------------------------------------------------------------------------------------
  */
-	VetorSalas
-Salas::get_salas ( )
+	VetorVertices
+Salas::get_salas_vertices ( )
 {
 	MapaSala::iterator it_s;
 	VetorSalas aux;
@@ -335,7 +403,27 @@ Salas::get_salas ( )
 		aux.push_back(it_s->second.vertice);
 	}
 	return aux;
-}		/* -----  end of method Salas::imprimir  ----- */
+}		/* -----  end of method Salas::get_salas_vertice ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Salas
+ *      Method:  get_salas_
+ * Description:  Retorna a lista dos vertices que são salas existentes
+ *--------------------------------------------------------------------------------------
+ */
+	VetorVertices
+Salas::get_salas( )
+{
+	MapaSala::iterator it_s;
+	VetorSalas aux;
+
+
+	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
+		aux.push_back(it_s->first);
+	}
+	return aux;
+}		/* -----  end of method Salas::get_salas ----- */
 
 /*
  *--------------------------------------------------------------------------------------
@@ -347,7 +435,7 @@ Salas::get_salas ( )
 	int
 Salas::get_maiorU ( int *U )
 {
-	int maiorU = 0, s;
+	unsigned int maiorU = 0, s = -1;
 	MapaSala::iterator it_s;
 
 	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {

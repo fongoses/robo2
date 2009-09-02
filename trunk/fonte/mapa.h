@@ -17,6 +17,7 @@
  */
 #ifndef  MAPA_INC
 #define  MAPA_INC
+
 #include	<cstdio>
 #include	<iostream>
 #include	<fstream>
