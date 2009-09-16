@@ -29,6 +29,7 @@ int MDC(int a, int b){
 
   return a;
 }
+
 /*-----------------------------------------------------------------------------
  * ====================  LIFECYCLE     =======================================
  *-----------------------------------------------------------------------------*/
@@ -299,6 +300,7 @@ Salas::atualizar ( time_t t )
 Salas::visitar ( int s ) 
 {
 //	cout << "Visitando sala: " << s << ".\n";
+
 	sala[s].U = 0;
 	return ;
 }		/* -----  end of method Salas::visitar  ----- */
@@ -381,6 +383,24 @@ Salas::incrementar_prioridade (int s)
 		
 	return ;
 }		/* -----  end of method Salas::incrementar_prioridade ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Salas
+ *      Method:  emergencia
+ * Description:  Aumente bruscamente o grau de urgencia da sala indicada
+ *--------------------------------------------------------------------------------------
+ */
+	void
+Salas::emergencia (int s)
+{
+	MapaSala::iterator it_s;
+	int mdc;
+
+	sala[s].U = FATOR_ER * sala[s].P;
+		
+	return ;
+}		/* -----  end of method Salas::emergencia ----- */
 
 /*-----------------------------------------------------------------------------
  * ====================  ACCESS        ======================================= *

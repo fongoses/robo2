@@ -114,15 +114,21 @@ Robo::operator = ( const Robo &other )
 	int
 Robo::irPara ( Ponto p )
 {
-	time_t tempo;
+	time_t tempo = 0;
 	float ang_dist;
-//	cout	<< "\nIndo para ponto: " << p << "[" << mapa.get_vertice(p) << "].\n";
+	cout	<< "\nIndo para ponto: " << p << "[" << mapa.get_vertice(p) << "].\n";
 //	cout	<< vertice << endl;
 	if(!simular) {
 		cout	<< "ROBO::irPara Arrumar o tempo\n";
+//		time(&tempo);
 		position->GoTo(p.get_x(), p.get_y(), 0);
-		while(!chegou(p));
-		return -1;
+
+/* MODO BLOQUEANTE */
+//		while(!chegou(p));
+//		tempo = time(NULL) - tempo;
+
+/* MODO NAO BLOQUEANTE */
+
 	} else {
 //		cout	<< "Simulando\n";
 		ang_dist = mapa.get_ponto(vertice).distancia_angular(&angulo_sim, p);
@@ -180,10 +186,16 @@ Robo::chegou ( Ponto p )
 {
 	Ponto atual;
 
-	player_client->Read();
-	atual.set_x(position->GetXPos());
-	atual.set_y(position->GetYPos());
-	return atual.distancia(p) < DISTANCIA_ERRO;
+	if(!simular)
+	{
+		player_client->Read();
+		atual.set_x(position->GetXPos());
+		atual.set_y(position->GetYPos());
+		//	cout << "Dist: " << atual.distancia(p) << " > " << DISTANCIA_ERRO << endl;
+		return atual.distancia(p) < DISTANCIA_ERRO;
+	} else {
+		return false;
+	}
 }		/* -----  end of method Robo::chegou  ----- */
 
 /*-----------------------------------------------------------------------------
