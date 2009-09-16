@@ -1,3 +1,15 @@
+DAR um jeito de fazer o caminho nao bloqueante
+-criar uma lista de vertices na classe robo para o robor ir segundo
+--determina o caminho, manda pro robo e ele se vira
+-Fazer a ir_para retornar o tempo
+--tratar DENTRO dela se for simulacao ou não
+-O mesmo com as atualizacoes do U
+-O mesmo com a visita da sala
+
+Colocar o modo de emergencia dentro da Salas
+-as chances, e uma funcao para gerar a ER que retorna a sala da ER
+
+
 Crirar modo de emergência
 
 Criar prioridades dinâmicas - OK

@@ -28,6 +28,7 @@ using namespace std;
 
 #define	VISITAR_SALA 5			/* Tempo para visitar uma sala (s) */
 #define ATUALIZACAO 1
+#define FATOR_ER 1000
 
 
 /*
@@ -101,6 +102,7 @@ class Salas
 		void imprimir();
 		void zerar_prioridades();
 		void incrementar_prioridade(int s);
+		void emergencia(int s);
 
 		/* ====================  ACCESS        ======================================= */
 		VetorVertices get_salas_vertices();
