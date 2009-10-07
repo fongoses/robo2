@@ -83,6 +83,7 @@ class Robo
 		int irPara( int v ); /* Vai para o vertice v */
 
 		bool chegou( Ponto p); /* Verifica se o robo chegou na posicai do ponto p */
+		bool chegou( int v); /* Verifica se o robo chegou na posicai do ponto p */
 
 
 
@@ -120,11 +121,11 @@ class Robo
 
 		bool simular;
 
-
+		ListaVertices caminho;
 
 		int indo_vertice;
 		float indo_x, indo_y;
-		int *caminho;
+//		int *caminho;
 
 
 }; /* -----  end of class  Robo  ----- */

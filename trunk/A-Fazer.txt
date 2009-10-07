@@ -1,3 +1,8 @@
+Verificar os diferentes typedefs pras mesmas coisas
+
+CONTINUAR DO IRPARA ( V ) EM ROBO
+-Para colocar a lista do caminho
+
 DAR um jeito de fazer o caminho nao bloqueante
 -criar uma lista de vertices na classe robo para o robor ir segundo
 --determina o caminho, manda pro robo e ele se vira

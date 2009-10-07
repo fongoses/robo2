@@ -116,6 +116,8 @@ Robo::irPara ( Ponto p )
 {
 	time_t tempo = 0;
 	float ang_dist;
+
+	time(&tempo);
 	cout	<< "\nIndo para ponto: " << p << "[" << mapa.get_vertice(p) << "].\n";
 //	cout	<< vertice << endl;
 	if(!simular) {
@@ -128,7 +130,9 @@ Robo::irPara ( Ponto p )
 //		tempo = time(NULL) - tempo;
 
 /* MODO NAO BLOQUEANTE */
-
+		tempo = 0;
+//		while(time(NULL) - tempo == 0); /* Espera pelo menos 1s */
+//		tempo = time(NULL) - tempo;
 	} else {
 //		cout	<< "Simulando\n";
 		ang_dist = mapa.get_ponto(vertice).distancia_angular(&angulo_sim, p);
@@ -161,7 +165,7 @@ Robo::irPara ( Ponto p )
 	int
 Robo::irPara ( int v )
 {
-	ListaVertices caminho;
+//	ListaVertices caminho;
 	ListaVertices::iterator it_c;
 	int tempo = 0;
 
@@ -181,6 +185,12 @@ Robo::irPara ( int v )
  * Description:  Retorna se o robo chegou na posicao do ponto p ou nao
  *--------------------------------------------------------------------------------------
  */
+	bool
+Robo::chegou ( int v )
+{
+	return chegou(mapa.get_ponto(v));
+}
+
 	bool
 Robo::chegou ( Ponto p )
 {
