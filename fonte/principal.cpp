@@ -28,6 +28,7 @@ using namespace std;
 
 
 #define	TOTAL	3*60			/* Tempo de execucao total(m) */
+//#define SIMULACAO false
 #define SIMULACAO true
 
 	void
@@ -44,7 +45,7 @@ main ( int argc, char *argv[] )
 	Robo *robo1;
 	Salas sala;
 	Vertice v;
-	time_t tempo, inicio, anterior;
+	time_t tempo, inicio, anterior, t_aux;
 	int visitar_sala, U, algoritmo;
 	map<int, unsigned int> chances; /* PENSAR NUM NOME MELHOR */
 	VetorSalas v_salas;
@@ -89,7 +90,7 @@ main ( int argc, char *argv[] )
 		cout << "sala: " << v_salas[i] << " %: " << chances[v_salas[i]] << endl;
 	}
 
-	algoritmo = 3;
+	algoritmo = 1;
 
 	switch(algoritmo) {
 		/*-----------------------------------------------------------------------------
@@ -100,8 +101,13 @@ main ( int argc, char *argv[] )
 			while(tempo - inicio < TOTAL * 60) { /* rodar por TOTAL minutos */
 				visitar_sala = sala.get_maiorU();
 //				sala.imprimir();
-//				cout << "Indo para sala " << visitar_sala << " vertice " << sala.get_vertice(visitar_sala)<< endl;getchar();
+				cout << "Indo para sala " << visitar_sala << " vertice " << sala.get_vertice(visitar_sala)<< endl;//getchar();
+				t_aux = tempo;
 				tempo += robo1->irPara(sala.get_vertice(visitar_sala));
+				while(!robo1->chegou(sala.get_vertice(visitar_sala)) && (t_aux < tempo))
+				{
+					t_aux++;
+				}
 //				cout << "Diferenca: " << tempo - anterior << endl;getchar();
 				while( tempo - anterior > ATUALIZACAO) {
 					anterior += ATUALIZACAO;
