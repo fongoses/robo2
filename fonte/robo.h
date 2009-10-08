@@ -79,11 +79,12 @@ class Robo
 		const Robo& operator = ( const Robo &other ); /* assignment operator */
 
 		/* ====================  METHODS       ======================================= */
-		int irPara( Ponto p); /* Vai para a posicao indicada pelo ponto p */
-		int irPara( int v ); /* Vai para o vertice v */
+		void irPara( Ponto p); /* Vai para a posicao indicada pelo ponto p */
+		void irPara( int v ); /* Vai para o vertice v */
 
 		bool chegou( Ponto p); /* Verifica se o robo chegou na posicai do ponto p */
 		bool chegou( int v); /* Verifica se o robo chegou na posicai do ponto p */
+		bool chegou( ); /* Verifica se o robo chegou na posicai do ponto p */
 
 
 
@@ -104,6 +105,7 @@ class Robo
 		/* ====================  ACCESS        ======================================= */
     void set_vertice(int v);
     int get_vertice();
+		time_t get_tempo_viagem();
 
 		/* ====================  INQUIRY       ======================================= */
 
@@ -120,6 +122,8 @@ class Robo
 		float angulo_sim;
 
 		bool simular;
+
+		time_t tempo_viagem, inicio, t_sim;
 
 		ListaVertices caminho;
 

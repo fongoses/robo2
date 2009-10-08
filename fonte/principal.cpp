@@ -28,8 +28,8 @@ using namespace std;
 
 
 #define	TOTAL	3*60			/* Tempo de execucao total(m) */
-//#define SIMULACAO false
-#define SIMULACAO true
+#define SIMULACAO false
+//#define SIMULACAO true
 
 	void
 Sleep (int segundos)
@@ -53,7 +53,7 @@ main ( int argc, char *argv[] )
 	ofstream arq;
 
 	system("clear");
-	v = mapa.carregarMapa("/home/heitor/robo2/mapas/x.txt", &sala);
+	v = mapa.carregarMapa("/home/heitor/robo2/mapas/x_incompleto.txt", &sala);
 	robo1 = new Robo(v, mapa, SIMULACAO);
 
 	/* Iniciacao padrao */
@@ -103,12 +103,10 @@ main ( int argc, char *argv[] )
 //				sala.imprimir();
 				cout << "Indo para sala " << visitar_sala << " vertice " << sala.get_vertice(visitar_sala)<< endl;//getchar();
 				t_aux = tempo;
-				tempo += robo1->irPara(sala.get_vertice(visitar_sala));
-				while(!robo1->chegou(sala.get_vertice(visitar_sala)) && (t_aux < tempo))
-				{
-					t_aux++;
-				}
-//				cout << "Diferenca: " << tempo - anterior << endl;getchar();
+				robo1->irPara(sala.get_vertice(visitar_sala));
+				while(!robo1->chegou());
+				tempo += robo1->get_tempo_viagem();
+//				cout << "Diferenca: " << tempo - inicio << endl;getchar();
 				while( tempo - anterior > ATUALIZACAO) {
 					anterior += ATUALIZACAO;
 					U = sala.atualizar(anterior);
@@ -118,7 +116,7 @@ main ( int argc, char *argv[] )
 				sala.atualizar(tempo);
 				sala.visitar(visitar_sala);
 //				sala.imprimir();getchar();
-				tempo += VISITAR_SALA;
+//				tempo += VISITAR_SALA;
 //				sala.imprimir();
 //				cout << "Tempo total: " << tempo - inicio << endl;
 			}
@@ -140,11 +138,11 @@ main ( int argc, char *argv[] )
 					for(it_a = adjacentes.begin(); it_a != adjacentes.end(); it_a++) { 
 						if(sala.existeSala(*it_a)) {
 //							cout << "Visitando sala adjacente " << *it_a << endl;
-							tempo += robo1->irPara(*it_a); /* Visita todas as salas adjacentes ao vertice atual */
+							robo1->irPara(*it_a); /* Visita todas as salas adjacentes ao vertice atual */
 							sala.visitar(*it_a);
 						}
 					}
-					tempo += robo1->irPara(*it_c);
+					robo1->irPara(*it_c);
 				}
 				while( tempo - anterior > ATUALIZACAO) {
 					anterior += ATUALIZACAO;
@@ -185,7 +183,7 @@ main ( int argc, char *argv[] )
 /* MODO BLOQUEANTE */
 //				tempo += robo1->irPara(sala.get_vertice(visitar_sala));
 /* MODO NAO BLOQUEANTE */
-				t_simu = robo1->irPara(sala.get_vertice(visitar_sala));
+				robo1->irPara(sala.get_vertice(visitar_sala));
 				while(!robo1->chegou(mapa.get_ponto(sala.get_vertice(visitar_sala))) && t_simu > 0)
 				{
 					if(SIMULACAO)
@@ -206,7 +204,7 @@ main ( int argc, char *argv[] )
 							if(chances[v_salas[i]] >= aux)//rand() % 100)
 							{
 								cout << "Emergencia na sala: " << v_salas[i] << endl;
-								t_simu = robo1->irPara(sala.get_vertice(v_salas[i]));
+								robo1->irPara(sala.get_vertice(v_salas[i]));
 								if(SIMULACAO)
 								{
 									tempo += t_simu;
@@ -217,7 +215,7 @@ main ( int argc, char *argv[] )
 							}
 						}
 					}
-					t_simu = robo1->irPara(sala.get_vertice(visitar_sala));
+					robo1->irPara(sala.get_vertice(visitar_sala));
 					if(SIMULACAO)
 					{
 						tempo += t_simu;
