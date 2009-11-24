@@ -119,7 +119,7 @@ Robo::irPara ( Ponto p )
 	float ang_dist;
 
 //	time(&tempo);
-	cout	<< "\nIndo para ponto: " << p << "[" << mapa.get_vertice(p) << "].\n";
+//	cout	<< "\nIndo para ponto: " << p << "[" << mapa.get_vertice(p) << "].\n";getchar();
 //	cout	<< vertice << endl;
 	if(!simular) {
 		time(&inicio);
@@ -211,9 +211,9 @@ Robo::chegou ( Ponto p )
 		atual.set_y(position->GetYPos());
 //		cout << atual << " " << p << endl;
 //			cout << "Dist: " << atual.distancia(p) << " > " << DISTANCIA_ERRO << endl;
+		tempo_viagem = time(NULL) - inicio;
 		if (atual.distancia(p) < DISTANCIA_ERRO)
 		{
-			tempo_viagem = time(NULL) - inicio;
 			ir_proximo = true;
 		}
 	} else {
@@ -222,20 +222,20 @@ Robo::chegou ( Ponto p )
 			ir_proximo = true;
 		else
 			tempo_viagem++;
-		cout << "ROBO " << tempo_viagem << "-" << t_sim << endl;//getchar();
+//		cout << "ROBO " << tempo_viagem << "-" << t_sim << endl;//getchar();
 	}
 
 	if(ir_proximo)
 	{
 		caminho.pop_front();
-//		cout << "ROBO Caminho" << caminho.size() << endl;getchar();
+//		cout << "ROBO Caminho: Faltam " << caminho.size() << endl;getchar();
 		if(!caminho.empty())
 		{
-			cout << "ROBO Caminho não vazio!!\n Indo para " << mapa.get_ponto(caminho.front()) << endl;
+//			cout << "ROBO Caminho não vazio!!" << endl;getchar();
 			irPara(mapa.get_ponto(caminho.front()));
 			return false;
 		}	else {
-			cout << "ROBO Caminho vazio!!\n";
+//			cout << "ROBO Caminho vazio!!\n";getchar();
 			return true;
 		}
 	}
