@@ -83,6 +83,7 @@ Sala::operator = ( const Sala &other )
 		vertice = other.vertice;
 		P				= other.P;
 		U				= other.U;
+		visitas	=	other.visitas;
 	}
 	return *this;
 }  /* -----  end of method Sala::operator =  (assignment operator)  ----- */
@@ -99,7 +100,8 @@ Sala::operator == (Sala &other )
 {
 	return ((vertice == other.vertice) &&
 					(P       == other.P) &&
-					(U       == other.U));
+					(U       == other.U) &&
+					(visitas == other.visitas));
 }  /* -----  end of method Sala::operator ==  (comparative operator)  ----- */
 
 /*
@@ -114,7 +116,8 @@ Sala::operator != (Sala &other )
 {
 	return ((vertice != other.vertice) ||
 					(P       != other.P) ||
-					(U       != other.U));
+					(U       != other.U) ||
+					(visitas != other.visitas));
 }  /* -----  end of method Sala::operator !=  (comparative operator)  ----- */
 
 /*-----------------------------------------------------------------------------
@@ -246,6 +249,7 @@ Salas::adicionarSala ( int num, int vertice, int P )
 		aux.vertice = vertice;
 		aux.P = P;
 		aux.U = 0;
+		aux.visitas = 0;
 		sala[num] = aux;
 	} else {
 //		cout	<< "Sala " << num << " ja existe\n";
@@ -302,6 +306,7 @@ Salas::visitar ( int s )
 //	cout << "Visitando sala: " << s << ".\n";
 
 	sala[s].U = 0;
+	sala[s].visitas++;
 	return ;
 }		/* -----  end of method Salas::visitar  ----- */
 
@@ -319,8 +324,9 @@ Salas::imprimir ( )
 
 	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
 		cout << it_s->first << " => vertice = " << it_s->second.vertice <<
-															" P = " << it_s->second.P <<
-															" U = " << it_s->second.U << endl;
+															"\tP = " << it_s->second.P <<
+															"\tU = " << it_s->second.U << 
+															"\tvisitas = "<< it_s->second.visitas << endl;
 
 	}
 	return ;

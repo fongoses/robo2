@@ -62,6 +62,7 @@ class Sala
 		int vertice;
 		unsigned int P;
 		unsigned int U;
+		unsigned int visitas;
 	protected:
 
 	private:
