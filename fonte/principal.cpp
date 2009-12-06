@@ -31,12 +31,12 @@ using namespace std;
 #define SIMULACAO true
 //#define SIMULACAO true
 
-	void
-Sleep (int segundos)
-{
-	if(!SIMULACAO)
-		sleep(segundos);
-}
+//	void
+//Sleep (int segundos)
+//{
+//	if(!SIMULACAO)
+//		sleep(segundos);
+//}
 
 	int
 main ( int argc, char *argv[] )
@@ -54,7 +54,7 @@ main ( int argc, char *argv[] )
 
 	system("clear");
 	v = mapa.carregarMapa("/home/heitor/robo2/mapas/ap.txt", &sala);
-	robo1 = new Robo(v, mapa, SIMULACAO);
+	robo1 = new Robo(v, mapa, &sala, SIMULACAO);
 
 	/* Iniciacao padrao */
 	sala.set_ultima_atualizacao(time(&tempo)-1);
@@ -82,7 +82,7 @@ main ( int argc, char *argv[] )
 	{
 		aux = rand() % v_salas.size();
 		chances[v_salas[aux]]++;
-//		cout << "sala: " << v_salas[aux] << " %: " << chances[v_salas[aux]] << endl;getchar();
+//		/*DEBUG*/cout << "sala: " << v_salas[aux] << " %: " << chances[v_salas[aux]] << endl;getchar();
 	}
 
 	for(i = 0; i < v_salas.size(); i++)
@@ -99,9 +99,10 @@ main ( int argc, char *argv[] )
 		case 1: {
 //			cout << "Algoritmo 1\n"; getchar();
 			while(tempo - inicio < TOTAL * 60) { /* rodar por TOTAL minutos */
+				sala.atualizar(tempo);
 				visitar_sala = sala.get_maiorU();
 //				sala.imprimir();
-//				cout << "Indo para sala " << visitar_sala << " vertice " << sala.get_vertice(visitar_sala)<< endl;getchar();
+				/*DEBUG*/cout << "PRINCIPAL#main: Indo para sala " << visitar_sala << " vertice " << sala.get_vertice(visitar_sala)<< endl;getchar();
 				t_aux = tempo;
 				robo1->irPara(sala.get_vertice(visitar_sala));
 				while(!robo1->chegou())
@@ -121,9 +122,16 @@ main ( int argc, char *argv[] )
 //					cout << U; getchar();
 					arq << anterior - inicio << "\t" << U << endl;
 				}
-				sala.atualizar(tempo);
-				sala.visitar(visitar_sala);
-				sala.imprimir();getchar();
+//				if(!SIMULACAO)
+//					sleep(VISITAR_SALA);
+//				else
+//					tempo += VISITAR_SALA;
+//				sala.visitar(visitar_sala);
+
+				tempo += robo1->visitar_sala();
+				/*DEBUG*/cout << "PRINCIPAL:main\n";
+				sala.imprimir();
+				/*DEBUG*/getchar();
 //				tempo += VISITAR_SALA;
 //				sala.imprimir();
 //				cout << "Tempo total: " << tempo - inicio << endl;

@@ -72,7 +72,7 @@ class Robo
 		/* ====================  LIFECYCLE     ======================================= */
 		Robo ();                             /* constructor      */
 		Robo ( const Robo &other );   /* copy constructor */
-    Robo(Vertice v_inicial, Mapa mapa, bool simular = false);
+    Robo(Vertice v_inicial, Mapa mapa, Salas *sala, bool simular = false);
 		~Robo ();                            /* destructor       */
 
 		/* ====================  OPERATORS     ======================================= */
@@ -85,6 +85,8 @@ class Robo
 		bool chegou( Ponto p); /* Verifica se o robo chegou na posicai do ponto p */
 		bool chegou( int v); /* Verifica se o robo chegou na posicai do ponto p */
 		bool chegou( ); /* Verifica se o robo chegou na posicai do ponto p */
+
+		time_t visitar_sala();
 
 
 
@@ -118,6 +120,7 @@ class Robo
 		LaserProxy *laser;
 
     Mapa mapa;
+		Salas *sala;
 		int vertice;
 		float angulo_sim;
 

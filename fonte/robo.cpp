@@ -39,16 +39,17 @@ Robo::Robo ()
  * Description:  constructor com o vertice inicial do robô
  *--------------------------------------------------------------------------------------
  */
-Robo::Robo (Vertice v_inicial, Mapa m, bool _simular)
+Robo::Robo (Vertice v_inicial, Mapa m, Salas *s, bool _simular)
 {
 	Ponto pos_inicial = v_inicial.second;
 
 	vertice = v_inicial.first;
 	simular = _simular;
 	mapa = m;
+	sala = s;
 	angulo_sim = 0;
 	tempo_viagem = 0;
-//	cout	<< "Posicao inicial: " << pos_inicial << "[" << mapa.get_vertice(pos_inicial) << "].\n";
+//	/*DEBUG*/cout	<< "Posicao inicial: " << pos_inicial << "[" << mapa.get_vertice(pos_inicial) << "].\n";
 	if(!simular) {
 		player_client = new PlayerClient(HOST, PORT);
 		position = new Position2dProxy(player_client, 1);
@@ -68,7 +69,7 @@ Robo::Robo (Vertice v_inicial, Mapa m, bool _simular)
  */
 Robo::Robo ( const Robo &other )
 {
-	cout	<< "ROBO construtor copia\n";getchar();
+	/*DEBUG*/cout	<< "ROBO#Robo: construtor copia\n";getchar();
 }  /* -----  end of method Robo::Robo  (copy constructor)  ----- */
 
 /*
@@ -119,8 +120,8 @@ Robo::irPara ( Ponto p )
 	float ang_dist;
 
 //	time(&tempo);
-//	cout	<< "\nIndo para ponto: " << p << "[" << mapa.get_vertice(p) << "].\n";getchar();
-//	cout	<< vertice << endl;
+	/*DEBUG*/cout	<< "ROBO#ipPara: Indo para ponto: " << p << "[" << mapa.get_vertice(p) << "].\n";getchar();
+//	/*DEBUG*/cout	<< vertice << endl;
 	if(!simular) {
 		time(&inicio);
 		position->GoTo(p.get_x(), p.get_y(), 0);
@@ -145,7 +146,7 @@ Robo::irPara ( Ponto p )
 //		cout << endl << ang_dist * GRAD_TO_RAD << " Demorou: " << tempo << endl;
 		t_sim += floor(p.distancia(mapa.get_ponto(vertice)) / SIMULACAO_VEL + 0.5);
 //		cout << "Demorou no total: " << tempo << endl;
-//		cout << "Distancia entre: " << p << " e " << mapa.get_ponto(vertice) << " = " << p.distancia(mapa.get_ponto(vertice)); 
+//		/*DEBUG*/cout << "Distancia entre: " << p << " e " << mapa.get_ponto(vertice) << " = " << p.distancia(mapa.get_ponto(vertice)); 
 //			   << " Velocidade: " <<  SIMULACAO_VEL << " ";
 		
 //		cout	<< "Demorou " << tempo << "s.\n";
@@ -167,7 +168,7 @@ Robo::irPara ( Ponto p )
 Robo::irPara ( int v )
 {
 //	ListaVertices caminho;
-	ListaVertices::iterator it_c;
+//	ListaVertices::iterator it_c;
 //	int tempo = 0;
 
 	caminho =  mapa.dijkstra(vertice, v);
@@ -222,24 +223,54 @@ Robo::chegou ( Ponto p )
 			ir_proximo = true;
 		else
 			tempo_viagem++;
-//		cout << "ROBO " << tempo_viagem << "-" << t_sim << endl;//getchar();
+//		/*DEBUG*/cout << "ROBO " << tempo_viagem << "-" << t_sim << endl;//getchar();
 	}
 
 	if(ir_proximo)
 	{
 		caminho.pop_front();
-//		cout << "ROBO Caminho: Faltam " << caminho.size() << endl;getchar();
+//		/*DEBUG*/cout << "ROBO Caminho: Faltam " << caminho.size() << endl;getchar();
 		if(!caminho.empty())
 		{
-//			cout << "ROBO Caminho não vazio!!" << endl;getchar();
+//			/*DEBUG*/cout << "ROBO Caminho não vazio!!" << endl;getchar();
 			irPara(mapa.get_ponto(caminho.front()));
 			return false;
 		}	else {
-//			cout << "ROBO Caminho vazio!!\n";getchar();
+//			/*DEBUG*/cout << "ROBO Caminho vazio!!\n";getchar();
 			return true;
 		}
 	}
 }		/* -----  end of method Robo::chegou  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Robo
+ *      Method:  visitar_sala
+ * Description:  Visita a Sala onde o robo se encontra
+ *--------------------------------------------------------------------------------------
+ */
+	time_t
+Robo::visitar_sala ( )
+{
+	time_t inicio;
+
+	/*DEBUG*/cout << "ROBO#visitar_sala: Visitando sala do vertice " << vertice << endl;getchar();
+
+	if(sala->ehSala(vertice))
+	{
+		sala->visitar(sala->get_sala(vertice));
+		if(!simular)
+		{
+			time(&inicio);
+			sleep(VISITAR_SALA);
+			return time(NULL) - inicio;
+		} else {
+			return VISITAR_SALA;
+		}
+	}	else
+			cerr << "ROBO#visitar_sala: vertice " << vertice << " não é uma sala!\n";
+	return 0;
+}		/* -----  end of method Robo::visitar_sala  ----- */
 
 /*-----------------------------------------------------------------------------
  * ====================  ACCESS        ======================================= *
