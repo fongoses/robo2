@@ -243,7 +243,7 @@ Salas::operator != ( Salas &other )
 	void
 Salas::adicionarSala ( int num, int vertice, int P )
 {
-//	cout	<< "Adicionando sala " << num << ".\n";
+//	/*DEBUG*/cout	<< "Adicionando sala " << num << ".\n";
 	if(!existeSala(num)) {
 		Sala aux;
 		aux.vertice = vertice;
@@ -252,7 +252,7 @@ Salas::adicionarSala ( int num, int vertice, int P )
 		aux.visitas = 0;
 		sala[num] = aux;
 	} else {
-//		cout	<< "Sala " << num << " ja existe\n";
+//		/*DEBUG*/cout	<< "Sala " << num << " ja existe\n";
 	}
 	return ;
 }		/* -----  end of method Salas::adicionarSala  ----- */
@@ -268,8 +268,33 @@ Salas::adicionarSala ( int num, int vertice, int P )
 	bool
 Salas::existeSala ( int num )
 {
+	bool resp;
+	/*DEBUG*/cout << "SALAS#existeSala: Verificando se existe a sala " << num << endl; getchar();
+	resp = (sala.find(num) != sala.end());
+	/*DEBUG*/cout << "SALAS#existeSala: Existe a sala " << num << "? " << resp << endl; getchar();
+	return resp;
+
 	return sala.find(num) != sala.end();
 }		/* -----  end of method Salas::existeSala  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Salas
+ *      Method:  ehSala
+ * Description:  Retorna se o vertice v é uma sala
+ *--------------------------------------------------------------------------------------
+ */
+	bool
+Salas::ehSala ( int v )
+{
+	bool resp;
+	/*DEBUG*/cout << "SALAS#ehSala: Verificando se o vertice " << v << " é uma sala.\n";getchar();
+	resp = existeSala(get_sala(v));
+	/*DEBUG*/cout << "SALAS#ehSala: Vertice " << v << " É uma sala? " << resp << endl;getchar();
+	return resp;
+	return existeSala(get_sala(v));
+}
+/* -----  end of method Salas::ehSala  ----- */
 
 /*
  *--------------------------------------------------------------------------------------
@@ -285,7 +310,7 @@ Salas::atualizar ( time_t t )
 	time_t diferenca = t - ultima_atualizacao;
 	ultima_atualizacao = t;
 	int UTotal = 0;
-//	cout << "Atualizando " << diferenca << " segundos\n"; getchar();
+//	/*DEBUG*/cout << "Atualizando " << diferenca << " segundos\n"; getchar();
 
 	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
 		it_s->second.U += diferenca * it_s->second.P;
@@ -303,7 +328,7 @@ Salas::atualizar ( time_t t )
 	void
 Salas::visitar ( int s ) 
 {
-//	cout << "Visitando sala: " << s << ".\n";
+	/*DEBUG */cout << "SALAS#visitar: Visitando sala: " << s << ".\n";getchar();
 
 	sala[s].U = 0;
 	sala[s].visitas++;
@@ -380,7 +405,7 @@ Salas::incrementar_prioridade (int s)
 	for(it_s = sala.begin(); it_s != sala.end() && mdc > 1; it_s++)
 	{
 		mdc = MDC(mdc, it_s->second.P);
-//		cout << "mdc = " << mdc;getchar();
+//		/*DEBUG*/cout << "mdc = " << mdc;getchar();
 	}
 		
 	if(mdc > 1)	
@@ -401,7 +426,6 @@ Salas::incrementar_prioridade (int s)
 Salas::emergencia (int s)
 {
 	MapaSala::iterator it_s;
-	int mdc;
 
 	sala[s].U = FATOR_ER * sala[s].P;
 		
@@ -489,6 +513,27 @@ Salas::get_vertice ( int s )
 	return sala.find(s)->second.vertice;
 }		/* -----  end of method Salas::get_vertice  ----- */
 
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Salas
+ *      Method:  get_sala
+ * Description:  Retorna a sala do vertice v
+ *--------------------------------------------------------------------------------------
+ */
+	int
+Salas::get_sala ( int v )
+{
+	MapaSala::iterator it_s;
+
+	/*DEBUG*/cout << "SALAS#get_sala: Retornando a sala correspondente ao vertice " << v << endl;getchar();
+
+	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
+		if(it_s->second.vertice == v)
+			return it_s->first;
+	}
+	return -1;
+}
+/* -----  end of method Salas::get_sala  ----- */
 
 /*
  *--------------------------------------------------------------------------------------

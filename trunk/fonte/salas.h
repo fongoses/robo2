@@ -23,6 +23,7 @@
 #include	<ctime>
 #include	<vector>
 #include	<climits>
+#include	<cstdio>
 
 using namespace std;
 
@@ -97,6 +98,7 @@ class Salas
 		/* ====================  METHODS       ======================================= */
 		void adicionarSala(int num, int vertice, int P);
 		bool existeSala(int num);
+		bool ehSala(int v);
 		int atualizar(time_t t);
 		void visitar(int s);
 
@@ -110,6 +112,7 @@ class Salas
 		VetorSalas get_salas();
 		int get_maiorU(int *U = NULL);
 		int get_vertice( int s );
+		int get_sala( int v );
 
 		void set_ultima_atualizacao(time_t t);
 
