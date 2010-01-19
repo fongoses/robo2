@@ -38,6 +38,7 @@
 \newcommand{\algorithmicendloop}{\algorithmicend \algorithmicloop}
 \newcommand{\algorithmicrepeat}{\textbf{repita}}
 \newcommand{\algorithmicuntil}{\textbf{até que}}
+\newcommand{\algorithmicreturn}{\textbf{retornar}}
 \def\ALC@item[#1]{%
 \if@noparitem \@donoparitem
   \else \if@inlabel \indent \par \fi
@@ -117,6 +118,7 @@
   \newcommand{\REPEAT}[1][default]{\ALC@it\algorithmicrepeat%
 \ALC@com{##1}\begin{ALC@rpt}}
   \newcommand{\UNTIL}[1]{\end{ALC@rpt}\ALC@it\algorithmicuntil\ ##1}
+  \newcommand{\RETURN}[1]{\ALC@it\algorithmicreturn\ ##1}
   \ifthenelse{\boolean{ALC@noend}}{
     \newcommand{\ENDIF}{\end{ALC@if}}
     \newcommand{\ENDFOR}{\end{ALC@for}}

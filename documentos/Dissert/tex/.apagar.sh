@@ -1,1 +1,1 @@
-	rm -rf $(ls Qualy.* | grep -v Qualy.tex) *.aux
+	rm -rf $(ls Dissert.* | grep -v Dissert.tex) *.aux
