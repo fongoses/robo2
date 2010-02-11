@@ -49,7 +49,7 @@ Robo::Robo (Vertice v_inicial, Mapa m, Salas *s, bool _simular)
 	sala = s;
 	angulo_sim = 0;
 	tempo_viagem = 0;
-//	/*DEBUG*/cout	<< "Posicao inicial: " << pos_inicial << "[" << mapa.get_vertice(pos_inicial) << "].\n";
+//	//DEBUG*/cout	<< "Posicao inicial: " << pos_inicial << "[" << mapa.get_vertice(pos_inicial) << "].\n";
 	if(!simular) {
 		player_client = new PlayerClient(HOST, PORT);
 		position = new Position2dProxy(player_client, 1);
@@ -69,7 +69,7 @@ Robo::Robo (Vertice v_inicial, Mapa m, Salas *s, bool _simular)
  */
 Robo::Robo ( const Robo &other )
 {
-	/*DEBUG*/cout	<< "ROBO#Robo: construtor copia\n";getchar();
+	//DEBUG*/cout	<< "ROBO#Robo: construtor copia\n";getchar();
 }  /* -----  end of method Robo::Robo  (copy constructor)  ----- */
 
 /*
@@ -120,8 +120,8 @@ Robo::irPara ( Ponto p )
 	float ang_dist;
 
 //	time(&tempo);
-	/*DEBUG*/cout	<< "ROBO#ipPara: Indo para ponto: " << p << "[" << mapa.get_vertice(p) << "].\n";getchar();
-//	/*DEBUG*/cout	<< vertice << endl;
+	//DEBUG*/cout	<< "ROBO#ipPara: Indo para ponto: " << p << "[" << mapa.get_vertice(p) << "].\n";getchar();
+//	//DEBUG*/cout	<< vertice << endl;
 	if(!simular) {
 		time(&inicio);
 		position->GoTo(p.get_x(), p.get_y(), 0);
@@ -146,7 +146,7 @@ Robo::irPara ( Ponto p )
 //		cout << endl << ang_dist * GRAD_TO_RAD << " Demorou: " << tempo << endl;
 		t_sim += floor(p.distancia(mapa.get_ponto(vertice)) / SIMULACAO_VEL + 0.5);
 //		cout << "Demorou no total: " << tempo << endl;
-//		/*DEBUG*/cout << "Distancia entre: " << p << " e " << mapa.get_ponto(vertice) << " = " << p.distancia(mapa.get_ponto(vertice)); 
+//		//DEBUG*/cout << "Distancia entre: " << p << " e " << mapa.get_ponto(vertice) << " = " << p.distancia(mapa.get_ponto(vertice)); 
 //			   << " Velocidade: " <<  SIMULACAO_VEL << " ";
 		
 //		cout	<< "Demorou " << tempo << "s.\n";
@@ -223,20 +223,20 @@ Robo::chegou ( Ponto p )
 			ir_proximo = true;
 		else
 			tempo_viagem++;
-//		/*DEBUG*/cout << "ROBO " << tempo_viagem << "-" << t_sim << endl;//getchar();
+//		//DEBUG*/cout << "ROBO " << tempo_viagem << "-" << t_sim << endl;//getchar();
 	}
 
 	if(ir_proximo)
 	{
 		caminho.pop_front();
-//		/*DEBUG*/cout << "ROBO Caminho: Faltam " << caminho.size() << endl;getchar();
+//		//DEBUG*/cout << "ROBO Caminho: Faltam " << caminho.size() << endl;getchar();
 		if(!caminho.empty())
 		{
-//			/*DEBUG*/cout << "ROBO Caminho não vazio!!" << endl;getchar();
+//			//DEBUG*/cout << "ROBO Caminho não vazio!!" << endl;getchar();
 			irPara(mapa.get_ponto(caminho.front()));
 			return false;
 		}	else {
-//			/*DEBUG*/cout << "ROBO Caminho vazio!!\n";getchar();
+//			//DEBUG*/cout << "ROBO Caminho vazio!!\n";getchar();
 			return true;
 		}
 	}
@@ -252,21 +252,23 @@ Robo::chegou ( Ponto p )
 	time_t
 Robo::visitar_sala ( )
 {
-	time_t inicio;
+	time_t inicio, tempo;
 
-	/*DEBUG*/cout << "ROBO#visitar_sala: Visitando sala do vertice " << vertice << endl;getchar();
+	//DEBUG*/cout << "ROBO#visitar_sala: Visitando sala do vertice " << vertice << endl;getchar();
 
 	if(sala->ehSala(vertice))
 	{
-		sala->visitar(sala->get_sala(vertice));
 		if(!simular)
 		{
 			time(&inicio);
-			sleep(VISITAR_SALA);
-			return time(NULL) - inicio;
+			sleep(VISITAR_SALA); /* Visita da sala simulada por tempo */
+			// SUBSTITUIR POR UMA VOLRA DE 360?
+			tempo = time(NULL) - inicio;
 		} else {
-			return VISITAR_SALA;
+			tempo = VISITAR_SALA;
 		}
+		sala->visitar(sala->get_sala(vertice));
+		return tempo;
 	}	else
 			cerr << "ROBO#visitar_sala: vertice " << vertice << " não é uma sala!\n";
 	return 0;
