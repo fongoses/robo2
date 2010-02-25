@@ -9,13 +9,13 @@
 %==========================================================
 \chapter{Grafos e Aplicações}
 \label{grafos_aplicacoes}
-Como essa dissertação utilizará mapas topológicos para definir a trajetória do robôs e grafos para determinar a seqüência de salas a visitar. Grafos e mapas topológicos, são muito utilizados na literatura para navegação de robôs móveis, como podemos ver em \cite{Adorno2005} \cite{Scatena2004} \cite{Thrun1996} \cite{Thrun1998} \cite{Thrun1998a} \cite{Neto2003}. Como o problema proposto (seção \ref{proposta}) diz respeito à busca de trajetória em um mapa topológico (grafo) ele se torna uma variação do problema do caixeiro viajante que trata, basicamente de encontrar o menor ciclo hamiltoniano em um grafo.
+Grafos e mapas topológicos, são muito utilizados na literatura para navegação de robôs móveis, como podemos ver em \cite{Adorno2005,Scatena2004,Thrun1996,Thrun1998,Thrun1998a,Neto2003}. Como o problema proposto (seção \ref{proposta}) diz respeito à busca de trajetória em um mapa topológico (grafo) uma das soluções se torna uma variação do problema do caixeiro viajante que trata, basicamente de encontrar o menor ciclo hamiltoniano em um grafo.
 
 As seções seguintes contém uma explicação sobre grafos, mapas topológicos e o problema do caixeiro viajante.
 
 \section{Grafos}
 \label{grafos}
-Muitas aplicações em computação necessitam considerar um conjunto de conexões entre objetos. Os relacionamentos dessas conexões podem ser utilizados para responder questões como: Existe caminho de um objeto a outro? Quantos objetos podem ser alcançados a partir de um determinado objeto? Qual a menor distância entre dois objetos? Existe um tipo abstrato de dados chamado grafo que é usado para modelar essas situações \cite{Ziviani2004}
+Muitas aplicações em computação necessitam considerar um conjunto de conexões entre objetos. Os relacionamentos dessas conexões podem ser utilizados para responder questões como: Existe caminho de um objeto a outro? Quantos objetos podem ser alcançados a partir de um determinado objeto? Qual a menor distância entre dois objetos? Existe um tipo abstrato de dados chamado grafo que é usado para modelar essas situações \cite{Ziviani2004}.
 
 Um grafo é constituído de um conjunto de vértices e um conjunto de arestas que conectam pares de vértices. Um vértice é um objeto que pode conter nomes e outros atributos. Os grafos podem ser direcionados ou não direcionados. Um grafo direcionado $G$ é um par $(V, A)$, em que $V$ é um conjunto finito de vértices e $A$ é um conjunto de arestas com uma relação binária. A Figura \ref{fig:exemplo_de_grafos}\subref{fig:grafo_dir} mostra um grafo direcionado com o conjunto de vértices $V = {0, 1, 2, 3, 4, 5}$ e de arestas $A = {(0, 1), (0, 3), (1, 2), (1, 3), (2, 2), (2, 3), (3, 0), (5, 4)}$. Em um grafo não direcionado as arestas $(u, v)$ e $(v, u)$ são consideradas as mesmas. A Figura \ref{fig:exemplo_de_grafos}\subref{fig:grafo_ndir} mostra um grafo não direcionado com o conjuntos de vértices $V = {0, 1, 2, 3, 4, 5}$ e de arestas $A = {(0, 1), (0, 2), (1, 2), (4, 5)}$. Em grafos direcionados podem existir arestas de um vértice para ele mesmo, chamadas de \textit{self-loops}, como a aresta $(2, 2)$ no grafo direcionado da Figura \ref{fig:exemplo_de_grafos}\subref{fig:grafo_dir} \cite{Ziviani2004}.
 
@@ -27,7 +27,7 @@ Um grafo é constituído de um conjunto de vértices e um conjunto de arestas que c
 	\subfigure[Grafo não direcionado]{
 		\includegraphics[width=0.2\textwidth]{imagens/grafo_nao_direcionado.jpg}
 		\label{fig:grafo_ndir}}
-	\caption{Exemplo de grafos}
+	\caption{Exemplo de grafos\cite{Ziviani2004}
 	\label{fig:exemplo_de_grafos}
 \end{figure}
 
@@ -37,7 +37,7 @@ Em um grafo, um caminho $(v_0, v_1, \cdots, v_k)$ forma um clico se $v_0 = v_k$ 
 
 Um grafo $G$ é definido como \textit{Hamiltoniano} se possui um ciclo contendo todos os vértices de $G$. Esse nome foi dado pois, em 1856, Willian Rowan Hamilton inventou um jogo matemático que consistia em um dodecaedro no qual cada um dos vinte vértices recebeu o nome de uma cidade. O objetivo do jogo era viajar pelas arestas do dodecaedro, visitando cada cidade exatamente uma vez e retornando para o ponto inicial \cite{Beineke1978}. A Figura \ref{fig:dodecaedro_de_hamilton} mostra uma solução para o jogo.
 
-\figura{imagens/dodecaedro_de_hamilton.jpg}{.5}{Dodecaedro de Hamilton.}{fig:dodecaedro_de_hamilton}
+\figura{imagens/dodecaedro_de_hamilton.jpg}{.5}{Dodecaedro de Hamilton.\cite{Beineke1978}{fig:dodecaedro_de_hamilton}
 
 Definições segundo \cite{Gondran1984}:
 
@@ -46,7 +46,7 @@ Definições segundo \cite{Gondran1984}:
 	\item Um ciclo Hamiltoniano é um ciclo que passa somente uma vez em cada vértice de $G$ e tem comprimento $N$.
 \end{itemize}
 
-Um grafo não direcionado é conectado se cada par de vértices está conectado por um caminho. Um grafo direcionado é fortemente conectado se cada dois vértices quaisquer são alcançáveis a partir um do outro. Um grafo ponderado possui pessoa associados às suas arestas. Esses pesos podem representar, por exemplo, custos ou distâncias. Um grafo completo é um grafo no qual todos os pares de vértices são adjacentes \cite{Ziviani2004}.
+Um grafo não direcionado é conectado se cada par de vértices está conectado por um caminho. Um grafo direcionado é fortemente conectado se cada dois vértices quaisquer são alcançáveis a partir um do outro. Um grafo ponderado possui pesos associados às suas arestas. Esses pesos podem representar, por exemplo, custos ou distâncias. Um grafo completo é um grafo no qual todos os pares de vértices são adjacentes \cite{Ziviani2004}.
 
 \section{Busca do Menor Caminho}
 \label{busca_do_menor_caminho}
@@ -125,9 +125,9 @@ E considere o seguinte modelo:
 	\label{eq:cv-restr2}
 \end{equation}
 
-A função objetivo (\ref{eq:cv-func_obj}) expressa a minimização da distância total da rota, e as restrições (\ref{eq:cv-restr1}) impõe que cada cidade tenha somente uma cidade sucessora imedia e uma cidade predecessora imediada, ou seja, é visitada uma única vez. Uma solução para o modelo anterior pode gerar sub-rotas desconexas (Figura \ref{fig:sub-rotas}) \cite{Arenales2007}.
+A função objetivo (\ref{eq:cv-func_obj}) expressa a minimização da distância total da rota, e a restriçõe (\ref{eq:cv-restr1}) impõe que cada cidade tenha somente uma cidade sucessora imediata e uma cidade predecessora imediata, ou seja, é visitada uma única vez. Uma solução para o modelo anterior pode gerar sub-rotas desconexas (Figura \ref{fig:sub-rotas}) \cite{Arenales2007}.
 
-\figura{imagens/sub-rotas.jpg}{.4}{Exemplo de possíveis sub-rotas.}{fig:sub-rotas}
+\figura{imagens/sub-rotas.jpg}{.4}{Exemplo de possíveis sub-rotas.\cite{Arenales2007}{fig:sub-rotas}
 
 Seja $S$ uma sub-rota, por exemplo, $S = {1. 2. 3. 4}$ na Figura \ref{fig:sub-rotas}. A eliminação de sub-rotas pode ser obtida através da restrição
 \begin{equation}
