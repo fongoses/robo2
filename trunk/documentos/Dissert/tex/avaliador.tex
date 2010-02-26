@@ -13,14 +13,14 @@
 \chapter{Avaliador}
 \label{avaliador}
 
-O programa chamado \texttt{avaliador} é utilizado para avaliar os candidatos à caminho ótimo do mapa analisado gerado pelo programa \texttt{gerador} \ref{gerador} e retorna para o \texttt{gerador} um valor numérico, baseado nesse valor o \texttt{gerador} irá guardar o caminho como possível ótimo, descartar ou continuar utilizando esse caminho para gerar novos caminhos. Maiores detalhes na sessão \ref{gerador}.
+O programa chamado \texttt{avaliador} é utilizado para avaliar os candidatos a seqüência de salas ótima do mapa analisado gerado pelo programa \texttt{gerador} \ref{gerador} e retorna para o \texttt{gerador} um valor numérico, baseado nesse valor o \texttt{gerador} irá guardar a seqüência como possível ótima, descartar ou continuar utilizando essa seqüência para gerar novas seqüência. Maiores detalhes na sessão \ref{gerador}.
 
 \section{Funcionamento}
 
 O \texttt{avaliador} recebe três parâmetros como entrada:
 \begin{itemize}
 	\item O nome do mapa onde o caminho será avaliado;
-	\item Um vetor de vértices, representando o caminho a ser avaliado;
+	\item Um vetor de vértices, representando a seqüência de salas a ser avaliada;
 	\item Um valor opcional de limite para a avaliação.
 \end{itemize}
 
@@ -57,22 +57,4 @@ Para critério de parada o \texttt{avaliador} compara o estado das salas, ou seja
 	\UNTIL $salas\_anterior$ = $salas\_atual$
 \end{algorithmic}
 \end{algorithm}
-
-%Entre todas essas diversas aplicações da robótica móvel, pode-se citar o robô Sojourner (Figura \ref{fig:exemplo_de_robos}\subref{fig:sojourner}) da NASA, que explorou e enviou fotos e outras muitas informações do planeta Marte para a Terra \cite{NASA}, e o robô desenvolvido pela universidade Camegie Mellon, chamado Groundhog, que explora minas abandonadas, que além do risco de desabamento, em muitos casos também contém gases tóxicos \cite{Thrun2004}.
-%
-%
-%\begin{figure}[ht]
-%  \centering
-%	\subfigure[Sojourner]{
-%    \includegraphics[width=0.4\textwidth]{imagens/sojourner.jpg}
-%		\label{fig:sojourner}}	
-%	\subfigure[Roomba]{
-%	  \includegraphics[width=0.4\textwidth]{imagens/roomba.jpg}
-%		\label{fig:roomba}}
-%	\subfigure[Robomow]{
-%	  \includegraphics[width=0.4\textwidth]{imagens/robomow.jpg}
-%		\label{fig:robomow}}
-%	\label{fig:exemplo_de_robos}
-%	\caption{Exemplos de robôs.}
-%\end{figure}
 

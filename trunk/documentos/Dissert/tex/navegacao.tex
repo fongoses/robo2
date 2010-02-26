@@ -78,7 +78,7 @@ Vários métodos propostos foram baseados nessa idéia, dentre eles: grafos de visi
 \label{voronoi} 
 Diagrama de Voronoi é um método completo de mapa de rotas que tende à maximizar a distância enter o robô e os obstáculos no mapa.  Para cada ponto livre no mapa é calculada a distância para o obstáculo mais próximo. O diagrama de Voronoi consiste nos pontos que são eqüidistantes de um ou mais obstáculos.  Um exemplo de diagrama de Voronoi em um mapa pode ser visto na Figura \ref{fig:exemplo_voronoi} \cite{Siegwart2004}.
 
-\figura{imagens/exemplo_voronoi.jpg}{.4}{Exemplo de um diagrama de Voronoi.\cite{Siegwart2004}{fig:exemplo_voronoi}
+\figura{imagens/exemplo_voronoi.jpg}{.4}{Exemplo de um diagrama de Voronoi.\cite{Siegwart2004}}{fig:exemplo_voronoi}
 
 O diagrama de Voronoi tem uma fraqueza importante no caso sensores de localização com alcance limitado.  Como o algoritmo maximiza a distância entre o robô e um objeto no ambiente, qualquer sensor de curto alcance no robô poderá falhar para perceber ao seu redor. Se o sensor de curto alcance está sendo usado para localização, então o caminho designado pelo diagrama de Voronoi será pobre num ponto de vista para localização \cite{Siegwart2004}.
 
@@ -96,7 +96,7 @@ Neste método o espaço livre é discretizado em uma fina grade, a cada posição é a
 
 Um exemplo de campos potenciais é mostrado na Figura \ref{fig:campos_potenciais}.  O campo potencial atrativo (b) é um parabolóide com ponto de mínimo localizado na posição do objetivo.  O campo potencial repulsivo (c) é diferente de zero somente a partir de uma determinada distância dos obstáculos. O caminho (e) é construído pela direção oposta a do gradiente do potencial resultante (d). Em (f) temos uma matriz de orientações do vetor gradiente, que são as orientações das forças induzidas pelo campo potencial \cite{Ottoni2000}.
 
-\figura{imagens/campos_potenciais.jpg}{.5}{Exemplo de um mapa com campos potenciais.\cite{Ottoni2000}{fig:campos_potenciais}
+\figura{imagens/campos_potenciais.jpg}{.5}{Exemplo de um mapa com campos potenciais.\cite{Ottoni2000}}{fig:campos_potenciais}
 
 \section{Desvio de Obstáculos} 
 \label{desvio} 
@@ -128,8 +128,8 @@ Existem três níveis de representação de dados \cite{Borenstein1991}:
 
 No primeiro estágio da redução de dados é mapeada a grade de histograma do ambiente (Figura \ref{fig:histogram_grid}) em um histograma polar (Figura \ref{fig:polar_histogram}). E no segundo estágio computa a direção $\theta$ para onde o robô deve virar.
 
-\figura{imagens/histogram_grid.png}{.3}{(a) Exemplo de um mapa. (b) Grade de histograma correspondente.\cite{Borenstein1991}{fig:histogram_grid}
+\figura{imagens/histogram_grid.png}{.3}{(a) Exemplo de um mapa. (b) Grade de histograma correspondente.\cite{Borenstein1991}}{fig:histogram_grid}
 
-\figura{imagens/polar_histogram.png}{.3}{(a) Densidade polar de obstáculo em um histograma polar relativo à posição do robô em $O$ (Figura \ref{fig:histogram_grid}(b)). (b) O mesmo histograma polar de (a) mostrado em forma polar e por cima da grade de histograma da Figura \ref{fig:histogram_grid}(b).\cite{Borenstein1991}{fig:polar_histogram}
+\figura{imagens/polar_histogram.png}{.3}{(a) Densidade polar de obstáculo em um histograma polar relativo à posição do robô em $O$ (Figura \ref{fig:histogram_grid}(b)). (b) O mesmo histograma polar de (a) mostrado em forma polar e por cima da grade de histograma da Figura \ref{fig:histogram_grid}(b).\cite{Borenstein1991}}{fig:polar_histogram}
 
 
