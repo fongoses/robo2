@@ -24,5 +24,9 @@ AVALIADOR
 --Ordena em ordem descrescente
 --Trata como se fossem algarismos (o maior é o mais significativo) de base 100 (ou 1000)
 
-PAPER
--ESCREVER!!!
+DISSERTACAO
+-Explicar o metodo com prioridade dinamica
+-AVALIADOR
+-GERADOR
+-RESULTADOS
+-CONCLUSAO

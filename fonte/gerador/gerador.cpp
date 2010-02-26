@@ -41,8 +41,6 @@ gerar ( string arq_mapa)
 
 	salas = sala.get_salas();/*Pegando um vetor com os vertices de todas as salas */
 
-/* Insere somente um agente na posição inicial */
-
 	time(&tempo);
 	inicio = tempo_ant = tempo;
 /* Insere um agente para cada sala */

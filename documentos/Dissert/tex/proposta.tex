@@ -1,0 +1,86 @@
+%==========================================================
+% SCE=567 Projeto Supervisionado ou de Graduação II
+% 
+% Capitulo 3: Proposta.
+% 
+% Autor
+% Heitor Luis Polidoro
+% 
+% Orientador
+% Prof. Dr. Denis Fernando Wolf
+%==========================================================
+
+\chapter{Proposta}
+\label{proposta}
+
+\section{Objetivo}
+\label{objetivo}
+Essa dissertação tem como objetivo o desenvolvimento de uma estratégia eficiente para determinar uma seqüência de áreas a serem visitadas em ambientes internos com a finalidade de monitoramento desses ambientes utilizando um robô móvel. O problema a ser resolvido consiste na divisão de um ambiente previamente conhecido em áreas de interesse (exemplo na Figura \ref{fig:mapa_museu}). A cada uma dessas áreas é atribuído um valor (peso) referente a sua importância de monitoramento (exemplo na Tabela \ref{tab:prioridade_museu}). A prioridade com que o robô deve visitar determinadas áreas é calculada com base na importância dessas áreas e no tempo decorrido desde a sua última visita. Áreas de maior importância devem ser visitadas mais freqüentemente. 
+
+\figura{imagens/MUSEU_DO_HOMEM_SERGIPANO.jpg}{8}{Exemplo de mapa: Museu do homem sergipano e suas divisões}{fig:mapa_museu}
+
+\begin{table}\begin{center}
+	\begin{tabular}
+		{|c|c|}
+		\hline
+		Sala & Prioridade \\
+		\hline
+		a& 5 \\
+		b& 5 \\
+		c& 2 \\
+		d& 1 \\
+		e& 3 \\
+		f& 2 \\
+		g& 1 \\
+		h& 2 \\
+		i& 2 \\
+		j& 4 \\
+		k& 4 \\
+		l& 4 \\
+		1& 2 \\
+		2& 3 \\
+		3& 3 \\
+		4& 5 \\
+		5& 5 \\
+		6& 5 \\
+		7& 4 \\
+		8& 4 \\
+		9& 3 \\
+		\hline
+	\end{tabular}
+\end{center}
+\caption{Exemplo de prioridades}
+\label{tab:prioridade_museu}
+\end{table}
+
+\subsection{Critérios de Avaliação}
+\label{criterios}
+Os algoritmos e estratégias serão então testados e avaliados. As avaliações consistem na comparação dos algoritmos e estratégias. Serão utilizados dois critérios de comparação, um critério comparando a freqüência relativa de cada sala com sua prioridade relativa, onde o melhor resultado é aquele em que a freqüência relativa se aproximar mais da prioridade relativa, pois se uma sala (a) possui uma prioridade com valor duas vezes maior que uma sala (b) (Salas f e 7 na Figura \ref{tab:prioridade_museu} por exemplo), a sala (a) deve ser visitada com o dobro de freqüência do que a sala (b). Isto indica que o algoritmo ou estratégia se manteve fiel à definição do problema: \textit{ Áreas de maior importância devem ser visitadas mais freqüentemente.}.
+
+O segundo critério é um gráfico mostrando a progressão da somatória dos graus de urgência de todas as salas $(\sum_{i=0}^n U_i)$ , no qual o melhor resultado consiste em manter o menor valor da somatória dos graus de urgência. Mostrando que o algoritmo ou estratégia visitou as salas com maior eficiência. O grau de urgência $U$ é calculado multiplicando-se a prioridade da sala $P$ pelo tempo decorrido desde a última visita $t$. A casa visita o $t$ é zerado $(U_i = P_i \times t_i)$.
+
+\section{Metodologia}
+\label{metodologia}
+Para o desenvolvimento do projeto, será utilizada a biblioteca Player (apresentada na seção \ref{player}) e o simulador Stage (apresentado na seção \ref{stage}). O projeto será implementado em C++. Será utilizado o método de Voronoi para padronizar e automatizar a geração dos mapas topológicos.
+
+Cada ambiente terá um mapa topológico que será gerado utilizando o diagrama de Voronoi. O robô então, deve utilizar deste mapa para se locomover de uma sala para outra no ambiente. Para os algoritmos e estratégias determinarem a seqüência de salas à visitar, será considerado um grafo completo com todas as salas, pois para determinar o melhor caminho entre uma sala e outra será utilizado o algoritmo de Dijkstra no mapa topológico.
+
+Como um dos critérios de avaliação está relacionado ao tempo que o robô fica sem visitar as salas é possível deduzir que a solução seja um ciclo.
+
+\pagebreak
+
+Considere:
+\begin{itemize}
+	\item Um ambiente com $S$ salas;
+	\item Um ciclo hamiltoniano $C$ qualquer;
+	\item $C_i$ é a i-ésima sala visitada no ciclo;
+	\item Uma velocidade constante do robô (tanto linear quanto angular);
+	\item $\Delta t_i$ o tempo para sair da sala $i$ e chegar na sala $i+1$.
+\end{itemize}
+
+Como o tempo de viagem de uma sala à outra é constante todos os $\Delta t_i$ são constantes, portanto o tempo total do ciclo $T$ é constante $(\sum_{i=1}^S \Delta t_i = cte)$. Se o tempo do ciclo é constante, o tempo que o robô demora para revisitar cada sala é constante igual a $T$. Mas isso não é interessante para solução do problema pois o grau de urgência de cada sala é diferente, então se uma sala tem uma prioridade muito alta, seu grau de urgência vai ser muito alto até o robô revisitá-la. 
+
+Para resolver esse problema, basta fazer com que o robô revisite essa(s) sala(s) mais de uma vez no ciclo. Então supondo um ciclo de tamanho $n$ sendo $n \geq S$ o tempo total do ciclo continua constante $(\sum_{i=1}^n \Delta t_i = cte)$. Portanto a solução do problema consiste em encontrar esse ciclo.
+
+Outro método para encontrar a solução do problema é se basear em algum problema existente na literatura. Como o problema é encontrar um ciclo em um grafo minimizando o tempo para revisitar as salas. É possível utilizar a formulação matemática do caixeiro viajante e modificá-la para modelar o problema proposto nesta dissertação.
+
