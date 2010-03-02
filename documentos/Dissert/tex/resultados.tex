@@ -1,0 +1,181 @@
+%==========================================================
+% Resultados Obtidos.
+% 
+% Autor
+% Heitor Luis Polidoro
+% 
+% Orientador
+% Prof. Dr. Denis Fernando Wolf
+%==========================================================
+
+\chapter{Resultados Obtidos}
+\label{resultados}
+
+\section{Objetivo}
+\label{objetivo}
+Essa dissertação tem como objetivo o desenvolvimento de uma estratégia eficiente para determinar uma seqüência de áreas a serem visitadas em ambientes internos com a finalidade de monitoramento desses ambientes utilizando um robô móvel. O problema a ser resolvido consiste na divisão de um ambiente previamente conhecido em áreas de interesse (exemplo na Figura \ref{fig:mapa_museu}). A cada uma dessas áreas é atribuído um valor (peso) referente a sua importância de monitoramento (exemplo na Tabela \ref{tab:prioridade_museu}). A prioridade com que o robô deve visitar determinadas áreas é calculada com base na importância dessas áreas e no tempo decorrido desde a sua última visita. Áreas de maior importância devem ser visitadas mais freqüentemente. 
+
+\figura{imagens/MUSEU_DO_HOMEM_SERGIPANO.jpg}{8}{Exemplo de mapa: Museu do homem sergipano e suas divisões}{fig:mapa_museu}
+
+\begin{table}\begin{center}
+	\begin{tabular}
+		{|c|c|}
+		\hline
+		Sala & Prioridade \\
+		\hline
+		a& 5 \\
+		b& 5 \\
+		c& 2 \\
+		d& 1 \\
+		e& 3 \\
+		f& 2 \\
+		g& 1 \\
+		h& 2 \\
+		i& 2 \\
+		j& 4 \\
+		k& 4 \\
+		l& 4 \\
+		1& 2 \\
+		2& 3 \\
+		3& 3 \\
+		4& 5 \\
+		5& 5 \\
+		6& 5 \\
+		7& 4 \\
+		8& 4 \\
+		9& 3 \\
+		\hline
+	\end{tabular}
+\end{center}
+\caption{Exemplo de prioridades}
+\label{tab:prioridade_museu}
+\end{table}
+
+\subsection{Critérios de Avaliação}
+\label{criterios}
+Os algoritmos e estratégias serão então testados e avaliados. As avaliações consistem na comparação dos algoritmos e estratégias. Serão utilizados dois critérios de comparação, um critério comparando a freqüência relativa de cada sala com sua prioridade relativa, onde o melhor resultado é aquele em que a freqüência relativa se aproximar mais da prioridade relativa, pois se uma sala (a) possui uma prioridade com valor duas vezes maior que uma sala (b) (Salas f e 7 na Figura \ref{tab:prioridade_museu} por exemplo), a sala (a) deve ser visitada com o dobro de freqüência do que a sala (b). Isto indica que o algoritmo ou estratégia se manteve fiel à definição do problema: \textit{ Áreas de maior importância devem ser visitadas mais freqüentemente.}.
+
+O segundo critério é um gráfico mostrando a progressão da somatória dos graus de urgência de todas as salas $(\sum_{i=0}^n U_i)$ , no qual o melhor resultado consiste em manter o menor valor da somatória dos graus de urgência. Mostrando que o algoritmo ou estratégia visitou as salas com maior eficiência. O grau de urgência $U$ é calculado multiplicando-se a prioridade da sala $P$ pelo tempo decorrido desde a última visita $t$. A casa visita o $t$ é zerado $(U_i = P_i \times t_i)$.
+
+\section{Metodologia}
+\label{metodologia}
+
+Cada ambiente tem um mapa topológico que será gerado utilizando o diagrama de Voronoi. O robô então, deve utilizar deste mapa para se locomover de uma sala para outra no ambiente. Para os algoritmos e estratégias determinarem a seqüência de salas à visitar, é considerado um grafo completo com todas as salas, pois para determinar o melhor caminho entre uma sala e outra será utilizado o algoritmo de Dijkstra no mapa topológico.
+
+Como um dos critérios de avaliação está relacionado ao tempo que o robô fica sem visitar as salas é possível deduzir que a solução seja um ciclo.
+
+\pagebreak
+
+Considere:
+\begin{itemize}
+	\item Um ambiente com $S$ salas;
+	\item Um ciclo hamiltoniano $C$ qualquer;
+	\item $C_i$ é a i-ésima sala visitada no ciclo;
+	\item Uma velocidade constante do robô (tanto linear quanto angular);
+	\item $\Delta t_i$ o tempo para sair da sala $i$ e chegar na sala $i+1$.
+\end{itemize}
+
+Como o tempo de viagem de uma sala à outra é constante todos os $\Delta t_i$ são constantes, portanto o tempo total do ciclo $T$ é constante $(\sum_{i=1}^S \Delta t_i = cte)$. Se o tempo do ciclo é constante, o tempo que o robô demora para revisitar cada sala é constante igual a $T$. Mas isso não é interessante para solução do problema pois o grau de urgência de cada sala é diferente, então se uma sala tem uma prioridade muito alta, seu grau de urgência vai ser muito alto até o robô revisitá-la. 
+
+Para resolver esse problema, basta fazer com que o robô revisite essa(s) sala(s) mais de uma vez no ciclo. Então supondo um ciclo de tamanho $n$ sendo $n \geq S$ o tempo total do ciclo continua constante $(\sum_{i=1}^n \Delta t_i = cte)$. Portanto a solução do problema consiste em encontrar esse ciclo.
+
+MENCIONAR AS DUAS SOLUÇÕES, OFFLINE E REAL TIME.
+EXPLICAR QUE A OFFLINE É DIVIDIDA EM 2: GERADOR E AVALIADOR
+
+
+\section{Avaliador}
+\label{avaliador}
+
+O programa chamado \texttt{avaliador} é utilizado para avaliar os candidatos a seqüência de salas ótima do mapa analisado gerado pelo programa \texttt{gerador} \ref{gerador} e retorna para o \texttt{gerador} um valor numérico, baseado nesse valor o \texttt{gerador} irá guardar a seqüência como possível ótima, descartar ou continuar utilizando essa seqüência para gerar novas seqüência. Maiores detalhes na sessão \ref{gerador}.
+
+\subsection{Funcionamento}
+
+O \texttt{avaliador} recebe três parâmetros como entrada:
+\begin{itemize}
+	\item O nome do mapa onde o caminho será avaliado;
+	\item Um vetor de vértices, representando a seqüência de salas a ser avaliada;
+	\item Um valor opcional de limite para a avaliação.
+\end{itemize}
+
+Com esses parâmetros o \texttt{avaliador} inicia a simulação do robô navegando pelo mapa. A velocidade linear, que determina a velocidade com que o robô anda para frente ou para trás, é definida pela constante \texttt{SIMULACAO\_VEL} como 1 m/s. E a velocidade angular, que determina a velocidade com que o robô vira, é definida pela constante \texttt{SIMULACAO\_ROT} como 0.5 rad/s. Ambas constantes estão no arquivo \texttt{robo.h}. O tempo que o robô demora para visitar uma sala é definido pela constante \texttt{VISITAR\_SALA} como 5 s no arquivo \texttt{salas.h}.
+
+Durante a simulação, a cada visita de sala o \texttt{avaliador} mede o Grau de Urgência Total e salva o maior valor, esse valor vai ser a avaliação do caminho neste mapa. Após a simulação o \texttt{avaliador} verifica se o caminho visita todos as salas, caso alguma sala não foi visitada o \texttt{avaliador} retorna a avaliação com valor negativo, se todas as salas foram visitadas o \texttt{avaliador} verifica se o caminho é um \textit{loop}, ou seja, se o caminho começa e termina no mesmo vértice, caso contrário ele também retorna a avaliação em valor negativo. Caso a avaliação do caminho for maior que o limite fornecido o valor 0 é retornado, se nenhum limite for fornecido o \texttt{avaliador} utiliza o valor do maior inteiro do compilador. Se o caminho for um \textit{loop} e visitar todas as salas, o valor da avaliação, maior Grau de Urgência Total em todo o percurso, é retornado pelo \texttt{avaliador}.
+
+Para critério de parada o \texttt{avaliador} compara o estado das salas, ou seja, se para cada sala, o Grau de Urgência e o número de visitas é o mesmo ao término do caminho.
+
+O algoritmo \ref{alg:avaliador} contém o pseudocódigo do programa \texttt{avaliador}
+
+%\subsection{Algoritmo}
+
+\begin{algorithm}
+\caption{\texttt{avaliador}}
+\label{alg:avaliador}
+\begin{algorithmic}[1]
+\REQUIRE mapa, caminho, limite = \texttt{INT\_MAX} 
+\ENSURE A avaliação do $caminho$ no $mapa$
+	\STATE carregar ($mapa$)
+	\STATE $aval \leftarrow 0$
+	\REPEAT
+		\STATE $salas\_anterior \leftarrow salas\_atual$
+		\FORALL {vértice $v$ em $caminho$}
+			\STATE Calcula o tempo necessário para o robô chegar ao vértice $v$
+			\STATE Soma à esse tempo o tempo para visitar a sala do vértice $v$
+			\STATE Atualiza os Graus de Urgência das salas Com o tempo calculado
+			\IF {Grau de Urgência atual > $maior$}
+				\STATE $maior \leftarrow$ Grau de Urgência atual
+			\ENDIF
+			\IF {Caminho não visita todas as salas do mapa}
+				\RETURN $-aval$
+			\ENDIF
+			\STATE Visita a sala do vértice $v$
+		\ENDFOR
+	\UNTIL $salas\_anterior$ = $salas\_atual$
+\end{algorithmic}
+\end{algorithm}
+
+\section{Gerador}
+\label{gerador}
+
+O programa chamado \texttt{gerador} é utilizado para gerar os candidatos a seqüência de salas ótima do mapa analisado. Esses candidatos são avaliados pelo programa \texttt{avaliador} e de acordo com a avaliação o \texttt{gerador} irá guardar a seqüência como possível ótima, descartar ou continuar utilizando essa seqüência para gerar novas seqüência. 
+
+\subsection{Funcionamento}
+
+O programa \texttt{gerador} utiliza uma classe (tipo de variável) chamada $Agente$ contendo os seguintes atributos:
+
+\begin{itemize}
+	\item \texttt{vertice}: Vértice no qual o agente se encontra no momento;
+	\item \texttt{caminho}: Vetor de salas que guarda a seqüência de salas que o agente percorreu até chegar no vértice atual;
+	\item \texttt{avaliacao}: Avaliação da seqüência de salas do agente;
+	\item \texttt{tempo}: Tempo em segundos que o robô levou para percorrer a seqüência de salas até o vértice atual.
+\end{itemize}
+
+O \texttt{gerador} recebe apenas um parâmetro como entrada: o nomo do mapa que quer achar a seqüência ótima. O programa inicia criando uma seqüência percorrendo as salas na ordem numérica (Sala 1, sala 2..) e classificada como possível ótima. A seguir o programa cria um $Agente$ em cada sala do mapa para explorar as possibilidades do robô começar em cada sala, esses $agentes$ são organizados em uma fila de candidatos.
+
+O laço principal do programa consiste em retirar um $agente$ da fila e para cada sala $i$ é criado um novo $agente$, simulando que o $agente$ retirado da fila navegou até a sala $i$. Em cada novo $agente$ é atualizada a seqüência de salas visitadas e o agente é reavaliado. Se a avaliação for um valor negativo o $agente$ é inserido na fila de $agentes$. Caso o avaliador retorne um valor positivo e esse valor é menor que a avaliação da atual seqüência ótima, o $agente$ contendo a atual seqüência ótima é inserido na fila de $agentes$ e o novo $agente$ contendo a seqüência melhor é guardado como possível seqüência ótima. Como o algoritmo somente insere na fila os $agentes$ que podem gerar seqüências ótimas, o critério de parada é quando não existe mais $agentes$ na fila, o programa então retorna o $agente$ com a seqüência ótima.
+
+O algoritmo \ref{alg:gerador} contém o pseudocódigo do programa \texttt{gerador}
+%\subsection{Algoritmo}
+
+\begin{algorithm}
+\caption{\texttt{gerador}}
+\label{alg:gerador}
+\begin{algorithmic}[1]
+\REQUIRE  mapa
+\ENSURE melhor_agente
+	\STATE novo_agente.vertice \leftarrow 1
+	\STATE novo_agente.caminho \leftarrow 1, 2, 3...
+	\FORALL {sala $s$ do mapa}
+		\STATE novo_agente.caminho.adiciona_sala($s$)
+		\STATE 
+	\ENDFOR
+	\STATE novo_agente.avaliacao \leftarrow avaliar(novo_agente.caminho)
+	\REPEAT
+		\FORALL {}
+			\IF {}
+				\RETURN $-aval$
+			\ENDIF
+		\ENDFOR
+	\UNTIL 
+\end{algorithmic}
+\end{algorithm}
+

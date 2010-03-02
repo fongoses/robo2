@@ -8,9 +8,9 @@
 
 \chapter{Navegação de Robôs Móveis} 
 \label{navegacao} 
-Existem diversos problemas em aberto na robótica móvel.  Um dos problemas ainda em aberto consiste em um robô com a habilidade de navegar em seu ambiente \cite{Jones1999}.  A navegação é a ciência, arte, prática ou tecnologia, de planejar e percorrer uma trajetória de um ponto de origem até um ponto de destino. 
+Existem diversos problemas em aberto na robótica móvel.  Uma dessa questões ainda não resolvida consiste em um robô com a habilidade de navegar em seu ambiente \cite{Jones1999}.  A navegação é a ciência, arte, prática ou tecnologia, de planejar e percorrer uma trajetória de um ponto de origem até um ponto de destino. 
 
-Em robótica, navegação é a ciência de direcionar o percurso de um robô móvel enquanto percorre o meio ambiente (terra, água, ou ar).  Inerente em qualquer esquema de navegação é o desejo de alcançar um destino sem se perder ou colidir com alguma coisa \cite{Mckerrow1991}.  Em geral, navegação é um processo incremental que, segundo \cite{Murphy2000}, pode ser resolvido respondendo à quatro perguntas:
+Em robótica, navegação é a ciência de direcionar o percurso de um robô móvel enquanto percorre o meio ambiente (terra, água, ou ar).  Inerente em qualquer esquema de navegação é o desejo de alcançar um destino sem se perder ou colidir com algum obstáculo \cite{Mckerrow1991}.  Em geral, navegação é um processo incremental que, segundo \cite{Murphy2000}, pode ser resolvido respondendo à quatro perguntas:
 
 \begin{itemize} 
 	\item \textbf{Para onde estou indo?} Geralmente determinado por um humano ou uma missão; 
@@ -45,6 +45,10 @@ A solução para o problema de navegação vai depender de todas essas restrições \c
 
 A navegação pode ser dividida em duas grandes áreas: planejamento de trajetória e desvio de obstáculos.  O planejamento de trajetória consistem em, dada uma representação do ambiente (total ou parcial) o robô deve planejar uma trajetória que o leve do seu ponto de origem até seu destino, atendendo a requisitos como menor caminho ou  menos curvas por exemplo.  O desvio de obstáculos é utilizado principalmente em ambientes dinâmicos, onde possam haver obstáculos móveis, e sua função é fazer com que o robô chegue em seu destino de forma segura, ou seja, não colida com obstáculos que podem ser móveis ou não, utilizando sensores geralmente de distância, como LASERs e sonares, ou até mesmo utilizando câmeras.
 
+\section{Localização}
+\label{localizacao}
+FALAR SOBRE
+
 \section{Representação do Mapa}
 \label{mapa}
 Representar o ambiente onde o robô se encontra é importante pois, decisões baseadas na representação do ambiente podem ter impacto nas escolhas disponíveis para a representação da posição do robô. Muitas vezes a fidelidade da representação da posição é limitada pela fidelidade do mapa \cite{Siegwart2004}.
@@ -57,6 +61,8 @@ Segundo \cite{Siegwart2004}, três relações fundamentais tem de ser entendidas qu
 \end{itemize}
 
 Existem várias maneira de representar um mapa: Decomposição por célula, decomposição fixa, decomposição adaptada (com variação de célula), \textit{occupancy grid} e representação topológica, et al. \cite{Siegwart2004}.
+
+EXPLICAR A DIFERENÇA ENTRE MAPAS MÉTRICOS E TOPOLÓGICOS, COLOCAR FIGURAS
 
 \section{Planejamento de Trajetória} 
 \label{planejamento} 
@@ -132,4 +138,4 @@ No primeiro estágio da redução de dados é mapeada a grade de histograma do ambie
 
 \figura{imagens/polar_histogram.png}{.3}{(a) Densidade polar de obstáculo em um histograma polar relativo à posição do robô em $O$ (Figura \ref{fig:histogram_grid}(b)). (b) O mesmo histograma polar de (a) mostrado em forma polar e por cima da grade de histograma da Figura \ref{fig:histogram_grid}(b).\cite{Borenstein1991}}{fig:polar_histogram}
 
-
+EXPLICAR COM MAIS DETALHES, VER DISSERTAÇÃO DO VANDERSON
