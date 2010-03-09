@@ -161,14 +161,14 @@ O algoritmo \ref{alg:gerador} contém o pseudocódigo do programa \texttt{gerador}
 \label{alg:gerador}
 \begin{algorithmic}[1]
 \REQUIRE  mapa
-\ENSURE melhor_agente
-	\STATE novo_agente.vertice \leftarrow 1
-	\STATE novo_agente.caminho \leftarrow 1, 2, 3...
+\ENSURE $melhor_agente$
+	\STATE $novo_agente.vertice \leftarrow 1$
+	\STATE $novo_agente.caminho \leftarrow 1, 2, 3...$
 	\FORALL {sala $s$ do mapa}
-		\STATE novo_agente.caminho.adiciona_sala($s$)
+		\STATE $novo_agente.caminho.adiciona_sala$($s$)
 		\STATE 
 	\ENDFOR
-	\STATE novo_agente.avaliacao \leftarrow avaliar(novo_agente.caminho)
+	\STATE $novo_agente.avaliacao \leftarrow avaliar$($novo_agente.caminho$)
 	\REPEAT
 		\FORALL {}
 			\IF {}
