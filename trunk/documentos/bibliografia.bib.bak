@@ -8,6 +8,18 @@
   year = {2005}
 }
 
+@ARTICLE{Andreasson2007,
+  author = {Andreasson, H and Treptow, A and Duckettm t.},
+  title = {Self-localization in non-stationary environments using omni-directional
+	vision.},
+  journal = {Robotics and Autonomous System},
+  year = {2007},
+  volume = {55},
+  pages = {541-551},
+  owner = {heitor},
+  timestamp = {2010.03.09}
+}
+
 @BOOK{Arenales2007,
   title = {Pesquisa operacional},
   publisher = {Elsevier Campus},
@@ -303,6 +315,16 @@
   title = {{NAVEGA\c{C}\~{A}O} {TOPOL\'{O}GICA} {PARA} {FUTEBOL} {ROB\'{O}TICO}},
   journal = {{UNIVERSIDADE} {T\'{E}CNICA} {DE} {LISBOA}},
   year = {2003}
+}
+
+@MASTERSTHESIS{Oliveira2010,
+  author = {Janderson Rodrigo de Oliveira},
+  title = {Um sistema integrado para navega\c{c}\~{a}o aut\^{o}noma de rob\^{o}s
+	m\'{o}veis},
+  school = {ICMC-USP},
+  year = {2010},
+  owner = {heitor},
+  timestamp = {2010.03.09}
 }
 
 @ARTICLE{Olson2000,
