@@ -47,7 +47,15 @@ A navegação pode ser dividida em duas grandes áreas: planejamento de trajetória 
 
 \section{Localização}
 \label{localizacao}
-FALAR SOBRE
+Localização de robôs móveis é o processo de se estimar a posição de um robô dentro do ambiente no qual está inserido \cite{Olson2000}. Para fazê-lo é necessário que o robô utilize um mapa que modele o mundo ao seu redor e estime através deste modelo sua posição corrente e sua orientação. Sendo assim, a habilidade de estimar sua posição, através de seus sensores, é uma das pré-condições básicas para a autonomia de robôs móveis \cite{Burgard1996, Wolf2005, Andreasson2007}.
+
+O mapa do ambiente pode ser obtido automaticamente por um robô que seria responsável por explorar previamente o ambiente, ou manualmente projetado por um ser humano \cite{Oliveira2010}. Para as técnicas de localização serem consideradas robustas, elas devem apresentar os seguintes requisitos \cite{Burgard1996, Wolf2005, Andreasson2007}.
+
+\begin{itemize}
+	\item Ser capaz de lidar com incertezas, pois os mapas que modelam o ambiente são, geralmente, imprecisos e os sensores, muitas vezes, não são perfeitos;
+	\item Lidar com simetria, uma vez que muitos locais possuem mapas que não pode ser diferenciados com apenas uma medida. Por exemplo, corredores em um escritório;
+	\item Permitir a integração da leitura de vários sensores diferentes, porque a fusão sensorial aumenta a confiabilidade do sistema, compensando os possíveis ruídos.
+\end{itemize}
 
 \section{Representação do Mapa}
 \label{mapa}
@@ -124,6 +132,12 @@ O método utilizado foi o VFH, por já vir implementado no Player e em testes se m
 \label{VFH}
 Analisando melhor o método VFF percebemos um problema: redução drástica excessiva dos dados quando forças de repulsão individuais do histograma da grade de células são somadas para calcular o vetor resultante. Centenas de pontos de dados são reduzidos em um passo para direção e magnitude. Conseqüentemente, informações detalhadas sobre a distribuição local do obstáculo é perdida. Para remediar essa situação, foi desenvolvido um novo método chamado \textit{Vector Field Histogram} - VFH. O Método VFH utiliza dois estágios de redução de dados \cite{Borenstein1991}.
 
+O VFH mantém um mapa métrico probabilístico simplificado baseado em malhas, semelhante ao \textit{Certainty grid}, porém utiliza valores inteiros entre zero e cinco, no lugar de valores reais entre zero e um, como no \textit{Certainty grid} \cite{Janderson2010}.
+
+Outra diferença entre o VFH e o \textit{Certainty grid} é em relação à maneira como o mapa é gerado, pois para conseguir operar com rapidez para desviar de obstáculos em velocidades elevadas, o custo para a manutenção do mapa tem que ser baixo, ou seja, ocupar pouco tempo do processador. Para isso o mapa é obtido através de amostragem rápida, onde cada célula é iniciada em zero e é incrementada em um cada vez que um sensor detectar um obstáculo naquela posição, até que alcance cinco (valor máximo) e não mudara mais \cite{Janderson2010}.
+
+A cada iteração do algoritmo é realizada uma amostragem rápida, criando um histograma polar. Esse histograma é criado de tal forma que as regiões ao redor do robô são divididas em $k$ setores, contendo cada um, sua densidade de ocupação. Esse histograma não é feito no mapa todo, e sim somente em uma região ativa, cujo centro é o robô \cite{Janderson2010}.
+
 Existem três níveis de representação de dados \cite{Borenstein1991}:
 
 \begin{itemize}
@@ -132,10 +146,9 @@ Existem três níveis de representação de dados \cite{Borenstein1991}:
 	\item O nível mais baixo é a saída do algoritmo VFH, valores de referência para o controle de movimento do robô
 \end{itemize}
 
-No primeiro estágio da redução de dados é mapeada a grade de histograma do ambiente (Figura \ref{fig:histogram_grid}) em um histograma polar (Figura \ref{fig:polar_histogram}). E no segundo estágio computa a direção $\theta$ para onde o robô deve virar.
+No primeiro estágio da redução de dados é mapeada a grade de histograma do ambiente (Figura \ref{fig:histogram_grid}) em um histograma polar (Figura \ref{fig:polar_histogram}). E no segundo estágio é calculado o ângulo $\Omega$ entre o robô é a meta, para isso, escolhe-se o setor $k$, referente ao ângulo mais próximo de $\Omega$, com a densidade de ocupação menor que uma constante pré-definida. Sendo assim, o ângulo $\theta$, referente a esse setor, determina para onde o robô deve virar. E a velocidade linear pode ser calculada com heurísticas que utilizam as densidades de ocupação próximas ao ângulo $\theta$ \cite{Janderson2010}.
 
 \figura{imagens/histogram_grid.png}{.3}{(a) Exemplo de um mapa. (b) Grade de histograma correspondente.\cite{Borenstein1991}}{fig:histogram_grid}
 
 \figura{imagens/polar_histogram.png}{.3}{(a) Densidade polar de obstáculo em um histograma polar relativo à posição do robô em $O$ (Figura \ref{fig:histogram_grid}(b)). (b) O mesmo histograma polar de (a) mostrado em forma polar e por cima da grade de histograma da Figura \ref{fig:histogram_grid}(b).\cite{Borenstein1991}}{fig:polar_histogram}
 
-EXPLICAR COM MAIS DETALHES, VER DISSERTAÇÃO DO VANDERSON
