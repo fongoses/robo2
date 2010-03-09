@@ -41,16 +41,24 @@ Podemos classificar os sensores em dois importantes eixos funcionais: propriocep
 \textbf{Proprioceptivo}, são os sensores que medem valores internos ao sistema, como velocidade do motor, bateria, ângulo dos braços por exemplo.
 \textbf{Exteroceptivo}, são os sensores que adquirem informações sobre o ambiente do robô, como medidos de distância, intensidade de luz, amplitude do som por exemplo. Conseqüentemente as medidas de sensores exteroceptivos são interpretadas pelo robô, para extrair as informações significantes do ambiente.
 \textbf{Passivos}, são sensores que medem a energia do ambiente que entra no sensor. Por exemplo: sondas de temperatura, microfones e câmeras.
-\textbf{Ativos}, são sensores que emitem energia para o ambiente, então medem a reação do ambiente à essa energia. Sensores deste tipo têm uma performance superior, entretanto existem alguns riscos, como a falta de energia pode afetar a característica que o sensor está tentando medir. Sensores ativos também podem sofrer interferências de sinais que estão fora do seu controle. Por exemplo, sinais emitidos por robôs próximos, ou sensores similares no mesmo robô, podem influenciar no resultado das medidas. Exemplos de sensores ativos incluem sensores ultra-sônicos, sonares, e LASERs para medir distância \cite{Siegwart2004}.
+\textbf{Ativos}, são sensores que emitem energia para o ambiente, então medem a reação do ambiente à essa energia. Sensores deste tipo têm uma performance superior, entretanto existem alguns riscos, como a falta de energia pode afetar a característica que o sensor está tentando medir. Sensores ativos também podem sofrer interferências de sinais que estão fora do seu controle. Por exemplo, sinais emitidos por robôs próximos, ou sensores similares no mesmo robô, podem influenciar no resultado das medidas. Exemplos de sensores ativos incluem sensores ultra-sônicos, sonares, e LASERs para medir distância \cite{Siegwart2004}. Os sensores que foram utilizados no projeto foram LASER e odômetro.
 
-FALAR SOBRE LASER E ODÔMETRO
+\subsection{Odômetro}
+\label{odometro}
+O odômetro é um sensor proprioceptivo, ele mede as velocidades dos motores das rodas, e baseado nessa informação é possível determinar a posição do robô mo mapa. O principal problema dos odômetros é com relação à sua precisão, pois muitos fatores podem atrapalhar a leitura, uma roda patinando ou um pneu murcho por exemplo, o odômetro pode interpretar que o robô está fazendo um movimento diferente do real. Para corrigir esse tipo de problema existe os algoritmos de localização, que serão explicados em \cite{localizacao}.
+
+\subsection{LASER}
+\label{laser}
+O LASER é um sensor Exteroceptivo Ativo, pois ele emite um sinal de luz e calculando o tempo que esse sinal demora para retornar ao LASER. Ele funciona da seguinte forma: um emissor envia o sinal e calcula o tempo que esse sinal demora para retornar ao emissor, com isso ele calcula a distância naquela direção, e através de um espelho fixo e outro rotativo é possível atingir até 360 graus de rotação.
+
+\huge{IMAGEM DO FUNCIONAMENTO DO LASER}
 
 \section{Robô Pioneer}
 \label{robo_pioneer}
 
 O Pioneer (Figura \ref{fig:pioneer}) é o robô disponível para testes experimentais no Laboratório de Robótica Móvel (ICMC - USP), ele é um robô móvel ágil e versátil. Construído em um sistema cliente-servidor, ele oferece um processamento de visão \textit{onboard}, comunicação \textit{ethernet}, LASER, GPS, sonar, e outras funções autônomas. E para programá-lo deve-se utilizar a biblioteca Player \cite{MobileRobots}.
 
-COLOCAR CARACTERÍSTICAS TÉCNICAS
+\huge{COLOCAR CARACTERÍSTICAS TÉCNICAS?}
 
 \figura{imagens/pioneer.jpg}{.9}{Robô Pioneer.}{fig:pioneer}
 
@@ -64,7 +72,7 @@ O controle do robô será desenvolvido utilizando-se a biblioteca Player/Stage \ci
 O Player é um servidor de rede para controlar robôs. Executando embarcado no robô, o Player provê uma interface simples e clara dos sensores e atuadores do robô sobre uma rede IP. O programa cliente ``conversa'' com o Player utilizando sockets TCP, lendo dados dos sensores, escrevendo comandos nos atuadores e configurando dispositivos em tempo de execução.
 O servidor Player foi desenvolvido para que seus clientes sejam independentes de linguagem e de plataforma. O programa cliente pode executar em qualquer máquina que tenha conexão de rede com o robô, e pode ser escrito em qualquer linguagem que suporte sockets TCP. Atualmente existem clientes disponíveis em C++, Tcl, Java e Phyton \cite{Player}. Futuramente, o Player não fará suposições sobre como o programa de controle do robô é estruturado, ou seja, poderá escrever desde programas multi-threads altamente concorrentes até programas sequências simples.
 
-COLOCAR FIGURAS PARA ILUSTRAR O FLUXO DE CONTROLE DO PLAYER E DESCREVER MELHOR COMO FUNCIONA A INTERFACE DOS DRIVERS
+\huge{COLOCAR FIGURAS PARA ILUSTRAR O FLUXO DE CONTROLE DO PLAYER E DESCREVER MELHOR COMO FUNCIONA A INTERFACE DOS DRIVERS}
 
 \subsection{Stage}
 \label{stage}
