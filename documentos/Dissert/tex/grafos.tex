@@ -143,7 +143,7 @@ Uma forma alternativa de eliminar sub-rotas é com a seguinte restrição
 \begin{equation}
 	\sum_{i \in S} \sum_{i \ in S \\ j > i} \leq |S| - 1, S \subset \mathbb{N}, 3 \leq |S| \leq \left\lfloor \frac{n}{2} \right\rfloor
 	\label{eq:cv-el_sub-rotas2}
-\end{equation}
+\end{equation}CONFERIR ESSA FORMULA EM \cite{Arenales2007}
 que corresponde a eliminar uma aresta da sub-rota. A sub-rota $S = {1, 2, 3, 4}$ é eliminada.
 \begin{center}
 	$x_{12} + x_{23} + x_{34} + x_{14} \leq 3$
@@ -151,5 +151,10 @@ que corresponde a eliminar uma aresta da sub-rota. A sub-rota $S = {1, 2, 3, 4}$
 
 Como o número de subconjuntos distintos de um conjunto de cardinalidade $k$ é $2^k$, as restrições \ref{eq:cv-el_sub-rotas1} e \ref{eq:cv-el_sub-rotas2} têm cardinalidade da ordem de $2^k$, $k \geq 6$, ou seja, o crescimento é exponencial em função do número de cidades. Para $k \leq 5$, somente a restrição \ref{eq:cv-restr1} elimina sub-rotas \cite{Arenales2007}.
 
+\section{Considerações}
+\label{consideracoes_grafo}
+
+Como o mapa que é utilizado no projeto é um mapa baseado em grafo (mapa topológico), é possível utilizar algumas teorias de grafos presentes na literatura como base para se achar uma solução para o problema. Assim como foi utilizado o algoritmo de Dijkstra nas buscas de menor caminho para o robô fazer a menos trajetória de um vértice a outro, e a fundamentação matemática da teoria do caixeiro-viajante que foi utilizada como base para se achar uma solução \textit{offline}.
+
 COLOCAR UMA SEÇÃO DE CONSIDERAÇÕES PARA CONECTAR ESSE CAPÍTULO AO TRABALHO.
-COMENTAR QUE ESSA TEORIA FOI USADA COMO BASA PARA ACHAR A SOLUÇÃO
+COMENTAR QUE ESSA TEORIA FOI USADA COMO BASA PARA ACHAR A SOLUÇÃO. FEITO?

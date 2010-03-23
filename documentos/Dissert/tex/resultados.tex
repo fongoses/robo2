@@ -79,16 +79,25 @@ Como o tempo de viagem de uma sala à outra é constante todos os $\Delta t_i$ são
 
 Para resolver esse problema, basta fazer com que o robô revisite essa(s) sala(s) mais de uma vez no ciclo. Então supondo um ciclo de tamanho $n$ sendo $n \geq S$ o tempo total do ciclo continua constante $(\sum_{i=1}^n \Delta t_i = cte)$. Portanto a solução do problema consiste em encontrar esse ciclo.
 
+\section{Soluções}
+\label{solucoes}
+
+Foram definidas dois tipos de soluções, uma solução \textbf{\textit{offline}}, ou seja, a solução é calculada em um computador e depois informado ao robô qual seqüência de sala ele deve seguir, essa seqüência não é alterada. E a outra solução é uma solução \textbf{tempo real}, ou seja, o robô define para qual sala deve ir durante a execução do algoritmo, baseando suas decisões no que está acontecendo no momento. A solução \textit{\textbf{offline}} é dividida em duas partes: \textbf{Gerador}, que cria possíveis seqüências de salas ótimas, e o \textbf{Avaliador} que analisa e computa uma nota para as seqüências de salas criadas pelo \textbf{Gerador}
 MENCIONAR AS DUAS SOLUÇÕES, OFFLINE E REAL TIME.
-EXPLICAR QUE A OFFLINE É DIVIDIDA EM 2: GERADOR E AVALIADOR
+EXPLICAR QUE A OFFLINE É DIVIDIDA EM 2: GERADOR E AVALIADOR. OK?
 
+\subsection{\textit{Offline}}
+\label{offline}
+Esse método consiste em explorar as diversas possíveis combinações de seqüências de salas para encontrar a seqüência ótima. Um programa chamado \texttt{gerador}, seguindo uma determinada heurística, gera as possíveis seqüências de salas, essas seqüências são fornecidas ao programa \texttt{avaliador} que, baseado no critério de maior Grau de Urgência Total, analisa a seqüência e retorna uma avaliação ao \texttt{gerador} que tomara a decisão de: descartar a seqüência, preservar a seqüência para gerar futuras seqüências ou guardar a seqüência como possível seqüência ótima.
+VERIFICAR NUMERAÇÃO DAS REFERÊNCIAS.
 
-\section{Avaliador}
+\subsubsection{Avaliador}
 \label{avaliador}
 
 O programa chamado \texttt{avaliador} é utilizado para avaliar os candidatos a seqüência de salas ótima do mapa analisado gerado pelo programa \texttt{gerador} \ref{gerador} e retorna para o \texttt{gerador} um valor numérico, baseado nesse valor o \texttt{gerador} irá guardar a seqüência como possível ótima, descartar ou continuar utilizando essa seqüência para gerar novas seqüência. Maiores detalhes na sessão \ref{gerador}.
 
-\subsection{Funcionamento}
+%\subsubsection{Funcionamento}
+%\paragraph{Funcionamento}
 
 O \texttt{avaliador} recebe três parâmetros como entrada:
 \begin{itemize}
@@ -99,12 +108,13 @@ O \texttt{avaliador} recebe três parâmetros como entrada:
 
 Com esses parâmetros o \texttt{avaliador} inicia a simulação do robô navegando pelo mapa. A velocidade linear, que determina a velocidade com que o robô anda para frente ou para trás, é definida pela constante \texttt{SIMULACAO\_VEL} como 1 m/s. E a velocidade angular, que determina a velocidade com que o robô vira, é definida pela constante \texttt{SIMULACAO\_ROT} como 0.5 rad/s. Ambas constantes estão no arquivo \texttt{robo.h}. O tempo que o robô demora para visitar uma sala é definido pela constante \texttt{VISITAR\_SALA} como 5 s no arquivo \texttt{salas.h}.
 
-Durante a simulação, a cada visita de sala o \texttt{avaliador} mede o Grau de Urgência Total e salva o maior valor, esse valor vai ser a avaliação do caminho neste mapa. Após a simulação o \texttt{avaliador} verifica se o caminho visita todos as salas, caso alguma sala não foi visitada o \texttt{avaliador} retorna a avaliação com valor negativo, se todas as salas foram visitadas o \texttt{avaliador} verifica se o caminho é um \textit{loop}, ou seja, se o caminho começa e termina no mesmo vértice, caso contrário ele também retorna a avaliação em valor negativo. Caso a avaliação do caminho for maior que o limite fornecido o valor 0 é retornado, se nenhum limite for fornecido o \texttt{avaliador} utiliza o valor do maior inteiro do compilador. Se o caminho for um \textit{loop} e visitar todas as salas, o valor da avaliação, maior Grau de Urgência Total em todo o percurso, é retornado pelo \texttt{avaliador}.
+Durante a simulação, a cada visita de sala o \texttt{avaliador} mede o Grau de Urgência Total e salva o maior valor, esse valor vai ser a avaliação do caminho neste mapa. Após a simulação o \texttt{avaliador} verifica se caso a avaliação do caminho for maior que o limite fornecido o valor 0 (zero) é retornado, se nenhum limite for fornecido o \texttt{avaliador} utiliza o valor do maior inteiro do compilador. Se o caminho não visita todos as salas o \texttt{avaliador} retorna a avaliação com valor negativo, se todas as salas foram visitadas o \texttt{avaliador} verifica se o caminho é um \textit{loop}, ou seja, se o caminho começa e termina no mesmo vértice, caso contrário ele também retorna a avaliação em valor negativo.  Se o caminho for um \textit{loop}, visita todas as salas e o valor da avaliação for menor que o limite fornecido (ou menor que o maior inteiro do compilador), o valor da avaliação, maior Grau de Urgência Total em todo o percurso, é retornado pelo \texttt{avaliador}.
 
 Para critério de parada o \texttt{avaliador} compara o estado das salas, ou seja, se para cada sala, o Grau de Urgência e o número de visitas é o mesmo ao término do caminho.
 
 O algoritmo \ref{alg:avaliador} contém o pseudocódigo do programa \texttt{avaliador}
 
+FLUXOGRAMA?
 %\subsection{Algoritmo}
 
 \begin{algorithm}
@@ -124,21 +134,34 @@ O algoritmo \ref{alg:avaliador} contém o pseudocódigo do programa \texttt{avalia
 			\IF {Grau de Urgência atual > $maior$}
 				\STATE $maior \leftarrow$ Grau de Urgência atual
 			\ENDIF
-			\IF {Caminho não visita todas as salas do mapa}
-				\RETURN $-aval$
-			\ENDIF
 			\STATE Visita a sala do vértice $v$
 		\ENDFOR
+
+		\IF {$aval$ > $limite$}
+			\RETURN 0
+		\ENDIF
+
+		\IF {Caminho não visita todas as salas do mapa}
+			\RETURN $-aval$
+		\ENDIF
+
+		\IF {Primeiro vértice do caminho diferente do último vértice do caminho} \COMENT Ou seja, não é considerado um loop
+			\RETURN $-aval$
+		\ENDIF
+	
 	\UNTIL $salas\_anterior$ = $salas\_atual$
+
+	\RETURN $aval$
 \end{algorithmic}
 \end{algorithm}
 
-\section{Gerador}
+\subsubsection{Gerador}
 \label{gerador}
 
 O programa chamado \texttt{gerador} é utilizado para gerar os candidatos a seqüência de salas ótima do mapa analisado. Esses candidatos são avaliados pelo programa \texttt{avaliador} e de acordo com a avaliação o \texttt{gerador} irá guardar a seqüência como possível ótima, descartar ou continuar utilizando essa seqüência para gerar novas seqüência. 
 
-\subsection{Funcionamento}
+%\subsubsection{Funcionamento}
+%\paragraph{Funcionamento}
 
 O programa \texttt{gerador} utiliza uma classe (tipo de variável) chamada $Agente$ contendo os seguintes atributos:
 
@@ -151,9 +174,10 @@ O programa \texttt{gerador} utiliza uma classe (tipo de variável) chamada $Agent
 
 O \texttt{gerador} recebe apenas um parâmetro como entrada: o nomo do mapa que quer achar a seqüência ótima. O programa inicia criando uma seqüência percorrendo as salas na ordem numérica (Sala 1, sala 2..) e classificada como possível ótima. A seguir o programa cria um $Agente$ em cada sala do mapa para explorar as possibilidades do robô começar em cada sala, esses $agentes$ são organizados em uma fila de candidatos.
 
-O laço principal do programa consiste em retirar um $agente$ da fila e para cada sala $i$ é criado um novo $agente$, simulando que o $agente$ retirado da fila navegou até a sala $i$. Em cada novo $agente$ é atualizada a seqüência de salas visitadas e o agente é reavaliado. Se a avaliação for um valor negativo o $agente$ é inserido na fila de $agentes$. Caso o avaliador retorne um valor positivo e esse valor é menor que a avaliação da atual seqüência ótima, o $agente$ contendo a atual seqüência ótima é inserido na fila de $agentes$ e o novo $agente$ contendo a seqüência melhor é guardado como possível seqüência ótima. Como o algoritmo somente insere na fila os $agentes$ que podem gerar seqüências ótimas, o critério de parada é quando não existe mais $agentes$ na fila, o programa então retorna o $agente$ com a seqüência ótima.
+O laço principal do programa consiste em retirar um $agente$ da fila e para cada sala $i$ é criado um novo $agente$, simulando que o $agente$ retirado da fila navegou até a sala $i$. Em cada novo $agente$ é atualizada a seqüência de salas visitadas e o agente é reavaliado. Se a avaliação for um valor negativo o $agente$ é inserido na fila de $agentes$. Se o valor retornado for 0 (zero) o $agente$ é descartado. Caso o avaliador retorne um valor positivo e esse valor é menor que a avaliação da atual seqüência ótima, o $agente$ contendo a atual seqüência ótima é inserido na fila de $agentes$ e o novo $agente$ contendo a seqüência melhor é guardado como possível seqüência ótima. Como o algoritmo somente insere na fila os $agentes$ que podem gerar seqüências ótimas, o critério de parada é quando não existe mais $agentes$ na fila, o programa então retorna o $agente$ com a seqüência ótima.
 
 O algoritmo \ref{alg:gerador} contém o pseudocódigo do programa \texttt{gerador}
+FLUXOGRAMA?
 %\subsection{Algoritmo}
 
 \begin{algorithm}
