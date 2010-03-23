@@ -145,7 +145,8 @@ FLUXOGRAMA?
 			\RETURN $-aval$
 		\ENDIF
 
-		\IF {Primeiro vértice do caminho diferente do último vértice do caminho} \COMENT Ou seja, não é considerado um loop
+		\IF {Primeiro vértice do caminho diferente do último vértice do caminho} 
+		\STATE \COMMENT{\textit{Ou seja, não é considerado um loop}}
 			\RETURN $-aval$
 		\ENDIF
 	
@@ -185,14 +186,14 @@ FLUXOGRAMA?
 \label{alg:gerador}
 \begin{algorithmic}[1]
 \REQUIRE  mapa
-\ENSURE $melhor_agente$
-	\STATE $novo_agente.vertice \leftarrow 1$
-	\STATE $novo_agente.caminho \leftarrow 1, 2, 3...$
+\ENSURE $melhor\_agente$
+	\STATE $novo\_agente.vertice \leftarrow 1$
+	\STATE $novo\_agente.caminho \leftarrow 1, 2, 3...$
 	\FORALL {sala $s$ do mapa}
-		\STATE $novo_agente.caminho.adiciona_sala$($s$)
+		\STATE $novo\_agente.caminho.adiciona\_sala$($s$)
 		\STATE 
 	\ENDFOR
-	\STATE $novo_agente.avaliacao \leftarrow avaliar$($novo_agente.caminho$)
+	\STATE $novo\_agente.avaliacao \leftarrow avaliar$($novo\_agente.caminho$)
 	\REPEAT
 		\FORALL {}
 			\IF {}
