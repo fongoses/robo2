@@ -17,13 +17,13 @@ Robôs móveis precisam de mecanismos de locomoção que os permitam moverem-se livr
 
 Robôs com rodas são os mais populares por inúmeras razões. Robôs com rodas são mecanicamente simples de construir. A razão da carga peso/mecanismo é favorável. Os outros mecanismos geralmente precisam de um hardware mais complexo para carregarem a mesma carga \cite{Jones1999}. São mais eficientes em gasto de potência por velocidade como mostra na Figura \ref{fig:potencia_por_velocidade}. Além disso, como os robôs com rodas são projetados para as rodas estarem em contato com o chão todo o tempo, o equilíbrio não é usualmente um problema pesquisado \cite{Siegwart2004}.
 
-\figura{imagens/grafico_potencia_por_velocidade.png}{.5}{Potência por velocidade de vários mecanismos de locomoção: (a) Rastejar e deslizar. (b) Correr. (c) Pneu em chão suave. (d) Andar. (e) Em ferrovia. (1) Unidade de potência (Cavalos/toneladas). (2) Velocidade (milhas/hora)\cite{Siegwart2004}}{fig:potencia_por_velocidade}
+\figura{../../imagens/grafico_potencia_por_velocidade.png}{.5}{Potência por velocidade de vários mecanismos de locomoção: (a) Rastejar e deslizar. (b) Correr. (c) Pneu em chão suave. (d) Andar. (e) Em ferrovia. (1) Unidade de potência (Cavalos/toneladas). (2) Velocidade (milhas/hora)\cite{Siegwart2004}}{fig:potencia_por_velocidade}
 
 Ao invés de se preocupar com o equilíbrio, as pesquisas em robôs com rodas tendem a focar em problemas como tração, estabilidade, manobrabilidade e controle \cite{Siegwart2004}. 
 
 Existem quatro classes principais de rodas, como é mostrado na Figura \ref{fig:tipos_de_rodas}. Elas se diferenciam grandemente na sua cinemática, e portanto a escolha da classe de roda tem um grande impacto na cinemática do robô móvel. A roda padrão e a roda castor tem um eixo primário de rotação e são portanto altamente direcionais. Para mover em uma direção diferente, a roda precisa ser direcionada primeiro ao longo do eixo vertical. A diferença enter essas duas rodas é que a roda padrão consegue concluir seu direcionamento sem efeitos colaterais, como o centro de rotação passa pelo contato com o chão, ao passo que a roda castor rotaciona em torno de um eixo deslocado, causando uma força a ser transmitida para o chassi do robô durante o direcionamento \cite{Siegwart2004}.
 
-\figura{imagens/tipos_de_roda.png}{.6}{Quatro tipos básicos de roda. (a) Roda padrão. (b) Roda castor. (c) Roda sueca. (d) Bola ou roda esférica\cite{Siegwart2004}}{fig:tipos_de_rodas}
+\figura{../../imagens/tipos_de_roda.png}{.6}{Quatro tipos básicos de roda. (a) Roda padrão. (b) Roda castor. (c) Roda sueca. (d) Bola ou roda esférica\cite{Siegwart2004}}{fig:tipos_de_rodas}
 
 A roda sueca e a roda esférica são ambas projetos que estão menos condicionadas pelas direcionalidade do que a convencional roda padrão. As funções da roda sueca são as de uma roda normal, mas provêm baixa resistência em outra direção, alguma vezes perpendicular à direção convencional, como a Sueca 90, e algumas vezes em um ângulo intermediário, como a Sueca 45. Os pequenos roletes ao redor da roda são passivos. A vantagem principal desse modelo é que enquanto a rotação é provida somente através de um eixo principal, a roda pode cinematicamente mover-se com pouco atrito em diferentes possíveis trajetórias, não somente para frente e para trás \cite{Siegwart2004}.
 
@@ -60,7 +60,7 @@ O Pioneer (Figura \ref{fig:pioneer}) é o robô disponível para testes experimenta
 
 COLOCAR CARACTERÍSTICAS TÉCNICAS?
 
-\figura{imagens/pioneer.jpg}{.9}{Robô Pioneer.}{fig:pioneer}
+\figura{../../imagens/pioneer.jpg}{.9}{Robô Pioneer.}{fig:pioneer}
 
 \section{Controle do Robô}
 \label{controle_do_robo}
@@ -78,4 +78,4 @@ COLOCAR FIGURAS PARA ILUSTRAR O FLUXO DE CONTROLE DO PLAYER E DESCREVER MELHOR C
 \label{stage}
 O Stage é usado normalmente como um plugin para o Player, provendo uma série de dispositivos virtuais para os clientes Player. Os usuários escrevem as rotinas e algoritmos normalmente, como clientes para um servidor Player. Não é possível para clientes distinguir a diferença entre os dispositivos reais do robô e os equivalentes simulados pelo Player/Stage. Com isso clientes Player desenvolvidos usando o Stage precisarão de pouca ou nenhuma modificação para trabalhar com o robô real, e vice-versa. Em muitos casos basta somente mudar no cliente o endereço IP de onde está o servidor. O Stage também pode simular uma população de robôs móveis, sensores e objetos num ambiente bidimensional (Figura \ref{fig:stage}) \cite{Player}. Nesta dissertação será utilizado somente um robô e o sensor LASER.
 
-\figura{imagens/stage.jpg}{.5}{Simulação com 5 robôs, 2 objetos, LASER, sonar e blobfinder.}{fig:stage}
+\figura{../../imagens/stage.jpg}{.5}{Simulação com 5 robôs, 2 objetos, LASER, sonar e blobfinder.}{fig:stage}

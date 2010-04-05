@@ -30,7 +30,7 @@ Que podem ser sumarizadas em quatro passos, segundo \cite{Goldberg1995}:
 
 A relação entre esses passos pode ser vista na Figura \ref{fig:fluxo_navegacao} \cite{Mckerrow1991}.
 
-\figura{imagens/fluxo_navegacao.jpg}{.4}{Hierarquia do controle de um robô móvel, mostrando o fluxo de informação.}{fig:fluxo_navegacao}
+\figura{../../imagens/fluxo_navegacao.jpg}{.4}{Hierarquia do controle de um robô móvel, mostrando o fluxo de informação.}{fig:fluxo_navegacao}
 
 Navegação é a instância do paradigma geral da robótica ``perceber - decidir - agir''.  A implementação da tarefa de navegação pode ser mais ou menos complexa, depende do contexto em que a tarefe vai ser executada \cite{Goldberg1995}.
 
@@ -92,7 +92,7 @@ Vários métodos propostos foram baseados nessa idéia, dentre eles: grafos de visi
 \label{voronoi} 
 Diagrama de Voronoi é um método completo de mapa de rotas que tende à maximizar a distância enter o robô e os obstáculos no mapa.  Para cada ponto livre no mapa é calculada a distância para o obstáculo mais próximo. O diagrama de Voronoi consiste nos pontos que são eqüidistantes de um ou mais obstáculos.  Um exemplo de diagrama de Voronoi em um mapa pode ser visto na Figura \ref{fig:exemplo_voronoi} \cite{Siegwart2004}.
 
-\figura{imagens/exemplo_voronoi.jpg}{.4}{Exemplo de um diagrama de Voronoi.\cite{Siegwart2004}}{fig:exemplo_voronoi}
+\figura{../../imagens/exemplo_voronoi.jpg}{.4}{Exemplo de um diagrama de Voronoi.\cite{Siegwart2004}}{fig:exemplo_voronoi}
 
 O diagrama de Voronoi tem uma fraqueza importante no caso sensores de localização com alcance limitado.  Como o algoritmo maximiza a distância entre o robô e um objeto no ambiente, qualquer sensor de curto alcance no robô poderá falhar para perceber ao seu redor. Se o sensor de curto alcance está sendo usado para localização, então o caminho designado pelo diagrama de Voronoi será pobre num ponto de vista para localização \cite{Siegwart2004}.
 
@@ -102,7 +102,7 @@ Por outro lado, como por definição o caminho é criado baseado em um ponto eqüidi
 \label{decomposicao_celulas} 
 Este método consiste em dividir o espaço livre do mapa em células, de forma que um caminho entre quaisquer duas células possa ser facilmente obtido. Um grafo, chamado \textit{grafo de conectividade}, representa a relação de adjacência entre as células.  Onde os vértices representam as células extraídas do espaço livre.  Somente existe uma aresta entre dois vértices se e somente se as células correspondentes foram adjacentes.  O resultado de um caminho é uma seqüência de células denominada \textit{canal}, de onde pode ser computado um caminho contínuo \cite{Ottoni2000}.  A Figura \ref{fig:decomposicao_celulas} demonstra um exemplo de de mapa utilizando decomposição em células.
 
-\figura{imagens/decomposicao_celulas.jpg}{.5}{Exemplo de um mapa com decomposição em células.}{fig:decomposicao_celulas}
+\figura{../../imagens/decomposicao_celulas.jpg}{.5}{Exemplo de um mapa com decomposição em células.}{fig:decomposicao_celulas}
 
 \paragraph{Campos Potenciais} 
 \label{campos_potenciais}
@@ -110,7 +110,7 @@ Neste método o espaço livre é discretizado em uma fina grade, a cada posição é a
 
 Um exemplo de campos potenciais é mostrado na Figura \ref{fig:campos_potenciais}.  O campo potencial atrativo (b) é um parabolóide com ponto de mínimo localizado na posição do objetivo.  O campo potencial repulsivo (c) é diferente de zero somente a partir de uma determinada distância dos obstáculos. O caminho (e) é construído pela direção oposta a do gradiente do potencial resultante (d). Em (f) temos uma matriz de orientações do vetor gradiente, que são as orientações das forças induzidas pelo campo potencial \cite{Ottoni2000}.
 
-\figura{imagens/campos_potenciais.jpg}{.5}{Exemplo de um mapa com campos potenciais.\cite{Ottoni2000}}{fig:campos_potenciais}
+\figura{../../imagens/campos_potenciais.jpg}{.5}{Exemplo de um mapa com campos potenciais.\cite{Ottoni2000}}{fig:campos_potenciais}
 
 \section{Desvio de Obstáculos} 
 \label{desvio} 
@@ -148,7 +148,7 @@ Existem três níveis de representação de dados \cite{Borenstein1991}:
 
 No primeiro estágio da redução de dados é mapeada a grade de histograma do ambiente (Figura \ref{fig:histogram_grid}) em um histograma polar (Figura \ref{fig:polar_histogram}). E no segundo estágio é calculado o ângulo $\Omega$ entre o robô é a meta, para isso, escolhe-se o setor $k$, referente ao ângulo mais próximo de $\Omega$, com a densidade de ocupação menor que uma constante pré-definida. Sendo assim, o ângulo $\theta$, referente a esse setor, determina para onde o robô deve virar. E a velocidade linear pode ser calculada com heurísticas que utilizam as densidades de ocupação próximas ao ângulo $\theta$ \cite{Janderson2010}.
 
-\figura{imagens/histogram_grid.png}{.3}{(a) Exemplo de um mapa. (b) Grade de histograma correspondente.\cite{Borenstein1991}}{fig:histogram_grid}
+\figura{../../imagens/histogram_grid.png}{.3}{(a) Exemplo de um mapa. (b) Grade de histograma correspondente.\cite{Borenstein1991}}{fig:histogram_grid}
 
-\figura{imagens/polar_histogram.png}{.3}{(a) Densidade polar de obstáculo em um histograma polar relativo à posição do robô em $O$ (Figura \ref{fig:histogram_grid}(b)). (b) O mesmo histograma polar de (a) mostrado em forma polar e por cima da grade de histograma da Figura \ref{fig:histogram_grid}(b).\cite{Borenstein1991}}{fig:polar_histogram}
+\figura{../../imagens/polar_histogram.png}{.3}{(a) Densidade polar de obstáculo em um histograma polar relativo à posição do robô em $O$ (Figura \ref{fig:histogram_grid}(b)). (b) O mesmo histograma polar de (a) mostrado em forma polar e por cima da grade de histograma da Figura \ref{fig:histogram_grid}(b).\cite{Borenstein1991}}{fig:polar_histogram}
 
