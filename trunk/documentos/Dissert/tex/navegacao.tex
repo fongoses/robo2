@@ -132,11 +132,11 @@ O método utilizado foi o VFH, por já vir implementado no Player e em testes se m
 \label{VFH}
 Analisando melhor o método VFF percebemos um problema: redução drástica excessiva dos dados quando forças de repulsão individuais do histograma da grade de células são somadas para calcular o vetor resultante. Centenas de pontos de dados são reduzidos em um passo para direção e magnitude. Conseqüentemente, informações detalhadas sobre a distribuição local do obstáculo é perdida. Para remediar essa situação, foi desenvolvido um novo método chamado \textit{Vector Field Histogram} - VFH. O Método VFH utiliza dois estágios de redução de dados \cite{Borenstein1991}.
 
-O VFH mantém um mapa métrico probabilístico simplificado baseado em malhas, semelhante ao \textit{Certainty grid}, porém utiliza valores inteiros entre zero e cinco, no lugar de valores reais entre zero e um, como no \textit{Certainty grid} \cite{Janderson2010}.
+O VFH mantém um mapa métrico probabilístico simplificado baseado em malhas, semelhante ao \textit{Certainty grid}, porém utiliza valores inteiros entre zero e cinco, no lugar de valores reais entre zero e um, como no \textit{Certainty grid} \cite{Oliveira2010}.
 
-Outra diferença entre o VFH e o \textit{Certainty grid} é em relação à maneira como o mapa é gerado, pois para conseguir operar com rapidez para desviar de obstáculos em velocidades elevadas, o custo para a manutenção do mapa tem que ser baixo, ou seja, ocupar pouco tempo do processador. Para isso o mapa é obtido através de amostragem rápida, onde cada célula é iniciada em zero e é incrementada em um cada vez que um sensor detectar um obstáculo naquela posição, até que alcance cinco (valor máximo) e não mudara mais \cite{Janderson2010}.
+Outra diferença entre o VFH e o \textit{Certainty grid} é em relação à maneira como o mapa é gerado, pois para conseguir operar com rapidez para desviar de obstáculos em velocidades elevadas, o custo para a manutenção do mapa tem que ser baixo, ou seja, ocupar pouco tempo do processador. Para isso o mapa é obtido através de amostragem rápida, onde cada célula é iniciada em zero e é incrementada em um cada vez que um sensor detectar um obstáculo naquela posição, até que alcance cinco (valor máximo) e não mudara mais \cite{Oliveira2010}.
 
-A cada iteração do algoritmo é realizada uma amostragem rápida, criando um histograma polar. Esse histograma é criado de tal forma que as regiões ao redor do robô são divididas em $k$ setores, contendo cada um, sua densidade de ocupação. Esse histograma não é feito no mapa todo, e sim somente em uma região ativa, cujo centro é o robô \cite{Janderson2010}.
+A cada iteração do algoritmo é realizada uma amostragem rápida, criando um histograma polar. Esse histograma é criado de tal forma que as regiões ao redor do robô são divididas em $k$ setores, contendo cada um, sua densidade de ocupação. Esse histograma não é feito no mapa todo, e sim somente em uma região ativa, cujo centro é o robô \cite{Oliveira2010}.
 
 Existem três níveis de representação de dados \cite{Borenstein1991}:
 
@@ -146,7 +146,7 @@ Existem três níveis de representação de dados \cite{Borenstein1991}:
 	\item O nível mais baixo é a saída do algoritmo VFH, valores de referência para o controle de movimento do robô
 \end{itemize}
 
-No primeiro estágio da redução de dados é mapeada a grade de histograma do ambiente (Figura \ref{fig:histogram_grid}) em um histograma polar (Figura \ref{fig:polar_histogram}). E no segundo estágio é calculado o ângulo $\Omega$ entre o robô é a meta, para isso, escolhe-se o setor $k$, referente ao ângulo mais próximo de $\Omega$, com a densidade de ocupação menor que uma constante pré-definida. Sendo assim, o ângulo $\theta$, referente a esse setor, determina para onde o robô deve virar. E a velocidade linear pode ser calculada com heurísticas que utilizam as densidades de ocupação próximas ao ângulo $\theta$ \cite{Janderson2010}.
+No primeiro estágio da redução de dados é mapeada a grade de histograma do ambiente (Figura \ref{fig:histogram_grid}) em um histograma polar (Figura \ref{fig:polar_histogram}). E no segundo estágio é calculado o ângulo $\Omega$ entre o robô é a meta, para isso, escolhe-se o setor $k$, referente ao ângulo mais próximo de $\Omega$, com a densidade de ocupação menor que uma constante pré-definida. Sendo assim, o ângulo $\theta$, referente a esse setor, determina para onde o robô deve virar. E a velocidade linear pode ser calculada com heurísticas que utilizam as densidades de ocupação próximas ao ângulo $\theta$ \cite{Oliveira2010}.
 
 \figura{../../imagens/histogram_grid.png}{.3}{(a) Exemplo de um mapa. (b) Grade de histograma correspondente.\cite{Borenstein1991}}{fig:histogram_grid}
 
