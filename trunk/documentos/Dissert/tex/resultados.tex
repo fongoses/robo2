@@ -182,7 +182,7 @@ O programa \texttt{gerador} utiliza uma classe (tipo de variável) chamada $Agent
 
 O \texttt{gerador} recebe apenas um parâmetro como entrada: o nomo do mapa que quer achar a seqüência ótima. O programa inicia criando uma seqüência percorrendo as salas na ordem numérica (Sala 1, sala 2..) e classificada como possível ótima. A seguir o programa cria um $Agente$ em cada sala do mapa para explorar as possibilidades do robô começar em cada sala, esses $agentes$ são organizados em uma fila de candidatos.
 
-O laço principal do programa consiste em retirar um $agente$ da fila e para cada sala $i$ é criado um novo $agente$, simulando que o $agente$ retirado da fila navegou até a sala $i$. Em cada novo $agente$ é atualizada a seqüência de salas visitadas e o agente é reavaliado. Se a avaliação for um valor negativo o $agente$ é inserido na fila de $agentes$. Se o valor retornado for 0 (zero) o $agente$ é descartado. Caso o avaliador retorne um valor positivo e esse valor é menor que a avaliação da atual seqüência ótima, o $agente$ contendo a atual seqüência ótima é inserido na fila de $agentes$ e o novo $agente$ contendo a seqüência melhor é guardado como possível seqüência ótima. Como o algoritmo somente insere na fila os $agentes$ que podem gerar seqüências ótimas, o critério de parada é quando não existe mais $agentes$ na fila, o programa então retorna o $agente$ com a seqüência ótima.
+O laço principal do programa consiste em retirar um $agente$ da fila e para cada sala $i$ é criado um novo $agente$, simulando que o $agente$ retirado da fila navegou até a sala $i$. Em cada novo $agente$ é atualizada a seqüência de salas visitadas e o agente é reavaliado. Se a avaliação for um valor negativo o $agente$ é inserido na fila de $agentes$. Se o valor retornado for 0 (zero) o $agente$ é descartado. Caso o avaliador retorne um valor positivo e esse valor é menor que a avaliação da atual seqüência ótima, o novo $agente$ contendo a seqüência melhor é guardado como possível seqüência ótima. Como o algoritmo somente insere na fila os $agentes$ que podem gerar seqüências ótimas, o critério de parada é quando não existe mais $agentes$ na fila, o programa então retorna o $agente$ com a seqüência ótima.
 
 A Figura\ref{fig:fluxograma_gerador} mostra o fluxograma do programa \texttt{gerador} e o algoritmo \ref{alg:gerador} contém seu pseudocódigo.
 \begin{figure}[htbp]
@@ -221,7 +221,7 @@ A Figura\ref{fig:fluxograma_gerador} mostra o fluxograma do programa \texttt{ger
 			\ENDIF
 			\IF {A avaliação for positiva}
 				\STATE \COMMENT {\textit{$novo\_agente$ é melhor que o ótimo atual}}
-				\STATE Coloca o $agente\_otimo$ no fim da fila \COMMENT {\textit{$agente\_otimo$ pode gerar um caminho ótimo}}
+%				\STATE Coloca o $agente\_otimo$ no fim da fila \COMMENT {\textit{$agente\_otimo$ pode gerar um caminho ótimo}}
 				\STATE $agente\_otimo \leftarrow novo\_agente$ \COMMENT {\textit{Atualiza o $agente\_otimo$ com o $novo\_agente$}}
 			\ENDIF
 		\ENDFOR
@@ -279,6 +279,50 @@ Após feito isso o \texttt{gerador} recomeça o ciclo, removendo o primeiro \texti
 	\label{fig:gerador5}
 \end{figure}
 
+\subsection{Tempo Real}
+A solução em tempo real inicia as prioridades das salas todas iguais, cada sala recebe um valor correspondente à chance dessa sala gerar uma emergência, como uma lixeira cheia por exemplo. A cada emergência gerada a prioridade da sala é acrescida de uma unidade. O robô segue o paradigma de ir à sala de maior grau de urgência, visita a sala e procura a próxima sala de maior grau de urgência.
 
+A chance de emergência que cada sala recebe é proporcional às prioridades, para fazer o cálculo basta dividir a prioridade da sala pelo soma das prioridades do mapa.
 
+\begin{equation}
+	p_s = \frac{P_s}{\sum_{i=1}^{TotalSalas} P_i}
+	\label{eq:calc-chances}	
+\end{equation}
 
+Isso faz com que a soma das chances seja igual a um. Por exemplo, se em um mapa de quatro salas as prioridades forem:
+
+\begin{table*}[h]
+	\centering
+		\begin{tabular}
+			{|c|c|}
+			\hline
+			Sala & Prioridade \\
+			\hline
+			1&5\\
+			2&1\\
+			3&4\\
+			4&5\\					
+			\hline
+		\end{tabular}
+	\caption{Exemplo de prioridades}
+	\label{tab:ExemploDePrioridades}
+\end{table*}
+
+Suas chances de gerar uma emergência ficaram da seguinte forma:
+
+\begin{table*}[h]
+	\centering
+		\begin{tabular}
+			{|c|c|}
+			\hline
+			Sala & Chance \\
+			\hline
+			1&0,333\\
+			2&0,067\\
+			3&0,267\\
+			4&0,333\\					
+			\hline
+		\end{tabular}
+	\caption{Exemplo de chances de emergência}
+	\label{tab:ExemploDeChancesDeEmergência}
+\end{table*}
