@@ -9,7 +9,7 @@
 %==========================================================
 
 \chapter{Resultados Obtidos}
-\label{resultados}
+\label{resultados_obitdos}
 
 \section{Objetivo}
 \label{objetivo}
@@ -75,7 +75,7 @@ Considere:
 	\item $\Delta t_i$ o tempo para sair da sala $i$ e chegar na sala $i+1$.
 \end{itemize}
 
-Como o tempo de viagem de uma sala à outra é constante todos os $\Delta t_i$ são constantes, portanto o tempo total do ciclo $T$ é constante $(\sum_{i=1}^S \Delta t_i = cte)$. Se o tempo do ciclo é constante, o tempo que o robô demora para revisitar cada sala é constante igual a $T$. Mas isso não é interessante para solução do problema pois o grau de urgência de cada sala é diferente, então se uma sala tem uma prioridade muito alta, seu grau de urgência vai ser muito alto até o robô revisitá-la. 
+Como o tempo de viagem de entre as mesmas salas é constante todos os $\Delta t_i$ são constantes, portanto o tempo total do ciclo $T$ é constante $(\sum_{i=1}^S \Delta t_i = cte)$. Se o tempo do ciclo é constante, o tempo que o robô demora para revisitar cada sala é constante igual a $T$. Mas isso não é interessante para solução do problema pois o grau de urgência de cada sala é diferente, então se uma sala tem uma prioridade muito alta, seu grau de urgência vai ser muito alto até o robô revisitá-la. 
 
 Para resolver esse problema, basta fazer com que o robô revisite essa(s) sala(s) mais de uma vez no ciclo. Então supondo um ciclo de tamanho $n$ sendo $n \geq S$ o tempo total do ciclo continua constante $(\sum_{i=1}^n \Delta t_i = cte)$. Portanto a solução do problema consiste em encontrar esse ciclo.
 
@@ -89,7 +89,6 @@ EXPLICAR QUE A OFFLINE É DIVIDIDA EM 2: GERADOR E AVALIADOR. OK?
 \subsection{\textit{Offline}}
 \label{offline}
 Esse método consiste em explorar as diversas possíveis combinações de seqüências de salas para encontrar a seqüência ótima. Um programa chamado \texttt{gerador}, seguindo uma determinada heurística, gera as possíveis seqüências de salas, essas seqüências são fornecidas ao programa \texttt{avaliador} que, baseado no critério de maior Grau de Urgência Total, analisa a seqüência e retorna uma avaliação ao \texttt{gerador} que tomara a decisão de: descartar a seqüência, preservar a seqüência para gerar futuras seqüências ou guardar a seqüência como possível seqüência ótima.
-VERIFICAR NUMERAÇÃO DAS REFERÊNCIAS.
 
 \subsubsection{Avaliador}
 \label{avaliador}
@@ -326,3 +325,9 @@ Suas chances de gerar uma emergência ficaram da seguinte forma:
 	\caption{Exemplo de chances de emergência}
 	\label{tab:ExemploDeChancesDeEmergência}
 \end{table*}
+
+\section{Resultados}
+\label{resultados}
+
+\section{Conclusão}
+\label{conclusao}
