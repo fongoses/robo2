@@ -11,6 +11,8 @@
 \chapter{Robôs Móveis}
 \label{robos}
 
+Esse capítulo explicara um pouco sobre Robôs Móveis Autônomos. Um robô móvel autônomo é dotado de três características importantes: Ativadores, responsáveis, entre outras coisas pela locomoção; Sensores, que fazem o papel da percepção do robô; E controle, que aciona os ativadores de acordo com a leitura dos sensores, seguindo o propósito para qual o robô está sendo utilizado
+
 \section{Locomoção}
 \label{locomocao}
 Robôs móveis precisam de mecanismos de locomoção que os permitam moverem-se livremente pelo ambiente, mas existe uma grande variedade de meios de se locomover, andar, pular, correr, deslisar, patinar, nadar, voar, e utilizando rodas ou esteiras \cite{Siegwart2004}. A maioria dos mecanismos de locomoção são inspirados na natureza, exceto os que usam rodas, esteiras ou propulsão (aquática ou aérea).
@@ -76,9 +78,60 @@ O controle do robô será desenvolvido utilizando-se a biblioteca Player/Stage \ci
 \subsection{Player}
 \label{player}
 O Player é um servidor de rede para controlar robôs. Executando embarcado no robô, o Player provê uma interface simples e clara dos sensores e atuadores do robô sobre uma rede IP. O programa cliente ``conversa'' com o Player utilizando sockets TCP, lendo dados dos sensores, escrevendo comandos nos atuadores e configurando dispositivos em tempo de execução.
-O servidor Player foi desenvolvido para que seus clientes sejam independentes de linguagem e de plataforma. O programa cliente pode executar em qualquer máquina que tenha conexão de rede com o robô, e pode ser escrito em qualquer linguagem que suporte sockets TCP. Atualmente existem clientes disponíveis em C++, Tcl, Java e Phyton \cite{Player}. Futuramente, o Player não fará suposições sobre como o programa de controle do robô é estruturado, ou seja, poderá escrever desde programas multi-threads altamente concorrentes até programas sequências simples.
+O servidor Player foi desenvolvido para que seus clientes sejam independentes de linguagem e de plataforma. O programa cliente pode executar em qualquer máquina que tenha conexão de rede com o robô, e pode ser escrito em qualquer linguagem que suporte sockets TCP. Atualmente existem clientes disponíveis em C++, Tcl, Java e Phyton \cite{Player}. Futuramente, o Player não será indiferente sobre como o programa de controle do robô é estruturado, ou seja, poderá escrever desde programas multi-threads altamente concorrentes até programas sequências simples.
 
-COLOCAR FIGURAS PARA ILUSTRAR O FLUXO DE CONTROLE DO PLAYER E DESCREVER MELHOR COMO FUNCIONA A INTERFACE DOS DRIVERS
+\subsubsection{Interface dos Drivers}
+\label{player_interface}
+Usualmente as interfaces entre o programa do usuário e o robô se dá como mostra a Figura \ref{fig:interface_usual}, onde o programa do usuário tem que fazer a aquisição de dados diretamente dos sensores e tratar esses dados de modo que o planejador compreenda. E gerar os comandos para o motor, ou outros atuadores. Sendo que para cada modelo de motor os comandos diferentes, assim como cada câmera, LASER e outros sensores tem leituras diferentes de acordo com o modelo.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=1.00\textwidth]{../../imagens/player1.png}
+	\caption{Interface usual.}
+	\label{fig:interface_usual}
+\end{figure}
+
+O Player tem como função fazer essa interface entre os sensores e atuadores e o programa do usuário (Figura \ref{fig:player_interface}, lendo de qualquer modelo de um mesmo sensor (que seja aceito pelo Player) e fornecendo ao programa do usuário os dados já tratados, ou seja, para qualquer modelo de um mesmo sensor (que seja aceito pelo Player) o programa do usuário lê da mesma forma, assim como para os atuadores como mostra a Figura \ref{fig:modelo_cliente_servidor}. Por exemplo, para fazer com que o robô ande para frente na velocidade de 1 m/s, basta o programa do usuário informar a direção e velocidade, o comando vai ser o mesmo para diversos modelos de robôs, que possuem tamanhos e números de rodas diferentes, quem faz os cálculos para determinar qual a rotação da roda para atingir tal velocidade é a interface do Player, assim como para ler do sensor LASER, basta informar de qual ângulo quer ler.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=1.00\textwidth]{../../imagens/player2.png}
+	\caption{Interface do Player}
+	\label{fig:interface_player}
+\end{figure}
+
+\begin{figure}
+	\centering
+		\includegraphics[width=1.00\textwidth]{../../imagens/modelo_cliente_servidor.png}
+	\caption{Interface e Modelo Cliente-Servidor}
+	\label{fig:modelo_cliente_servidor}
+\end{figure}
+
+A Figura \ref{fig:modelo_cliente_servidor} também ilustra o funcionamento do modo Cliente-Servidor do Player, como a comunicação é feita por meio de \textit{sockets} o programa cliente pode ser escrito em qualquer lingüagem que permita comunicação através de \textit{sockets}. Esse modo Cliente-Servidor também permite a fácil utilização de diversos simuladores, pois como a comunicação é a mesma, o programa cliente não sabe se está interagindo com o robô real ou com algum simulador (Figura \ref{fig:abstracao_de_hardware}).
+
+\begin{figure}
+	\centering
+		\includegraphics[width=1.00\textwidth]{../../imagens/abstracao_de_hardware.png}
+	\caption{Abstração de Hardware}
+	\label{fig:abstracao_de_hardware}
+\end{figure}
+
+Esse modelo Cliente-Servidor também trás outras vantagens como:
+
+\begin{itemize}
+	\item Clientes podem se conectar a múltiplos servidores;
+	\item Servidores aceitam conexão de múltiplos clientes;
+	\item Diferentes programas/processos/\textit{threads} podem processar dados de diferentes sensores do mesmo servidor;
+\end{itemize}
+
+Como mostrado na Figura \ref{fig:exemplo_cliente_servidor}, onde a letra 'P' indica que naquele dispositivo existe um programa Player sendo executado e a letra 'C' indica que naquele dispositivo está sendo executado um programa cliente.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=1.00\textwidth]{../../imagens/exemplo_cliente_servidor.png}
+	\caption{Exemplo de Clentes e Servidores}
+	\label{fig:exemplo_cliente_servidor}
+\end{figure}
 
 \subsection{Stage}
 \label{stage}

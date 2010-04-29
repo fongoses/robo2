@@ -8,9 +8,9 @@
 
 \chapter{Navegação de Robôs Móveis} 
 \label{navegacao} 
-Existem diversos problemas em aberto na robótica móvel.  Uma dessa questões ainda não resolvida consiste em um robô com a habilidade de navegar em seu ambiente \cite{Jones1999}.  A navegação é a ciência, arte, prática ou tecnologia, de planejar e percorrer uma trajetória de um ponto de origem até um ponto de destino. 
+Existem diversos problemas em aberto na robótica móvel.  Uma dessas questões ainda não resolvida consiste em um robô com a habilidade de navegar em seu ambiente \cite{Jones1999}.  A navegação é a ciência, arte, prática ou tecnologia, de planejar e percorrer uma trajetória de um ponto de origem até um ponto de destino. 
 
-Em robótica, navegação é a ciência de direcionar o percurso de um robô móvel enquanto percorre o meio ambiente (terra, água, ou ar).  Inerente em qualquer esquema de navegação é o desejo de alcançar um destino sem se perder ou colidir com algum obstáculo \cite{Mckerrow1991}.  Em geral, navegação é um processo incremental que, segundo \cite{Murphy2000}, pode ser resolvido respondendo à quatro perguntas:
+Em robótica, navegação é a ciência de direcionar o percurso de um robô móvel enquanto percorre o meio ambiente (terra, água, ou ar).  Inerente em qualquer esquema de navegação é o desejo de alcançar um destino sem se perder ou colidir com algum obstáculo \cite{Mckerrow1991}. Vagar é uma forma de navegação que consistem em o robô andar sempre em frente e desviando dos obstáculos.  Em geral, navegação é um processo incremental que, segundo \cite{Murphy2000}, pode ser resolvido respondendo à quatro perguntas:
 
 \begin{itemize} 
 	\item \textbf{Para onde estou indo?} Geralmente determinado por um humano ou uma missão; 
@@ -70,7 +70,20 @@ Segundo \cite{Siegwart2004}, três relações fundamentais tem de ser entendidas qu
 
 Existem várias maneira de representar um mapa: Decomposição por célula, decomposição fixa, decomposição adaptada (com variação de célula), \textit{occupancy grid} e representação topológica, et al. \cite{Siegwart2004}.
 
-EXPLICAR A DIFERENÇA ENTRE MAPAS MÉTRICOS E TOPOLÓGICOS, COLOCAR FIGURAS
+Os mapas comumente conhecidos, os mapas que vemos em guias ou na \textit{internet}, são os mapas métricos, onde as distâncias entre os pontos desejados podem ser medidas com uma régua e aplicando a escala indicada no mapa, se tem a exata distância entre esses pontos. Os mapas topológicos não representam o mapa como um todo, representam apenas pontos de interesse e a conectividade entre esses pontos. Mapas topológicos são representados em forma de grafos, onde os vértices são os pontos que se deseja representar e as arestas indicam sua conectividade, se é possível ir de um ponto à outro, qual a distância (indicada no peso da aresta) e a direção, ou seja, é possível ir do vértice \textbf{a} ao vértice \textbf{b} e vice-versa. A Figura \ref{fig:exemplo_de_mapas} trás exemplos de mapas métrico e topológico.
+
+\begin{figure}[ht]
+  \centering
+	\subfigure[Mapa Métrico]{
+		\includegraphics[width=0.6\textwidth]{../../imagens/mapa_google.png}
+		\label{fig:exemplo_mapa_metrico}}
+	\subfigure[Mapa Topológico]{
+		\includegraphics[width=0.3\textwidth]{../../imagens/exemplo_mapa_topológico.png}
+		\label{fig:exemplo_mapa_topologico}}	
+	\label{fig:exemplo_de_mapas}
+	\caption{Exemplos de mapas.}
+\end{figure}
+
 
 \section{Planejamento de Trajetória} 
 \label{planejamento} 
