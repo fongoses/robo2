@@ -82,9 +82,9 @@ class Robo
 		void irPara( Ponto p); /* Vai para a posicao indicada pelo ponto p */
 		void irPara( int v ); /* Vai para o vertice v */
 
-		bool chegou( Ponto p); /* Verifica se o robo chegou na posicai do ponto p */
-		bool chegou( int v); /* Verifica se o robo chegou na posicai do ponto p */
-		bool chegou( ); /* Verifica se o robo chegou na posicai do ponto p */
+		bool chegou( Ponto p); /* Verifica se o robo chegou na posicao do ponto p */
+		bool chegou( int v); /* Verifica se o robo chegou na posicao do vertice v */
+		bool chegou( ); /* Verifica se o robo chegou na posicao pra onde estava indo */
 
 		time_t visitar_sala();
 
