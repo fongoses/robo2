@@ -36,7 +36,7 @@ avaliar (	string arq_mapa, vector<int> caminho, int limite)
 	inicial = mapa.carregarMapa(arq_mapa, &salas);
 
 
-	robo1 = new Robo(inicial, mapa, true);
+	robo1 = new Robo(inicial, mapa, &salas, true);
 
 	/* Cria um controle para verificar se todas as salas foram visitadas */
 	vsalas = salas.get_salas();
@@ -75,7 +75,9 @@ avaliar (	string arq_mapa, vector<int> caminho, int limite)
 			if(visitou[vertice] == false) //Inutil?
 				visitou[vertice] = true;
 			
-			tempo += robo1->irPara(vertice);
+			robo1->irPara(vertice);
+			while(!robo1->chegou());
+			tempo = robo1->get_tempo_viagem();
 
 			cout << "AVAL# TEMPO DE VISITA DA SALA!!!!!\n";
 
