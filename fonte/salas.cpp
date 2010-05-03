@@ -207,7 +207,7 @@ Salas::operator == ( Salas &other )
 	for(it_a = sala.begin(); it_a != sala.end(); it_a++, it_b++)
 		if((it_a->first != it_b->first) || (it_a->second != it_b->second))
 			return false;
-		
+
 	return true;
 }  /* -----  end of method Salas::operator ==  (comparative operator)  ----- */
 
@@ -326,7 +326,7 @@ Salas::atualizar ( time_t t )
  *--------------------------------------------------------------------------------------
  */
 	void
-Salas::visitar ( int s ) 
+Salas::visitar ( int s )
 {
 	//DEBUG */cout << "SALAS#visitar: Visitando sala: " << s << ".\n";getchar();
 
@@ -350,7 +350,7 @@ Salas::imprimir ( )
 	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
 		cout << it_s->first << " => vertice = " << it_s->second.vertice <<
 															"\tP = " << it_s->second.P <<
-															"\tU = " << it_s->second.U << 
+															"\tU = " << it_s->second.U <<
 															"\tvisitas = "<< it_s->second.visitas << endl;
 
 	}
@@ -360,7 +360,7 @@ Salas::imprimir ( )
 /*
  *--------------------------------------------------------------------------------------
  *       Class:  Salas
- *      Method:	 zerar_prioridades 
+ *      Method:	 zerar_prioridades
  * Description:  Coloca a prioridades de todas as salas em 0
  *--------------------------------------------------------------------------------------
  */
@@ -375,6 +375,23 @@ Salas::zerar_prioridades ( )
 	}
 	return ;
 }		/* -----  end of method Salas::zerar_prioridades ----- */
+
+/** @brief (one liner)
+  *
+ *--------------------------------------------------------------------------------------
+ *       Class:  Salas
+ *      Method:	 zerar_visitas
+ * Description:  Coloca as visitas de todas as salas em 0
+ *--------------------------------------------------------------------------------------
+  */
+void Salas::zerar_visitas()
+{
+	MapaSala::iterator it_s;
+
+	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
+		it_s->second.visitas = 0;
+	}
+}
 
 /*
  *--------------------------------------------------------------------------------------
@@ -407,11 +424,11 @@ Salas::incrementar_prioridade (int s)
 		mdc = MDC(mdc, it_s->second.P);
 //		//DEBUG*/cout << "mdc = " << mdc;getchar();
 	}
-		
-	if(mdc > 1)	
+
+	if(mdc > 1)
 		for(it_s = sala.begin(); it_s != sala.end(); it_s++)
 			it_s->second.P /= mdc;
-		
+
 	return ;
 }		/* -----  end of method Salas::incrementar_prioridade ----- */
 
@@ -428,7 +445,7 @@ Salas::emergencia (int s)
 	MapaSala::iterator it_s;
 
 	sala[s].U = FATOR_ER * sala[s].P;
-		
+
 	return ;
 }		/* -----  end of method Salas::emergencia ----- */
 
@@ -563,7 +580,7 @@ Salas::get_salas_completo()
 
 	for(it = sala.begin(); it != sala.end(); it++)
 		resp[it->first] = it->second;
-	
+
 	return resp;
 }		/* -----  end of method Salas::set_salas_completo  ----- */
 

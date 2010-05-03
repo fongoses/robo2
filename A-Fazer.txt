@@ -1,3 +1,7 @@
+Fazer o modo real time
+
+
+--------------------------------------
 Verificar os diferentes typedefs pras mesmas coisas
 
 DAR um jeito de fazer o caminho nao bloqueante

@@ -77,7 +77,7 @@ typedef vector<int> VetorVertices;
 /*
  * =====================================================================================
  *        Class:  Salas
- *  Description:  
+ *  Description:
  * =====================================================================================
  */
 class Salas
@@ -104,6 +104,7 @@ class Salas
 
 		void imprimir();
 		void zerar_prioridades();
+		void zerar_visitas();
 		void incrementar_prioridade(int s);
 		void emergencia(int s);
 
