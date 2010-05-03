@@ -35,9 +35,7 @@ avaliar (	string arq_mapa, vector<int> caminho, int limite)
 
 	inicial = mapa.carregarMapa(arq_mapa, &salas);
 
-
 	robo1 = new Robo(inicial, mapa, &salas, true);
-
 	/* Cria um controle para verificar se todas as salas foram visitadas */
 	vsalas = salas.get_salas();
 	for(i = 0; i < vsalas.size(); i++)
@@ -56,11 +54,12 @@ avaliar (	string arq_mapa, vector<int> caminho, int limite)
 //	}
 //	cout << endl;
 	aval = 0;
-	
+
 	salas_atual.set_salas(salas.get_salas_completo());
 	do{
 		aval_ant = aval;
 		salas_ant.set_salas(salas_atual.get_salas_completo());
+		salas.zerar_visitas();
 
 
 		aval = 0;
@@ -74,12 +73,12 @@ avaliar (	string arq_mapa, vector<int> caminho, int limite)
 
 			if(visitou[vertice] == false) //Inutil?
 				visitou[vertice] = true;
-			
+
 			robo1->irPara(vertice);
 			while(!robo1->chegou());
-			tempo = robo1->get_tempo_viagem();
+			tempo += robo1->get_tempo_viagem();
 
-			cout << "AVAL# TEMPO DE VISITA DA SALA!!!!!\n";
+			//cout << "AVAL# TEMPO DE VISITA DA SALA!!!!!\n";
 
 			U = salas.atualizar(tempo);
 			if(aval < U)
@@ -90,10 +89,14 @@ avaliar (	string arq_mapa, vector<int> caminho, int limite)
 		}
 		/* Fim da simulação */
 
+		if(aval > limite)
+			return 0;
+
 		/* Verificando se o robô visitou todas as salas do mapa */
 		for(it_s = visitou.begin(); it_s != visitou.end(); it_s++)
 		{
 			if(!it_s->second) {
+			    if(aval == limite) return 0;
 				if(aval == 0) return -1; /* Se não visitou alguma sala e 'aval' = 0, significa que só existia 1 vértice */
 				else return -aval; /* Se não visitou alguma sala, retorna o valor calculado da avaliação em negativo */
 			}
@@ -102,13 +105,12 @@ avaliar (	string arq_mapa, vector<int> caminho, int limite)
 		/* Verificando se o caminho passado é um loop, ou seja, se começa e termina no mesmo vértice */
 		if(caminho[0] != caminho[caminho.size()-1])
 		{
+		    if(aval == limite) return 0;
 			if(aval == 0) return -1;
 			else return -aval;
 		}
 
-		
-		if(aval > limite)
-			return 0;
+
 
 	}while(salas_ant != salas_atual);
 

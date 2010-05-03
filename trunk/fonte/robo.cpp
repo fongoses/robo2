@@ -109,7 +109,7 @@ Robo::operator = ( const Robo &other )
  *--------------------------------------------------------------------------------------
  *       Class:  Robo
  *      Method:  irPara
- * Description:  Vai para a posicao do ponto p 
+ * Description:  Vai para a posicao do ponto p
  *							 e retorna o tempo que demorou para chegar (s)
  *--------------------------------------------------------------------------------------
  */
@@ -139,15 +139,15 @@ Robo::irPara ( Ponto p )
 //		cout	<< "Simulando\n";
 		ang_dist = mapa.get_ponto(vertice).distancia_angular(&angulo_sim, p);
 //		ang_dist = p.distancia_angular(angulo_sim, mapa.get_ponto(vertice));
-		if(ang_dist >= 0)
+		if(ang_dist < 0)
 			ang_dist *= -1; /*Usando ang_dist em módulo */
 		t_sim = floor(ang_dist / SIMULACAO_ROT + 0.5); /* Tempo para o robo virar arrendondado para cima */
 //		cout << endl << ang_dist * GRAD_TO_RAD << " Demorou: " << tempo << endl;
 		t_sim += floor(p.distancia(mapa.get_ponto(vertice)) / SIMULACAO_VEL + 0.5); /* Tempo de viagem do robô arrendondado para cima */
 //		cout << "Demorou no total: " << tempo << endl;
-//		//DEBUG*/cout << "Distancia entre: " << p << " e " << mapa.get_ponto(vertice) << " = " << p.distancia(mapa.get_ponto(vertice)); 
+//		//DEBUG*/cout << "Distancia entre: " << p << " e " << mapa.get_ponto(vertice) << " = " << p.distancia(mapa.get_ponto(vertice));
 //			   << " Velocidade: " <<  SIMULACAO_VEL << " ";
-		
+
 //		cout	<< "Demorou " << tempo << "s.\n";
 //		getchar();
 	}
