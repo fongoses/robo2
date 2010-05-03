@@ -3,7 +3,7 @@
  *
  *       Filename:  gerador.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Version:  1.0
  *        Created:  05/25/2009 06:37:35 PM
@@ -37,6 +37,8 @@ gerar ( string arq_mapa)
 	VetorSalas salas;
 	time_t tempo, tempo_ant, inicio;
 
+	unsigned int debug_salas = 0, debug_candidatos;
+
 	v = mapa.carregarMapa(arq_mapa, &sala);
 
 	salas = sala.get_salas();/*Pegando um vetor com os vertices de todas as salas */
@@ -65,7 +67,7 @@ gerar ( string arq_mapa)
 			cout << endl << "Melhores:" << endl;
 			imprimir_agentes(melhores);
 			cout << "Avaliação: " << melhores.front().get_avaliacao() << endl;
-//			getchar();
+			getchar();
 		}
 	while(!candidatos.empty())
 	{
@@ -83,12 +85,12 @@ gerar ( string arq_mapa)
 				novo_agente = agente_atual;
 				novo_agente.set_vertice(salas[i]);
 				novo_agente.adicionarVertice(salas[i]);
-				novo_agente.set_avaliacao(avaliar(arq_mapa, novo_agente.get_caminho()));
-	
+				novo_agente.set_avaliacao(avaliar(arq_mapa, novo_agente.get_caminho(), melhores.front().get_avaliacao()));
+
 //			cout<<"GERADOR\n;novo_agente.imprimir();//getchar();
 
 				{
-				if	((novo_agente.get_avaliacao() < 0) && (-novo_agente.get_avaliacao() <= melhores.front().get_avaliacao())) 
+				if	((novo_agente.get_avaliacao() < 0) && (-novo_agente.get_avaliacao() <= melhores.front().get_avaliacao()))
 				{
 					candidatos.push_back(novo_agente);			/* Adiciona o agente na lista de candidatos */
 //					candidatos.push_front(novo_agente);			/* Adiciona o agente na lista de candidatos */
@@ -98,34 +100,44 @@ gerar ( string arq_mapa)
 				} else if ((novo_agente.get_avaliacao() > 0 ) && (novo_agente < melhores.front()))
 				{
 //					melhor = novo_agente;		/* E atualiza a avaliacao atual */
-					while(!melhores.empty()) /* Readiciona os antigos melhores como candidatos */
-					{
-						candidatos.push_back(melhores.front());
+//					while(!melhores.empty()) /* Readiciona os antigos melhores como candidatos */
+//					{
+//						candidatos.push_back(melhores.front());
 //						candidatos.push_front(melhores.front());
-						melhores.pop_front();
-					}
+//						melhores.pop_front();
+//					}
+					melhores.clear();
 					melhores.push_back(novo_agente);
-				} else 
+				} else
 				{
 //					novo_agente.imprimir();
 				}
 				}
 			}
 		}
-	
-		if(0)
+
+		if(1)
 		{
+//			if((debug_candidatos + 1000 <= candidatos.size())) /*|| (debug_salas >= 9)*/// || (debug_salas != candidatos.front().get_tamanho()))
+			{
 			system("clear");
 			cout << "Candidatos:" << endl;
 			imprimir_agentes(candidatos);
+			cout << "Avaliação: " << candidatos.front().get_avaliacao() << endl;
 			cout << endl << "Melhores:" << endl;
 			imprimir_agentes(melhores);
 			cout << "Avaliação: " << melhores.front().get_avaliacao() << endl;
-			getchar();
+			debug_candidatos = candidatos.size();
+//			}
+//			if(/*(candidatos.front().get_tamanho() >= 9)) || */(debug_salas != candidatos.front().get_tamanho()))
+//			{
+//                getchar();
+                debug_salas = candidatos.front().get_tamanho();
+			}
 		}
 
 		time(&tempo);
-		if(tempo - tempo_ant >= 10)
+		if((tempo - tempo_ant >= 10) && 0)
 		{
 			system("clear");
 			cout << "Candidatos:" << endl;
@@ -146,23 +158,23 @@ imprimir_agentes(list<Agente> agentes)
 	list<Agente>::iterator it;
 	Caminho caminho;
 	unsigned int i, max = 0;
-	
+
 	cout << "Tamanho: " << agentes.size() << " MAX: " << agentes.max_size()<< endl;
 	cout << "Salas: " << agentes.front().get_tamanho();
-//	for(it = agentes.begin(); it != agentes.end(); it++)
-//	{
-//		caminho = it->get_caminho();
-//		cout << "(";
-//		for(i = 0; i < caminho.size(); i++)
-//		{
-//			if(i > 0) cout << " ";
-//			cout << caminho[i];
-//		}
-//		cout << ") ";
-//		max++;
-//		if(max > 100) break;
-//	}
-	
+	for(it = agentes.begin(); it != agentes.end(); it++)
+	{
+		caminho = it->get_caminho();
+		cout << "(";
+		for(i = 0; i < caminho.size(); i++)
+		{
+			if(i > 0) cout << " ";
+			cout << caminho[i];
+		}
+		cout << ") ";
+		max++;
+		if(max > 0) break;
+	}
+
 	cout << endl;
 }		/* -----  end of function imprimir_agentes  ----- */
 
@@ -172,7 +184,7 @@ salvar_loop(char arquivo[], list<Agente> agentes)
 	ofstream arq;
 	Caminho caminho;
 	unsigned int i;
-	
+
 	arq.open(arquivo, ifstream::trunc);
 
 	caminho = agentes.front().get_caminho();
