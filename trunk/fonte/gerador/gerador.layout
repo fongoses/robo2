@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="../avaliador/avaliador.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="2144" topLine="71" />
+	</File>
+	<File name="gerador.cpp" open="1" top="1" tabpos="10">
+		<Cursor position="3154" topLine="102" />
+	</File>
+	<File name="principal.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="1209" topLine="26" />
+	</File>
+	<File name="../mapa.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="12405" topLine="384" />
+	</File>
+	<File name="../robo.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="6715" topLine="192" />
+	</File>
+	<File name="../salas.cpp" open="1" top="0" tabpos="9">
+		<Cursor position="12929" topLine="356" />
+	</File>
+	<File name="../salas.h" open="1" top="0" tabpos="11">
+		<Cursor position="3176" topLine="81" />
+	</File>
+</CodeBlocks_layout_file>

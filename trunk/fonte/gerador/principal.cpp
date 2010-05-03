@@ -54,7 +54,7 @@ main ( int argc, char *argv[])
 	}
 
 
-	melhores = gerar(arq_mapa);
+    melhores = gerar(arq_mapa);
 	cout << "Melhor(es) caminho(s)\n";
 	imprimir_agentes(melhores);
 	salvar_loop("loop.txt", melhores);
@@ -64,6 +64,6 @@ main ( int argc, char *argv[])
 
 
 
-	
+
 	return EXIT_SUCCESS;
 }				/* ----------  end of function main  ---------- */

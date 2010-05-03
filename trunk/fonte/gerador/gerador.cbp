@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="gerador" />
+		<Option makefile="Makefile.old" />
+		<Option pch_mode="2" />
+		<Option default_target="gerador" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../gerador" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option parameters="../../mapas/espinha_diff.txt" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-ansi" />
+					<Add option="-g" />
+					<Add option="-I/usr/local/include/player-3.0" />
+					<Add option="-L/usr/local/lib" />
+					<Add option="-lplayerc++" />
+					<Add option="-lplayerc" />
+					<Add option="-lm" />
+					<Add option="-lz" />
+					<Add option="-lplayerinterface" />
+					<Add option="-lplayerwkb" />
+					<Add option="-lplayercommon" />
+				</Compiler>
+				<Linker>
+					<Add library="../../../../../usr/local/lib/libplayerc++.so" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-ansi" />
+			<Add option="-fexceptions" />
+			<Add option="-ldl" />
+			<Add option="-lm" />
+			<Add option="-I/usr/local/include/player-3.0 -L/usr/local/lib -lplayerc++ -lplayerc -lm -lz -lplayerinterface -lplayerwkb -lplayercommon" />
+			<Add directory="/home/heitor/robo2/fonte/" />
+		</Compiler>
+		<Unit filename="../avaliador/avaliador.cpp" />
+		<Unit filename="../avaliador/avaliador.h" />
+		<Unit filename="agente.cpp" />
+		<Unit filename="agente.h" />
+		<Unit filename="gerador.cpp" />
+		<Unit filename="gerador.h" />
+		<Unit filename="principal.cpp" />
+		<Unit filename="../mapa.cpp" />
+		<Unit filename="../mapa.h" />
+		<Unit filename="../ponto.cpp" />
+		<Unit filename="../ponto.h" />
+		<Unit filename="../robo.cpp" />
+		<Unit filename="../robo.h" />
+		<Unit filename="../salas.cpp" />
+		<Unit filename="../salas.h" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

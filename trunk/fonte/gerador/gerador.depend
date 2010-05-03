@@ -1,0 +1,171 @@
+# depslib dependency file v1.0
+1259009287 source:/home/heitor/robo2/fonte/gerador/agente.cpp
+	<iostream>
+	"agente.h"
+
+1259009287 /home/heitor/robo2/fonte/gerador/agente.h
+	<vector>
+
+1272850131 source:/home/heitor/robo2/fonte/gerador/gerador.cpp
+	<cstdlib>
+	<fstream>
+	"../mapa.h"
+	"../avaliador/avaliador.h"
+	"gerador.h"
+
+1259009288 /home/heitor/robo2/fonte/mapa.h
+	<cstdio>
+	<iostream>
+	<fstream>
+	<cfloat>
+	<string>
+	<climits>
+	<map>
+	<list>
+	<vector>
+	<algorithm>
+	"ponto.h"
+	"salas.h"
+
+1259009288 /home/heitor/robo2/fonte/ponto.h
+	<iostream>
+
+1272846349 /home/heitor/robo2/fonte/salas.h
+	<map>
+	<iostream>
+	<ctime>
+	<vector>
+	<climits>
+	<cstdio>
+
+1245171154 /home/heitor/robo2/fonte/avaliador/avaliador.h
+	"../mapa.h"
+	"../robo.h"
+
+1272837608 /home/heitor/robo2/fonte/robo.h
+	<libplayerc++/playerc++.h>
+	"mapa.h"
+
+1249370700 /usr/local/include/player-3.0/libplayerc++/playerc++.h
+	<cstddef>
+	<cmath>
+	<string>
+	<list>
+	<vector>
+	<cstring>
+	"libplayerc/playerc.h"
+	"libplayerc++/utility.h"
+	"libplayerc++/playerclient.h"
+	"libplayerc++/playererror.h"
+	"libplayerc++/clientproxy.h"
+	"libplayerinterface/interface_util.h"
+	<boost/signal.hpp>
+	<boost/bind.hpp>
+	<boost/thread/mutex.hpp>
+	<boost/thread/thread.hpp>
+	<boost/thread/xtime.hpp>
+
+1249370700 /usr/local/include/player-3.0/libplayerc/playerc.h
+	<netinet/in.h>
+	<stddef.h>
+	<stdio.h>
+	<playerconfig.h>
+	<libplayercommon/playercommon.h>
+	<libplayerinterface/player.h>
+	<libplayercommon/playercommon.h>
+	<libplayerinterface/interface_util.h>
+	<libplayerinterface/playerxdr.h>
+	<libplayerinterface/functiontable.h>
+	<libplayerwkb/playerwkb.h>
+	<winsock2.h>
+
+1259010613 /usr/local/include/player-3.0/playerconfig.h
+	<stdint.h>
+	<sys/types.h>
+	<rpc/types.h>
+
+1249601525 /usr/local/include/player-3.0/libplayercommon/playercommon.h
+	<limits.h>
+	<sys/param.h>
+	<libplayercommon/error.h>
+	<assert.h>
+
+1248374904 /usr/local/include/player-3.0/libplayercommon/error.h
+	<stdio.h>
+	<errno.h>
+	<playerconfig.h>
+
+1247630364 /usr/local/include/player-3.0/libplayerinterface/player.h
+	<time.h>
+	"playerconfig.h"
+	<libplayerinterface/player_interfaces.h>
+
+1259010623 /usr/local/include/player-3.0/libplayerinterface/player_interfaces.h
+
+1247493824 /usr/local/include/player-3.0/libplayerinterface/interface_util.h
+	<playerconfig.h>
+
+1259010623 /usr/local/include/player-3.0/libplayerinterface/playerxdr.h
+	<rpc/types.h>
+	<rpc/xdr.h>
+	<libplayerinterface/player.h>
+	<libplayerinterface/functiontable.h>
+
+1247644689 /usr/local/include/player-3.0/libplayerinterface/functiontable.h
+	<playerconfig.h>
+	<rpc/types.h>
+	<rpc/xdr.h>
+
+1248438328 /usr/local/include/player-3.0/libplayerwkb/playerwkb.h
+	<stddef.h>
+	<playerconfig.h>
+	<geos_c.h>
+
+1234928616 /usr/local/include/player-3.0/libplayerc++/utility.h
+
+1234928616 /usr/local/include/player-3.0/libplayerc++/playerclient.h
+	"libplayerc++/utility.h"
+	"libplayerc++/playerc++config.h"
+	<string>
+	<list>
+	<boost/signal.hpp>
+	<boost/thread/mutex.hpp>
+	<boost/thread/thread.hpp>
+	<boost/thread/xtime.hpp>
+	<boost/bind.hpp>
+
+1259010614 /usr/local/include/player-3.0/libplayerc++/playerc++config.h
+
+1234928616 /usr/local/include/player-3.0/libplayerc++/playererror.h
+	<string>
+	<iostream>
+
+1247630364 /usr/local/include/player-3.0/libplayerc++/clientproxy.h
+
+1259009287 /home/heitor/robo2/fonte/gerador/gerador.h
+	<list>
+	<string>
+	"agente.h"
+
+1272844212 source:/home/heitor/robo2/fonte/gerador/principal.cpp
+	<cstring>
+	<cstdlib>
+	<iostream>
+	"gerador.h"
+
+1245171154 source:/home/heitor/robo2/fonte/mapa.cpp
+	"mapa.h"
+
+1272846601 source:/home/heitor/robo2/fonte/salas.cpp
+	"salas.h"
+
+1272850217 source:/home/heitor/robo2/fonte/avaliador/avaliador.cpp
+	"avaliador.h"
+
+1259009288 source:/home/heitor/robo2/fonte/ponto.cpp
+	<cmath>
+	"ponto.h"
+
+1272845336 source:/home/heitor/robo2/fonte/robo.cpp
+	"robo.h"
+
