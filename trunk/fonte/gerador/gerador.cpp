@@ -37,7 +37,15 @@ gerar ( string arq_mapa)
 	VetorSalas salas;
 	time_t tempo, tempo_ant, inicio;
 
-	unsigned int debug_salas = 0, debug_candidatos;
+    list<int> arquivos;
+    char arq_nome[50];
+    ofstream arq_o;
+    ifstream arq_i;
+    Agente a_aux;
+    Caminho cam;
+    int arq_sala, arq_cam;
+
+	unsigned int debug_salas = 0, debug_candidatos, total_aval = 0, total_descartados = 0;
 
 	v = mapa.carregarMapa(arq_mapa, &sala);
 
@@ -57,8 +65,8 @@ gerar ( string arq_mapa)
 	}
 	novo_agente.adicionarVertice(salas[0]);
 	novo_agente.set_avaliacao(avaliar(arq_mapa, novo_agente.get_caminho()));
+	total_aval += salas.size();
 	melhores.push_back(novo_agente);
-//	melhor.set_avaliacao(INT_MAX);
 		if(0)
 		{
 			system("clear");
@@ -74,6 +82,7 @@ gerar ( string arq_mapa)
 		{
 			agente_atual = candidatos.front();
 			candidatos.pop_front();
+			total_descartados++;
 //			agente_atual.imprimir();
 //			getchar();
 		}
@@ -86,6 +95,7 @@ gerar ( string arq_mapa)
 				novo_agente.set_vertice(salas[i]);
 				novo_agente.adicionarVertice(salas[i]);
 				novo_agente.set_avaliacao(avaliar(arq_mapa, novo_agente.get_caminho(), melhores.front().get_avaliacao()));
+				total_aval++;
 
 //			cout<<"GERADOR\n;novo_agente.imprimir();//getchar();
 
@@ -106,17 +116,77 @@ gerar ( string arq_mapa)
 //						candidatos.push_front(melhores.front());
 //						melhores.pop_front();
 //					}
+                    total_descartados+= melhores.size();
 					melhores.clear();
 					melhores.push_back(novo_agente);
 				} else
 				{
+				    total_descartados++;
 //					novo_agente.imprimir();
 				}
 				}
 			}
 		}
 
-		if(1)
+		debug_candidatos = candidatos.size();
+		if(candidatos.size() > CAND_MAX + CAND_MIN)
+		while(candidatos.size() > CAND_POR_ARQ)
+		{
+            if(arquivos.size() > 0)
+                arquivos.push_back(arquivos.back() + 1);
+            else
+                arquivos.push_back(0);
+		    sprintf(arq_nome, "cand%i.txt", arquivos.back());
+            arq_o.open(arq_nome, fstream::trunc);
+
+            for(int ci = 0; ci < CAND_POR_ARQ; ci++)
+            {
+                a_aux = candidatos.back();
+                candidatos.pop_back();
+//                arq_o << a_aux.get_vertice() << endl;
+                cam = a_aux.get_caminho();
+                for(unsigned int cci = 0; cci < cam.size(); cci++)
+                {
+                    if(cci > 0) arq_o << " ";
+                    arq_o << cam[cci];
+                }
+                arq_o << " " << a_aux.get_avaliacao() << endl;
+                debug_candidatos = candidatos.size();
+            }
+            arq_o.close();
+        }
+        if(candidatos.empty() && !arquivos.empty())
+        {
+		    sprintf(arq_nome, "cand%i.txt", arquivos.front());
+
+		    arq_i.open(arq_nome, fstream::in);
+
+            for(int ci = 0; ci < CAND_POR_ARQ; ci++)
+            {
+                novo_agente = *(new Agente());
+//                arq_i >> arq_sala;
+
+                arq_i >> arq_cam;
+                do {
+                    novo_agente.adicionarVertice(arq_cam);
+                    arq_sala = arq_cam;
+                    arq_i >> arq_cam;
+                }while (arq_cam >= 0);
+                novo_agente.set_vertice(arq_sala);
+				novo_agente.set_avaliacao(arq_cam);
+//				novo_agente.set_avaliacao(avaliar(arq_mapa, novo_agente.get_caminho(), melhores.front().get_avaliacao()));
+
+
+				if(novo_agente.get_avaliacao()*-1 < melhores.front().get_avaliacao())
+                    candidatos.push_back(novo_agente);
+                else total_descartados++;
+            }
+            sprintf(arq_nome, "rm cand%i.txt", arquivos.front());
+            arquivos.pop_front();
+            system(arq_nome);
+            arq_i.close();
+        }
+		if(0)
 		{
 //			if((debug_candidatos + 1000 <= candidatos.size())) /*|| (debug_salas >= 9)*/// || (debug_salas != candidatos.front().get_tamanho()))
 			{
@@ -127,28 +197,29 @@ gerar ( string arq_mapa)
 			cout << endl << "Melhores:" << endl;
 			imprimir_agentes(melhores);
 			cout << "Avaliação: " << melhores.front().get_avaliacao() << endl;
-			debug_candidatos = candidatos.size();
 //			}
 //			if(/*(candidatos.front().get_tamanho() >= 9)) || */(debug_salas != candidatos.front().get_tamanho()))
 //			{
-//                getchar();
-                debug_salas = candidatos.front().get_tamanho();
+                getchar();
 			}
 		}
 
 		time(&tempo);
-		if((tempo - tempo_ant >= 10) && 0)
+		if((tempo - tempo_ant >= 10) ||0)
 		{
 			system("clear");
-			cout << "Candidatos:" << endl;
+			cout << "Candidatos: " << arquivos.size() * CAND_POR_ARQ + candidatos.size() << " Avaliados: " << total_aval  << " Descartados: " << total_descartados << "(" << total_aval - total_descartados - candidatos.size() - arquivos.size() * CAND_POR_ARQ<< ")" << endl;
 			imprimir_agentes(candidatos);
+			cout << "Avaliação: " << candidatos.front().get_avaliacao() << endl;
 			cout << endl << "Melhores:" << endl;
-//			imprimir_agentes(melhores);
+			imprimir_agentes(melhores);
 			cout << "Avaliação: " << melhores.front().get_avaliacao() << endl;
 			cout << "Tempo: " << tempo - inicio << endl;
 			tempo_ant = tempo;
+//			getchar();
 		}
 	}
+	system("rm cand*.txt");
 	return melhores;
 }		/* -----  end of function gerar  ----- */
 
@@ -164,7 +235,7 @@ imprimir_agentes(list<Agente> agentes)
 	for(it = agentes.begin(); it != agentes.end(); it++)
 	{
 		caminho = it->get_caminho();
-		cout << "(";
+		cout << endl << "(";
 		for(i = 0; i < caminho.size(); i++)
 		{
 			if(i > 0) cout << " ";
@@ -172,7 +243,7 @@ imprimir_agentes(list<Agente> agentes)
 		}
 		cout << ") ";
 		max++;
-		if(max > 0) break;
+		if(max > 5) break;
 	}
 
 	cout << endl;
@@ -192,5 +263,7 @@ salvar_loop(char arquivo[], list<Agente> agentes)
 	{
 		arq << caminho[i] << endl;
 	}
+
+	arq.close();
 
 }		/* -----  end of function imprimir_agentes  ----- */
