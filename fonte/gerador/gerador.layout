@@ -2,24 +2,33 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
 	<File name="../avaliador/avaliador.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="2144" topLine="71" />
+		<Cursor position="692" topLine="64" />
 	</File>
-	<File name="gerador.cpp" open="1" top="1" tabpos="10">
-		<Cursor position="3154" topLine="102" />
+	<File name="agente.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="1213" topLine="22" />
+	</File>
+	<File name="agente.h" open="0" top="0" tabpos="0">
+		<Cursor position="1880" topLine="38" />
+	</File>
+	<File name="gerador.cpp" open="1" top="1" tabpos="3">
+		<Cursor position="7617" topLine="211" />
+	</File>
+	<File name="gerador.h" open="1" top="0" tabpos="5">
+		<Cursor position="584" topLine="0" />
 	</File>
 	<File name="principal.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="1209" topLine="26" />
+		<Cursor position="1327" topLine="27" />
 	</File>
-	<File name="../mapa.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="12405" topLine="384" />
+	<File name="../mapa.cpp" open="0" top="0" tabpos="4">
+		<Cursor position="8090" topLine="265" />
 	</File>
-	<File name="../robo.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="6715" topLine="192" />
+	<File name="../robo.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="6003" topLine="172" />
 	</File>
-	<File name="../salas.cpp" open="1" top="0" tabpos="9">
+	<File name="../salas.cpp" open="0" top="0" tabpos="9">
 		<Cursor position="12929" topLine="356" />
 	</File>
-	<File name="../salas.h" open="1" top="0" tabpos="11">
+	<File name="../salas.h" open="0" top="0" tabpos="11">
 		<Cursor position="3176" topLine="81" />
 	</File>
 </CodeBlocks_layout_file>

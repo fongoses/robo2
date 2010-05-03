@@ -3,7 +3,7 @@
  *
  *       Filename:  gerador.h
  *
- *    Description:  
+ *    Description:
  *
  *        Version:  1.0
  *        Created:  05/25/2009 06:37:35 PM
@@ -19,6 +19,10 @@
 #include	<string>
 
 #include	"agente.h"
+
+#define CAND_MAX 10000
+#define CAND_MIN 1000
+#define CAND_POR_ARQ 5000
 
 using namespace std;
 
