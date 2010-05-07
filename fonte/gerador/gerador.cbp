@@ -13,7 +13,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="../../mapas/espinha_diff.txt" />
+				<Option parameters="../../mapas/espinha.txt" />
 				<Compiler>
 					<Add option="-Wall" />
 					<Add option="-ansi" />

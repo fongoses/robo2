@@ -45,7 +45,7 @@ gerar ( string arq_mapa)
     Caminho cam;
     int arq_sala, arq_cam;
 
-	unsigned int debug_salas = 0, debug_candidatos, total_aval = 0, total_descartados = 0;
+	unsigned int debug_salas = 0, debug_candidatos, total_aval = 0, total_descartados = -1;
 
 	v = mapa.carregarMapa(arq_mapa, &sala);
 
@@ -56,10 +56,13 @@ gerar ( string arq_mapa)
 /* Insere um agente para cada sala */
 	for(i = 0; i < salas.size(); i++)
 	{
-		agente_atual = *(new Agente(salas[i]));
+		agente_atual.novo();
+		agente_atual.set_vertice(salas[i]);
 		candidatos.push_back(agente_atual);
-		if(i == 0)
-			novo_agente = *(new Agente(salas[i]));
+		if(i == 0) {
+		    novo_agente.novo();
+			novo_agente.set_vertice(salas[i]);
+		}
 		else
 			novo_agente.adicionarVertice(salas[i]);
 	}
@@ -69,7 +72,6 @@ gerar ( string arq_mapa)
 	melhores.push_back(novo_agente);
 		if(0)
 		{
-			system("clear");
 			cout << "Candidatos:" << endl;
 			imprimir_agentes(candidatos);
 			cout << endl << "Melhores:" << endl;
@@ -97,7 +99,7 @@ gerar ( string arq_mapa)
 				novo_agente.set_avaliacao(avaliar(arq_mapa, novo_agente.get_caminho(), melhores.front().get_avaliacao()));
 				total_aval++;
 
-//			cout<<"GERADOR\n;novo_agente.imprimir();//getchar();
+			//cout<<"GERADOR\n";novo_agente.imprimir();//getchar();
 
 				{
 				if	((novo_agente.get_avaliacao() < 0) && (-novo_agente.get_avaliacao() <= melhores.front().get_avaliacao()))
@@ -163,7 +165,7 @@ gerar ( string arq_mapa)
 
             for(int ci = 0; ci < CAND_POR_ARQ; ci++)
             {
-                novo_agente = *(new Agente());
+                novo_agente.novo();
 //                arq_i >> arq_sala;
 
                 arq_i >> arq_cam;
@@ -190,7 +192,6 @@ gerar ( string arq_mapa)
 		{
 //			if((debug_candidatos + 1000 <= candidatos.size())) /*|| (debug_salas >= 9)*/// || (debug_salas != candidatos.front().get_tamanho()))
 			{
-			system("clear");
 			cout << "Candidatos:" << endl;
 			imprimir_agentes(candidatos);
 			cout << "Avaliação: " << candidatos.front().get_avaliacao() << endl;
@@ -207,8 +208,7 @@ gerar ( string arq_mapa)
 		time(&tempo);
 		if((tempo - tempo_ant >= 10) ||0)
 		{
-			system("clear");
-			cout << "Candidatos: " << arquivos.size() * CAND_POR_ARQ + candidatos.size() << " Avaliados: " << total_aval  << " Descartados: " << total_descartados << "(" << total_aval - total_descartados - candidatos.size() - arquivos.size() * CAND_POR_ARQ<< ")" << endl;
+			cout << "Candidatos: " << arquivos.size() * CAND_POR_ARQ + candidatos.size() << " Avaliados: " << total_aval  << " Descartados: " << total_descartados << "(" << total_aval - total_descartados - candidatos.size() - arquivos.size() * CAND_POR_ARQ - melhores.size()<< ")" << endl;
 			imprimir_agentes(candidatos);
 			cout << "Avaliação: " << candidatos.front().get_avaliacao() << endl;
 			cout << endl << "Melhores:" << endl;
@@ -216,10 +216,10 @@ gerar ( string arq_mapa)
 			cout << "Avaliação: " << melhores.front().get_avaliacao() << endl;
 			cout << "Tempo: " << tempo - inicio << endl;
 			tempo_ant = tempo;
-//			getchar();
+            //if(candidatos.front().get_tamanho()>=5)getchar();
+			//getchar();
 		}
 	}
-	system("rm cand*.txt");
 	return melhores;
 }		/* -----  end of function gerar  ----- */
 
@@ -243,7 +243,7 @@ imprimir_agentes(list<Agente> agentes)
 		}
 		cout << ") ";
 		max++;
-		if(max > 5) break;
+		if(max > 4) break;
 	}
 
 	cout << endl;
