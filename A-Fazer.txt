@@ -1,4 +1,13 @@
-Fazer o modo real time
+Fazer o gerador salvar o arquivo como: MAPA_loop.txt
+
+Fazer o script
+salvar MAPA_MODO_CONTEUDO.txt
+-MAPA: Escolher os mapas para testar (NÃO ESQUECER DE AGEITAR O ESPINHA_DIFF)
+-MODO: Offline (Off) ou Tempo Real (TR)
+-CONTEUDO: salas ou curva
+
+
+
 
 
 --------------------------------------
