@@ -58,6 +58,8 @@ main ( int argc, char *argv[])
     melhores = gerar(arq_mapa);
 	cout << "Melhor(es) caminho(s)\n";
 	imprimir_agentes(melhores);
+	melhores.sort();
+	imprimir_agentes(melhores);
 	salvar_loop("loop.txt", melhores);
 	cout << "Avaliação: " << melhores.begin()->get_avaliacao() << endl;
 //	for(it = melhores.begin(); it != melhores.end(); it++)

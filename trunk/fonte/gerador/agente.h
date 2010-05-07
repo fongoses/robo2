@@ -3,7 +3,7 @@
  *
  *       Filename:  agente.h
  *
- *    Description:  
+ *    Description:
  *
  *        Version:  1.0
  *        Created:  05/25/2009 03:28:43 PM
@@ -27,7 +27,7 @@ typedef vector<int> Caminho;
 	/*
 	 * =====================================================================================
 	 *        Class:  Agente
-	 *  Description:  
+	 *  Description:
 	 * =====================================================================================
 	 */
 	class Agente
@@ -39,6 +39,7 @@ typedef vector<int> Caminho;
 			Agente ( int inicial);                             /* constructor      */
 			Agente ( const Agente &other );   /* copy constructor */
 			~Agente ();                            /* destructor       */
+			void novo();
 
 			/* ====================  OPERATORS     ======================================= */
 			const Agente& operator = ( const Agente &other ); /* assignment operator */

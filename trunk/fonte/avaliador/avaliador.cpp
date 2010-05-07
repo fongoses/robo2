@@ -84,13 +84,13 @@ avaliar (	string arq_mapa, vector<int> caminho, int limite)
 			if(aval < U)
 				aval = U;
 
+            if(aval > limite)
+                return 0;
+
 			salas_atual.set_salas(salas.get_salas_completo());
 			salas.visitar(vertice);
 		}
 		/* Fim da simulação */
-
-		if(aval > limite)
-			return 0;
 
 		/* Verificando se o robô visitou todas as salas do mapa */
 		for(it_s = visitou.begin(); it_s != visitou.end(); it_s++)
@@ -113,6 +113,8 @@ avaliar (	string arq_mapa, vector<int> caminho, int limite)
 
 
 	}while(salas_ant != salas_atual);
+
+	delete(robo1);
 
 	return aval;
 }

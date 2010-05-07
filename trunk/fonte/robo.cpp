@@ -81,6 +81,11 @@ Robo::Robo ( const Robo &other )
  */
 Robo::~Robo ()
 {
+    if(!simular) {
+        delete(player_client);
+        delete(position);
+        delete(laser);
+    }
 }  /* -----  end of method Robo::~Robo  (destructor)  ----- */
 
 /*-----------------------------------------------------------------------------

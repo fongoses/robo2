@@ -20,6 +20,7 @@
 
 #include	<map>
 #include	<iostream>
+#include	<fstream>
 #include	<ctime>
 #include	<vector>
 #include	<climits>
@@ -103,16 +104,20 @@ class Salas
 		void visitar(int s);
 
 		void imprimir();
+		void salvar(string nome);
 		void zerar_prioridades();
 		void zerar_visitas();
 		void incrementar_prioridade(int s);
 		void emergencia(int s);
+		int normalizar_prioridades();
+		void usar_prioridades_normalizadas(bool value);
 
 		/* ====================  ACCESS        ======================================= */
 		VetorVertices get_salas_vertices();
 		VetorSalas get_salas();
 		int get_maiorU(int *U = NULL);
 		int get_vertice( int s );
+		int get_P( int s );
 		int get_sala( int v );
 
 		void set_ultima_atualizacao(time_t t);
@@ -129,7 +134,7 @@ class Salas
 	private:
 
 		MapaSala sala;
-
+    bool normalizar;
 }; /* -----  end of class  Salas  ----- */
 
 

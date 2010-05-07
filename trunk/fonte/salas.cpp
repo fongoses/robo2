@@ -147,6 +147,7 @@ Sala::operator != (Sala &other )
 Salas::Salas ()
 {
 	ultima_atualizacao = 0;
+	normalizar = false;
 }  /* -----  end of method Salas::Salas  (constructor)  ----- */
 
 /*
@@ -304,16 +305,20 @@ Salas::ehSala ( int v )
  *--------------------------------------------------------------------------------------
  */
 	int
-Salas::atualizar ( time_t t )
+Salas::atualizar ( time_t t)
 {
 	MapaSala::iterator it_s;
 	time_t diferenca = t - ultima_atualizacao;
 	ultima_atualizacao = t;
 	int UTotal = 0;
+	int mdc = 1;
+	if(normalizar) mdc = normalizar_prioridades();
 //	//DEBUG*/cout << "Atualizando " << diferenca << " segundos\n"; getchar();
 
 	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
-		it_s->second.U += diferenca * it_s->second.P;
+	  if(mdc>1)cout << "U:" << it_s->second.U << " P:" << it_s->second.P << endl;
+		it_s->second.U += diferenca * (it_s->second.P/mdc);
+    if(mdc>1)cout << "U:" << it_s->second.U << " P:" << it_s->second.P << endl;
 		UTotal += it_s->second.U;
 	}
 	return UTotal;
@@ -349,6 +354,27 @@ Salas::imprimir ( )
 
 	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
 		cout << it_s->first << " => vertice = " << it_s->second.vertice <<
+															"\tP = " << it_s->second.P <<
+															"\tU = " << it_s->second.U <<
+															"\tvisitas = "<< it_s->second.visitas << endl;
+
+	}
+	return ;
+}		/* -----  end of method Salas::imprimir  ----- */
+
+	void
+Salas::salvar (string nome )
+{
+	ofstream arq;
+	MapaSala::iterator it_s;
+
+	arq.open(nome.c_str(), ifstream::trunc);
+	if(!arq.is_open()) {
+		cerr << "Problemar para abrir " << nome << ".\n";getchar();
+	}
+
+	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
+		arq << it_s->first << " => vertice = " << it_s->second.vertice <<
 															"\tP = " << it_s->second.P <<
 															"\tU = " << it_s->second.U <<
 															"\tvisitas = "<< it_s->second.visitas << endl;
@@ -403,18 +429,23 @@ void Salas::zerar_visitas()
 	void
 Salas::incrementar_prioridade (int s)
 {
-	MapaSala::iterator it_s;
-	int mdc;
 
 	sala[s].P++;
 //	sala[s].P+=100;
 
 	/* PENSAR NUM MODO DE DIMINUIR AS PRIORIDADES QUANDO NAO FOREM PRIMAS */
+}
+
+  int
+Salas::normalizar_prioridades()
+{
+	MapaSala::iterator it_s;
+	int mdc = 1;
 
 	for(it_s = sala.begin(); it_s != sala.end(); it_s++)
 	{
 		if(it_s->second.P <= 1) /* Se alguma prioridade for 0 ou 1 não divide */
-			return ;
+			return 1;
 	}
 
 	mdc = sala.begin()->second.P;
@@ -426,11 +457,18 @@ Salas::incrementar_prioridade (int s)
 	}
 
 	if(mdc > 1)
-		for(it_s = sala.begin(); it_s != sala.end(); it_s++)
-			it_s->second.P /= mdc;
+	return mdc;
+		//for(it_s = sala.begin(); it_s != sala.end(); it_s++)
+//			it_s->second.P /= mdc;
 
-	return ;
+	return mdc;
 }		/* -----  end of method Salas::incrementar_prioridade ----- */
+
+  void
+Salas::usar_prioridades_normalizadas(bool value)
+{
+  normalizar = value;
+}
 
 /*
  *--------------------------------------------------------------------------------------
@@ -443,8 +481,10 @@ Salas::incrementar_prioridade (int s)
 Salas::emergencia (int s)
 {
 	MapaSala::iterator it_s;
+	int mdc = 1;
+	if(normalizar) mdc = normalizar_prioridades();
 
-	sala[s].U = FATOR_ER * sala[s].P;
+	sala[s].U = FATOR_ER * sala[s].P/mdc;
 
 	return ;
 }		/* -----  end of method Salas::emergencia ----- */
@@ -551,6 +591,20 @@ Salas::get_sala ( int v )
 	return -1;
 }
 /* -----  end of method Salas::get_sala  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Salas
+ *      Method:  get_P
+ * Description:  Retorna a prioridade da sala s
+ *--------------------------------------------------------------------------------------
+ */
+	int
+Salas::get_P ( int s )
+{
+	return sala.find(s)->second.P;
+}
+/* -----  end of method Salas::get_P  ----- */
 
 /*
  *--------------------------------------------------------------------------------------

@@ -3,7 +3,7 @@
  *
  *       Filename:  agente.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Version:  1.0
  *        Created:  05/25/2009 03:28:43 PM
@@ -66,6 +66,21 @@ Agente::Agente ( const Agente &other )
 /*
  *--------------------------------------------------------------------------------------
  *       Class:  Agente
+ *      Method:  novo
+ * Description:  constructor
+ *--------------------------------------------------------------------------------------
+ */
+void Agente::novo ()
+{
+	vertice = -1;
+	avaliacao = 0;
+	tempo = 0;
+	caminho.clear();
+}  /* -----  end of method Agente::novo  (constructor)  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Agente
  *      Method:  ~Agente
  * Description:  destructor
  *--------------------------------------------------------------------------------------
@@ -98,7 +113,7 @@ Agente::operator = ( const Agente &other )
  * Description:  grater then operator
  *--------------------------------------------------------------------------------------
  */
-	bool 
+	bool
 Agente::operator> (Agente &ag)
 {
 	if(avaliacao != ag.avaliacao)
@@ -114,7 +129,7 @@ Agente::operator> (Agente &ag)
  * Description:  grater equal then operator
  *--------------------------------------------------------------------------------------
  */
-	bool 
+	bool
 Agente::operator>= (Agente &ag)
 {
 	return avaliacao >= ag.avaliacao;
@@ -127,13 +142,17 @@ Agente::operator>= (Agente &ag)
  * Description:  less then operator
  *--------------------------------------------------------------------------------------
  */
-	bool 
+	bool
 Agente::operator< (Agente &ag)
 {
 	if(avaliacao != ag.avaliacao)
 		return avaliacao < ag.avaliacao;
-	else
+	else if(caminho.size() != ag.caminho.size())
 		return caminho.size() < ag.caminho.size();
+    else
+        for(unsigned int i = 0; i < caminho.size(); i++)
+            if(caminho[i] < ag.caminho[i]) return true;
+            else if(caminho[i] > ag.caminho[i]) return false;
 }		/* -----  end of method Agente::operator<  ----- */
 
 /*
@@ -143,7 +162,7 @@ Agente::operator< (Agente &ag)
  * Description:  less equal then operator
  *--------------------------------------------------------------------------------------
  */
-	bool 
+	bool
 Agente::operator<= (Agente &ag)
 {
 	return avaliacao <= ag.avaliacao;
@@ -156,7 +175,7 @@ Agente::operator<= (Agente &ag)
  * Description:  equal operator
  *--------------------------------------------------------------------------------------
  */
-	bool 
+	bool
 Agente::operator== (Agente &ag)
 {
 	return (avaliacao == ag.avaliacao) && (caminho.size() == ag.caminho.size());
@@ -204,6 +223,8 @@ Agente::get_vertice (  )
 Agente::set_vertice ( int value )
 {
 	vertice	= value;
+	if(caminho.size() == 0)
+        caminho.push_back(value);
 	return ;
 }		/* -----  end of method Agente::set_vertice  ----- */
 /*

@@ -31,12 +31,12 @@ using namespace std;
 #define SIMULACAO true
 //#define SIMULACAO true
 
-//	void
-//Sleep (int segundos)
-//{
-//	if(!SIMULACAO)
-//		sleep(segundos);
-//}
+	void
+Sleep (int segundos)
+{
+	if(!SIMULACAO)
+		sleep(segundos);
+}
 
 	int
 main ( int argc, char *argv[] )
@@ -47,13 +47,15 @@ main ( int argc, char *argv[] )
 	Vertice v;
 	time_t tempo, inicio, anterior, t_aux;
 	int visitar_sala, U, algoritmo;
-	map<int, unsigned int> chances; /* PENSAR NUM NOME MELHOR */
+	map<int, float> chances; /* PENSAR NUM NOME MELHOR */
 	VetorSalas v_salas;
-	unsigned int i, aux;
+	unsigned int i, total_P = 0;
+	float aux;
 	ofstream arq;
+	string mapas_teste
 
 	system("clear");
-	v = mapa.carregarMapa("/home/heitor/robo2/mapas/ap.txt", &sala);
+	v = mapa.carregarMapa("/home/heitor/robo2/mapas/tres.txt", &sala);
 	robo1 = new Robo(v, mapa, &sala, SIMULACAO);
 
 	/* Iniciacao padrao */
@@ -75,22 +77,24 @@ main ( int argc, char *argv[] )
 	/* Gerando aleatoriamente a chances de um chamado de emergência V2*/
 	for(i = 0; i < v_salas.size(); i++)
 	{
-		chances[v_salas[i]] = 0;
+		chances[v_salas[i]] = sala.get_P(sala.get_sala(v_salas[i]));
+		total_P += chances[v_salas[i]];
 	}
 
-	for(i = 0; i < 100; i++)
+/*	for(i = 0; i < 100; i++)
 	{
 		aux = rand() % v_salas.size();
-		chances[v_salas[aux]]++;
+		chances[v_salas[aux]]++;*/
 //		//DEBUG*/cout << "sala: " << v_salas[aux] << " %: " << chances[v_salas[aux]] << endl;getchar();
-	}
+//	}
 
 	for(i = 0; i < v_salas.size(); i++)
 	{
+		chances[v_salas[i]] = chances[v_salas[i]] / total_P;
 		cout << "sala: " << v_salas[i] << " %: " << chances[v_salas[i]] << endl;
 	}
 
-	algoritmo = 1;
+	algoritmo = 4;
 
 	switch(algoritmo) {
 		/*-----------------------------------------------------------------------------
@@ -146,12 +150,12 @@ main ( int argc, char *argv[] )
 //			ListaVertices::iterator it_c, it_a;
 //			while(tempo - inicio < TOTAL * 60) { /* rodar por TOTAL minutos */
 //				visitar_sala = sala.get_maiorU();
-////				cout << "Indo para sala " << visitar_sala << " vertice " << sala.get_vertice(visitar_sala)<< endl; 
+////				cout << "Indo para sala " << visitar_sala << " vertice " << sala.get_vertice(visitar_sala)<< endl;
 //				caminho = mapa.dijkstra(robo1->get_vertice(), visitar_sala);
 //				caminho.pop_front(); /* Removendo o vertice atual do caminho */
 //				for(it_c = caminho.begin(); it_c != caminho.end(); it_c++) {
 //					adjacentes = mapa.verticesAdjacentes(robo1->get_vertice()); /* Verifica se existe salas adjacentes ao vertice atual */
-//					for(it_a = adjacentes.begin(); it_a != adjacentes.end(); it_a++) { 
+//					for(it_a = adjacentes.begin(); it_a != adjacentes.end(); it_a++) {
 //						if(sala.existeSala(*it_a)) {
 ////							cout << "Visitando sala adjacente " << *it_a << endl;
 //							robo1->irPara(*it_a); /* Visita todas as salas adjacentes ao vertice atual */
@@ -171,160 +175,207 @@ main ( int argc, char *argv[] )
 ////				cout << "Tempo total: " << tempo - inicio << endl;
 //			}
 //		};break;
-//		/*-----------------------------------------------------------------------------
-//		 * Algoritmo 3: Segue um caminho pre definido
-//		 *-----------------------------------------------------------------------------*/
-//		case 3: {
-//			ListaVertices loop;
-//			ListaVertices::iterator it_l;
-//			int sala_loop;
-//			ifstream arq_loop;
-//			time_t tempo_ER = tempo, t_simu;
-//
-//			arq_loop.open("gerador/loop.txt");
-////			arq_loop.open(argv[1]);
-//
-//			arq_loop >> sala_loop;
-//			while(!arq_loop.eof())
-//			{
-//				loop.push_back(sala_loop);
-//				arq_loop >> sala_loop;
-//			}
-//
-//			it_l = loop.begin();
-//
-//			while(tempo - inicio < TOTAL * 60) { /* rodar por TOTAL minutos */
-//				cout << "Faltam " << TOTAL * 60 - (tempo - inicio) << "s\n";
-//				visitar_sala = *it_l;
-///* MODO BLOQUEANTE */
-////				tempo += robo1->irPara(sala.get_vertice(visitar_sala));
-///* MODO NAO BLOQUEANTE */
-//				robo1->irPara(sala.get_vertice(visitar_sala));
-//				while(!robo1->chegou(mapa.get_ponto(sala.get_vertice(visitar_sala))) && t_simu > 0)
-//				{
-//					if(SIMULACAO)
-//					{
-//						t_simu--;
-//						tempo++;
-//					} else {
-//						time(&tempo);
-//					}
-//					/* Gerador aleatorio de emergencia */
-//					while( tempo - tempo_ER > 60 ) /* USAR DEFINE */
-//					{
-//						tempo_ER+=60;
-//						for(i = 0; i < v_salas.size(); i++)
-//						{
-//							aux = rand() % 100;
-////							cout << "sala " << v_salas[i] << " " << chances[v_salas[i]] << "% " << aux << "%\n";
-//							if(chances[v_salas[i]] >= aux)//rand() % 100)
-//							{
-//								cout << "Emergencia na sala: " << v_salas[i] << endl;
-//								robo1->irPara(sala.get_vertice(v_salas[i]));
-//								if(SIMULACAO)
-//								{
-//									tempo += t_simu;
-//								} else {
-//									while(!robo1->chegou(mapa.get_ponto(sala.get_vertice(v_salas[i]))));
-//									time(&tempo);
-//								}
-//							}
-//						}
-//					}
-//					robo1->irPara(sala.get_vertice(visitar_sala));
-//					if(SIMULACAO)
-//					{
-//						tempo += t_simu;
-//					} else {
-//						time(&tempo);
-//					}
-//				}
-//
-//				while( tempo - anterior > ATUALIZACAO) {
-//					anterior += ATUALIZACAO;
-//					U = sala.atualizar(anterior);
-//					arq << anterior - inicio << "\t" << U << endl;
-//				}
-//				sala.atualizar(tempo);
-//				sala.visitar(visitar_sala);
-////				tempo += VISITAR_SALA;
-//				cout << "Visitando sala: " << visitar_sala << endl;
-//				Sleep(VISITAR_SALA);
-//				if(SIMULACAO)
-//				{
-//					tempo += VISITAR_SALA;
-//				} else {
-//					time(&tempo);
-//				}
-//				if(++it_l == loop.end())
-//					it_l = loop.begin();
-//
-//	
-//			}
-//		};break;
-//
-//		/*-----------------------------------------------------------------------------
-//		 * Algoritmo 4: Prioridades dinamicas
-//		 *-----------------------------------------------------------------------------*/
-//		case 4: {
-//			time_t tempo_ER;
-//
-////			getchar();
-//			sala.zerar_prioridades();
-//			tempo_ER = tempo;
-//			while(tempo - inicio < TOTAL * 60) { /* rodar por TOTAL minutos */
-//
-//				do {
-//
-//					while( tempo - tempo_ER > 60 ) /* USAR DEFINE */
-//					{
-//						tempo_ER+=60;
-//						for(i = 0; i < v_salas.size(); i++)
-//						{
-//							aux = rand() % 100;
-////							cout << "sala " << v_salas[i] << " " << chances[v_salas[i]] << "% " << aux << "%\n";
-//							if(chances[v_salas[i]] >= aux)//rand() % 100)
-//							{
-//								sala.incrementar_prioridade(v_salas[i]);
-//							
-////								cout << "!!\n";
-//							}
-//						}
-//					}
-//
+		/*-----------------------------------------------------------------------------
+		 * Algoritmo 3: Segue um caminho pre definido
+		 *-----------------------------------------------------------------------------*/
+		case 3: {
+			ListaVertices loop;
+			ListaVertices::iterator it_l;
+			int sala_loop;
+			ifstream arq_loop;
+			time_t tempo_ER = tempo, t_simu;
+
+			arq_loop.open("gerador/loop.txt");
+//			arq_loop.open(argv[1]);
+
+			arq_loop >> sala_loop;
+			while(!arq_loop.eof())
+			{
+				loop.push_back(sala_loop);
+				arq_loop >> sala_loop;
+			}
+
+			it_l = loop.begin();
+
+			while(tempo - inicio < TOTAL * 60) { /* rodar por TOTAL minutos */
+				cout << "Faltam " << TOTAL * 60 - (tempo - inicio) << "s\n";
+				visitar_sala = *it_l;
+/* MODO BLOQUEANTE */
+//				tempo += robo1->irPara(sala.get_vertice(visitar_sala));
+/* MODO NAO BLOQUEANTE */
+				robo1->irPara(sala.get_vertice(visitar_sala));
+				while(!robo1->chegou())
+				{
+					tempo += robo1->get_tempo_viagem();
+					if(t_aux < tempo - 10)
+					{
+						//Chance pra emergencia
+						cout << "ER!!\n";
+						t_aux = tempo;
+					}
+				}
+
+/*				while(!robo1->chegou(mapa.get_ponto(sala.get_vertice(visitar_sala))) && t_simu > 0)
+				{
+					if(SIMULACAO)
+					{
+						t_simu--;
+						tempo++;
+					} else {
+						time(&tempo);
+					}
+					/* Gerador aleatorio de emergencia */
+/*					while( tempo - tempo_ER > 60 ) /* USAR DEFINE */
+/*					{
+						tempo_ER+=60;
+						for(i = 0; i < v_salas.size(); i++)
+						{
+							aux = rand() % 100;
+//							cout << "sala " << v_salas[i] << " " << chances[v_salas[i]] << "% " << aux << "%\n";
+							if(chances[v_salas[i]] >= aux)//rand() % 100)
+							{
+								cout << "Emergencia na sala: " << v_salas[i] << endl;
+								robo1->irPara(sala.get_vertice(v_salas[i]));
+								if(SIMULACAO)
+								{
+									tempo += t_simu;
+								} else {
+									while(!robo1->chegou(mapa.get_ponto(sala.get_vertice(v_salas[i]))));
+									time(&tempo);
+								}
+							}
+						}
+					}
+					robo1->irPara(sala.get_vertice(visitar_sala));
+					if(SIMULACAO)
+					{
+						tempo += t_simu;
+					} else {
+						time(&tempo);
+					}
+				}*/
+
+				while( tempo - anterior > ATUALIZACAO) {
+					anterior += ATUALIZACAO;
+					U = sala.atualizar(anterior);
+					arq << anterior - inicio << "\t" << U << endl;
+				}
+				sala.atualizar(tempo);
+				sala.visitar(visitar_sala);
+//				tempo += VISITAR_SALA;
+				cout << "Visitando sala: " << visitar_sala << endl;
+				tempo += robo1->visitar_sala();
+				if(SIMULACAO)
+				{
+					tempo += VISITAR_SALA;
+				} else {
+					time(&tempo);
+				}
+				if(++it_l == loop.end())
+					it_l = loop.begin();
+
+
+			}
+		};break;
+
+		/*-----------------------------------------------------------------------------
+		 * Algoritmo 4: Prioridades dinamicas
+		 *-----------------------------------------------------------------------------*/
+		case 4: {
+			time_t tempo_ER;
+			bool sair = false;
+			Salas total_P_incrementado;
+
+
+
+//			getchar();
+			sala.zerar_prioridades();
+			sala.usar_prioridades_normalizadas(true);
+			total_P_incrementado.set_salas(sala.get_salas_completo());
+			tempo_ER = tempo;
+			while(!sair)
+						for(i = 0; i < v_salas.size(); i++)
+						{
+							aux = (float)(rand() % 10000)/10000;
+//							cout << "sala " << v_salas[i] << " " << chances[v_salas[i]] << "% " << aux << "%\n";
+							if(chances[v_salas[i]] >= aux)//rand() % 100)
+							{
+								sala.incrementar_prioridade(v_salas[i]);
+								total_P_incrementado.incrementar_prioridade(v_salas[i]);
+								sair = true;
+								break;
+
+//								cout << "!!\n";
+							}
+						}
+	sala.set_ultima_atualizacao(time(&tempo)-1);
+	sala.atualizar(tempo);
+			while(tempo - inicio < TOTAL * 60) { /* rodar por TOTAL minutos */
+
+				do {
+
+					while( tempo - tempo_ER > 60 ) /* USAR DEFINE */
+					{
+						tempo_ER+=60;
+						for(i = 0; i < v_salas.size(); i++)
+						{
+							aux = (float)(rand() % 10000)/10000;
+//							cout << "sala " << v_salas[i] << " " << chances[v_salas[i]] << "% " << aux << "%\n";
+							if(chances[v_salas[i]] >= aux)//rand() % 100)
+							{
+								sala.incrementar_prioridade(v_salas[i]);
+								total_P_incrementado.incrementar_prioridade(v_salas[i]);
+
+//								cout << "!!\n";
+							}
+						}
+					}
+
 //					tempo++;
-//					sala.atualizar(tempo);
-//					visitar_sala = sala.get_maiorU();
-////					cout << "Tempo total: " << tempo - tempo_ER << endl;
-////					sala.imprimir();//getchar();
-//
-//				}while (visitar_sala == -1);
-//
-//				sala.imprimir();
-//				cout << "Indo para sala " << visitar_sala << " vertice " << sala.get_vertice(visitar_sala)<< endl; //getchar();
-///* MODO BLOQUEANTE */
-////				tempo += robo1->irPara(sala.get_vertice(visitar_sala));
-///* MODO NAO BLOQUEANTE */
-//				robo1->irPara(sala.get_vertice(visitar_sala));
-//				while(!robo1->chegou(mapa.get_ponto(sala.get_vertice(visitar_sala))))
-//				{
-//					;
-//				}
+					sala.atualizar(tempo);
+					visitar_sala = sala.get_maiorU();
+//					cout << "Tempo total: " << tempo - tempo_ER << endl;
+//					sala.imprimir();//getchar();
+
+				}while (visitar_sala == -1);
+
+
+				total_P_incrementado.imprimir();
+//				getchar();
+				cout << "Indo para sala " << visitar_sala << " vertice " << sala.get_vertice(visitar_sala)<< endl; //getchar();
+/* MODO BLOQUEANTE */
+//				tempo += robo1->irPara(sala.get_vertice(visitar_sala));
+/* MODO NAO BLOQUEANTE */
+				robo1->irPara(sala.get_vertice(visitar_sala));
+				while(!robo1->chegou())
+				{
+					tempo += robo1->get_tempo_viagem();
+					if(t_aux < tempo - 10)
+					{
+						//Chance pra emergencia
+						cout << "ER!!\n";
+						t_aux = tempo;
+					}
+				}
 //				time(&tempo);
-//				cout << "Tempo: " << tempo - inicio << endl;
-//				while( tempo - anterior > ATUALIZACAO) {
-//					anterior += ATUALIZACAO;
-//					U = sala.atualizar(anterior);
-//					arq << anterior - inicio << "\t" << U << endl;
-//				}
-//
-//				sala.atualizar(tempo);
-//				sala.visitar(visitar_sala);
-//				cout << "Visitando sala: " << visitar_sala << endl;
+				cout << "Tempo: " << tempo - inicio << endl;
+				while( tempo - anterior > ATUALIZACAO) {
+					anterior += ATUALIZACAO;
+					U = sala.atualizar(anterior);
+					arq << anterior - inicio << "\t" << U << endl;
+				}
+
+				cout << "Visitando sala: " << visitar_sala << endl;
+                tempo += robo1->visitar_sala();
+				sala.atualizar(tempo);
+				sala.imprimir();
+
 //				Sleep(VISITAR_SALA);
-////				tempo += VISITAR_SALA;
-//			}
-//		};break;
+//				tempo += VISITAR_SALA;
+				//getchar();
+			}
+			sala.salvar("ALG4_salas_final.txt");
+		};break;
 	}
 
 	return EXIT_SUCCESS;
