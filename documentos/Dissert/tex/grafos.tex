@@ -139,15 +139,15 @@ que garante que, para cada conjunto $S$, existem no mínimo duas arestas que entr
 	$x_{15} + x_{16} + x_{17} + x_{25} + x_{26} + x_{27} + x_{35} + x_{36} + x_{37} + x_{45} + x_{46} + x_{47} \geq 2$
 \end{center}
 
-Uma forma alternativa de eliminar sub-rotas é com a seguinte restrição
-\begin{equation}
-	\sum_{i \in S} \sum_{i \ in S \\ j > i} \leq |S| - 1, S \subset \mathbb{N}, 3 \leq |S| \leq \left\lfloor \frac{n}{2} \right\rfloor
-	\label{eq:cv-el_sub-rotas2}
-\end{equation}CONFERIR ESSA FORMULA EM \cite{Arenales2007}
-que corresponde a eliminar uma aresta da sub-rota. A sub-rota $S = {1, 2, 3, 4}$ é eliminada.
-\begin{center}
-	$x_{12} + x_{23} + x_{34} + x_{14} \leq 3$
-\end{center}
+%Uma forma alternativa de eliminar sub-rotas é com a seguinte restrição
+%\begin{equation}
+%	\sum_{i \in S} \sum_{i \ in S \\ j > i} \leq |S| - 1, S \subset \mathbb{N}, 3 \leq |S| \leq \left\lfloor \frac{n}{2} \right\rfloor
+%	\label{eq:cv-el_sub-rotas2}
+%\end{equation}CONFERIR ESSA FORMULA EM \cite{Arenales2007}
+%que corresponde a eliminar uma aresta da sub-rota. A sub-rota $S = {1, 2, 3, 4}$ é eliminada.
+%\begin{center}
+%	$x_{12} + x_{23} + x_{34} + x_{14} \leq 3$
+%\end{center}
 
 Como o número de subconjuntos distintos de um conjunto de cardinalidade $k$ é $2^k$, as restrições \ref{eq:cv-el_sub-rotas1} e \ref{eq:cv-el_sub-rotas2} têm cardinalidade da ordem de $2^k$, $k \geq 6$, ou seja, o crescimento é exponencial em função do número de cidades. Para $k \leq 5$, somente a restrição \ref{eq:cv-restr1} elimina sub-rotas \cite{Arenales2007}.
 
