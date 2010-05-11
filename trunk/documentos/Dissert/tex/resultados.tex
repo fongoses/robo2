@@ -18,6 +18,7 @@ Essa dissertação tem como objetivo o desenvolvimento de uma estratégia eficiente
 \figura{../../imagens/MUSEU_DO_HOMEM_SERGIPANO.jpg}{8}{Exemplo de mapa: Museu do homem sergipano e suas divisões}{fig:mapa_museu}
 
 \begin{table}\begin{center}
+\caption{Exemplo de prioridades}
 	\begin{tabular}
 		{|c|c|}
 		\hline
@@ -47,7 +48,6 @@ Essa dissertação tem como objetivo o desenvolvimento de uma estratégia eficiente
 		\hline
 	\end{tabular}
 \end{center}
-\caption{Exemplo de prioridades}
 \label{tab:prioridade_museu}
 \end{table}
 
@@ -55,7 +55,7 @@ Essa dissertação tem como objetivo o desenvolvimento de uma estratégia eficiente
 \label{criterios}
 Os algoritmos e estratégias serão então testados e avaliados. As avaliações consistem na comparação dos algoritmos e estratégias. Serão utilizados dois critérios de comparação, um critério comparando a freqüência relativa de cada sala com sua prioridade relativa, onde o melhor resultado é aquele em que a freqüência relativa se aproximar mais da prioridade relativa, pois se uma sala (a) possui uma prioridade com valor duas vezes maior que uma sala (b) (Salas f e 7 na Figura \ref{tab:prioridade_museu} por exemplo), a sala (a) deve ser visitada com o dobro de freqüência do que a sala (b). Isto indica que o algoritmo ou estratégia se manteve fiel à definição do problema: \textit{ Áreas de maior importância devem ser visitadas mais freqüentemente.}.
 
-O segundo critério é um gráfico mostrando a progressão da somatória dos graus de urgência de todas as salas $(\sum_{i=0}^n U_i)$ , no qual o melhor resultado consiste em manter o menor valor da somatória dos graus de urgência. Mostrando que o algoritmo ou estratégia visitou as salas com maior eficiência. O grau de urgência $U$ é calculado multiplicando-se a prioridade da sala $P$ pelo tempo decorrido desde a última visita $t$. A casa visita o $t$ é zerado $(U_i = P_i \times t_i)$.
+O segundo critério é um gráfico mostrando a progressão da somatória dos graus de urgência de todas as salas $(\sum_{i=0}^n U_i)$ , no qual o melhor resultado consiste em manter o menor valor da somatória dos graus de urgência. Mostrando que o algoritmo ou estratégia visitou as salas com maior eficiência. O grau de urgência $U$ é calculado multiplicando-se a prioridade normalizada da sala $P/P_t$ pelo tempo decorrido desde a última visita $t$ $(U_i = P_i/P_t \times t_i)$. A casa visita o $t$ é zerado.
 
 \section{Metodologia}
 \label{metodologia}
@@ -291,6 +291,7 @@ A chance de emergência que cada sala recebe é proporcional às prioridades, para 
 Isso faz com que a soma das chances seja igual a um. Por exemplo, se em um mapa de quatro salas as prioridades forem:
 
 \begin{table*}[h]
+	\caption{Exemplo de prioridades}
 	\centering
 		\begin{tabular}
 			{|c|c|}
@@ -303,13 +304,13 @@ Isso faz com que a soma das chances seja igual a um. Por exemplo, se em um mapa 
 			4&5\\					
 			\hline
 		\end{tabular}
-	\caption{Exemplo de prioridades}
 	\label{tab:ExemploDePrioridades}
 \end{table*}
 
 Suas chances de gerar uma emergência ficaram da seguinte forma:
 
 \begin{table*}[h]
+	\caption{Exemplo de chances de emergência}
 	\centering
 		\begin{tabular}
 			{|c|c|}
@@ -322,12 +323,191 @@ Suas chances de gerar uma emergência ficaram da seguinte forma:
 			4&0,333\\					
 			\hline
 		\end{tabular}
-	\caption{Exemplo de chances de emergência}
 	\label{tab:ExemploDeChancesDeEmergência}
 \end{table*}
 
 \section{Resultados}
 \label{resultados}
+Para os testes foram criados sete mapas, como mostra a Figura \ref{fig:mapas_testes}:
+\begin{itemize}
+	\item Três: Com três salas interligadas entre si (Figura \ref{fig:mapa_tres});
+	\item Quatro: Com quatro salas de prioridades iguais e ligação entre todas as salas (Figura \ref{fig:mapa_quatro});
+	\item Quatro Diff: Com quatro salas com prioridades diferentes e ligação entre todas as salas (Figura \ref{fig:mapa_quatro});
+	\item X: Com cinco salas em que formam um X com ligações entre as salas das pontas (Figura \ref{fig:mapa_x});
+	\item X Incompleto: Com cinco salas em formato de X com somente a sala do meio ligando as outras (Figura \ref{fig:mapa_x_incompletro});
+	\item Espinha: Com seis salas em formato de espinha de peixe com prioridades iguais (Figura \ref{fig:mapa_espinha});
+	\item Espinha Diff: Com seis salas em formato de espinha de peixa com prioridades diferentes (Figura \ref{fig:mapa_espinha}).
+\end{itemize}
+
+\begin{figure}[ht]
+  \centering
+	\subfigure[Três]{
+    \includegraphics[width=0.217\textwidth]{../../imagens/mapa_tres.png}
+		\label{fig:mapa_tres}}	
+	\subfigure[Quatro]{
+    \includegraphics[width=0.217\textwidth]{../../imagens/mapa_quatro.png}
+		\label{fig:mapa_quatro}}	
+	\subfigure[X]{
+    \includegraphics[width=0.287\textwidth]{../../imagens/mapa_x.png}
+		\label{fig:mapa_x}}	
+	\subfigure[X incompleto]{
+    \includegraphics[width=0.287\textwidth]{../../imagens/mapa_x_incompleto.png}
+		\label{fig:mapa_x_incompleto}}	
+	\subfigure[Espinha]{
+    \includegraphics[width=0.311\textwidth]{../../imagens/mapa_espinha.png}
+		\label{fig:mapa_espinha}}	
+	\label{fig:mapas_testes}
+	\caption{Mapas para testes.}
+\end{figure}
+
+A Tabela \ref{tab:prioridades_testes} mostra as prioridades utilizadas nos testes.
+\begin{table}
+\caption{Prioridades das salas nos mapas.}
+\centering
+\subtable[Três]{
+      \begin{tabular}
+      {|c|c|}
+			\hline
+			Sala & Prioridade \\
+			\hline
+			1& 2 \\
+			2& 2 \\
+			3& 1 \\
+			\hline
+      \end{tabular}
+      \label{tab:P_tres}
+}
+\qquad\qquad
+\subtable[Quatro]{
+      \begin{tabular}
+      {|c|c|}
+			\hline
+			Sala & Prioridade \\
+			\hline
+			1& 1 \\
+			2& 1 \\
+			3& 1 \\
+			4& 1 \\
+			\hline
+      \end{tabular}
+       \label{tab:P_quatro}
+}
+\qquad\qquad
+\subtable[Quatro Diff]{
+      \begin{tabular}
+      {|c|c|}
+			\hline
+			Sala & Prioridade \\
+			\hline
+			1& 5 \\
+			2& 5 \\
+			3& 1 \\
+			4& 1 \\
+			\hline
+      \end{tabular}
+       \label{tab:P_quatro_diff}
+}
+\qquad\qquad
+\subtable[X e X Incompleto]{
+      \begin{tabular}
+      {|c|c|}
+			\hline
+			Sala & Prioridade \\
+			\hline
+			1& 5 \\
+			2& 1 \\
+			3& 1 \\
+			4& 1 \\
+			5& 1 \\
+			\hline
+      \end{tabular}
+      \label{tab:P_x}
+}
+\qquad\qquad
+\subtable[Espinha]{
+      \begin{tabular}
+      {|c|c|}
+			\hline
+			Sala & Prioridade \\
+			\hline
+			1& 2 \\
+			2& 2 \\
+			3& 2 \\
+			4& 2 \\
+			5& 2 \\
+			6& 2 \\
+			\hline
+      \end{tabular}
+      \label{tab:P_espinha}
+}
+\qquad\qquad
+\subtable[Espinha Diff]{
+      \begin{tabular}
+      {|c|c|}
+			\hline
+			Sala & Prioridade \\
+			\hline
+			1& 5 \\
+			2& 1 \\
+			3& 2 \\
+			4& 2 \\
+			5& 1 \\
+			6& 1 \\
+			\hline
+      \end{tabular}
+      \label{tab:P_espinha_diff}
+}
+\label{tab:prioridades_testes}
+\end{table}
+
+O \texttt{gerador} gerou as seqüências de salar para serem visitadas descritas da Tabela \ref{tab:sequencias}.
+
+\begin{table}\begin{center}
+\caption{Seqüências de salas a ser visitadas geradas pelo \texttt{gerador}}
+	\begin{tabular}
+		{|c|c|}
+		\hline
+		Mapa & Seqüência \\
+		\hline
+		Três&  \\
+		Quatro& \\
+		Quatro& \\
+		X & \\
+		X & \\
+		Espinha & \\
+		Espinha & \\
+		\hline
+	\end{tabular}
+\end{center}
+\label{tab:sequencias}
+\end{table}
+
+\begin{figure}[ht]
+  \centering
+	\subfigure[Três]{
+    \includegraphics[width=0.2\textwidth]{../../imagens/grafico_tres.png}
+		\label{fig:grafico_}}	
+	\subfigure[Quatro]{
+    \includegraphics[width=0.2\textwidth]{../../imagens/grafico_quatro.png}
+		\label{fig:grafico_}}	
+	\subfigure[Quatro Diff]{
+    \includegraphics[width=0.2\textwidth]{../../imagens/grafico_quatro_diff.png}
+		\label{fig:grafico_}}	
+	\subfigure[X]{
+    \includegraphics[width=0.2\textwidth]{../../imagens/grafico_x.png}
+		\label{fig:grafico_}}	
+	\subfigure[X Incompleto]{
+    \includegraphics[width=0.2\textwidth]{../../imagens/grafico_x_incompleto.png}
+		\label{fig:grafico_}}	
+	\subfigure[Espinha]{
+    \includegraphics[width=0.2\textwidth]{../../imagens/grafico_espinha.png}
+		\label{fig:grafico_}}	
+	\subfigure[Espinha Diff]{
+    \includegraphics[width=0.2\textwidth]{../../imagens/grafico_espinha_diff.png}
+		\label{fig:grafico_}}	
+	\label{fig:graficos}}	
+	\caption{Gráficos dos restultados.}
+\end{figure}
 
 \section{Conclusão}
 \label{conclusao}
