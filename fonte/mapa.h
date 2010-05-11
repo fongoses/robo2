@@ -79,6 +79,7 @@ class Mapa
 		ListaVertices dijkstra(int origem, int destino);
 
 		Vertice carregarMapa(string mapa, Salas *sala);
+		void apagarMapa();
 
 		void imprimir();
 
@@ -98,5 +99,5 @@ class Mapa
 		MapaPesos peso;
 
 }; /* -----  end of class  Mapa  ----- */
-    
+
 #endif   /* ----- #ifndef MAPA_INC  ----- */

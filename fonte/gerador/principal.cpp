@@ -26,11 +26,21 @@
 	int
 main ( int argc, char *argv[])
 {
-	string arq_mapa;
+	string arq_mapa, s_aux;
 	int i;
 	list<Agente> melhores;
 	list<Agente>::iterator it;
 	Agente melhor;
+	vector<string> mapas_teste;
+
+
+	mapas_teste.push_back("tres");
+	mapas_teste.push_back("quatro");
+	mapas_teste.push_back("quatro_diff");
+	mapas_teste.push_back("x");
+	mapas_teste.push_back("x_incompleto");
+	mapas_teste.push_back("espinha");
+	mapas_teste.push_back("espinha_diff");
 //	cout << argv[0] << " " << argv[1] << endl; getchar();
 
 
@@ -55,13 +65,17 @@ main ( int argc, char *argv[])
 	}
 
 
-    melhores = gerar(arq_mapa);
-	cout << "Melhor(es) caminho(s)\n";
-	imprimir_agentes(melhores);
-	melhores.sort();
-	imprimir_agentes(melhores);
-	salvar_loop("loop.txt", melhores);
-	cout << "Avaliação: " << melhores.begin()->get_avaliacao() << endl;
+    for(unsigned int m = 0; m < mapas_teste.size(); m++)
+    {
+//        melhores = gerar(arq_mapa);
+        melhores = gerar("/home/heitor/robo2/mapas/" + mapas_teste[m] + ".txt");
+        cout << "Melhor(es) caminho(s)\n";
+//        imprimir_agentes(melhores);
+        melhores.sort();
+        imprimir_agentes(melhores);
+        salvar_loop("/home/heitor/robo2/loops/" + mapas_teste[m] + "_loop.txt", melhores);
+        cout << "Avaliação: " << melhores.begin()->get_avaliacao() << endl;
+    }
 //	for(it = melhores.begin(); it != melhores.end(); it++)
 //		it->imprimir();
 

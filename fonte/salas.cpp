@@ -148,6 +148,7 @@ Salas::Salas ()
 {
 	ultima_atualizacao = 0;
 	normalizar = false;
+	total_P = 0;
 }  /* -----  end of method Salas::Salas  (constructor)  ----- */
 
 /*
@@ -252,6 +253,7 @@ Salas::adicionarSala ( int num, int vertice, int P )
 		aux.U = 0;
 		aux.visitas = 0;
 		sala[num] = aux;
+		total_P += P;
 	} else {
 //		//DEBUG*/cout	<< "Sala " << num << " ja existe\n";
 	}
@@ -304,21 +306,22 @@ Salas::ehSala ( int v )
  * Description:  Atualiza as urgencias das salas decorrido t segundos
  *--------------------------------------------------------------------------------------
  */
-	int
+	float
 Salas::atualizar ( time_t t)
 {
 	MapaSala::iterator it_s;
 	time_t diferenca = t - ultima_atualizacao;
 	ultima_atualizacao = t;
-	int UTotal = 0;
-	int mdc = 1;
-	if(normalizar) mdc = normalizar_prioridades();
+	float UTotal = 0;
+//	int mdc = 1;
+//	if(normalizar) mdc = normalizar_prioridades();
 //	//DEBUG*/cout << "Atualizando " << diferenca << " segundos\n"; getchar();
 
 	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
-	  if(mdc>1)cout << "U:" << it_s->second.U << " P:" << it_s->second.P << endl;
-		it_s->second.U += diferenca * (it_s->second.P/mdc);
-    if(mdc>1)cout << "U:" << it_s->second.U << " P:" << it_s->second.P << endl;
+//        cout << "SALAS#ATUALIZAR U:" << it_s->second.U << " P:" << it_s->second.P << endl;
+		it_s->second.U += diferenca * ((float)it_s->second.P/total_P);
+//		it_s->second.U += diferenca * (it_s->second.P/mdc);
+//        cout << "SALAS#ATUALIZAR U:" << it_s->second.U << " P:" << it_s->second.P << endl;
 		UTotal += it_s->second.U;
 	}
 	return UTotal;
@@ -380,6 +383,7 @@ Salas::salvar (string nome )
 															"\tvisitas = "<< it_s->second.visitas << endl;
 
 	}
+	arq.close();
 	return ;
 }		/* -----  end of method Salas::imprimir  ----- */
 
@@ -431,6 +435,7 @@ Salas::incrementar_prioridade (int s)
 {
 
 	sala[s].P++;
+	total_P++;
 //	sala[s].P+=100;
 
 	/* PENSAR NUM MODO DE DIMINUIR AS PRIORIDADES QUANDO NAO FOREM PRIMAS */
@@ -468,6 +473,15 @@ Salas::normalizar_prioridades()
 Salas::usar_prioridades_normalizadas(bool value)
 {
   normalizar = value;
+}
+
+    void
+Salas::apagar_salas()
+{
+	ultima_atualizacao = 0;
+	normalizar = false;
+    sala.clear();
+    total_P = 0;
 }
 
 /*

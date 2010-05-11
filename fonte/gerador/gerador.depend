@@ -6,7 +6,7 @@
 1272927176 /home/heitor/robo2/fonte/gerador/agente.h
 	<vector>
 
-1273265775 source:/home/heitor/robo2/fonte/gerador/gerador.cpp
+1273516478 source:/home/heitor/robo2/fonte/gerador/gerador.cpp
 	<cstdlib>
 	<fstream>
 	"../mapa.h"
@@ -143,12 +143,12 @@
 
 1247630364 /usr/local/include/player-3.0/libplayerc++/clientproxy.h
 
-1272918300 /home/heitor/robo2/fonte/gerador/gerador.h
+1273516464 /home/heitor/robo2/fonte/gerador/gerador.h
 	<list>
 	<string>
 	"agente.h"
 
-1273265503 source:/home/heitor/robo2/fonte/gerador/principal.cpp
+1273516512 source:/home/heitor/robo2/fonte/gerador/principal.cpp
 	<cstring>
 	<cstdlib>
 	<cstdio>

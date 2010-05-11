@@ -48,6 +48,7 @@ gerar ( string arq_mapa)
 	unsigned int debug_salas = 0, debug_candidatos, total_aval = 0, total_descartados = -1;
 
 	v = mapa.carregarMapa(arq_mapa, &sala);
+	cout << "Gerando loops para " << arq_mapa << endl;
 
 	salas = sala.get_salas();/*Pegando um vetor com os vertices de todas as salas */
 
@@ -250,13 +251,13 @@ imprimir_agentes(list<Agente> agentes)
 }		/* -----  end of function imprimir_agentes  ----- */
 
 	void
-salvar_loop(char arquivo[], list<Agente> agentes)
+salvar_loop(string arquivo, list<Agente> agentes)
 {
 	ofstream arq;
 	Caminho caminho;
 	unsigned int i;
 
-	arq.open(arquivo, ifstream::trunc);
+	arq.open(arquivo.c_str(), ifstream::trunc);
 
 	caminho = agentes.front().get_caminho();
 	for(i = 0; i < caminho.size()-1; i++)

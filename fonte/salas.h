@@ -29,7 +29,7 @@
 using namespace std;
 
 #define	VISITAR_SALA 5			/* Tempo para visitar uma sala (s) */
-#define ATUALIZACAO 1
+#define ATUALIZACAO 10
 #define FATOR_ER 1000
 
 
@@ -63,7 +63,7 @@ class Sala
 		/* ====================  DATA MEMBERS  ======================================= */
 		int vertice;
 		unsigned int P;
-		unsigned int U;
+		float U;
 		unsigned int visitas;
 	protected:
 
@@ -100,7 +100,7 @@ class Salas
 		void adicionarSala(int num, int vertice, int P);
 		bool existeSala(int num);
 		bool ehSala(int v);
-		int atualizar(time_t t);
+		float atualizar(time_t t);
 		void visitar(int s);
 
 		void imprimir();
@@ -111,6 +111,7 @@ class Salas
 		void emergencia(int s);
 		int normalizar_prioridades();
 		void usar_prioridades_normalizadas(bool value);
+		void apagar_salas();
 
 		/* ====================  ACCESS        ======================================= */
 		VetorVertices get_salas_vertices();
@@ -134,7 +135,8 @@ class Salas
 	private:
 
 		MapaSala sala;
-    bool normalizar;
+        bool normalizar;
+        int total_P;
 }; /* -----  end of class  Salas  ----- */
 
 
