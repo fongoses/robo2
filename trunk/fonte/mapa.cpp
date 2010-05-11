@@ -255,7 +255,7 @@ Mapa::dijkstra ( int origem, int destino )
 
 //	cout << "Procurando caminho entre " << origem << " e " << destino << endl;
 
-	for (it_m = Q.begin(); it_m != Q.end(); it_m++) 
+	for (it_m = Q.begin(); it_m != Q.end(); it_m++)
 		d[(*it_m).first] = FLT_MAX;
 	d[origem] = 0.0;
 
@@ -304,6 +304,19 @@ Mapa::dijkstra ( int origem, int destino )
 /*
  *--------------------------------------------------------------------------------------
  *       Class:  Mapa
+ *      Method:  apagarMapa
+ * Description:  Apaga o mapa.
+ *--------------------------------------------------------------------------------------
+ */
+    void
+Mapa::apagarMapa()
+{
+    vertice.clear();
+    peso.clear();
+}
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Mapa
  *      Method:  carregarMapa
  * Description:  Carrega o mapa de um arquivo e retorna o ponto e o vertice inicial do robo
  *--------------------------------------------------------------------------------------
@@ -316,6 +329,9 @@ Mapa::carregarMapa ( string mapa, Salas *sala)
 	Vertice v;
 	float x, y;
 	int n, a, b;
+
+	apagarMapa();
+	sala->apagar_salas();
 
 //	cout	<< "Abrindo mapa " << mapa << ".\n";
 //	cout	<< "MAPA carregarMapa acertar o problema de local para abrir arquivo\n";
@@ -372,15 +388,15 @@ Mapa::imprimir ()
 
 	cout	<< "Vertices:\n";
 	for( it_v = vertice.begin(); it_v != vertice.end(); it_v++) {
-		cout << (*it_v).first /* noh */ << " -> " 
+		cout << (*it_v).first /* noh */ << " -> "
 			   << (*it_v).second /* ponto */ << endl;
 	}
 
 	cout	<< "Arestas:\n";
 	for( it_a = peso.begin(); it_a != peso.end(); it_a++) {
 		a = (*it_a).first; /* aresta */
-		cout << a.first /* vA */ << "-" 
-			   << a.second /* vB */ << " => " 
+		cout << a.first /* vA */ << "-"
+			   << a.second /* vB */ << " => "
 				 << (*it_a).second /* peso */ << endl;
 	}
 	return ;

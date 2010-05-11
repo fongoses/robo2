@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="../avaliador/avaliador.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="1273" topLine="78" />
+	<File name="../avaliador/avaliador.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="1273" topLine="18" />
 	</File>
-	<File name="agente.cpp" open="1" top="1" tabpos="5">
+	<File name="agente.cpp" open="0" top="0" tabpos="5">
 		<Cursor position="4696" topLine="133" />
 	</File>
-	<File name="agente.h" open="1" top="0" tabpos="6">
+	<File name="agente.h" open="0" top="0" tabpos="6">
 		<Cursor position="1252" topLine="21" />
 	</File>
-	<File name="gerador.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="3505" topLine="89" />
+	<File name="gerador.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="1237" topLine="25" />
 	</File>
-	<File name="gerador.h" open="1" top="0" tabpos="4">
-		<Cursor position="584" topLine="0" />
+	<File name="gerador.h" open="0" top="0" tabpos="4">
+		<Cursor position="715" topLine="0" />
 	</File>
-	<File name="principal.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="1374" topLine="27" />
+	<File name="principal.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="1643" topLine="43" />
 	</File>
 	<File name="../mapa.cpp" open="0" top="0" tabpos="9">
 		<Cursor position="12509" topLine="410" />
+	</File>
+	<File name="../mapa.h" open="0" top="0" tabpos="0">
+		<Cursor position="2349" topLine="59" />
 	</File>
 	<File name="../ponto.cpp" open="0" top="0" tabpos="10">
 		<Cursor position="0" topLine="9" />
