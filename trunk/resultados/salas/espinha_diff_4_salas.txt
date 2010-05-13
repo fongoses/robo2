@@ -1,6 +1,6 @@
-1 => vertice = 1	P = 252	U = 5.61783	visitas = 623
-2 => vertice = 2	P = 55	U = 8.23654	visitas = 170
-3 => vertice = 3	P = 99	U = 19.5626	visitas = 297
-5 => vertice = 5	P = 94	U = 9.57962	visitas = 262
-6 => vertice = 6	P = 53	U = 14.6489	visitas = 152
-7 => vertice = 7	P = 63	U = 3.41083	visitas = 175
+1 => vertice = 1	P = 247	U = 25.6052	visitas = 653
+2 => vertice = 2	P = 52	U = 18.5032	visitas = 155
+3 => vertice = 3	P = 97	U = 5.19064	visitas = 284
+5 => vertice = 5	P = 103	U = 2.06689	visitas = 275
+6 => vertice = 6	P = 41	U = 13.8988	visitas = 163
+7 => vertice = 7	P = 46	U = 6.31595	visitas = 151

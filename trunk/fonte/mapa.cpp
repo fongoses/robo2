@@ -363,8 +363,6 @@ Mapa::carregarMapa ( string mapa, Salas *sala)
 			arq >> n >> a >> b; /* Lendo as salas */
 		} while ( n != -1 );				/* -----  end do-while  ----- */
 
-		arq.close();
-		return v;
 	} else {
 		cerr	<< "Problema para abrir " << mapa << ".\n";
 	}

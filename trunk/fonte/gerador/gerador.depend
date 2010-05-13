@@ -1,19 +1,19 @@
 # depslib dependency file v1.0
-1273265990 source:/home/heitor/robo2/fonte/gerador/agente.cpp
+1273689943 source:/home/heitor/robo2/fonte/gerador/agente.cpp
 	<iostream>
 	"agente.h"
 
-1272927176 /home/heitor/robo2/fonte/gerador/agente.h
+1273620934 /home/heitor/robo2/fonte/gerador/agente.h
 	<vector>
 
-1273516478 source:/home/heitor/robo2/fonte/gerador/gerador.cpp
+1273698511 source:/home/heitor/robo2/fonte/gerador/gerador.cpp
 	<cstdlib>
 	<fstream>
 	"../mapa.h"
 	"../avaliador/avaliador.h"
 	"gerador.h"
 
-1259009288 /home/heitor/robo2/fonte/mapa.h
+1273517528 /home/heitor/robo2/fonte/mapa.h
 	<cstdio>
 	<iostream>
 	<fstream>
@@ -30,7 +30,7 @@
 1259009288 /home/heitor/robo2/fonte/ponto.h
 	<iostream>
 
-1273261215 /home/heitor/robo2/fonte/salas.h
+1273620887 /home/heitor/robo2/fonte/salas.h
 	<map>
 	<iostream>
 	<fstream>
@@ -39,7 +39,7 @@
 	<climits>
 	<cstdio>
 
-1245171154 /home/heitor/robo2/fonte/avaliador/avaliador.h
+1273620934 /home/heitor/robo2/fonte/avaliador/avaliador.h
 	"../mapa.h"
 	"../robo.h"
 
@@ -143,31 +143,31 @@
 
 1247630364 /usr/local/include/player-3.0/libplayerc++/clientproxy.h
 
-1273516464 /home/heitor/robo2/fonte/gerador/gerador.h
+1273699112 /home/heitor/robo2/fonte/gerador/gerador.h
 	<list>
 	<string>
 	"agente.h"
 
-1273516512 source:/home/heitor/robo2/fonte/gerador/principal.cpp
+1273690576 source:/home/heitor/robo2/fonte/gerador/principal.cpp
 	<cstring>
 	<cstdlib>
 	<cstdio>
 	<iostream>
 	"gerador.h"
 
-1245171154 source:/home/heitor/robo2/fonte/mapa.cpp
+1273518900 source:/home/heitor/robo2/fonte/mapa.cpp
 	"mapa.h"
 
-1273261311 source:/home/heitor/robo2/fonte/salas.cpp
+1273691744 source:/home/heitor/robo2/fonte/salas.cpp
 	"salas.h"
 
-1272928468 source:/home/heitor/robo2/fonte/avaliador/avaliador.cpp
+1273692211 source:/home/heitor/robo2/fonte/avaliador/avaliador.cpp
 	"avaliador.h"
 
 1259009288 source:/home/heitor/robo2/fonte/ponto.cpp
 	<cmath>
 	"ponto.h"
 
-1272928544 source:/home/heitor/robo2/fonte/robo.cpp
+1273690336 source:/home/heitor/robo2/fonte/robo.cpp
 	"robo.h"
 

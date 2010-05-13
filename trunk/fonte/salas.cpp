@@ -245,7 +245,7 @@ Salas::operator != ( Salas &other )
 	void
 Salas::adicionarSala ( int num, int vertice, int P )
 {
-//	//DEBUG*/cout	<< "Adicionando sala " << num << ".\n";
+	/*DEBUG*/cout	<< "Adicionando sala " << num << ".\n";
 	if(!existeSala(num)) {
 		Sala aux;
 		aux.vertice = vertice;
@@ -255,8 +255,9 @@ Salas::adicionarSala ( int num, int vertice, int P )
 		sala[num] = aux;
 		total_P += P;
 	} else {
-//		//DEBUG*/cout	<< "Sala " << num << " ja existe\n";
+		/*DEBUG*/cout	<< "Sala " << num << " ja existe\n";
 	}
+	imprimir();
 	return ;
 }		/* -----  end of method Salas::adicionarSala  ----- */
 
@@ -318,10 +319,10 @@ Salas::atualizar ( time_t t)
 //	//DEBUG*/cout << "Atualizando " << diferenca << " segundos\n"; getchar();
 
 	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
-//        cout << "SALAS#ATUALIZAR U:" << it_s->second.U << " P:" << it_s->second.P << endl;
+        //cout << "SALAS#ATUALIZAR Sala: " << it_s->first << " U:" << it_s->second.U << " D:" << diferenca << " P:" << it_s->second.P << " Pt:" << total_P << endl;
 		it_s->second.U += diferenca * ((float)it_s->second.P/total_P);
 //		it_s->second.U += diferenca * (it_s->second.P/mdc);
-//        cout << "SALAS#ATUALIZAR U:" << it_s->second.U << " P:" << it_s->second.P << endl;
+        //cout << "SALAS#ATUALIZAR Sala: " << it_s->first << " U:" << it_s->second.U << " D:" << diferenca << " P:" << it_s->second.P << " Pt:" << total_P << endl;
 		UTotal += it_s->second.U;
 	}
 	return UTotal;
@@ -541,7 +542,7 @@ Salas::get_salas( )
 
 
 	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
-		aux.push_back(it_s->first);
+		aux.push_back(it_s->second.vertice);
 	}
 	return aux;
 }		/* -----  end of method Salas::get_salas ----- */
@@ -554,9 +555,10 @@ Salas::get_salas( )
  *--------------------------------------------------------------------------------------
  */
 	int
-Salas::get_maiorU ( int *U )
+Salas::get_maiorU ( float *U )
 {
-	unsigned int maiorU = 0, s = -1;
+	unsigned int s = -1;
+	float maiorU = 0;
 	MapaSala::iterator it_s;
 
 	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
@@ -581,7 +583,11 @@ Salas::get_maiorU ( int *U )
 	int
 Salas::get_vertice ( int s )
 {
-	return sala.find(s)->second.vertice;
+    if (existeSala(s))
+        return sala.find(s)->second.vertice;
+
+    cerr << "Sala " << s << " não existe.\n";getchar();
+    exit(EXIT_FAILURE);
 }		/* -----  end of method Salas::get_vertice  ----- */
 
 /*

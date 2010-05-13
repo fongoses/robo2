@@ -34,13 +34,15 @@ main ( int argc, char *argv[])
 	vector<string> mapas_teste;
 
 
-	mapas_teste.push_back("tres");
-	mapas_teste.push_back("quatro");
+	//mapas_teste.push_back("tres");
+	/*mapas_teste.push_back("quatro");
 	mapas_teste.push_back("quatro_diff");
 	mapas_teste.push_back("x");
 	mapas_teste.push_back("x_incompleto");
 	mapas_teste.push_back("espinha");
 	mapas_teste.push_back("espinha_diff");
+	mapas_teste.push_back("ap");*/
+	mapas_teste.push_back("rep");
 //	cout << argv[0] << " " << argv[1] << endl; getchar();
 
 

@@ -25,6 +25,7 @@
 #include	<vector>
 #include	<climits>
 #include	<cstdio>
+#include	<cstdlib>
 
 using namespace std;
 
@@ -116,7 +117,7 @@ class Salas
 		/* ====================  ACCESS        ======================================= */
 		VetorVertices get_salas_vertices();
 		VetorSalas get_salas();
-		int get_maiorU(int *U = NULL);
+		int get_maiorU(float *U = NULL);
 		int get_vertice( int s );
 		int get_P( int s );
 		int get_sala( int v );

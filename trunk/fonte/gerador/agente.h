@@ -56,8 +56,8 @@ typedef vector<int> Caminho;
 			/* ====================  ACCESS        ======================================= */
 			int get_vertice();
 			 void set_vertice( int value );
-			 int get_avaliacao();
-			 void set_avaliacao( int value );
+			 float get_avaliacao();
+			 void set_avaliacao( float value );
 			 Caminho get_caminho();
 			 void set_caminho( Caminho value );
 			 int get_tamanho();
@@ -71,7 +71,7 @@ typedef vector<int> Caminho;
 		protected:
 			int vertice;
 			Caminho caminho;
-			int avaliacao;
+			float avaliacao;
 			int tempo;
 
 

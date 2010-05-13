@@ -1,4 +1,4 @@
-1 => vertice = 1	P = 2	U = 0	visitas = 1802
-2 => vertice = 2	P = 2	U = 10	visitas = 1800
-3 => vertice = 3	P = 1	U = 1.66667	visitas = 1800
-4 => vertice = 4	P = 1	U = 3.33333	visitas = 1800
+1 => vertice = 1	P = 1	U = 0	visitas = 1802
+2 => vertice = 2	P = 1	U = 7.5	visitas = 1800
+3 => vertice = 3	P = 1	U = 2.5	visitas = 1800
+4 => vertice = 4	P = 1	U = 5	visitas = 1800

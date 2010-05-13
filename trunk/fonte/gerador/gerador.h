@@ -20,9 +20,9 @@
 
 #include	"agente.h"
 
-#define CAND_MAX 10000
-#define CAND_MIN 1000
-#define CAND_POR_ARQ 5000
+#define CAND_MAX 1000000
+#define CAND_MIN 10000
+#define CAND_POR_ARQ 1000000
 
 using namespace std;
 
