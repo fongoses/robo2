@@ -3,7 +3,7 @@
  *
  *       Filename:  avaliador.h
  *
- *    Description:  
+ *    Description:
  *
  *        Version:  1.0
  *        Created:  05/25/2009 03:23:04 PM
@@ -19,5 +19,5 @@
 #include	"../mapa.h"
 #include	"../robo.h"
 
-	int
-avaliar (	string arq_mapa, vector<int> caminho, int limite = INT_MAX);
+	float
+avaliar (	string arq_mapa, vector<int> caminho, float limite = INT_MAX);

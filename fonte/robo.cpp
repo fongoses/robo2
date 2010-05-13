@@ -274,7 +274,7 @@ Robo::visitar_sala ( )
 		sala->visitar(sala->get_sala(vertice));
 		return tempo;
 	}	else
-			cerr << "ROBO#visitar_sala: vertice " << vertice << " não é uma sala!\n";
+			cerr << "ROBO#visitar_sala: vertice " << vertice << " não é uma sala!\n";getchar();
 	return 0;
 }		/* -----  end of method Robo::visitar_sala  ----- */
 

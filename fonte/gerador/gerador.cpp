@@ -43,7 +43,7 @@ gerar ( string arq_mapa)
     ifstream arq_i;
     Agente a_aux;
     Caminho cam;
-    int arq_sala, arq_cam;
+    float arq_sala, arq_cam;
 
 	unsigned int debug_salas = 0, debug_candidatos, total_aval = 0, total_descartados = -1;
 
@@ -90,6 +90,7 @@ gerar ( string arq_mapa)
 //			getchar();
 		}
 
+		if(-agente_atual.get_avaliacao() <= melhores.front().get_avaliacao())
 		for(i = 0; i < salas.size(); i++) /*Criando candidatos a partir do agente atual */
 		{
 			if(salas[i] != agente_atual.get_vertice())
@@ -103,13 +104,15 @@ gerar ( string arq_mapa)
 			//cout<<"GERADOR\n";novo_agente.imprimir();//getchar();
 
 				{
-				if	((novo_agente.get_avaliacao() < 0) && (-novo_agente.get_avaliacao() <= melhores.front().get_avaliacao()))
+				if	((novo_agente.get_avaliacao() < 0))// && (-novo_agente.get_avaliacao() <= melhores.front().get_avaliacao()))
 				{
 					candidatos.push_back(novo_agente);			/* Adiciona o agente na lista de candidatos */
 //					candidatos.push_front(novo_agente);			/* Adiciona o agente na lista de candidatos */
+                    //cout << "GERADOR::gerar Adicionado! (" << -novo_agente.get_avaliacao() << ")\n";
 				} else if (novo_agente == melhores.front())
 				{
 					melhores.push_back(novo_agente);
+                    //cout << "GERADOR::gerar Melhor Igual! (" << -novo_agente.get_avaliacao() << ")\n";
 				} else if ((novo_agente.get_avaliacao() > 0 ) && (novo_agente < melhores.front()))
 				{
 //					melhor = novo_agente;		/* E atualiza a avaliacao atual */
@@ -122,12 +125,15 @@ gerar ( string arq_mapa)
                     total_descartados+= melhores.size();
 					melhores.clear();
 					melhores.push_back(novo_agente);
+                    //cout << "GERADOR::gerar Mais Melhor! (" << -novo_agente.get_avaliacao() << ")\n";
 				} else
 				{
 				    total_descartados++;
 //					novo_agente.imprimir();
+                    //cout << "GERADOR::gerar Descartado! (" << -novo_agente.get_avaliacao() << ")\n";
 				}
 				}
+				//getchar();
 			}
 		}
 
@@ -171,6 +177,8 @@ gerar ( string arq_mapa)
 
                 arq_i >> arq_cam;
                 do {
+                    if(arq_cam<0)
+                    cout << "!!\n";
                     novo_agente.adicionarVertice(arq_cam);
                     arq_sala = arq_cam;
                     arq_i >> arq_cam;
@@ -207,7 +215,7 @@ gerar ( string arq_mapa)
 		}
 
 		time(&tempo);
-		if((tempo - tempo_ant >= 10) ||0)
+		if((tempo - tempo_ant >= 100) ||0)
 		{
 			cout << "Candidatos: " << arquivos.size() * CAND_POR_ARQ + candidatos.size() << " Avaliados: " << total_aval  << " Descartados: " << total_descartados << "(" << total_aval - total_descartados - candidatos.size() - arquivos.size() * CAND_POR_ARQ - melhores.size()<< ")" << endl;
 			imprimir_agentes(candidatos);

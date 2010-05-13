@@ -55,13 +55,13 @@ main ( int argc, char *argv[] )
 	string s_alg, s_aux;
 
 
-	mapas_teste.push_back("tres");
-	mapas_teste.push_back("quatro");
+	/*mapas_teste.push_back("quatro");
 	mapas_teste.push_back("quatro_diff");
 	mapas_teste.push_back("x");
 	mapas_teste.push_back("x_incompleto");
 	mapas_teste.push_back("espinha");
-	mapas_teste.push_back("espinha_diff");
+	mapas_teste.push_back("espinha_diff");*/
+	mapas_teste.push_back("ap");
 	arq_gnu.open("/home/heitor/robo2/resultados/graficos/gnu_cong.plt", ifstream::trunc);
     arq_gnu << "set term png size 1024,768\n";
 
@@ -112,10 +112,10 @@ main ( int argc, char *argv[] )
             for(i = 0; i < v_salas.size(); i++)
             {
                 chances[v_salas[i]] = chances[v_salas[i]] / total_P;
-                //cout << "sala: " << v_salas[i] << " %: " << chances[v_salas[i]] << endl;
+                cout << "sala: " << v_salas[i] << " %: " << chances[v_salas[i]] << endl;
             }
 
-
+            cout << "Iniciando simulacao mapa: " << mapas_teste[m] << " algoritmo: " << algoritmo << endl;
             switch(algoritmo) {
                 /*-----------------------------------------------------------------------------
                  * Algoritmo 1: Estrategia greedy, vai para a sala com maior grau de urgencia
@@ -228,7 +228,7 @@ main ( int argc, char *argv[] )
         /* MODO BLOQUEANTE */
         //				tempo += robo1->irPara(sala.get_vertice(visitar_sala));
         /* MODO NAO BLOQUEANTE */
-                        robo1->irPara(sala.get_vertice(visitar_sala));
+                        robo1->irPara(visitar_sala);
                         while(!robo1->chegou())
                         {
                             tempo += robo1->get_tempo_viagem();
@@ -286,7 +286,7 @@ main ( int argc, char *argv[] )
                             arq << anterior - inicio << "\t" << U << endl;
                         }
                         sala.atualizar(tempo);
-                        sala.visitar(visitar_sala);
+                        //sala.visitar(visitar_sala);
         //				tempo += VISITAR_SALA;
                         cout << "Visitando sala: " << visitar_sala << endl;
                         tempo += robo1->visitar_sala();
@@ -303,24 +303,24 @@ main ( int argc, char *argv[] )
                 case 4: {
                     time_t tempo_ER;
                     bool sair = false;
-                    Salas total_P_incrementado;
+//                    Salas total_P_incrementado;
 
 
 
         //			getchar();
                     sala.zerar_prioridades();
                     sala.usar_prioridades_normalizadas(true);
-                    total_P_incrementado.set_salas(sala.get_salas_completo());
+//                    total_P_incrementado.set_salas(sala.get_salas_completo());
                     tempo_ER = tempo;
                     while(!sair)
                                 for(i = 0; i < v_salas.size(); i++)
                                 {
                                     aux = (float)(rand() % 10000)/10000;
-        //							cout << "sala " << v_salas[i] << " " << chances[v_salas[i]] << "% " << aux << "%\n";
+        							cout << "sala " << v_salas[i] << " " << chances[v_salas[i]] << "% " << aux << "%\n";
                                     if(chances[v_salas[i]] >= aux)//rand() % 100)
                                     {
-                                        sala.incrementar_prioridade(v_salas[i]);
-                                        total_P_incrementado.incrementar_prioridade(v_salas[i]);
+                                        sala.incrementar_prioridade(sala.get_sala(v_salas[i]));
+                                        //total_P_incrementado.incrementar_prioridade(v_salas[i]);
                                         sair = true;
                                         break;
 
@@ -343,8 +343,8 @@ main ( int argc, char *argv[] )
         //							cout << "sala " << v_salas[i] << " " << chances[v_salas[i]] << "% " << aux << "%\n";
                                     if(chances[v_salas[i]] >= aux)//rand() % 100)
                                     {
-                                        sala.incrementar_prioridade(v_salas[i]);
-                                        total_P_incrementado.incrementar_prioridade(v_salas[i]);
+                                        sala.incrementar_prioridade(sala.get_sala(v_salas[i]));
+                                        //total_P_incrementado.incrementar_prioridade(v_salas[i]);
 
         //								cout << "!!\n";
                                     }
@@ -355,7 +355,7 @@ main ( int argc, char *argv[] )
                             sala.atualizar(tempo);
                             visitar_sala = sala.get_maiorU();
         //					cout << "Tempo total: " << tempo - tempo_ER << endl;
-        //					sala.imprimir();//getchar();
+        					//sala.imprimir();//getchar();
 
                         }while (visitar_sala == -1);
 

@@ -153,6 +153,8 @@ Agente::operator< (Agente &ag)
         for(unsigned int i = 0; i < caminho.size(); i++)
             if(caminho[i] < ag.caminho[i]) return true;
             else if(caminho[i] > ag.caminho[i]) return false;
+
+    return false;
 }		/* -----  end of method Agente::operator<  ----- */
 
 /*
@@ -233,7 +235,7 @@ Agente::set_vertice ( int value )
  *      Method:  get_avaliacao
  *--------------------------------------------------------------------------------------
  */
-	 int
+	 float
 Agente::get_avaliacao (  )
 {
 	return avaliacao;
@@ -246,7 +248,7 @@ Agente::get_avaliacao (  )
  *--------------------------------------------------------------------------------------
  */
 	 void
-Agente::set_avaliacao ( int value )
+Agente::set_avaliacao ( float value )
 {
 	avaliacao	= value;
 	return ;
