@@ -245,7 +245,7 @@ Salas::operator != ( Salas &other )
 	void
 Salas::adicionarSala ( int num, int vertice, int P )
 {
-	/*DEBUG*/cout	<< "Adicionando sala " << num << ".\n";
+	//DEBUG*/cout	<< "Adicionando sala " << num << ".\n";
 	if(!existeSala(num)) {
 		Sala aux;
 		aux.vertice = vertice;
@@ -255,9 +255,9 @@ Salas::adicionarSala ( int num, int vertice, int P )
 		sala[num] = aux;
 		total_P += P;
 	} else {
-		/*DEBUG*/cout	<< "Sala " << num << " ja existe\n";
+		//DEBUG*/cout	<< "Sala " << num << " ja existe\n";
 	}
-	imprimir();
+	//imprimir();
 	return ;
 }		/* -----  end of method Salas::adicionarSala  ----- */
 
@@ -371,6 +371,7 @@ Salas::salvar (string nome )
 {
 	ofstream arq;
 	MapaSala::iterator it_s;
+	int total_visitas = 0;
 
 	arq.open(nome.c_str(), ifstream::trunc);
 	if(!arq.is_open()) {
@@ -378,10 +379,17 @@ Salas::salvar (string nome )
 	}
 
 	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
+        total_visitas += it_s->second.visitas;
+	}
+
+	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
 		arq << it_s->first << " => vertice = " << it_s->second.vertice <<
-															"\tP = " << it_s->second.P <<
-															"\tU = " << it_s->second.U <<
-															"\tvisitas = "<< it_s->second.visitas << endl;
+                                      "\tP = " << it_s->second.P <<
+                                      "\tU = " << it_s->second.U <<
+                                "\tvisitas = " << it_s->second.visitas <<
+                                "\tP/Pt = " << (float)it_s->second.P / total_P <<
+                                "\tv/vt = " << (float)it_s->second.visitas / total_visitas <<
+                                endl;
 
 	}
 	arq.close();

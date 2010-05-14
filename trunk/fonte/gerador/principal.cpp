@@ -20,6 +20,7 @@
 #include	<cstdlib>
 #include    <cstdio>
 #include	<iostream>
+#include    <fstream>
 
 #include	"gerador.h"
 
@@ -32,17 +33,20 @@ main ( int argc, char *argv[])
 	list<Agente>::iterator it;
 	Agente melhor;
 	vector<string> mapas_teste;
+    float inicio, total;
+	ofstream arq;
 
+	mapas_teste.push_back("x2");
 
-	//mapas_teste.push_back("tres");
-	/*mapas_teste.push_back("quatro");
+/*	mapas_teste.push_back("quatro");
 	mapas_teste.push_back("quatro_diff");
 	mapas_teste.push_back("x");
+	mapas_teste.push_back("x2");
 	mapas_teste.push_back("x_incompleto");
+	mapas_teste.push_back("x_incompleto2");
 	mapas_teste.push_back("espinha");
 	mapas_teste.push_back("espinha_diff");
 	mapas_teste.push_back("ap");*/
-	mapas_teste.push_back("rep");
 //	cout << argv[0] << " " << argv[1] << endl; getchar();
 
 
@@ -67,22 +71,28 @@ main ( int argc, char *argv[])
 	}
 
 
+	arq.open("/home/heitor/robo2/resultados/gerador.log", ifstream::trunc);
+
     for(unsigned int m = 0; m < mapas_teste.size(); m++)
     {
 //        melhores = gerar(arq_mapa);
+        inicio = clock();
         melhores = gerar("/home/heitor/robo2/mapas/" + mapas_teste[m] + ".txt");
+        total = (clock() - inicio)/1000000;
+        arq << mapas_teste[m] << " em " << total << " segundos." << endl;
         cout << "Melhor(es) caminho(s)\n";
 //        imprimir_agentes(melhores);
         melhores.sort();
         imprimir_agentes(melhores);
         salvar_loop("/home/heitor/robo2/loops/" + mapas_teste[m] + "_loop.txt", melhores);
         cout << "Avaliação: " << melhores.begin()->get_avaliacao() << endl;
+        cout << "Gerou em " << total << " segundos.\n";
     }
 //	for(it = melhores.begin(); it != melhores.end(); it++)
 //		it->imprimir();
 
 
-
+    arq.close();
 
 	return EXIT_SUCCESS;
 }				/* ----------  end of function main  ---------- */

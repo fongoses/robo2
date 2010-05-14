@@ -244,6 +244,7 @@ Robo::chegou ( Ponto p )
 			return true;
 		}
 	}
+	return false;
 }		/* -----  end of method Robo::chegou  ----- */
 
 /*

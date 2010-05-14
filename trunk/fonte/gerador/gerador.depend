@@ -6,7 +6,7 @@
 1273620934 /home/heitor/robo2/fonte/gerador/agente.h
 	<vector>
 
-1273698511 source:/home/heitor/robo2/fonte/gerador/gerador.cpp
+1273845613 source:/home/heitor/robo2/fonte/gerador/gerador.cpp
 	<cstdlib>
 	<fstream>
 	"../mapa.h"
@@ -30,7 +30,7 @@
 1259009288 /home/heitor/robo2/fonte/ponto.h
 	<iostream>
 
-1273620887 /home/heitor/robo2/fonte/salas.h
+1273790890 /home/heitor/robo2/fonte/salas.h
 	<map>
 	<iostream>
 	<fstream>
@@ -38,6 +38,7 @@
 	<vector>
 	<climits>
 	<cstdio>
+	<cstdlib>
 
 1273620934 /home/heitor/robo2/fonte/avaliador/avaliador.h
 	"../mapa.h"
@@ -143,31 +144,32 @@
 
 1247630364 /usr/local/include/player-3.0/libplayerc++/clientproxy.h
 
-1273699112 /home/heitor/robo2/fonte/gerador/gerador.h
+1273755151 /home/heitor/robo2/fonte/gerador/gerador.h
 	<list>
 	<string>
 	"agente.h"
 
-1273690576 source:/home/heitor/robo2/fonte/gerador/principal.cpp
+1273843083 source:/home/heitor/robo2/fonte/gerador/principal.cpp
 	<cstring>
 	<cstdlib>
 	<cstdio>
 	<iostream>
+	<fstream>
 	"gerador.h"
 
-1273518900 source:/home/heitor/robo2/fonte/mapa.cpp
+1273790715 source:/home/heitor/robo2/fonte/mapa.cpp
 	"mapa.h"
 
-1273691744 source:/home/heitor/robo2/fonte/salas.cpp
+1273794582 source:/home/heitor/robo2/fonte/salas.cpp
 	"salas.h"
 
-1273692211 source:/home/heitor/robo2/fonte/avaliador/avaliador.cpp
+1273845297 source:/home/heitor/robo2/fonte/avaliador/avaliador.cpp
 	"avaliador.h"
 
 1259009288 source:/home/heitor/robo2/fonte/ponto.cpp
 	<cmath>
 	"ponto.h"
 
-1273690336 source:/home/heitor/robo2/fonte/robo.cpp
+1273805596 source:/home/heitor/robo2/fonte/robo.cpp
 	"robo.h"
 

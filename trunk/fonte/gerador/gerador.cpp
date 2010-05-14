@@ -45,7 +45,7 @@ gerar ( string arq_mapa)
     Caminho cam;
     float arq_sala, arq_cam;
 
-	unsigned int debug_salas = 0, debug_candidatos, total_aval = 0, total_descartados = -1;
+	unsigned int /*debug_salas = 0, */debug_candidatos, total_aval = 0, total_descartados = -1;
 
 	v = mapa.carregarMapa(arq_mapa, &sala);
 	cout << "Gerando loops para " << arq_mapa << endl;
@@ -59,10 +59,10 @@ gerar ( string arq_mapa)
 	{
 		agente_atual.novo();
 		agente_atual.set_vertice(salas[i]);
-		candidatos.push_back(agente_atual);
 		if(i == 0) {
 		    novo_agente.novo();
 			novo_agente.set_vertice(salas[i]);
+            candidatos.push_back(agente_atual);
 		}
 		else
 			novo_agente.adicionarVertice(salas[i]);
@@ -98,7 +98,10 @@ gerar ( string arq_mapa)
 				novo_agente = agente_atual;
 				novo_agente.set_vertice(salas[i]);
 				novo_agente.adicionarVertice(salas[i]);
-				novo_agente.set_avaliacao(avaliar(arq_mapa, novo_agente.get_caminho(), melhores.front().get_avaliacao()));
+				if(novo_agente.get_caminho().size() > salas.size())
+                    novo_agente.set_avaliacao(avaliar(arq_mapa, novo_agente.get_caminho(), melhores.front().get_avaliacao()));
+                else
+                    novo_agente.set_avaliacao(-1);
 				total_aval++;
 
 			//cout<<"GERADOR\n";novo_agente.imprimir();//getchar();
@@ -210,12 +213,12 @@ gerar ( string arq_mapa)
 //			}
 //			if(/*(candidatos.front().get_tamanho() >= 9)) || */(debug_salas != candidatos.front().get_tamanho()))
 //			{
-                getchar();
+                //getchar();
 			}
 		}
 
 		time(&tempo);
-		if((tempo - tempo_ant >= 100) ||0)
+		if((tempo - tempo_ant >= 1) ||0)
 		{
 			cout << "Candidatos: " << arquivos.size() * CAND_POR_ARQ + candidatos.size() << " Avaliados: " << total_aval  << " Descartados: " << total_descartados << "(" << total_aval - total_descartados - candidatos.size() - arquivos.size() * CAND_POR_ARQ - melhores.size()<< ")" << endl;
 			imprimir_agentes(candidatos);
@@ -225,8 +228,7 @@ gerar ( string arq_mapa)
 			cout << "Avaliação: " << melhores.front().get_avaliacao() << endl;
 			cout << "Tempo: " << tempo - inicio << endl;
 			tempo_ant = tempo;
-            //if(candidatos.front().get_tamanho()>=5)getchar();
-			//getchar();
+            //if(candidatos.front().get_tamanho()>=9)getchar();
 		}
 	}
 	return melhores;
