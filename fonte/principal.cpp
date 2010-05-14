@@ -55,12 +55,14 @@ main ( int argc, char *argv[] )
 	string s_alg, s_aux;
 
 
-	/*mapas_teste.push_back("quatro");
+	mapas_teste.push_back("quatro");
 	mapas_teste.push_back("quatro_diff");
 	mapas_teste.push_back("x");
+	mapas_teste.push_back("x2");
 	mapas_teste.push_back("x_incompleto");
+	mapas_teste.push_back("x_incompleto2");
 	mapas_teste.push_back("espinha");
-	mapas_teste.push_back("espinha_diff");*/
+	mapas_teste.push_back("espinha_diff");
 	mapas_teste.push_back("ap");
 	arq_gnu.open("/home/heitor/robo2/resultados/graficos/gnu_cong.plt", ifstream::trunc);
     arq_gnu << "set term png size 1024,768\n";
