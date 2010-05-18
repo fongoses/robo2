@@ -58,7 +58,7 @@ main ( int argc, char *argv[] )
 	mapas_teste.push_back("quatro");
 	mapas_teste.push_back("quatro_diff");
 	mapas_teste.push_back("x");
-	mapas_teste.push_back("x2");
+	//mapas_teste.push_back("x2");
 	mapas_teste.push_back("x_incompleto");
 	mapas_teste.push_back("x_incompleto2");
 	mapas_teste.push_back("espinha");

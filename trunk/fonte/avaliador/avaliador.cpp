@@ -107,7 +107,7 @@ avaliar (	string arq_mapa, vector<int> caminho, float limite)
 			//cout << "AVAL# TEMPO DE VISITA DA SALA!!!!!\n";
 
 
-			salas.imprimir();cout << "AVALIADOR::avaliar aval=" << aval << "\tLimite=" << limite<<endl;//getchar();
+			//salas.imprimir();cout << "AVALIADOR::avaliar aval=" << aval << "\tLimite=" << limite<<endl;//getchar();
 
 
 			salas_atual.set_salas(salas.get_salas_completo());

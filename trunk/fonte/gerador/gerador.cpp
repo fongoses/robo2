@@ -218,7 +218,7 @@ gerar ( string arq_mapa)
 		}
 
 		time(&tempo);
-		if((tempo - tempo_ant >= 1) ||0)
+		if((tempo - tempo_ant >= 100) ||0)
 		{
 			cout << "Candidatos: " << arquivos.size() * CAND_POR_ARQ + candidatos.size() << " Avaliados: " << total_aval  << " Descartados: " << total_descartados << "(" << total_aval - total_descartados - candidatos.size() - arquivos.size() * CAND_POR_ARQ - melhores.size()<< ")" << endl;
 			imprimir_agentes(candidatos);
