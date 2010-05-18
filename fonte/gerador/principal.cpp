@@ -36,17 +36,15 @@ main ( int argc, char *argv[])
     float inicio, total;
 	ofstream arq;
 
-	mapas_teste.push_back("x2");
-
-/*	mapas_teste.push_back("quatro");
+	mapas_teste.push_back("quatro");
 	mapas_teste.push_back("quatro_diff");
 	mapas_teste.push_back("x");
-	mapas_teste.push_back("x2");
+	//mapas_teste.push_back("x2");
 	mapas_teste.push_back("x_incompleto");
 	mapas_teste.push_back("x_incompleto2");
 	mapas_teste.push_back("espinha");
 	mapas_teste.push_back("espinha_diff");
-	mapas_teste.push_back("ap");*/
+	mapas_teste.push_back("ap");
 //	cout << argv[0] << " " << argv[1] << endl; getchar();
 
 
