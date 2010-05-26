@@ -240,8 +240,6 @@ A seguir, uma explicação mais detalhada de como o \texttt{gerador} cria as possí
 	\label{fig:gerador1}
 \end{figure}
 
-\newpage
-
 O \texttt{gerador} então cria um \textit{agente} em cada sala como mostra a Figura \ref{fig:gerador2}.
 
 \begin{figure}[h]
@@ -328,56 +326,44 @@ Suas chances de gerar uma emergência ficaram da seguinte forma:
 
 \section{Resultados}
 \label{resultados}
+
 Para os testes foram criados sete mapas, como mostra a Figura \ref{fig:mapas_testes}:
 \begin{itemize}
-	\item Três: Com três salas interligadas entre si (Figura \ref{fig:mapa_tres});
 	\item Quatro: Com quatro salas de prioridades iguais e ligação entre todas as salas (Figura \ref{fig:mapa_quatro});
 	\item Quatro Diff: Com quatro salas com prioridades diferentes e ligação entre todas as salas (Figura \ref{fig:mapa_quatro});
 	\item X: Com cinco salas em que formam um X com ligações entre as salas das pontas (Figura \ref{fig:mapa_x});
-	\item X Incompleto: Com cinco salas em formato de X com somente a sala do meio ligando as outras (Figura \ref{fig:mapa_x_incompletro});
+	\item X Incompleto: Com cinco salas em formato de X com somente a sala do meio ligando as outras (Figura \ref{fig:mapa_x_incompleto});
 	\item Espinha: Com seis salas em formato de espinha de peixe com prioridades iguais (Figura \ref{fig:mapa_espinha});
-	\item Espinha Diff: Com seis salas em formato de espinha de peixa com prioridades diferentes (Figura \ref{fig:mapa_espinha}).
+	\item Espinha Diff: Com seis salas em formato de espinha de peixa com prioridades diferentes (Figura \ref{fig:mapa_espinha}) e
+	\item Apartamento: Com oito salas simulando um apartamento real(Figura \ref{fig:mapa_ap}).
 \end{itemize}
 
 \begin{figure}[ht]
   \centering
-	\subfigure[Três]{
-    \includegraphics[width=0.217\textwidth]{../../imagens/mapa_tres.png}
-		\label{fig:mapa_tres}}	
 	\subfigure[Quatro]{
-    \includegraphics[width=0.217\textwidth]{../../imagens/mapa_quatro.png}
+    \includegraphics[width=0.177\textwidth]{../../imagens/mapa_quatro.png}
 		\label{fig:mapa_quatro}}	
 	\subfigure[X]{
-    \includegraphics[width=0.287\textwidth]{../../imagens/mapa_x.png}
+    \includegraphics[width=0.234\textwidth]{../../imagens/mapa_x.png}
 		\label{fig:mapa_x}}	
 	\subfigure[X incompleto]{
-    \includegraphics[width=0.287\textwidth]{../../imagens/mapa_x_incompleto.png}
+    \includegraphics[width=0.234\textwidth]{../../imagens/mapa_x_incompleto.png}
 		\label{fig:mapa_x_incompleto}}	
 	\subfigure[Espinha]{
-    \includegraphics[width=0.311\textwidth]{../../imagens/mapa_espinha.png}
+    \includegraphics[width=0.253\textwidth]{../../imagens/mapa_espinha.png}
 		\label{fig:mapa_espinha}}	
-	\label{fig:mapas_testes}
+	\subfigure[Apartamento]{
+    \includegraphics[width=1\textwidth]{../../imagens/mapa_ap.png}
+		\label{fig:mapa_ap}}	
 	\caption{Mapas para testes.}
+	\label{fig:mapas_testes}
 \end{figure}
+
 
 A Tabela \ref{tab:prioridades_testes} mostra as prioridades utilizadas nos testes.
 \begin{table}
 \caption{Prioridades das salas nos mapas.}
 \centering
-\subtable[Três]{
-      \begin{tabular}
-      {|c|c|}
-			\hline
-			Sala & Prioridade \\
-			\hline
-			1& 2 \\
-			2& 2 \\
-			3& 1 \\
-			\hline
-      \end{tabular}
-      \label{tab:P_tres}
-}
-\qquad\qquad
 \subtable[Quatro]{
       \begin{tabular}
       {|c|c|}
@@ -399,10 +385,10 @@ A Tabela \ref{tab:prioridades_testes} mostra as prioridades utilizadas nos teste
 			\hline
 			Sala & Prioridade \\
 			\hline
-			1& 5 \\
-			2& 5 \\
-			3& 1 \\
-			4& 1 \\
+			1& 1 \\
+			2& 1 \\
+			3& 5 \\
+			4& 5 \\
 			\hline
       \end{tabular}
        \label{tab:P_quatro_diff}
@@ -414,11 +400,11 @@ A Tabela \ref{tab:prioridades_testes} mostra as prioridades utilizadas nos teste
 			\hline
 			Sala & Prioridade \\
 			\hline
-			1& 5 \\
-			2& 1 \\
-			3& 1 \\
-			4& 1 \\
-			5& 1 \\
+			1& 1 \\
+			2& 5 \\
+			3& 5 \\
+			4& 5 \\
+			5& 5 \\
 			\hline
       \end{tabular}
       \label{tab:P_x}
@@ -457,10 +443,29 @@ A Tabela \ref{tab:prioridades_testes} mostra as prioridades utilizadas nos teste
       \end{tabular}
       \label{tab:P_espinha_diff}
 }
+\qquad\qquad
+\subtable[Apartamento]{
+      \begin{tabular}
+      {|c|c|}
+			\hline
+			Sala & Prioridade \\
+			\hline
+			1& 5 \\
+			2& 5 \\
+			3& 3 \\
+			4& 3 \\
+			5& 5 \\
+			6& 4 \\
+			7& 4 \\
+			8& 4 \\
+			\hline
+      \end{tabular}
+      \label{tab:P_ap}
+}
 \label{tab:prioridades_testes}
 \end{table}
 
-O \texttt{gerador} gerou as seqüências de salar para serem visitadas descritas da Tabela \ref{tab:sequencias}.
+O \texttt{gerador} gerou as seqüências de salas para serem visitadas descritas da Tabela \ref{tab:sequencias}.
 
 \begin{table}\begin{center}
 \caption{Seqüências de salas a ser visitadas geradas pelo \texttt{gerador}}
@@ -469,13 +474,13 @@ O \texttt{gerador} gerou as seqüências de salar para serem visitadas descritas d
 		\hline
 		Mapa & Seqüência \\
 		\hline
-		Três&  \\
-		Quatro& \\
-		Quatro& \\
-		X & \\
-		X & \\
-		Espinha & \\
-		Espinha & \\
+		Quatro& 1 2 4 3\\
+		Quatro Diff& 1 3 4 2 4 3\\
+		X & 1 2 4 5 3 2 4 5 3\\
+		X Incompleto& 1 2 3 4 5\\
+		Espinha & 1 5 2 6 3 7\\
+		Espinha Diff& 1 2 6 5 1 7 3 5\\
+		Apartamento& 1 12 9 11 5 7 3 4\\
 		\hline
 	\end{tabular}
 \end{center}
@@ -484,28 +489,28 @@ O \texttt{gerador} gerou as seqüências de salar para serem visitadas descritas d
 
 \begin{figure}[ht]
   \centering
-	\subfigure[Três]{
-    \includegraphics[width=0.2\textwidth]{../../imagens/grafico_tres.png}
-		\label{fig:grafico_}}	
 	\subfigure[Quatro]{
-    \includegraphics[width=0.2\textwidth]{../../imagens/grafico_quatro.png}
-		\label{fig:grafico_}}	
+    \includegraphics[width=0.35\textwidth]{../../../resultados/graficos/quatro.png}
+		\label{fig:grafico_quatro}}	
 	\subfigure[Quatro Diff]{
-    \includegraphics[width=0.2\textwidth]{../../imagens/grafico_quatro_diff.png}
-		\label{fig:grafico_}}	
+    \includegraphics[width=0.35\textwidth]{../../../resultados/graficos/quatro_diff.png}
+		\label{fig:grafico_quatro_diff}}	
 	\subfigure[X]{
-    \includegraphics[width=0.2\textwidth]{../../imagens/grafico_x.png}
-		\label{fig:grafico_}}	
+    \includegraphics[width=0.35\textwidth]{../../../resultados/graficos/x.png}
+		\label{fig:grafico_x}}	
 	\subfigure[X Incompleto]{
-    \includegraphics[width=0.2\textwidth]{../../imagens/grafico_x_incompleto.png}
-		\label{fig:grafico_}}	
+    \includegraphics[width=0.35\textwidth]{../../../resultados/graficos/x_incompleto.png}
+		\label{fig:grafico_x_incompleto}}	
 	\subfigure[Espinha]{
-    \includegraphics[width=0.2\textwidth]{../../imagens/grafico_espinha.png}
-		\label{fig:grafico_}}	
+    \includegraphics[width=0.35\textwidth]{../../../resultados/graficos/espinha.png}
+		\label{fig:grafico_espinha}}	
 	\subfigure[Espinha Diff]{
-    \includegraphics[width=0.2\textwidth]{../../imagens/grafico_espinha_diff.png}
-		\label{fig:grafico_}}	
-	\label{fig:graficos}}	
+    \includegraphics[width=0.35\textwidth]{../../../resultados/graficos/espinha_diff.png}
+		\label{fig:grafico_espinha_diff}}	
+	\subfigure[Apartamento]{
+    \includegraphics[width=0.35\textwidth]{../../../resultados/graficos/ap.png}
+		\label{fig:grafico_ap}}	
+	\label{fig:graficos}	
 	\caption{Gráficos dos restultados.}
 \end{figure}
 
