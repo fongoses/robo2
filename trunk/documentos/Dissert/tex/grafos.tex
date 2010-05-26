@@ -9,7 +9,7 @@
 %==========================================================
 \chapter{Grafos e Aplicações}
 \label{grafos_aplicacoes}
-Grafos e mapas topológicos, são muito utilizados na literatura para navegação de robôs móveis, como podemos ver em \cite{Adorno2005,Scatena2004,Thrun1996,Thrun1998,Thrun1998a,Neto2003}. Como o problema proposto (seção \ref{proposta}) diz respeito à busca de trajetória em um mapa topológico (grafo) uma das soluções se torna uma variação do problema do caixeiro viajante que trata, basicamente de encontrar o menor ciclo hamiltoniano em um grafo.
+Grafos e mapas topológicos, são muito utilizados na literatura para navegação de robôs móveis, como podemos ver em \cite{Adorno2005,Scatena2004,Thrun1996,Thrun1998,Thrun1998a,Neto2003}. Como o problema proposto (seção \ref{resultados}) diz respeito à busca de trajetória em um mapa topológico (grafo) uma das soluções se torna uma variação do problema do caixeiro viajante que trata, basicamente de encontrar o menor ciclo hamiltoniano em um grafo.
 
 As seções seguintes contém uma explicação sobre grafos, mapas topológicos e o problema do caixeiro viajante.
 
@@ -149,7 +149,8 @@ que garante que, para cada conjunto $S$, existem no mínimo duas arestas que entr
 %	$x_{12} + x_{23} + x_{34} + x_{14} \leq 3$
 %\end{center}
 
-Como o número de subconjuntos distintos de um conjunto de cardinalidade $k$ é $2^k$, as restrições \ref{eq:cv-el_sub-rotas1} e \ref{eq:cv-el_sub-rotas2} têm cardinalidade da ordem de $2^k$, $k \geq 6$, ou seja, o crescimento é exponencial em função do número de cidades. Para $k \leq 5$, somente a restrição \ref{eq:cv-restr1} elimina sub-rotas \cite{Arenales2007}.
+Como o número de subconjuntos distintos de um conjunto de cardinalidade $k$ é $2^k$, a restrição \ref{eq:cv-el_sub-rotas1} %e \ref{eq:cv-el_sub-rotas2}
+têm cardinalidade da ordem de $2^k$, $k \geq 6$, ou seja, o crescimento é exponencial em função do número de cidades. Para $k \leq 5$, a restrição \ref{eq:cv-restr1} elimina sub-rotas \cite{Arenales2007}.
 
 \section{Considerações}
 \label{consideracoes_grafo}
