@@ -41,7 +41,7 @@ main ( int argc, char *argv[])
 	mapas_teste.push_back("x");
 	//mapas_teste.push_back("x2");
 	mapas_teste.push_back("x_incompleto");
-	mapas_teste.push_back("x_incompleto2");
+	//mapas_teste.push_back("x_incompleto2");
 	mapas_teste.push_back("espinha");
 	mapas_teste.push_back("espinha_diff");
 	mapas_teste.push_back("ap");
@@ -82,7 +82,7 @@ main ( int argc, char *argv[])
 //        imprimir_agentes(melhores);
         melhores.sort();
         imprimir_agentes(melhores);
-        salvar_loop("/home/heitor/robo2/loops/" + mapas_teste[m] + "_loop.txt", melhores);
+        salvar_loop("/home/heitor/robo2/resultados/loops/" + mapas_teste[m] + "_loop.txt", melhores);
         cout << "Avaliação: " << melhores.begin()->get_avaliacao() << endl;
         cout << "Gerou em " << total << " segundos.\n";
     }

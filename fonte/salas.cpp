@@ -385,11 +385,17 @@ Salas::salvar (string nome )
 	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
 		arq << it_s->first << " => vertice = " << it_s->second.vertice <<
                                       "\tP = " << it_s->second.P <<
-                                      "\tU = " << it_s->second.U <<
                                 "\tvisitas = " << it_s->second.visitas <<
                                 "\tP/Pt = " << (float)it_s->second.P / total_P <<
                                 "\tv/vt = " << (float)it_s->second.visitas / total_visitas <<
                                 endl;
+		/*cout << it_s->first << " => vertice = " << it_s->second.vertice <<
+                                      "\tP = " << it_s->second.P <<
+                                      "\tU = " << it_s->second.U <<
+                                "\tvisitas = " << it_s->second.visitas <<
+                                "\tP/Pt = " << (float)it_s->second.P / total_P <<
+                                "\tv/vt = " << (float)it_s->second.visitas / total_visitas <<
+                                endl;*/
 
 	}
 	arq.close();
@@ -412,6 +418,7 @@ Salas::zerar_prioridades ( )
 		it_s->second.P = 0;
 		it_s->second.U = 0;
 	}
+	total_P = 0;
 	return ;
 }		/* -----  end of method Salas::zerar_prioridades ----- */
 

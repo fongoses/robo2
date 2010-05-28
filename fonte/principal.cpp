@@ -19,6 +19,7 @@
 #include	<cstdio>
 #include	<iostream>
 #include	<fstream>
+#include    <sstream>
 
 using namespace std;
 
@@ -29,6 +30,7 @@ using namespace std;
 
 #define	TOTAL	10*60			/* Tempo de execucao total(m) */
 #define SIMULACAO true
+#define TESTES 10
 
 	void
 Sleep (int segundos)
@@ -36,6 +38,7 @@ Sleep (int segundos)
 	if(!SIMULACAO)
 		sleep(segundos);
 }
+
 
 	int
 main ( int argc, char *argv[] )
@@ -55,25 +58,26 @@ main ( int argc, char *argv[] )
 	string s_alg, s_aux;
 
 
+
 	mapas_teste.push_back("quatro");
 	mapas_teste.push_back("quatro_diff");
 	mapas_teste.push_back("x");
 	//mapas_teste.push_back("x2");
 	mapas_teste.push_back("x_incompleto");
-	mapas_teste.push_back("x_incompleto2");
+	//mapas_teste.push_back("x_incompleto2");
 	mapas_teste.push_back("espinha");
 	mapas_teste.push_back("espinha_diff");
 	mapas_teste.push_back("ap");
-	arq_gnu.open("/home/heitor/robo2/resultados/graficos/gnu_cong.plt", ifstream::trunc);
+	arq_gnu.open("/home/heitor/robo2/resultados/graficos/gnu_conf.plt", ifstream::trunc);
     arq_gnu << "set term png size 1024,768\n";
 
 
 	for(unsigned int m = 0;m < mapas_teste.size();m++)
 	{
-        for(int alg = 0; alg < 2; alg++)
+        for(int alg = 0; alg <= TESTES; alg++)
         {
             if(alg == 0) {algoritmo = 3; s_alg = "3";}
-            else if(alg == 1) {algoritmo = 4; s_alg = "4";}
+            else if(alg >= 1) {stringstream out;algoritmo = 4; out << "4." << alg; s_alg = out.str();}
             else {cerr << "Erro pra selecionar algoritmos!"; exit (EXIT_FAILURE);}
             system("clear");
             v = mapa.carregarMapa("/home/heitor/robo2/mapas/" + mapas_teste[m] + ".txt", &sala);
@@ -87,8 +91,9 @@ main ( int argc, char *argv[] )
             s_aux = "/home/heitor/robo2/resultados/curvas/" + mapas_teste[m] + "_" + s_alg + "_curva.txt";
             arq.open(s_aux.c_str(), ifstream::trunc);
             if(!arq.is_open()) {
-                cout << "/home/heitor/robo2/resultados/curvas/" + mapas_teste[m] + "_" + s_alg + "_curva.txt.\n";getchar();
+                cout << "Não foi possivel abrir " + s_aux + ".\n";getchar();
             }
+            cout << s_aux << endl;
             anterior = tempo;/* Usado para simulacao */
             /* Fim da iniciacao padrão */
 
@@ -210,8 +215,10 @@ main ( int argc, char *argv[] )
                     s_aux  = "/home/heitor/robo2/loops/" + mapas_teste[m] + "_loop.txt";
                     arq_loop.open(s_aux.c_str());
                     if(!arq_loop.is_open()) {
-                        cout << "/home/heitor/robo2/loops/" + mapas_teste[m] + "_loop.txt.\n";getchar();
+                        cout << "Não foi possível abrir \'/home/heitor/robo2/loops/" + mapas_teste[m] + "_loop.txt\'.\n";getchar();
+                        continue;
                     }
+                    cout << "/home/heitor/robo2/loops/" + mapas_teste[m] + "_loop.txt.\n";
         //			arq_loop.open(argv[1]);
 
                     arq_loop >> sala_loop;
@@ -385,7 +392,7 @@ main ( int argc, char *argv[] )
                             anterior += ATUALIZACAO;
                             U = sala.atualizar(anterior);
                             arq << anterior - inicio << "\t" << U << endl;
-			    salas.imprimir();getchar();
+                            //sala.imprimir();getchar();
                         }
 
                         cout << "Visitando sala: " << visitar_sala << endl;
@@ -397,19 +404,29 @@ main ( int argc, char *argv[] )
         //				tempo += VISITAR_SALA;
                         //getchar();
                     }
+                        while( (tempo - anterior > ATUALIZACAO) && (tempo - inicio <= TOTAL * 60)) {
+                            anterior += ATUALIZACAO;
+                            U = sala.atualizar(anterior);
+                            arq << anterior - inicio << "\t" << U << endl;
+                            //sala.imprimir();getchar();
+                        }
                 };break;
             }
             arq.close();
+            //sala.imprimir();getchar();
             sala.salvar("/home/heitor/robo2/resultados/salas/" + mapas_teste[m] + "_" + s_alg + "_salas.txt");
         }
         arq_gnu << "set output '/home/heitor/robo2/resultados/graficos/" << mapas_teste[m] << ".png' ; ";
         arq_gnu << "plot '/home/heitor/robo2/resultados/curvas/" << mapas_teste[m] << "_3_curva.txt' with lines, ";
         arq_gnu <<      "'/home/heitor/robo2/resultados/curvas/" << mapas_teste[m] << "_4_curva.txt' with lines\n";
 
+        //s_aux = "/home/heitor/robo2/resultados/curvas/" + mapas_teste[m] + "_4_curva.txt";
+        //arq.open(s_aux.c_str(), ifstream::trunc);
+        //for(int i = 0; i < TESTES; i++)
+        //{
+        //}
 	}
 	arq_gnu.close();
-
-	system("gnuplot /home/heitor/robo2/resultados/graficos/gnu_cong.plt");
 
 	return EXIT_SUCCESS;
 }				/* ----------  end of function main  ---------- */
