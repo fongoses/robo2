@@ -385,6 +385,7 @@ main ( int argc, char *argv[] )
                             anterior += ATUALIZACAO;
                             U = sala.atualizar(anterior);
                             arq << anterior - inicio << "\t" << U << endl;
+			    salas.imprimir();getchar();
                         }
 
                         cout << "Visitando sala: " << visitar_sala << endl;
