@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1275017699 source:/home/heitor/robo2/fonte/estatistica/main.cpp
+	<dirent.h>
+	<cstring>
+	<iostream>
+	<string>
+	<vector>
+	<cstdio>
+	<fstream>
+	<map>
+
