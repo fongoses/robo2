@@ -30,7 +30,7 @@ using namespace std;
 
 #define	TOTAL	10*60			/* Tempo de execucao total(m) */
 #define SIMULACAO true
-#define TESTES 10
+#define TESTES 100
 
 	void
 Sleep (int segundos)
@@ -212,13 +212,14 @@ main ( int argc, char *argv[] )
                     ifstream arq_loop;
                     time_t tempo_ER = tempo, t_simu;
 
-                    s_aux  = "/home/heitor/robo2/loops/" + mapas_teste[m] + "_loop.txt";
+                    s_aux  = "/home/heitor/robo2/resultados/loops/" + mapas_teste[m] + "_loop.txt";
                     arq_loop.open(s_aux.c_str());
                     if(!arq_loop.is_open()) {
-                        cout << "Não foi possível abrir \'/home/heitor/robo2/loops/" + mapas_teste[m] + "_loop.txt\'.\n";getchar();
+                        cout << "Não foi possível abrir \'" + s_aux + "'.\n";getchar();
+                        arq.close();
                         continue;
                     }
-                    cout << "/home/heitor/robo2/loops/" + mapas_teste[m] + "_loop.txt.\n";
+                    cout << s_aux << endl;
         //			arq_loop.open(argv[1]);
 
                     arq_loop >> sala_loop;
@@ -232,7 +233,7 @@ main ( int argc, char *argv[] )
                     it_l = loop.begin();
 
                     while(tempo - inicio < TOTAL * 60) { /* rodar por TOTAL minutos */
-                        cout << "Faltam " << TOTAL * 60 - (tempo - inicio) << "s\n";
+//                        cout << "Faltam " << TOTAL * 60 - (tempo - inicio) << "s\n";
                         visitar_sala = *it_l;
         /* MODO BLOQUEANTE */
         //				tempo += robo1->irPara(sala.get_vertice(visitar_sala));
@@ -241,12 +242,12 @@ main ( int argc, char *argv[] )
                         while(!robo1->chegou())
                         {
                             tempo += robo1->get_tempo_viagem();
-                            if(t_aux < tempo - 10)
+/*                            if(t_aux < tempo - 10)
                             {
                                 //Chance pra emergencia
                                 cout << "ER!!\n";
                                 t_aux = tempo;
-                            }
+                            }*/
                         }
 
         /*				while(!robo1->chegou(mapa.get_ponto(sala.get_vertice(visitar_sala))) && t_simu > 0)
@@ -289,7 +290,7 @@ main ( int argc, char *argv[] )
                             }
                         }*/
 
-                        while( tempo - anterior > ATUALIZACAO) {
+                        while( (tempo - anterior >= ATUALIZACAO) && (anterior - inicio < TOTAL * 60)) {
                             anterior += ATUALIZACAO;
                             U = sala.atualizar(anterior);
                             arq << anterior - inicio << "\t" << U << endl;
@@ -297,13 +298,20 @@ main ( int argc, char *argv[] )
                         sala.atualizar(tempo);
                         //sala.visitar(visitar_sala);
         //				tempo += VISITAR_SALA;
-                        cout << "Visitando sala: " << visitar_sala << endl;
+                        //cout << "Visitando sala: " << visitar_sala << endl;
                         tempo += robo1->visitar_sala();
                         if(++it_l == loop.end())
                             it_l = loop.begin();
 
 
                     }
+                        while( (tempo - anterior >= ATUALIZACAO) && (anterior - inicio < TOTAL * 60)) {
+                            anterior += ATUALIZACAO;
+                            U = sala.atualizar(anterior);
+                            //if(anterior - inicio >= 36000)getchar();
+                            arq << anterior - inicio << "\t" << U << endl;
+                            //sala.imprimir();getchar();
+                        }
                 };break;
 
                 /*-----------------------------------------------------------------------------
@@ -325,7 +333,7 @@ main ( int argc, char *argv[] )
                                 for(i = 0; i < v_salas.size(); i++)
                                 {
                                     aux = (float)(rand() % 10000)/10000;
-        							cout << "sala " << v_salas[i] << " " << chances[v_salas[i]] << "% " << aux << "%\n";
+        							//cout << "sala " << v_salas[i] << " " << chances[v_salas[i]] << "% " << aux << "%\n";
                                     if(chances[v_salas[i]] >= aux)//rand() % 100)
                                     {
                                         sala.incrementar_prioridade(sala.get_sala(v_salas[i]));
@@ -339,11 +347,11 @@ main ( int argc, char *argv[] )
             sala.set_ultima_atualizacao(time(&tempo)-1);
             sala.atualizar(tempo);
                     while(tempo - inicio < TOTAL * 60) { /* rodar por TOTAL minutos */
-                        cout << "Faltam " << TOTAL * 60 - (tempo - inicio) << "s\n";
+//                        cout << "Faltam " << TOTAL * 60 - (tempo - inicio) << "s\n";
 
                         do {
 
-                            while( tempo - tempo_ER > 60 ) /* USAR DEFINE */
+                            while( tempo - tempo_ER >= 60 ) /* USAR DEFINE */
                             {
                                 tempo_ER+=60;
                                 for(i = 0; i < v_salas.size(); i++)
@@ -388,14 +396,14 @@ main ( int argc, char *argv[] )
                         }
         //				time(&tempo);
     //                    cout << "Tempo: " << tempo - inicio << endl;
-                        while( tempo - anterior > ATUALIZACAO) {
+                        while( (tempo - anterior >= ATUALIZACAO) && (anterior - inicio < TOTAL * 60)) {
                             anterior += ATUALIZACAO;
                             U = sala.atualizar(anterior);
                             arq << anterior - inicio << "\t" << U << endl;
                             //sala.imprimir();getchar();
                         }
 
-                        cout << "Visitando sala: " << visitar_sala << endl;
+                        //cout << "Visitando sala: " << visitar_sala << endl;
                         tempo += robo1->visitar_sala();
                         sala.atualizar(tempo);
     //                    sala.imprimir();
@@ -404,9 +412,10 @@ main ( int argc, char *argv[] )
         //				tempo += VISITAR_SALA;
                         //getchar();
                     }
-                        while( (tempo - anterior > ATUALIZACAO) && (tempo - inicio <= TOTAL * 60)) {
+                        while( (tempo - anterior >= ATUALIZACAO) && (anterior - inicio < TOTAL * 60)) {
                             anterior += ATUALIZACAO;
                             U = sala.atualizar(anterior);
+                            //if(anterior - inicio >= 36000)getchar();
                             arq << anterior - inicio << "\t" << U << endl;
                             //sala.imprimir();getchar();
                         }

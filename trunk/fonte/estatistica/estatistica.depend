@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1275017699 source:/home/heitor/robo2/fonte/estatistica/main.cpp
+1275025962 source:/home/heitor/robo2/fonte/estatistica/main.cpp
 	<dirent.h>
 	<cstring>
 	<iostream>
@@ -8,4 +8,42 @@
 	<cstdio>
 	<fstream>
 	<map>
+	"../mapa.h"
+
+1275020030 source:/home/heitor/robo2/fonte/mapa.cpp
+	"mapa.h"
+
+1275020030 /home/heitor/robo2/fonte/mapa.h
+	<cstdio>
+	<iostream>
+	<fstream>
+	<cfloat>
+	<string>
+	<climits>
+	<map>
+	<list>
+	<vector>
+	<algorithm>
+	"ponto.h"
+	"salas.h"
+
+1275020030 /home/heitor/robo2/fonte/ponto.h
+	<iostream>
+
+1275028191 /home/heitor/robo2/fonte/salas.h
+	<map>
+	<iostream>
+	<fstream>
+	<ctime>
+	<vector>
+	<climits>
+	<cstdio>
+	<cstdlib>
+
+1275024132 source:/home/heitor/robo2/fonte/salas.cpp
+	"salas.h"
+
+1275020030 source:/home/heitor/robo2/fonte/ponto.cpp
+	<cmath>
+	"ponto.h"
 
