@@ -1,3 +1,0 @@
-1 => vertice = 1	P = 237	U = 7.6699	visitas = 1138
-2 => vertice = 2	P = 241	U = 11.699	visitas = 1120
-3 => vertice = 3	P = 135	U = 2.18447	visitas = 752
