@@ -1,6 +1,0 @@
-1 => vertice = 1	P = 5	U = 27.0833	visitas = 462	P/Pt = 0.416667	v/vt = 0.25
-2 => vertice = 2	P = 1	U = 9.83333	visitas = 231	P/Pt = 0.0833333	v/vt = 0.125
-3 => vertice = 3	P = 2	U = 4.16667	visitas = 231	P/Pt = 0.166667	v/vt = 0.125
-5 => vertice = 5	P = 2	U = 0	visitas = 462	P/Pt = 0.166667	v/vt = 0.25
-6 => vertice = 6	P = 1	U = 8.58333	visitas = 231	P/Pt = 0.0833333	v/vt = 0.125
-7 => vertice = 7	P = 1	U = 3.33333	visitas = 231	P/Pt = 0.0833333	v/vt = 0.125
