@@ -120,7 +120,10 @@ class Salas
 		int get_maiorU(float *U = NULL);
 		int get_vertice( int s );
 		int get_P( int s );
+		int get_visitas( int s );
 		int get_sala( int v );
+		void set_P ( int s, int P);
+		void set_visitas( int s, int visitas);
 
 		void set_ultima_atualizacao(time_t t);
 

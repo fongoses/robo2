@@ -69,7 +69,7 @@ main ( int argc, char *argv[])
 	}
 
 
-	arq.open("/home/heitor/robo2/resultados/gerador.log", ifstream::trunc);
+	arq.open("/home/heitor/robo2/resultados/gerador.info", ifstream::trunc);
 
     for(unsigned int m = 0; m < mapas_teste.size(); m++)
     {

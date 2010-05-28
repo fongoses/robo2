@@ -1,8 +1,651 @@
 quatro em 0.03 segundos.
-quatro_diff em 0.07 segundos.
-x em 4.03 segundos.
+quatro_diff em 0.08 segundos.
+x em 4.04 segundos.
 x_incompleto em 1.17 segundos.
-x_incompleto2 em 137.5 segundos.
 espinha em 11.95 segundos.
-espinha_diff em 52.84 segundos.
-ap em 43253.1 segundos.
+espinha_diff em 52.83 segundos.
+ 1) 
+Avaliação: 25
+Gerou em 0.03 segundos.
+Gerando loops para /home/heitor/robo2/mapas/quatro_diff.txt
+Melhor(es) caminho(s)
+Tamanho: 1 MAX: 329406144173384850
+Salas: 7
+(1 3 4 2 4 3 1) 
+Avaliação: 28.6667
+Gerou em 0.08 segundos.
+Gerando loops para /home/heitor/robo2/mapas/x.txt
+Melhor(es) caminho(s)
+Tamanho: 4 MAX: 329406144173384850
+Salas: 10
+(1 2 4 5 3 2 4 5 3 1) 
+(1 3 5 4 2 3 5 4 2 1) 
+(1 5 3 2 4 5 3 2 4 1) 
+(1 5 4 2 3 5 4 2 3 1) 
+Avaliação: 40.5238
+Gerou em 4.04 segundos.
+Gerando loops para /home/heitor/robo2/mapas/x_incompleto.txt
+Melhor(es) caminho(s)
+Tamanho: 9 MAX: 329406144173384850
+Salas: 6
+(1 2 3 4 5 1) 
+(1 2 3 4 5 1) 
+(1 2 4 3 5 1) 
+(1 3 2 5 4 1) 
+(1 3 5 2 4 1) 
+Avaliação: 49.6667
+Gerou em 1.17 segundos.
+Gerando loops para /home/heitor/robo2/mapas/espinha.txt
+Melhor(es) caminho(s)
+Tamanho: 10 MAX: 329406144173384850
+Salas: 7
+(1 5 2 6 3 7 1) 
+(1 5 2 6 7 3 1) 
+(1 5 6 2 3 7 1) 
+(1 5 6 2 7 3 1) 
+(1 5 7 3 2 6 1) 
+Avaliação: 70.5
+Gerou em 11.95 segundos.
+Gerando loops para /home/heitor/robo2/mapas/espinha_diff.txt
+Melhor(es) caminho(s)
+Tamanho: 4 MAX: 329406144173384850
+Salas: 9
+(1 2 6 5 1 7 3 5 1) 
+(1 6 2 5 1 7 3 5 1) 
+(1 7 3 5 1 2 6 5 1) 
+(1 7 3 5 1 6 2 5 1) 
+Avaliação: 72
+Gerou em 52.83 segundos.
+Gerando loops para /home/heitor/robo2/mapas/ap.txt
+Candidatos: 128623 Avaliados: 150067 Descartados: 21436(7)
+Tamanho: 128623 MAX: 329406144173384850
+Salas: 7
+(1 3 1 11 4 5 4) 
+(1 3 1 11 4 5 7) 
+(1 3 1 11 4 5 9) 
+(1 3 1 11 4 5 11) 
+(1 3 1 11 4 5 12) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 100
+Candidatos: 173539 Avaliados: 202469 Descartados: 28922(7)
+Tamanho: 173539 MAX: 329406144173384850
+Salas: 7
+(1 3 7 12 3 1 11) 
+(1 3 7 12 3 1 12) 
+(1 3 7 12 3 4 1) 
+(1 3 7 12 3 4 3) 
+(1 3 7 12 3 4 5) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 200
+Candidatos: 209665 Avaliados: 244616 Descartados: 34943(7)
+Tamanho: 209665 MAX: 329406144173384850
+Salas: 7
+(1 3 12 4 9 12 11) 
+(1 3 12 4 11 1 3) 
+(1 3 12 4 11 1 4) 
+(1 3 12 4 11 1 5) 
+(1 3 12 4 11 1 7) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 300
+Candidatos: 242389 Avaliados: 282794 Descartados: 40397(7)
+Tamanho: 242389 MAX: 329406144173384850
+Salas: 7
+(1 4 3 9 7 4 1) 
+(1 4 3 9 7 4 3) 
+(1 4 3 9 7 4 5) 
+(1 4 3 9 7 4 7) 
+(1 4 3 9 7 4 9) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 400
+Candidatos: 271627 Avaliados: 316905 Descartados: 45270(7)
+Tamanho: 271627 MAX: 329406144173384850
+Salas: 7
+(1 4 7 9 11 9 3) 
+(1 4 7 9 11 9 4) 
+(1 4 7 9 11 9 5) 
+(1 4 7 9 11 9 7) 
+(1 4 7 9 11 9 11) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 500
+Candidatos: 296707 Avaliados: 346165 Descartados: 49450(7)
+Tamanho: 296707 MAX: 329406144173384850
+Salas: 7
+(1 4 11 5 1 3 5) 
+(1 4 11 5 1 3 7) 
+(1 4 11 5 1 3 9) 
+(1 4 11 5 1 3 11) 
+(1 4 11 5 1 3 12) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 600
+Candidatos: 321457 Avaliados: 375040 Descartados: 53575(7)
+Tamanho: 321457 MAX: 329406144173384850
+Salas: 7
+(1 5 1 4 1 4 9) 
+(1 5 1 4 1 4 11) 
+(1 5 1 4 1 4 12) 
+(1 5 1 4 1 5 1) 
+(1 5 1 4 1 5 3) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 700
+Candidatos: 343279 Avaliados: 400499 Descartados: 57212(7)
+Tamanho: 343279 MAX: 329406144173384850
+Salas: 7
+(1 5 3 9 7 5 3) 
+(1 5 3 9 7 5 4) 
+(1 5 3 9 7 5 7) 
+(1 5 3 9 7 5 9) 
+(1 5 3 9 7 5 11) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 800
+Candidatos: 364831 Avaliados: 425643 Descartados: 60804(7)
+Tamanho: 364831 MAX: 329406144173384850
+Salas: 7
+(1 5 7 3 1 11 4) 
+(1 5 7 3 1 11 5) 
+(1 5 7 3 1 11 7) 
+(1 5 7 3 1 11 9) 
+(1 5 7 3 1 11 12) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 900
+Candidatos: 384529 Avaliados: 448624 Descartados: 64087(7)
+Tamanho: 384529 MAX: 329406144173384850
+Salas: 7
+(1 5 9 5 9 11 4) 
+(1 5 9 5 9 11 5) 
+(1 5 9 5 9 11 7) 
+(1 5 9 5 9 11 9) 
+(1 5 9 5 9 11 12) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 1000
+Candidatos: 399961 Avaliados: 466628 Descartados: 66659(7)
+Tamanho: 399961 MAX: 329406144173384850
+Salas: 7
+(1 5 11 7 3 4 11) 
+(1 5 11 7 3 4 12) 
+(1 5 11 7 3 5 1) 
+(1 5 11 7 3 5 3) 
+(1 5 11 7 3 5 4) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 1100
+Candidatos: 414667 Avaliados: 483785 Descartados: 69110(7)
+Tamanho: 414667 MAX: 329406144173384850
+Salas: 7
+(1 5 12 7 4 3 12) 
+(1 5 12 7 4 5 1) 
+(1 5 12 7 4 5 3) 
+(1 5 12 7 4 5 4) 
+(1 5 12 7 4 5 7) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 1200
+Candidatos: 429907 Avaliados: 501565 Descartados: 71650(7)
+Tamanho: 429907 MAX: 329406144173384850
+Salas: 7
+(1 7 1 9 11 1 11) 
+(1 7 1 9 11 1 12) 
+(1 7 1 9 11 3 1) 
+(1 7 1 9 11 3 4) 
+(1 7 1 9 11 3 5) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 1300
+Candidatos: 446533 Avaliados: 520962 Descartados: 74421(7)
+Tamanho: 446533 MAX: 329406144173384850
+Salas: 7
+(1 7 3 11 9 7 9) 
+(1 7 3 11 9 7 11) 
+(1 7 3 11 9 7 12) 
+(1 7 3 11 9 11 1) 
+(1 7 3 11 9 11 3) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 1400
+Candidatos: 459727 Avaliados: 536355 Descartados: 76620(7)
+Tamanho: 459727 MAX: 329406144173384850
+Salas: 7
+(1 7 4 11 3 7 11) 
+(1 7 4 11 3 7 12) 
+(1 7 4 11 3 9 1) 
+(1 7 4 11 3 9 3) 
+(1 7 4 11 3 9 4) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 1500
+Candidatos: 475027 Avaliados: 554205 Descartados: 79170(7)
+Tamanho: 475027 MAX: 329406144173384850
+Salas: 7
+(1 7 5 11 7 9 1) 
+(1 7 5 11 7 9 3) 
+(1 7 5 11 7 9 4) 
+(1 7 5 11 7 9 5) 
+(1 7 5 11 7 9 7) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 1600
+Candidatos: 490423 Avaliados: 572167 Descartados: 81736(7)
+Tamanho: 490423 MAX: 329406144173384850
+Salas: 7
+(1 7 9 12 1 12 7) 
+(1 7 9 12 1 12 9) 
+(1 7 9 12 1 12 11) 
+(1 7 9 12 3 1 3) 
+(1 7 9 12 3 1 4) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 1700
+Candidatos: 505177 Avaliados: 589380 Descartados: 84195(7)
+Tamanho: 505177 MAX: 329406144173384850
+Salas: 7
+(1 7 11 12 4 1 12) 
+(1 7 11 12 4 3 1) 
+(1 7 11 12 4 3 4) 
+(1 7 11 12 4 3 5) 
+(1 7 11 12 4 3 7) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 1800
+Candidatos: 519571 Avaliados: 606173 Descartados: 86594(7)
+Tamanho: 519571 MAX: 329406144173384850
+Salas: 7
+(1 7 12 11 4 1 9) 
+(1 7 12 11 4 1 11) 
+(1 7 12 11 4 1 12) 
+(1 7 12 11 4 3 1) 
+(1 7 12 11 4 3 4) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 1900
+Candidatos: 531325 Avaliados: 619886 Descartados: 88553(7)
+Tamanho: 531325 MAX: 329406144173384850
+Salas: 7
+(1 9 1 11 1 3 7) 
+(1 9 1 11 1 3 9) 
+(1 9 1 11 1 3 11) 
+(1 9 1 11 1 3 12) 
+(1 9 1 11 1 4 1) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 2000
+Candidatos: 544141 Avaliados: 634838 Descartados: 90689(7)
+Tamanho: 544141 MAX: 329406144173384850
+Salas: 7
+(1 9 3 9 3 9 7) 
+(1 9 3 9 3 9 11) 
+(1 9 3 9 3 9 12) 
+(1 9 3 9 3 11 1) 
+(1 9 3 9 3 11 3) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 2100
+Candidatos: 558739 Avaliados: 651869 Descartados: 93122(7)
+Tamanho: 558739 MAX: 329406144173384850
+Salas: 7
+(1 9 4 9 4 5 3) 
+(1 9 4 9 4 5 4) 
+(1 9 4 9 4 5 7) 
+(1 9 4 9 4 5 9) 
+(1 9 4 9 4 5 11) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 2200
+Candidatos: 572689 Avaliados: 668144 Descartados: 95447(7)
+Tamanho: 572689 MAX: 329406144173384850
+Salas: 7
+(1 9 5 9 1 11 4) 
+(1 9 5 9 1 11 5) 
+(1 9 5 9 1 11 7) 
+(1 9 5 9 1 11 9) 
+(1 9 5 9 1 11 12) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 2300
+Candidatos: 586141 Avaliados: 683838 Descartados: 97689(7)
+Tamanho: 586141 MAX: 329406144173384850
+Salas: 7
+(1 9 7 5 9 5 9) 
+(1 9 7 5 9 5 11) 
+(1 9 7 5 9 5 12) 
+(1 9 7 5 9 7 1) 
+(1 9 7 5 9 7 3) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 2400
+Candidatos: 599275 Avaliados: 699161 Descartados: 99878(7)
+Tamanho: 599275 MAX: 329406144173384850
+Salas: 7
+(1 9 11 5 1 4 5) 
+(1 9 11 5 1 4 7) 
+(1 9 11 5 1 4 9) 
+(1 9 11 5 1 4 11) 
+(1 9 11 5 1 4 12) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 2500
+Candidatos: 612319 Avaliados: 714379 Descartados: 102052(7)
+Tamanho: 612319 MAX: 329406144173384850
+Salas: 7
+(1 9 12 4 5 7 12) 
+(1 9 12 4 5 9 1) 
+(1 9 12 4 5 9 3) 
+(1 9 12 4 5 9 4) 
+(1 9 12 4 5 9 5) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 2600
+Candidatos: 624931 Avaliados: 729093 Descartados: 104154(7)
+Tamanho: 624931 MAX: 329406144173384850
+Salas: 7
+(1 11 1 4 7 5 3) 
+(1 11 1 4 7 5 4) 
+(1 11 1 4 7 5 7) 
+(1 11 1 4 7 5 9) 
+(1 11 1 4 7 5 11) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 2700
+Candidatos: 637339 Avaliados: 743569 Descartados: 106222(7)
+Tamanho: 637339 MAX: 329406144173384850
+Salas: 7
+(1 11 3 1 7 9 7) 
+(1 11 3 1 7 9 11) 
+(1 11 3 1 7 9 12) 
+(1 11 3 1 7 11 1) 
+(1 11 3 1 7 11 3) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 2800
+Candidatos: 649303 Avaliados: 757527 Descartados: 108216(7)
+Tamanho: 649303 MAX: 329406144173384850
+Salas: 7
+(1 11 3 12 4 5 7) 
+(1 11 3 12 4 5 9) 
+(1 11 3 12 4 5 11) 
+(1 11 3 12 4 5 12) 
+(1 11 3 12 4 7 1) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 2900
+Candidatos: 661045 Avaliados: 771226 Descartados: 110173(7)
+Tamanho: 661045 MAX: 329406144173384850
+Salas: 7
+(1 11 4 11 1 5 1) 
+(1 11 4 11 1 5 3) 
+(1 11 4 11 1 5 4) 
+(1 11 4 11 1 5 7) 
+(1 11 4 11 1 5 9) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 3000
+Candidatos: 672013 Avaliados: 784022 Descartados: 112001(7)
+Tamanho: 672013 MAX: 329406144173384850
+Salas: 7
+(1 11 5 7 4 9 3) 
+(1 11 5 7 4 9 4) 
+(1 11 5 7 4 9 5) 
+(1 11 5 7 4 9 7) 
+(1 11 5 7 4 9 11) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 3100
+Candidatos: 683527 Avaliados: 797455 Descartados: 113920(7)
+Tamanho: 683527 MAX: 329406144173384850
+Salas: 7
+(1 11 7 3 12 9 4) 
+(1 11 7 3 12 9 5) 
+(1 11 7 3 12 9 7) 
+(1 11 7 3 12 9 11) 
+(1 11 7 3 12 9 12) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 3200
+Candidatos: 694621 Avaliados: 810398 Descartados: 115769(7)
+Tamanho: 694621 MAX: 329406144173384850
+Salas: 7
+(1 11 9 1 5 7 5) 
+(1 11 9 1 5 7 9) 
+(1 11 9 1 5 7 11) 
+(1 11 9 1 5 7 12) 
+(1 11 9 1 5 9 1) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 3300
+Candidatos: 705295 Avaliados: 822851 Descartados: 117548(7)
+Tamanho: 705295 MAX: 329406144173384850
+Salas: 7
+(1 11 9 11 5 11 7) 
+(1 11 9 11 5 11 9) 
+(1 11 9 11 5 11 12) 
+(1 11 9 11 5 12 1) 
+(1 11 9 11 5 12 3) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 3400
+Candidatos: 716005 Avaliados: 835346 Descartados: 119333(7)
+Tamanho: 716005 MAX: 329406144173384850
+Salas: 7
+(1 11 12 5 11 3 9) 
+(1 11 12 5 11 3 11) 
+(1 11 12 5 11 3 12) 
+(1 11 12 5 11 4 1) 
+(1 11 12 5 11 4 3) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 3500
+Candidatos: 726793 Avaliados: 847932 Descartados: 121131(7)
+Tamanho: 726793 MAX: 329406144173384850
+Salas: 7
+(1 12 1 4 12 11 5) 
+(1 12 1 4 12 11 7) 
+(1 12 1 4 12 11 9) 
+(1 12 1 4 12 11 12) 
+(1 12 1 5 1 3 1) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 3600
+Candidatos: 737455 Avaliados: 860371 Descartados: 122908(7)
+Tamanho: 737455 MAX: 329406144173384850
+Salas: 7
+(1 12 3 1 4 3 5) 
+(1 12 3 1 4 3 7) 
+(1 12 3 1 4 3 9) 
+(1 12 3 1 4 3 11) 
+(1 12 3 1 4 3 12) 
+Avaliação: -1
+
+Melhores:
+Tamanho: 1 MAX: 329406144173384850
+Salas: 9
+(1 3 4 5 7 9 11 12 1) 
+Avaliação: 106.848
+Tempo: 3700

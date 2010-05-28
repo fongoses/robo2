@@ -644,6 +644,48 @@ Salas::get_P ( int s )
 /*
  *--------------------------------------------------------------------------------------
  *       Class:  Salas
+ *      Method:  set_P
+ * Description:  Seta a prioridade da sala s
+ *--------------------------------------------------------------------------------------
+ */
+	void
+Salas::set_P ( int s , int P)
+{
+	sala.find(s)->second.P = P;
+}
+/* -----  end of method Salas::set_P  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Salas
+ *      Method:  set_visitas
+ * Description:  Seta as visitas da sala s
+ *--------------------------------------------------------------------------------------
+ */
+	void
+Salas::set_visitas ( int s , int visitas)
+{
+	sala.find(s)->second.visitas = visitas;
+}
+/* -----  end of method Salas::set_visitas  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Salas
+ *      Method:  get_visitas
+ * Description:  Retorna as visitas da sala s
+ *--------------------------------------------------------------------------------------
+ */
+	int
+Salas::get_visitas ( int s )
+{
+	return sala.find(s)->second.visitas;
+}
+/* -----  end of method Salas::get_P  ----- */
+
+/*
+ *--------------------------------------------------------------------------------------
+ *       Class:  Salas
  *      Method:  set_ultima_atualizacao
  *--------------------------------------------------------------------------------------
  */
