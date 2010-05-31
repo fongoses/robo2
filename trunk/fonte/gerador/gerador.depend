@@ -1,19 +1,19 @@
 # depslib dependency file v1.0
-1273689943 source:/home/heitor/robo2/fonte/gerador/agente.cpp
+1275020030 source:/home/heitor/robo2/fonte/gerador/agente.cpp
 	<iostream>
 	"agente.h"
 
-1273620934 /home/heitor/robo2/fonte/gerador/agente.h
+1275020030 /home/heitor/robo2/fonte/gerador/agente.h
 	<vector>
 
-1273863827 source:/home/heitor/robo2/fonte/gerador/gerador.cpp
+1275034270 source:/home/heitor/robo2/fonte/gerador/gerador.cpp
 	<cstdlib>
 	<fstream>
 	"../mapa.h"
 	"../avaliador/avaliador.h"
 	"gerador.h"
 
-1273517528 /home/heitor/robo2/fonte/mapa.h
+1275020030 /home/heitor/robo2/fonte/mapa.h
 	<cstdio>
 	<iostream>
 	<fstream>
@@ -27,10 +27,10 @@
 	"ponto.h"
 	"salas.h"
 
-1259009288 /home/heitor/robo2/fonte/ponto.h
+1275020030 /home/heitor/robo2/fonte/ponto.h
 	<iostream>
 
-1273790890 /home/heitor/robo2/fonte/salas.h
+1275030664 /home/heitor/robo2/fonte/salas.h
 	<map>
 	<iostream>
 	<fstream>
@@ -40,11 +40,11 @@
 	<cstdio>
 	<cstdlib>
 
-1273620934 /home/heitor/robo2/fonte/avaliador/avaliador.h
+1275020030 /home/heitor/robo2/fonte/avaliador/avaliador.h
 	"../mapa.h"
 	"../robo.h"
 
-1272837608 /home/heitor/robo2/fonte/robo.h
+1275020030 /home/heitor/robo2/fonte/robo.h
 	<libplayerc++/playerc++.h>
 	"mapa.h"
 
@@ -144,12 +144,12 @@
 
 1247630364 /usr/local/include/player-3.0/libplayerc++/clientproxy.h
 
-1273755151 /home/heitor/robo2/fonte/gerador/gerador.h
+1275020030 /home/heitor/robo2/fonte/gerador/gerador.h
 	<list>
 	<string>
 	"agente.h"
 
-1273843083 source:/home/heitor/robo2/fonte/gerador/principal.cpp
+1275031007 source:/home/heitor/robo2/fonte/gerador/principal.cpp
 	<cstring>
 	<cstdlib>
 	<cstdio>
@@ -157,19 +157,19 @@
 	<fstream>
 	"gerador.h"
 
-1273790715 source:/home/heitor/robo2/fonte/mapa.cpp
+1275020030 source:/home/heitor/robo2/fonte/mapa.cpp
 	"mapa.h"
 
-1273794582 source:/home/heitor/robo2/fonte/salas.cpp
+1275024132 source:/home/heitor/robo2/fonte/salas.cpp
 	"salas.h"
 
-1273863805 source:/home/heitor/robo2/fonte/avaliador/avaliador.cpp
+1275020030 source:/home/heitor/robo2/fonte/avaliador/avaliador.cpp
 	"avaliador.h"
 
-1259009288 source:/home/heitor/robo2/fonte/ponto.cpp
+1275020030 source:/home/heitor/robo2/fonte/ponto.cpp
 	<cmath>
 	"ponto.h"
 
-1273805596 source:/home/heitor/robo2/fonte/robo.cpp
+1275020030 source:/home/heitor/robo2/fonte/robo.cpp
 	"robo.h"
 

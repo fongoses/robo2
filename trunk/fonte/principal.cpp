@@ -119,7 +119,7 @@ main ( int argc, char *argv[] )
             for(i = 0; i < v_salas.size(); i++)
             {
                 chances[v_salas[i]] = chances[v_salas[i]] / total_P;
-                cout << "sala: " << v_salas[i] << " %: " << chances[v_salas[i]] << endl;
+                //cout << "sala: " << v_salas[i] << " %: " << chances[v_salas[i]] << endl;
             }
 
             cout << "Iniciando simulacao mapa: " << mapas_teste[m] << " algoritmo: " << algoritmo << endl;
@@ -210,7 +210,7 @@ main ( int argc, char *argv[] )
                     ListaVertices::iterator it_l;
                     int sala_loop;
                     ifstream arq_loop;
-                    time_t tempo_ER = tempo, t_simu;
+                    //time_t tempo_ER = tempo, t_simu;
 
                     s_aux  = "/home/heitor/robo2/resultados/loops/" + mapas_teste[m] + "_loop.txt";
                     arq_loop.open(s_aux.c_str());
@@ -258,10 +258,10 @@ main ( int argc, char *argv[] )
                                 tempo++;
                             } else {
                                 time(&tempo);
-                            }
+                            }*/
                             /* Gerador aleatorio de emergencia */
-        /*					while( tempo - tempo_ER > 60 ) /* USAR DEFINE */
-        /*					{
+        /*					while( tempo - tempo_ER > 60 )
+        					{
                                 tempo_ER+=60;
                                 for(i = 0; i < v_salas.size(); i++)
                                 {

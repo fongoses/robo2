@@ -204,7 +204,7 @@ gerar ( string arq_mapa)
 		{
 //			if((debug_candidatos + 1000 <= candidatos.size())) /*|| (debug_salas >= 9)*/// || (debug_salas != candidatos.front().get_tamanho()))
 			{
-			cout << "Candidatos:" << endl;
+			cout << "1Candidatos:" << endl;
 			imprimir_agentes(candidatos);
 			cout << "Avaliação: " << candidatos.front().get_avaliacao() << endl;
 			cout << endl << "Melhores:" << endl;
@@ -218,15 +218,16 @@ gerar ( string arq_mapa)
 		}
 
 		time(&tempo);
-		if((tempo - tempo_ant >= 100) && 0)
+		if((tempo - tempo_ant >= 60))
 		{
-			cout << "Candidatos: " << arquivos.size() * CAND_POR_ARQ + candidatos.size() << " Avaliados: " << total_aval  << " Descartados: " << total_descartados << "(" << total_aval - total_descartados - candidatos.size() - arquivos.size() * CAND_POR_ARQ - melhores.size()<< ")" << endl;
+			cout << "Tempo: " << tempo - inicio << " Candidatos: " << candidatos.size() << endl;
+			/*cout << "Candidatos: " << arquivos.size() * CAND_POR_ARQ + candidatos.size() << " Avaliados: " << total_aval  << " Descartados: " << total_descartados << "(" << total_aval - total_descartados - candidatos.size() - arquivos.size() * CAND_POR_ARQ - melhores.size()<< ")" << endl;
 			imprimir_agentes(candidatos);
 			cout << "Avaliação: " << candidatos.front().get_avaliacao() << endl;
 			cout << endl << "Melhores:" << endl;
 			imprimir_agentes(melhores);
 			cout << "Avaliação: " << melhores.front().get_avaliacao() << endl;
-			cout << "Tempo: " << tempo - inicio << endl;
+			cout << "Tempo: " << tempo - inicio << endl;*/
 			tempo_ant = tempo;
             //if(candidatos.front().get_tamanho()>=9)getchar();
 		}
