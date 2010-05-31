@@ -13,19 +13,19 @@
 	<File name="agente.h" open="0" top="0" tabpos="5">
 		<Cursor position="519" topLine="0" />
 	</File>
-	<File name="gerador.cpp" open="1" top="1" tabpos="6">
-		<Cursor position="7189" topLine="33" />
+	<File name="gerador.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="7235" topLine="194" />
 	</File>
 	<File name="gerador.h" open="0" top="0" tabpos="11">
 		<Cursor position="533" topLine="0" />
 	</File>
-	<File name="principal.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="1652" topLine="53" />
+	<File name="principal.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="1652" topLine="44" />
 	</File>
 	<File name="../mapa.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="10712" topLine="327" />
 	</File>
-	<File name="../mapa.h" open="1" top="0" tabpos="3">
+	<File name="../mapa.h" open="0" top="0" tabpos="3">
 		<Cursor position="535" topLine="0" />
 	</File>
 	<File name="../ponto.cpp" open="0" top="0" tabpos="10">
@@ -34,16 +34,16 @@
 	<File name="../ponto.h" open="0" top="0" tabpos="0">
 		<Cursor position="0" topLine="9" />
 	</File>
-	<File name="../robo.cpp" open="1" top="0" tabpos="6">
+	<File name="../robo.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="7867" topLine="204" />
 	</File>
-	<File name="../robo.h" open="1" top="0" tabpos="9">
+	<File name="../robo.h" open="0" top="0" tabpos="5">
 		<Cursor position="0" topLine="30" />
 	</File>
 	<File name="../salas.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="12984" topLine="382" />
 	</File>
-	<File name="../salas.h" open="1" top="0" tabpos="2">
+	<File name="../salas.h" open="0" top="0" tabpos="2">
 		<Cursor position="539" topLine="6" />
 	</File>
 </CodeBlocks_layout_file>

@@ -43,7 +43,7 @@
 1275024132 source:/home/heitor/robo2/fonte/salas.cpp
 	"salas.h"
 
-1275030499 source:/home/heitor/robo2/fonte/principal.cpp
+1275034276 source:/home/heitor/robo2/fonte/principal.cpp
 	<cstdio>
 	<iostream>
 	<fstream>

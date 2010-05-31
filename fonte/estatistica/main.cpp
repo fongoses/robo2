@@ -27,7 +27,7 @@ main ( int argc, char *argv[] )
     size_t pos;
     unsigned int qtde, tam = 1, linhas = 0, l;
     int P, visitas, s;
-    float valor, tempo, total;
+    float valor, tempo;
     Salas sala;
     Mapa mapa;
     char buff[256];
