@@ -18,16 +18,15 @@ main ( int argc, char *argv[] )
     DIR           *d;
     struct dirent *dir;
     vector<string> mapas_teste;
-    vector<vector<float> > dados;
     vector<int> tempos;
     vector<float> valores;
     ofstream saida;
     ifstream arquivo;
     string arqnome, dir_base, s_aux;
     size_t pos;
-    unsigned int qtde, tam = 1, linhas = 0, l;
+    unsigned int qtde, linhas = 0, l, qtde_media, qtde_media3;
     int P, visitas, s;
-    float valor, tempo;
+    float valor, tempo, media, media3;
     Salas sala;
     Mapa mapa;
     char buff[256];
@@ -86,6 +85,8 @@ main ( int argc, char *argv[] )
                     arquivo.close();
                     qtde++;
 //                }else {cout << " NÃO" << endl;
+                    arqnome = "rm " + arqnome;
+                    system(arqnome.c_str());
                 }
 //                arquivos[0] >> s_aux;
                 //cout << s_aux;
@@ -134,7 +135,9 @@ main ( int argc, char *argv[] )
         if( d == NULL ) {
             return 1;
         }
-        qtde = 0;
+        qtde = linhas = 0;
+        tempos.clear();
+        valores.clear();
         while( ( dir = readdir( d ) ) ) {
             if( strcmp( dir->d_name, "." ) == 0 ||
                 strcmp( dir->d_name, ".." ) == 0 ) {
@@ -150,13 +153,12 @@ main ( int argc, char *argv[] )
                     cout << arqnome << endl;
                     arquivo.open(arqnome.c_str());
                     if(!arquivo.is_open()) {cerr << "Problemas para abrir " << arqnome << endl;}
-                    dados.resize(++tam);
                     arquivo >> tempo;
                     arquivo >> valor;
                     l = 0;
                     while(!arquivo.eof())
                     {
-                        if(tam <= 2)
+                        if(qtde == 0)
                         {
                             //dados[0].push_back(tempo);
                             tempos.push_back(tempo);
@@ -175,6 +177,34 @@ main ( int argc, char *argv[] )
                     arquivo.close();
                     qtde++;
 //                }else {cout << " NÃO" << endl;
+                    arqnome = "rm " + arqnome;
+                    system(arqnome.c_str());
+                    //cout << "Valores size:" << valores.size() << endl;getchar();
+                }
+                pos = arqnome.find(mapas_teste[m] + "_3_curva.txt");
+                //cout << dir->d_name;
+                if (pos == 0){
+                  //  cout << " SIM" << endl;
+                    arqnome = dir_base + arqnome;
+                    cout << arqnome << endl;
+                    arquivo.open(arqnome.c_str());
+                    if(!arquivo.is_open()) {cerr << "Problemas para abrir " << arqnome << endl;}
+                    arquivo >> tempo;
+                    arquivo >> valor;
+                    media3 = qtde_media3 = 0;
+                    while(!arquivo.eof())
+                    {
+                        if (tempo>35000)
+                        {
+                            media3 += valor;
+                            qtde_media3++;
+                        }
+
+                        arquivo >> tempo;
+                        arquivo >> valor;
+                    }
+
+                    arquivo.close();
                 }
 //                arquivos[0] >> s_aux;
                 //cout << s_aux;
@@ -184,11 +214,28 @@ main ( int argc, char *argv[] )
             s_aux = dir_base + mapas_teste[m] + "_4_curva.txt";
             saida.open(s_aux.c_str(), ifstream::trunc);
             if(!saida.is_open()) {cerr << "Problemas para abrir " << s_aux << endl;}
+            media = qtde_media = 0;
             for(unsigned int l = 0; l < linhas ; l++)
             {
                 saida << tempos[l] << "\t" << valores[l]/qtde << endl;
+                if (tempos[l]>35000)
+                {
+                    media += valores[l]/qtde;
+                    qtde_media++;
+                    //cout << media/qtde_media << endl; getchar();
+                }
             }
             //cout << "Achado " << qtde << " arquivo(s) do mapa " + mapas_teste[m] << endl;getchar();
+            saida.close();
+            s_aux = dir_base + mapas_teste[m] + "_3_curva_media.txt";
+            saida.open(s_aux.c_str(), ifstream::trunc);
+            if(!saida.is_open()) {cerr << "Problemas para abrir " << s_aux << endl;}
+            saida << media3/qtde_media3 << endl;
+            saida.close();
+            s_aux = dir_base + mapas_teste[m] + "_4_curva_media.txt";
+            saida.open(s_aux.c_str(), ifstream::trunc);
+            if(!saida.is_open()) {cerr << "Problemas para abrir " << s_aux << endl;}
+            saida << media/qtde_media << endl;
             saida.close();
         }
         closedir( d );
