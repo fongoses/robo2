@@ -1,8 +1,0 @@
-1 => vertice = 1	P = 91	visitas = 220	P/Pt = 0.14918	v/vt = 0.137243
-2 => vertice = 3	P = 86	visitas = 239	P/Pt = 0.140984	v/vt = 0.149095
-3 => vertice = 4	P = 55	visitas = 162	P/Pt = 0.0901639	v/vt = 0.101061
-4 => vertice = 5	P = 50	visitas = 138	P/Pt = 0.0819672	v/vt = 0.0860886
-5 => vertice = 7	P = 98	visitas = 218	P/Pt = 0.160656	v/vt = 0.135995
-6 => vertice = 9	P = 75	visitas = 220	P/Pt = 0.122951	v/vt = 0.137243
-7 => vertice = 11	P = 75	visitas = 204	P/Pt = 0.122951	v/vt = 0.127261
-8 => vertice = 12	P = 80	visitas = 202	P/Pt = 0.131148	v/vt = 0.126014
