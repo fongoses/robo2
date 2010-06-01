@@ -183,7 +183,7 @@ O \texttt{gerador} recebe apenas um parâmetro como entrada: o nomo do mapa que q
 
 O laço principal do programa consiste em retirar um $agente$ da fila e para cada sala $i$ é criado um novo $agente$, simulando que o $agente$ retirado da fila navegou até a sala $i$. Em cada novo $agente$ é atualizada a seqüência de salas visitadas e o agente é reavaliado. Se a avaliação for um valor negativo o $agente$ é inserido na fila de $agentes$. Se o valor retornado for 0 (zero) o $agente$ é descartado. Caso o avaliador retorne um valor positivo e esse valor é menor que a avaliação da atual seqüência ótima, o novo $agente$ contendo a seqüência melhor é guardado como possível seqüência ótima. Como o algoritmo somente insere na fila os $agentes$ que podem gerar seqüências ótimas, o critério de parada é quando não existe mais $agentes$ na fila, o programa então retorna o $agente$ com a seqüência ótima.
 
-A Figura\ref{fig:fluxograma_gerador} mostra o fluxograma do programa \texttt{gerador} e o algoritmo \ref{alg:gerador} contém seu pseudocódigo.
+A Figura \ref{fig:fluxograma_gerador} mostra o fluxograma do programa \texttt{gerador} e o algoritmo \ref{alg:gerador} contém seu pseudocódigo.
 \begin{figure}[htbp]
 	\centering
 		\includegraphics[width=1.00\textwidth]{../../imagens/fluxograma_gerador.png}
@@ -266,7 +266,7 @@ Em seguida o \texttt{gerador} cria uma cópia do \textit{agente} \textbf{a} para 
 	\caption{Inserindo os \textit{agentes} \textbf{e}, \textbf{f} e \textbf{g}.}
 	\label{fig:gerador4}
 \end{figure}
-\newpage
+%\newpage
 Após feito isso o \texttt{gerador} recomeça o ciclo, removendo o primeiro \textit{agente} da fila (no caso \textit{agente} \textbf{b}), criando outros \textit{agentes} e inserindo-os na fila de acordo com a avaliação adquirida (\textit{agentes} \textbf{h}, \textbf{i} e \textbf{j}) como mostra a Figura \ref{fig:gerador5}.
 
 \begin{figure}[h]
@@ -276,8 +276,10 @@ Após feito isso o \texttt{gerador} recomeça o ciclo, removendo o primeiro \texti
 	\label{fig:gerador5}
 \end{figure}
 
+\newpage
+
 \subsection{Tempo Real}
-A solução em tempo real inicia as prioridades das salas todas iguais, cada sala recebe um valor correspondente à chance dessa sala gerar uma emergência, como uma lixeira cheia por exemplo. A cada emergência gerada a prioridade da sala é acrescida de uma unidade. O robô segue o paradigma de ir à sala de maior grau de urgência, visita a sala e procura a próxima sala de maior grau de urgência.
+A solução em tempo real inicia as prioridades de todas as salas em zero, cada sala recebe um valor correspondente à chance dessa sala gerar uma emergência, como uma lixeira cheia por exemplo. A cada emergência gerada a prioridade da sala é acrescida de uma unidade. O robô segue o paradigma de ir à sala de maior grau de urgência, visita a sala e procura a próxima sala de maior grau de urgência.
 
 A chance de emergência que cada sala recebe é proporcional às prioridades, para fazer o cálculo basta dividir a prioridade da sala pelo soma das prioridades do mapa.
 
@@ -324,80 +326,125 @@ Suas chances de gerar uma emergência ficaram da seguinte forma:
 	\label{tab:ExemploDeChancesDeEmergência}
 \end{table*}
 
+\newpage
+
 \section{Resultados}
 \label{resultados}
 
-Para os testes foram criados sete mapas, como mostra a Figura \ref{fig:mapas_testes}:
+Para os testes foram criados sete mapas, cada qual com uma peculiaridade diferente:
 \begin{itemize}
-	\item Quatro: Com quatro salas de prioridades iguais e ligação entre todas as salas (Figura \ref{fig:mapa_quatro});
-	\item Quatro Diff: Com quatro salas com prioridades diferentes e ligação entre todas as salas (Figura \ref{fig:mapa_quatro});
-	\item X: Com cinco salas em que formam um X com ligações entre as salas das pontas (Figura \ref{fig:mapa_x});
-	\item X Incompleto: Com cinco salas em formato de X com somente a sala do meio ligando as outras (Figura \ref{fig:mapa_x_incompleto});
-	\item Espinha: Com seis salas em formato de espinha de peixe com prioridades iguais (Figura \ref{fig:mapa_espinha});
-	\item Espinha Diff: Com seis salas em formato de espinha de peixa com prioridades diferentes (Figura \ref{fig:mapa_espinha}) e
-	\item Apartamento: Com oito salas simulando um apartamento real(Figura \ref{fig:mapa_ap}).
-\end{itemize}
+	\item Quatro: Com quatro salas de prioridades iguais (Tabela \ref{tab:P_quatro}) e ligação entre todas as salas (Figura \ref{fig:grafo_quatro});
 
-\begin{figure}[ht]
-  \centering
-	\subfigure[Quatro]{
-    \includegraphics[width=0.177\textwidth]{../../imagens/mapa_quatro.png}
-		\label{fig:mapa_quatro}}	
-	\subfigure[X]{
-    \includegraphics[width=0.234\textwidth]{../../imagens/mapa_x.png}
-		\label{fig:mapa_x}}	
-	\subfigure[X incompleto]{
-    \includegraphics[width=0.234\textwidth]{../../imagens/mapa_x_incompleto.png}
-		\label{fig:mapa_x_incompleto}}	
-	\subfigure[Espinha]{
-    \includegraphics[width=0.253\textwidth]{../../imagens/mapa_espinha.png}
-		\label{fig:mapa_espinha}}	
-	\subfigure[Apartamento]{
-    \includegraphics[width=1\textwidth]{../../imagens/mapa_ap.png}
-		\label{fig:mapa_ap}}	
-	\caption{Mapas para testes.}
-	\label{fig:mapas_testes}
+\begin{figure}[htb]
+	\centering
+		\includegraphics[width=0.2\textwidth]{../../imagens/mapa_quatro.png}
+	\caption{Grafo do Mapa Quatro.}
+	\label{fig:grafo_quatro}
 \end{figure}
 
+\begin{table}[hb]
+	\centering
+	\caption{Prioridades do Mapa Quatro.}
+ 	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & Prioridade\\
+		\hline
+		1& 1 \\
+		2& 1 \\
+		3& 1 \\
+		4& 1 \\
+		\hline
+  \end{tabular}
+  \label{tab:P_quatro}
+\end{table}
 
-A Tabela \ref{tab:prioridades_testes} mostra as prioridades utilizadas nos testes.
-\begin{table}
-\caption{Prioridades das salas nos mapas.}
-\centering
-\subtable[Quatro]{
-      \begin{tabular}
-      {|c|c|}
-			\hline
-			Sala & Prioridade \\
-			\hline
-			1& 1 \\
-			2& 1 \\
-			3& 1 \\
-			4& 1 \\
-			\hline
-      \end{tabular}
-       \label{tab:P_quatro}
-}
-\qquad\qquad
-\subtable[Quatro Diff]{
-      \begin{tabular}
-      {|c|c|}
-			\hline
-			Sala & Prioridade \\
-			\hline
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 2 4 3.
+
+As prioridades proporcionais finais da solução em Tempo Real foram próximas às prioridades proporcionais inicias, como mostra a Tabela \ref{tab:Pp_quatro}.
+
+\begin{table}[hb]
+	\centering
+	\caption{Prioridades proporcionais do Mapa Quatro}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1 & 0.25 & 0.253\\
+		2 & 0.25 & 0.254\\
+		3 & 0.25 & 0.248\\
+		4 & 0.25 & 0.244\\
+		\hline
+	\end{tabular}
+	\label{tab:Pp_quatro}
+\end{table}
+
+O gráfico (Figura \ref{fig:grafico_quatro}) mostra que a solução em Tempo Real depois de estabilizar teve um desempenho inferior à solução \texttt{Offline}.
+\begin{figure}[htb]
+	\centering
+		\includegraphics[width=0.4\textwidth]{../../../resultados/graficos/quatro.png}
+	\caption{Gráfico do Mapa Quatro.}
+	\label{fig:grafico_quatro}
+\end{figure}
+%\newpage
+
+Como o Mapa Quatro é pequeno (dois metros quadrados) e a seqüência gerada pela solução \texttt{Offline} é visitar as salas no sentido anti-horário, o robô leva exatamente o mesmo tempo para ir de uma sala à outra. E como as prioridades são todas iguais e para gerar o gráfico foram tiradas medidas (Grau de Urgência Total) de dez em dez segundos, coincidiu de o robô a cada dez segundos estar no mesmo lugar no mapa, por isso o gráfico do Mapa Quatro para a solução \texttt{Offline} é uma linha. Fato que não acontece no gráfico do Mapa Quatro Diff (Figura \ref{fig:grafico_quatro_diff}) pois as prioridades não são todas iguais.
+ 
+	\item Quatro Diff: Com quatro salas com prioridades diferentes (Tabela \ref{tab:P_quatro_diff}) e ligação entre todas as salas (Figura \ref{fig:grafo_quatro});
+	
+\begin{table}[hb]
+	\centering
+	\caption{Prioridades do Mapa Quatro Diff.}
+ 	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & Prioridade\\
+		\hline
 			1& 1 \\
 			2& 1 \\
 			3& 5 \\
 			4& 5 \\
-			\hline
-      \end{tabular}
-       \label{tab:P_quatro_diff}
-}
-\qquad\qquad
-\subtable[X e X Incompleto]{
-      \begin{tabular}
-      {|c|c|}
-			\hline
+		\hline
+  \end{tabular}
+  \label{tab:P_quatro_diff}
+\end{table}
+
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 3 4 2 4 3.
+
+As prioridades proporcionais finais da solução em Tempo Real foram próximas às prioridades proporcionais inicias, como mostra a Tabela \ref{tab:Pp_quatro_diff}. Sendo a sala 4 com a maior diferença, 0,012 que equivale a 2,88\%.
+
+\begin{table}[hb]
+	\centering
+	\caption{Prioridades proporcionais do Mapa Quatro Diff}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1 & 0.083 & 0.082 \\
+		2 & 0.083 & 0.088 \\
+		3 & 0.417 & 0.424 \\
+		4 & 0.417 & 0.405 \\
+		\hline
+	\end{tabular}
+	\label{tab:Pp_quatro_diff}
+\end{table}
+
+	O gráfico do Mapa Quatro Diff (Figura \ref{fig:grafico_quatro_diff}), diferentemente do gráfico do Mapa Quatro (Figura \ref{fig:grafico_quatro}), ilustra que a solução \texttt{Offline} manteve o Grau de Urgência Total dentro de uma faixa, entre dez e trinta aproximadamente, mas seu desempenho também foi superior à solução em Tempo Real.
+\begin{figure}[htb]
+	\centering
+		\includegraphics[width=0.4\textwidth]{../../../resultados/graficos/quatro_diff.png}
+	\caption{Gráfico do Mapa .}
+	\label{fig:grafico_quatro_diff}
+\end{figure}
+
+
+\item X: Com cinco salas em que formam um X (Prioridades na Tabela \ref{tab:P_x}) com ligações entre as salas das pontas (Figura \ref{fig:mapa_x});
+	
+\begin{figure}[hb]
+  \centering
+  \subfigure[Grafo do Mapa X.]{\label{fig:grafo_x}\includegraphics[width=0.2\textwidth]{../../imagens/mapa_x.png}}                
+  \qquad
+  \subtable[Prioridades do mapa X.]{
+  	\begin{tabular}{|c|c|}
+  		\hline
 			Sala & Prioridade \\
 			\hline
 			1& 1 \\
@@ -406,14 +453,36 @@ A Tabela \ref{tab:prioridades_testes} mostra as prioridades utilizadas nos teste
 			4& 5 \\
 			5& 5 \\
 			\hline
-      \end{tabular}
-      \label{tab:P_x}
+    \end{tabular}
+    \label{tab:P_x}
 }
-\qquad\qquad
-\subtable[Espinha]{
-      \begin{tabular}
-      {|c|c|}
-			\hline
+	\qquad
+  \subfigure[Gráfico do Mapa X.]{\label{fig:grafico_x}\includegraphics[width=0.4\textwidth]{../../../resultados/graficos/x.png}}
+  \caption{Mapa X.}
+  \label{fig:mapa_x}
+\end{figure}
+
+%\newpage
+	\item X Incompleto: Com cinco salas em formato de X (Prioridades na Tabela \ref{tab:P_x}) com somente a sala do meio ligando as outras (Figura \ref{fig:mapa_x_incompleto});
+	
+\begin{figure}[hb]
+  \centering
+  \subfigure[Grafo do Mapa X Incompleto.]{\label{fig:grafo_x}\includegraphics[width=0.2\textwidth]{../../imagens/mapa_x_incompleto.png}}                
+	\qquad
+  \subfigure[Gráfico do Mapa X Incompleto]{\label{fig:grafico_x_incompleto}\includegraphics[width=0.4\textwidth]{../../../resultados/graficos/x_incompleto.png}}
+  \caption{Mapa X Incompleto}
+  \label{fig:mapa_x_incompleto}
+\end{figure}
+
+	\item Espinha: Com seis salas de prioridades iguais (Tabela \ref{tab:P_espinha}) em formato de espinha de peixe (Figura \ref{fig:mapa_espinha});
+
+\begin{figure}[hb]
+  \centering
+  \subfigure[Grafo do Mapa Espinha.]{\label{fig:grafo_espinha}\includegraphics[width=0.2\textwidth]{../../imagens/mapa_espinha.png}}                
+  \qquad
+  \subtable[Prioridades do Mapa Espinha.]{
+  	\begin{tabular}{|c|c|}
+  		\hline
 			Sala & Prioridade \\
 			\hline
 			1& 2 \\
@@ -423,14 +492,21 @@ A Tabela \ref{tab:prioridades_testes} mostra as prioridades utilizadas nos teste
 			5& 2 \\
 			6& 2 \\
 			\hline
-      \end{tabular}
-      \label{tab:P_espinha}
+    \end{tabular}
+    \label{tab:P_espinha}
 }
-\qquad\qquad
-\subtable[Espinha Diff]{
-      \begin{tabular}
-      {|c|c|}
-			\hline
+	\qquad
+  \subfigure[Gráfico do Mapa Espinha.]{\label{fig:grafico_espinha}\includegraphics[width=0.4\textwidth]{../../../resultados/graficos/espinha.png}}
+  \caption{Mapa Espinha.}
+  \label{fig:mapa_espinha}
+\end{figure}
+	
+	\item Espinha Diff: Com seis salas de prioridades diferentes (Tabela \ref{tab:P_espinha}) em formato de espinha de peixe (Figura \ref{fig:mapa_espinha}) e
+\begin{figure}[hb]
+  \centering
+  \subtable[Prioridades do Mapa Espinha Diff.]{
+  	\begin{tabular}{|c|c|}
+  		\hline
 			Sala & Prioridade \\
 			\hline
 			1& 5 \\
@@ -440,14 +516,24 @@ A Tabela \ref{tab:prioridades_testes} mostra as prioridades utilizadas nos teste
 			5& 1 \\
 			6& 1 \\
 			\hline
-      \end{tabular}
-      \label{tab:P_espinha_diff}
+    \end{tabular}
+    \label{tab:P_espinha_diff}
 }
-\qquad\qquad
-\subtable[Apartamento]{
-      \begin{tabular}
-      {|c|c|}
-			\hline
+	\qquad
+  \subfigure[Gráfico do Mapa Espinha Diff.]{\label{fig:grafico_espinha_diff}\includegraphics[width=0.4\textwidth]{../../../resultados/graficos/espinha_diff.png}}
+  \caption{Mapa Espinha Diff.}
+  \label{fig:mapa_espinha_diff}
+\end{figure}
+	
+	\item Apartamento: Com oito salas de prioridades diferentes (Tabela \ref{tab:P_ap}) simulando um apartamento real (Figura \ref{fig:mapa_ap}).
+
+\begin{figure}[hb]
+  \centering
+  \subfigure[Grafo do Mapa Apartamento.]{\label{fig:grafo_ap}\includegraphics[width=0.6\textwidth]{../../imagens/mapa_ap.png}}                
+  \qquad
+  \subtable[Prioridades do Mapa Apartamento.]{
+  	\begin{tabular}{|c|c|}
+  		\hline
 			Sala & Prioridade \\
 			\hline
 			1& 5 \\
@@ -459,11 +545,16 @@ A Tabela \ref{tab:prioridades_testes} mostra as prioridades utilizadas nos teste
 			7& 4 \\
 			8& 4 \\
 			\hline
-      \end{tabular}
-      \label{tab:P_ap}
+    \end{tabular}
+    \label{tab:P_espinha_diff}
 }
-\label{tab:prioridades_testes}
-\end{table}
+	\qquad
+  \subfigure[Gráfico do Mapa Apartamento.]{\label{fig:grafico_ap}\includegraphics[width=0.4\textwidth]{../../../resultados/graficos/ap.png}}
+  \caption{Mapa Apartamento.}
+  \label{fig:mapa_espinha_diff}
+\end{figure}
+
+\end{itemize}
 
 O \texttt{gerador} gerou as seqüências de salas para serem visitadas descritas da Tabela \ref{tab:sequencias}.
 
@@ -474,7 +565,6 @@ O \texttt{gerador} gerou as seqüências de salas para serem visitadas descritas d
 		\hline
 		Mapa & Seqüência \\
 		\hline
-		Quatro& 1 2 4 3\\
 		Quatro Diff& 1 3 4 2 4 3\\
 		X & 1 2 4 5 3 2 4 5 3\\
 		X Incompleto& 1 2 3 4 5\\
