@@ -93,7 +93,7 @@ main ( int argc, char *argv[] )
             if(!arq.is_open()) {
                 cout << "Não foi possivel abrir " + s_aux + ".\n";getchar();
             }
-            cout << s_aux << endl;
+            cout << mapas_teste[m] << "_" << s_alg << endl;
             anterior = tempo;/* Usado para simulacao */
             /* Fim da iniciacao padrão */
 

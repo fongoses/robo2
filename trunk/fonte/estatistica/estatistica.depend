@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1275025962 source:/home/heitor/robo2/fonte/estatistica/main.cpp
+1275426609 source:/home/heitor/robo2/fonte/estatistica/main.cpp
 	<dirent.h>
 	<cstring>
 	<iostream>
@@ -30,7 +30,7 @@
 1275020030 /home/heitor/robo2/fonte/ponto.h
 	<iostream>
 
-1275028191 /home/heitor/robo2/fonte/salas.h
+1275030664 /home/heitor/robo2/fonte/salas.h
 	<map>
 	<iostream>
 	<fstream>
