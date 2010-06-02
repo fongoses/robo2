@@ -569,23 +569,27 @@ Salas::get_salas( )
  * Description:  Retorna a sala com maior grau de urgencia
  *--------------------------------------------------------------------------------------
  */
-	int
+	VetorSalas
 Salas::get_maiorU ( float *U )
 {
-	unsigned int s = -1;
+	//unsigned int s = -1;
 	float maiorU = 0;
 	MapaSala::iterator it_s;
+	VetorSalas resp;
 
 	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
 		if(it_s->second.U > maiorU) {
-			s = it_s->first;
+		    resp.clear();
+			resp.push_back(it_s->first);
 			maiorU = it_s->second.U;
+		} else if(it_s->second.U == maiorU) {
+			resp.push_back(it_s->first);
 		}
 	}
 	if(U != NULL) {
 		*U = maiorU;
 	}
-	return s;
+	return resp;
 }		/* -----  end of method Salas::get_maiorU  ----- */
 
 /*

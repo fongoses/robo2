@@ -131,7 +131,7 @@ main ( int argc, char *argv[] )
         //			cout << "Algoritmo 1\n"; getchar();
                     while(tempo - inicio < TOTAL * 60) { /* rodar por TOTAL minutos */
                         sala.atualizar(tempo);
-                        visitar_sala = sala.get_maiorU();
+                        visitar_sala = robo1->get_sala_maiorU();
         //				sala.imprimir();
                         //DEBUG*/cout << "PRINCIPAL#main: Indo para sala " << visitar_sala << " vertice " << sala.get_vertice(visitar_sala)<< endl;getchar();
                         t_aux = tempo;
@@ -370,9 +370,10 @@ main ( int argc, char *argv[] )
 
         //					tempo++;
                             sala.atualizar(tempo);
-                            visitar_sala = sala.get_maiorU();
+                            //sala.imprimir();//getchar();
+                            visitar_sala = robo1->get_sala_maiorU();
         //					cout << "Tempo total: " << tempo - tempo_ER << endl;
-        					//sala.imprimir();//getchar();
+
 
                         }while (visitar_sala == -1);
 
