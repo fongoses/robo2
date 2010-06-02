@@ -32,7 +32,7 @@
 #define GRAD_TO_RAD 57.29577951
 
 /* Define para Virar */
-#define MAX_VEL_ROT 0.5 
+#define MAX_VEL_ROT 0.5
 #define MIN_VEL_ROT 0.1
 /* MAX e MIN sao valores quadrados */
 #define MAX_DIF 500
@@ -93,7 +93,7 @@ class Robo
 
 
     void imprimir_dados();
-    
+
     void calcular(float x, float y, float *dist, int *angulo);
     int ir_para(float x, float y, float dist_ajuste);
     int ir_para(float x, float y);
@@ -109,6 +109,8 @@ class Robo
     int get_vertice();
 		time_t get_tempo_viagem();
 
+    int get_sala_maiorU(float *U = NULL);
+
 		/* ====================  INQUIRY       ======================================= */
 
 		/* ====================  DATA MEMBERS  ======================================= */
@@ -119,7 +121,7 @@ class Robo
 		Position2dProxy *position;
 		LaserProxy *laser;
 
-    Mapa mapa;
+        Mapa mapa;
 		Salas *sala;
 		int vertice;
 		float angulo_sim;

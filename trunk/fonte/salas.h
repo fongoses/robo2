@@ -27,6 +27,8 @@
 #include	<cstdio>
 #include	<cstdlib>
 
+#include    "ponto.h"
+
 using namespace std;
 
 #define	VISITAR_SALA 5			/* Tempo para visitar uma sala (s) */
@@ -117,7 +119,7 @@ class Salas
 		/* ====================  ACCESS        ======================================= */
 		VetorVertices get_salas_vertices();
 		VetorSalas get_salas();
-		int get_maiorU(float *U = NULL);
+		VetorSalas get_maiorU( float *U = NULL);
 		int get_vertice( int s );
 		int get_P( int s );
 		int get_visitas( int s );

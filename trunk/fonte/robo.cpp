@@ -324,6 +324,23 @@ Robo::get_tempo_viagem ( )
 	return resp;
 }		/* -----  end of method Robo::get_tempo_viagem  ----- */
 
+    int
+Robo::get_sala_maiorU ( float *U)
+{
+    VetorSalas v_salas;
+    float dist = INT_MAX;
+    int s = -1;
+
+    v_salas = sala->get_maiorU(U);
+    for(unsigned int i = 0; i < v_salas.size(); i++) {
+        if(mapa.get_ponto(vertice).distancia(mapa.get_ponto(v_salas[i])) < dist)
+        {
+            s = v_salas[i];
+            dist = mapa.get_ponto(vertice).distancia(mapa.get_ponto(v_salas[i]));
+        }
+    }
+    return s;
+}
 
 /*-----------------------------------------------------------------------------
  * ====================  INQUIRY       ======================================= *

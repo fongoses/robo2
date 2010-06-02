@@ -88,6 +88,7 @@ class Mapa
 		Ponto get_ponto ( int v );
 
 		int get_vertice(Ponto P); /* Retorna o vertice mais proximo do ponto P */
+		int get_maiorU(Salas s, float *U = NULL);
 
 		/* ====================  INQUIRY       ======================================= */
 
