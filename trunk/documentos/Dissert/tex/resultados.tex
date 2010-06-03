@@ -59,6 +59,14 @@ O segundo critério é um gráfico mostrando a progressão da somatória dos graus de
 
 \section{Metodologia}
 \label{metodologia}
+#######################################################################################################
+Para a solução do problema descrito anteriormente, supõe-se que o robô tenha uma descrição do ambiente em que atua (mapa). 
+Os sensores que foram utilizados no projeto foram LASER e odômetro.
+\section{Controle do Robô}
+\label{controle_do_robo}
+O controle do robô será desenvolvido utilizando-se a biblioteca Player/Stage \cite{Gerkey2003}, a qual permite que sejam realizadas simulações antes que os algoritmos sejam testados com o robô real. Essas simulações são importantes para o aperfeiçoamento dos parâmetros como distâncias, velocidades, etc, antes do teste no Pioneer.
+#######################################################################################################
+
 
 Cada ambiente tem um mapa topológico que será gerado utilizando o diagrama de Voronoi. O robô então, deve utilizar deste mapa para se locomover de uma sala para outra no ambiente. Para os algoritmos e estratégias determinarem a seqüência de salas à visitar, é considerado um grafo completo com todas as salas, pois para determinar o melhor caminho entre uma sala e outra será utilizado o algoritmo de Dijkstra no mapa topológico.
 
@@ -105,7 +113,7 @@ O \texttt{avaliador} recebe três parâmetros como entrada:
 	\item Um valor opcional de limite para a avaliação.
 \end{itemize}
 
-Com esses parâmetros o \texttt{avaliador} inicia a simulação do robô navegando pelo mapa. A velocidade linear, que determina a velocidade com que o robô anda para frente ou para trás, é definida pela constante \texttt{SIMULACAO\_VEL} como 1 m/s. E a velocidade angular, que determina a velocidade com que o robô vira, é definida pela constante \texttt{SIMULACAO\_ROT} como 0.5 rad/s. Ambas constantes estão no arquivo \texttt{robo.h}. O tempo que o robô demora para visitar uma sala é definido pela constante \texttt{VISITAR\_SALA} como 5 s no arquivo \texttt{salas.h}.
+Com esses parâmetros o \texttt{avaliador} inicia a simulação do robô navegando pelo mapa. A velocidade linear, que determina a velocidade com que o robô anda para frente ou para trás, é definida pela constante \texttt{SIMULACAO\_VEL} como 1 m/s. E a velocidade angular, que determina a velocidade com que o robô vira, é definida pela constante \texttt{SIMULACAO\_ROT} como 0,5 rad/s. Ambas constantes estão no arquivo \texttt{robo.h}. O tempo que o robô demora para visitar uma sala é definido pela constante \texttt{VISITAR\_SALA} como 5 s no arquivo \texttt{salas.h}.
 
 Durante a simulação, a cada visita de sala o \texttt{avaliador} mede o Grau de Urgência Total e salva o maior valor, esse valor vai ser a avaliação do caminho neste mapa. Após a simulação o \texttt{avaliador} verifica se caso a avaliação do caminho for maior que o limite fornecido o valor 0 (zero) é retornado, se nenhum limite for fornecido o \texttt{avaliador} utiliza o valor do maior inteiro do compilador. Se o caminho não visita todos as salas o \texttt{avaliador} retorna a avaliação com valor negativo, se todas as salas foram visitadas o \texttt{avaliador} verifica se o caminho é um \textit{loop}, ou seja, se o caminho começa e termina no mesmo vértice, caso contrário ele também retorna a avaliação em valor negativo.  Se o caminho for um \textit{loop}, visita todas as salas e o valor da avaliação for menor que o limite fornecido (ou menor que o maior inteiro do compilador), o valor da avaliação, maior Grau de Urgência Total em todo o percurso, é retornado pelo \texttt{avaliador}.
 
@@ -331,6 +339,8 @@ Suas chances de gerar uma emergência ficaram da seguinte forma:
 \section{Resultados}
 \label{resultados}
 
+Para a solução em Tempo Real, por se tratar de uma solução baseada em números aleatórios, foram executados 100 repetições em cada mapa.
+
 Para os testes foram criados sete mapas, cada qual com uma peculiaridade diferente:
 \begin{itemize}
 	\item Quatro: Com quatro salas de prioridades iguais (Tabela \ref{tab:P_quatro}) e ligação entre todas as salas (Figura \ref{fig:grafo_quatro});
@@ -364,21 +374,21 @@ As prioridades proporcionais finais da solução em Tempo Real foram próximas às p
 
 \begin{table}[hb]
 	\centering
-	\caption{Prioridades proporcionais do Mapa Quatro}
+	\caption{Prioridades proporcionais do Mapa Quatro.}
 	\begin{tabular}{|c|c|c|}
 		\hline
 		Sala & \textit{Offline} & Tempo Real \\
 		\hline
-		1 & 0.25 & 0.253\\
-		2 & 0.25 & 0.254\\
-		3 & 0.25 & 0.248\\
-		4 & 0.25 & 0.244\\
+		1 & 0,25 & 0,252\\
+		2 & 0,25 & 0,243\\
+		3 & 0,25 & 0,251\\
+		4 & 0,25 & 0,253\\
 		\hline
 	\end{tabular}
 	\label{tab:Pp_quatro}
 \end{table}
 
-O gráfico (Figura \ref{fig:grafico_quatro}) mostra que a solução em Tempo Real depois de estabilizar teve um desempenho inferior à solução \texttt{Offline}.
+O gráfico (Figura \ref{fig:grafico_quatro}) mostra que a solução em Tempo Real depois de estabilizar teve um desempenho inferior à solução \textit{Offline}.
 \begin{figure}[htb]
 	\centering
 		\includegraphics[width=0.4\textwidth]{../../../resultados/graficos/quatro.png}
@@ -387,7 +397,7 @@ O gráfico (Figura \ref{fig:grafico_quatro}) mostra que a solução em Tempo Real d
 \end{figure}
 %\newpage
 
-Como o Mapa Quatro é pequeno (dois metros quadrados) e a seqüência gerada pela solução \texttt{Offline} é visitar as salas no sentido anti-horário, o robô leva exatamente o mesmo tempo para ir de uma sala à outra. E como as prioridades são todas iguais e para gerar o gráfico foram tiradas medidas (Grau de Urgência Total) de dez em dez segundos, coincidiu de o robô a cada dez segundos estar no mesmo lugar no mapa, por isso o gráfico do Mapa Quatro para a solução \texttt{Offline} é uma linha. Fato que não acontece no gráfico do Mapa Quatro Diff (Figura \ref{fig:grafico_quatro_diff}) pois as prioridades não são todas iguais.
+Como o Mapa Quatro é pequeno (dois metros quadrados) e a seqüência gerada pela solução \textit{Offline} é visitar as salas no sentido anti-horário, o robô leva exatamente o mesmo tempo para ir de uma sala à outra. E como as prioridades são todas iguais e para gerar o gráfico foram tiradas medidas (Grau de Urgência Total) de dez em dez segundos, coincidiu de o robô a cada dez segundos estar no mesmo lugar no mapa, por isso o gráfico do Mapa Quatro para a solução \textit{Offline} é uma linha. Fato que não acontece no gráfico do Mapa Quatro Diff (Figura \ref{fig:grafico_quatro_diff}) pois as prioridades não são todas iguais.
  
 	\item Quatro Diff: Com quatro salas com prioridades diferentes (Tabela \ref{tab:P_quatro_diff}) e ligação entre todas as salas (Figura \ref{fig:grafo_quatro});
 	
@@ -409,200 +419,329 @@ Como o Mapa Quatro é pequeno (dois metros quadrados) e a seqüência gerada pela s
 
 A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 3 4 2 4 3.
 
-As prioridades proporcionais finais da solução em Tempo Real foram próximas às prioridades proporcionais inicias, como mostra a Tabela \ref{tab:Pp_quatro_diff}. Sendo a sala 4 com a maior diferença, 0,012 que equivale a 2,88\%.
+As prioridades proporcionais finais da solução em Tempo Real foram próximas às prioridades proporcionais inicias, como mostra a Tabela \ref{tab:Pp_quatro_diff}.
 
 \begin{table}[hb]
 	\centering
-	\caption{Prioridades proporcionais do Mapa Quatro Diff}
+	\caption{Prioridades proporcionais do Mapa Quatro Diff.}
 	\begin{tabular}{|c|c|c|}
 		\hline
 		Sala & \textit{Offline} & Tempo Real \\
 		\hline
-		1 & 0.083 & 0.082 \\
-		2 & 0.083 & 0.088 \\
-		3 & 0.417 & 0.424 \\
-		4 & 0.417 & 0.405 \\
+		1 & 0,083 & 0,082 \\
+		2 & 0,083 & 0,088 \\
+		3 & 0,417 & 0,424 \\
+		4 & 0,417 & 0,405 \\
 		\hline
 	\end{tabular}
 	\label{tab:Pp_quatro_diff}
 \end{table}
 
-	O gráfico do Mapa Quatro Diff (Figura \ref{fig:grafico_quatro_diff}), diferentemente do gráfico do Mapa Quatro (Figura \ref{fig:grafico_quatro}), ilustra que a solução \texttt{Offline} manteve o Grau de Urgência Total dentro de uma faixa, entre dez e trinta aproximadamente, mas seu desempenho também foi superior à solução em Tempo Real.
+	O gráfico do Mapa Quatro Diff (Figura \ref{fig:grafico_quatro_diff}), diferentemente do gráfico do Mapa Quatro (Figura \ref{fig:grafico_quatro}), ilustra que a solução \textit{Offline} manteve o Grau de Urgência Total dentro de uma faixa, entre dez e trinta aproximadamente, mas seu desempenho também foi superior à solução em Tempo Real.
 \begin{figure}[htb]
 	\centering
 		\includegraphics[width=0.4\textwidth]{../../../resultados/graficos/quatro_diff.png}
-	\caption{Gráfico do Mapa .}
+	\caption{Gráfico do Mapa Quatro Diff.}
 	\label{fig:grafico_quatro_diff}
 \end{figure}
 
 
-\item X: Com cinco salas em que formam um X (Prioridades na Tabela \ref{tab:P_x}) com ligações entre as salas das pontas (Figura \ref{fig:mapa_x});
+\item X: Com cinco salas em que formam um X (Prioridades na Tabela \ref{tab:P_x}) com ligações entre as salas das pontas (Figura \ref{fig:grafo_x});
 	
-\begin{figure}[hb]
-  \centering
-  \subfigure[Grafo do Mapa X.]{\label{fig:grafo_x}\includegraphics[width=0.2\textwidth]{../../imagens/mapa_x.png}}                
-  \qquad
-  \subtable[Prioridades do mapa X.]{
-  	\begin{tabular}{|c|c|}
-  		\hline
-			Sala & Prioridade \\
-			\hline
+\begin{figure}[htb]
+	\centering
+		\includegraphics[width=0.2\textwidth]{../../imagens/mapa_x.png}
+	\caption{Grafo do Mapa X.}
+	\label{fig:grafo_x}
+\end{figure}
+\begin{table}[hb]
+	\centering
+	\caption{Prioridades do Mapa X.}
+ 	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & Prioridade\\
+		\hline
 			1& 1 \\
 			2& 5 \\
 			3& 5 \\
 			4& 5 \\
 			5& 5 \\
-			\hline
-    \end{tabular}
-    \label{tab:P_x}
-}
-	\qquad
-  \subfigure[Gráfico do Mapa X.]{\label{fig:grafico_x}\includegraphics[width=0.4\textwidth]{../../../resultados/graficos/x.png}}
-  \caption{Mapa X.}
-  \label{fig:mapa_x}
-\end{figure}
+		\hline
+  \end{tabular}
+  \label{tab:P_x}
+\end{table}
 
-%\newpage
-	\item X Incompleto: Com cinco salas em formato de X (Prioridades na Tabela \ref{tab:P_x}) com somente a sala do meio ligando as outras (Figura \ref{fig:mapa_x_incompleto});
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 2 4 5 3 2 4 5 3.
+
+As prioridades proporcionais finais da solução em Tempo Real foram próximas às prioridades proporcionais inicias, como mostra a Tabela \ref{tab:Pp_x}.
+
+\begin{table}[!h]
+	\centering
+	\caption{Prioridades proporcionais do Mapa X.}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1 & 0,048 & 0,050 \\
+		2 & 0,238 & 0,236 \\
+		3 & 0,238 & 0,242 \\
+		4 & 0,238 & 0,240 \\
+		5 & 0,238 & 0,233 \\
+		\hline
+	\end{tabular}
+	\label{tab:Pp_x}
+\end{table}
+
+O gráfico (Figura \ref{fig:grafico_x}) mostra que a solução \textit{Offline} depois de estabilizar teve um desempenho inferior à solução em Tempo Real.
+\begin{figure}[htb]
+	\centering
+		\includegraphics[width=0.4\textwidth]{../../../resultados/graficos/x.png}
+	\caption{Gráfico do Mapa X.}
+	\label{fig:grafico_x}
+\end{figure}
+\newpage
+	\item X Incompleto: Com cinco salas em formato de X (Prioridades iguais ao mapa anterior indicados na Tabela \ref{tab:P_x}) com somente a sala do meio ligando as outras (Figura \ref{fig:grafo_x_incompleto});
 	
-\begin{figure}[hb]
-  \centering
-  \subfigure[Grafo do Mapa X Incompleto.]{\label{fig:grafo_x}\includegraphics[width=0.2\textwidth]{../../imagens/mapa_x_incompleto.png}}                
-	\qquad
-  \subfigure[Gráfico do Mapa X Incompleto]{\label{fig:grafico_x_incompleto}\includegraphics[width=0.4\textwidth]{../../../resultados/graficos/x_incompleto.png}}
-  \caption{Mapa X Incompleto}
-  \label{fig:mapa_x_incompleto}
+\begin{figure}[htb]
+	\centering
+		\includegraphics[width=0.2\textwidth]{../../imagens/mapa_x_incompleto.png}
+	\caption{Grafo do Mapa X Incompleto.}
+	\label{fig:grafo_x_incompleto}
 \end{figure}
 
-	\item Espinha: Com seis salas de prioridades iguais (Tabela \ref{tab:P_espinha}) em formato de espinha de peixe (Figura \ref{fig:mapa_espinha});
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 2 3 4 5.
 
-\begin{figure}[hb]
-  \centering
-  \subfigure[Grafo do Mapa Espinha.]{\label{fig:grafo_espinha}\includegraphics[width=0.2\textwidth]{../../imagens/mapa_espinha.png}}                
-  \qquad
-  \subtable[Prioridades do Mapa Espinha.]{
-  	\begin{tabular}{|c|c|}
-  		\hline
-			Sala & Prioridade \\
-			\hline
-			1& 2 \\
-			2& 2 \\
-			3& 2 \\
-			4& 2 \\
-			5& 2 \\
-			6& 2 \\
-			\hline
-    \end{tabular}
-    \label{tab:P_espinha}
-}
-	\qquad
-  \subfigure[Gráfico do Mapa Espinha.]{\label{fig:grafico_espinha}\includegraphics[width=0.4\textwidth]{../../../resultados/graficos/espinha.png}}
-  \caption{Mapa Espinha.}
-  \label{fig:mapa_espinha}
+As prioridades proporcionais finais da solução em Tempo Real foram próximas às prioridades proporcionais inicias, como mostra a Tabela \ref{tab:Pp_x_incompleto}.
+
+\begin{table}[htb]
+	\centering
+	\caption{Prioridades proporcionais do Mapa X Incompleto.}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1	&	0,048	&	0,047 \\
+		2	&	0,238	&	0,240 \\
+		3	&	0,238	&	0,233 \\
+		4	&	0,238	&	0,247 \\
+		5	&	0,238	&	0,233 \\
+\hline
+	\end{tabular}
+	\label{tab:Pp_x_incompleto}
+\end{table}
+
+O gráfico (Figura \ref{fig:grafico_x_incompleto}) mostra que a solução \textit{Offline} depois de estabilizar teve um desempenho inferior à solução em Tempo Real.
+\begin{figure}[htb]
+	\centering
+		\includegraphics[width=0.4\textwidth]{../../../resultados/graficos/x_incompleto.png}
+	\caption{Gráfico do Mapa X Incompleto.}
+	\label{fig:grafico_x_incompleto}
 \end{figure}
-	
-	\item Espinha Diff: Com seis salas de prioridades diferentes (Tabela \ref{tab:P_espinha}) em formato de espinha de peixe (Figura \ref{fig:mapa_espinha}) e
-\begin{figure}[hb]
-  \centering
-  \subtable[Prioridades do Mapa Espinha Diff.]{
-  	\begin{tabular}{|c|c|}
-  		\hline
-			Sala & Prioridade \\
-			\hline
+\newpage
+
+	\item Espinha: Com seis salas de prioridades iguais (Tabela \ref{tab:P_espinha}) em formato de espinha de peixe (Figura \ref{fig:grafo_espinha});
+
+\begin{figure}[htb]
+	\centering
+		\includegraphics[width=0.2\textwidth]{../../imagens/mapa_espinha.png}
+	\caption{Grafo do Mapa .}
+	\label{fig:grafo_espinha}
+\end{figure}
+
+\begin{table}[!h]
+	\centering
+	\caption{Prioridades do Mapa Espinha.}
+ 	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & Prioridade\\
+		\hline
+		1& 2 \\
+		2& 2 \\
+		3& 2 \\
+		4& 2 \\
+		5& 2 \\
+		6& 2 \\
+		\hline
+  \end{tabular}
+  \label{tab:P_espinha}
+\end{table}
+
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 5 2 6 3 7.
+
+As prioridades proporcionais finais da solução em Tempo Real foram próximas às prioridades proporcionais inicias, como mostra a Tabela \ref{tab:Pp_espinha}.
+
+\begin{table}[!h]
+	\centering
+	\caption{Prioridades proporcionais do Mapa Espinha.}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1	&	0,167	&	0,162	\\
+		2	&	0,167	&	0,170	\\
+		3	&	0,167	&	0,169	\\
+		4	&	0,167	&	0,164	\\
+		5	&	0,167	&	0,170	\\
+		6	&	0,167	&	0,165	\\
+		\hline
+	\end{tabular}
+	\label{tab:Pp_espinha}
+\end{table}
+
+O gráfico (Figura \ref{fig:grafico_espinha}) mostra que a solução \textit{Offline} depois de estabilizar teve um desempenho inferior à solução em Tempo Real.
+\begin{figure}[htb]
+	\centering
+		\includegraphics[width=0.4\textwidth]{../../../resultados/graficos/espinha.png}
+	\caption{Gráfico do Mapa Espinha.}
+	\label{fig:grafico_espinha}
+\end{figure}
+
+	\item Espinha Diff: Com seis salas de prioridades diferentes (Tabela \ref{tab:P_espinha_diff}) em formato de espinha de peixe (Figura \ref{fig:grafo_espinha}) e
+
+\begin{table}[htb]
+	\centering
+	\caption{Prioridades do Mapa Espinha Diff.}
+ 	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & Prioridade\\
+		\hline
 			1& 5 \\
 			2& 1 \\
 			3& 2 \\
 			4& 2 \\
 			5& 1 \\
 			6& 1 \\
-			\hline
-    \end{tabular}
-    \label{tab:P_espinha_diff}
-}
-	\qquad
-  \subfigure[Gráfico do Mapa Espinha Diff.]{\label{fig:grafico_espinha_diff}\includegraphics[width=0.4\textwidth]{../../../resultados/graficos/espinha_diff.png}}
-  \caption{Mapa Espinha Diff.}
-  \label{fig:mapa_espinha_diff}
-\end{figure}
-	
-	\item Apartamento: Com oito salas de prioridades diferentes (Tabela \ref{tab:P_ap}) simulando um apartamento real (Figura \ref{fig:mapa_ap}).
-
-\begin{figure}[hb]
-  \centering
-  \subfigure[Grafo do Mapa Apartamento.]{\label{fig:grafo_ap}\includegraphics[width=0.6\textwidth]{../../imagens/mapa_ap.png}}                
-  \qquad
-  \subtable[Prioridades do Mapa Apartamento.]{
-  	\begin{tabular}{|c|c|}
-  		\hline
-			Sala & Prioridade \\
-			\hline
-			1& 5 \\
-			2& 5 \\
-			3& 3 \\
-			4& 3 \\
-			5& 5 \\
-			6& 4 \\
-			7& 4 \\
-			8& 4 \\
-			\hline
-    \end{tabular}
-    \label{tab:P_espinha_diff}
-}
-	\qquad
-  \subfigure[Gráfico do Mapa Apartamento.]{\label{fig:grafico_ap}\includegraphics[width=0.4\textwidth]{../../../resultados/graficos/ap.png}}
-  \caption{Mapa Apartamento.}
-  \label{fig:mapa_espinha_diff}
-\end{figure}
-
-\end{itemize}
-
-O \texttt{gerador} gerou as seqüências de salas para serem visitadas descritas da Tabela \ref{tab:sequencias}.
-
-\begin{table}\begin{center}
-\caption{Seqüências de salas a ser visitadas geradas pelo \texttt{gerador}}
-	\begin{tabular}
-		{|c|c|}
 		\hline
-		Mapa & Seqüência \\
-		\hline
-		Quatro Diff& 1 3 4 2 4 3\\
-		X & 1 2 4 5 3 2 4 5 3\\
-		X Incompleto& 1 2 3 4 5\\
-		Espinha & 1 5 2 6 3 7\\
-		Espinha Diff& 1 2 6 5 1 7 3 5\\
-		Apartamento& 1 12 9 11 5 7 3 4\\
-		\hline
-	\end{tabular}
-\end{center}
-\label{tab:sequencias}
+  \end{tabular}
+  \label{tab:P_espinha_diff}
 \end{table}
 
-\begin{figure}[ht]
-  \centering
-	\subfigure[Quatro]{
-    \includegraphics[width=0.35\textwidth]{../../../resultados/graficos/quatro.png}
-		\label{fig:grafico_quatro}}	
-	\subfigure[Quatro Diff]{
-    \includegraphics[width=0.35\textwidth]{../../../resultados/graficos/quatro_diff.png}
-		\label{fig:grafico_quatro_diff}}	
-	\subfigure[X]{
-    \includegraphics[width=0.35\textwidth]{../../../resultados/graficos/x.png}
-		\label{fig:grafico_x}}	
-	\subfigure[X Incompleto]{
-    \includegraphics[width=0.35\textwidth]{../../../resultados/graficos/x_incompleto.png}
-		\label{fig:grafico_x_incompleto}}	
-	\subfigure[Espinha]{
-    \includegraphics[width=0.35\textwidth]{../../../resultados/graficos/espinha.png}
-		\label{fig:grafico_espinha}}	
-	\subfigure[Espinha Diff]{
-    \includegraphics[width=0.35\textwidth]{../../../resultados/graficos/espinha_diff.png}
-		\label{fig:grafico_espinha_diff}}	
-	\subfigure[Apartamento]{
-    \includegraphics[width=0.35\textwidth]{../../../resultados/graficos/ap.png}
-		\label{fig:grafico_ap}}	
-	\label{fig:graficos}	
-	\caption{Gráficos dos restultados.}
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 2 6 5 1 7 3 5.
+
+As prioridades proporcionais finais da solução em Tempo Real foram próximas às prioridades proporcionais inicias, como mostra a Tabela \ref{tab:Pp_espinha_diff}.
+
+\begin{table}[htb]
+	\centering
+	\caption{Prioridades proporcionais do Mapa Espinha Diff.}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1	&	0,417	&	0,419	\\
+		2	&	0,083	&	0,082	\\
+		3	&	0,167	&	0,170	\\
+		4	&	0,167	&	0,163	\\
+		5	&	0,083	&	0,085	\\
+		6	&	0,083	&	0,080	\\
+		\hline
+	\end{tabular}
+	\label{tab:Pp_espinha_diff}
+\end{table}
+
+O gráfico (Figura \ref{fig:grafico_espinha_diff}) mostra que a solução \textit{Offline} depois de estabilizar teve um desempenho inferior à solução em Tempo Real.
+\begin{figure}[htb]
+	\centering
+		\includegraphics[width=0.4\textwidth]{../../../resultados/graficos/espinha_diff.png}
+	\caption{Gráfico do Mapa Espinha Diff.}
+	\label{fig:grafico_espinha_diff}
 \end{figure}
+\newpage	
+	\item Apartamento: Com oito salas de prioridades diferentes (Tabela \ref{tab:P_ap}) simulando um apartamento real (Figura \ref{fig:grafo_ap}).
+
+\begin{figure}[!h]
+	\centering
+		\includegraphics[width=0.8\textwidth]{../../imagens/mapa_ap.png}
+	\caption{Grafo do Mapa Apartamento.}
+	\label{fig:grafo_ap}
+\end{figure}
+\newpage
+
+\begin{table}[htb]
+	\centering
+	\caption{Prioridades do Mapa Apartamento.}
+ 	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & Prioridade\\
+		\hline
+		1& 5 \\
+		2& 5 \\
+		3& 3 \\
+		4& 3 \\
+		5& 5 \\
+		6& 4 \\
+		7& 4 \\
+		8& 4 \\
+		\hline
+  \end{tabular}
+  \label{tab:P_ap}
+\end{table}
+
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 12 9 11 5 7 3 4.
+
+As prioridades proporcionais finais da solução em Tempo Real foram próximas às prioridades proporcionais inicias, como mostra a Tabela \ref{tab:Pp_ap}.
+
+\begin{table}[htb]
+	\centering
+	\caption{Prioridades proporcionais do Mapa Apartamento.}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1	&	0,152	&	0,149	\\
+		2	&	0,152	&	0,154	\\
+		3	&	0,091	&	0,092	\\
+		4	&	0,091	&	0,092	\\
+		5	&	0,152	&	0,150	\\
+		6	&	0,121	&	0,121	\\
+		7	&	0,121	&	0,120	\\
+		8	&	0,121	&	0,121	\\
+		\hline
+	\end{tabular}
+	\label{tab:Pp_ap}
+\end{table}
+
+O gráfico (Figura \ref{fig:grafico_ap}) mostra que a solução \textit{Offline} depois de estabilizar teve um desempenho inferior à solução em Tempo Real.
+\begin{figure}[htb]
+	\centering
+		\includegraphics[width=0.4\textwidth]{../../../resultados/graficos/ap.png}
+	\caption{Gráfico do Mapa Apartamento.}
+	\label{fig:grafico_ap}
+\end{figure}
+
+Foi calculado uma média de cada solução em cada mapa com os últimos Dez mil segundos (Tabela \ref{tab:media_final}), analisando essa média nota-se que existe uma tendência de que quanto maior o número de salas mais eficiente será a solução \textit{Offline} em relação à solução em Tempo Real, como mostra o gráfico na Figura \ref{fig:grafico_tendencia}.
+\begin{table*}
+	\centering
+		\begin{tabular}{|c|c|c|}
+			\hline			
+			Mapa & & \\ 
+			(N\# de Salas) & \textit{Offline} & Tempo Real \\
+			\hline
+			Quatro (4) & 25,000 & 28,150 \\
+			Quatro Diff (4) & 20,980 & 28,346 \\
+			X (5) & 28,905 & 38,753 \\
+			X Incompleto (5) & 39,719 & 50,326 \\
+			Espinha (6) & 58,527 & 72.622\\
+			Espinha Diff (6) & 55,557 & 66,711\\
+			Apartamento (8) & 73,318 & 100,217 \\
+			\hline			
+		\end{tabular}
+	\caption{Média dos Últimos Dez Mil Segundos}
+	\label{tab:media_final}
+\end{table*}
+\newpage
+
+\begin{figure}[htb]
+	\centering
+		\includegraphics{../../imagens/tendencia.png}
+	\caption{Tendência de Desempenho}
+	\label{fig:grafico_tendencia}
+\end{figure}
+\end{itemize}
 
 \section{Conclusão}
 \label{conclusao}
+
+Analisando as prioridades proporcionais geradas pela solução em Tempo Real pode se concluir que a mesma foi capaz de alcançar as prioridades definidas de cada mapa em tempo de execução.
+
+Em todos os testes viu-se a solução \textit{Offline} foi mais eficiente que a solução em Tempo Real. 
+
