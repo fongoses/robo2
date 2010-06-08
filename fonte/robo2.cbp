@@ -13,7 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add option="-I/usr/local/include/player-3.0" />
+					<Add option="-I/usr/include/player-2.0" />
 					<Add option="-L/usr/local/lib" />
 					<Add option="-lplayerc++" />
 					<Add option="-lplayerc" />
@@ -24,7 +24,7 @@
 					<Add option="-lplayercommon" />
 				</Compiler>
 				<Linker>
-					<Add library="/usr/local/lib/libplayerc++.so" />
+					<Add library="/usr/lib/libplayerc++.so" />
 				</Linker>
 			</Target>
 		</Build>

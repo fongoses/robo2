@@ -13,7 +13,7 @@
 	<File name="agente.h" open="0" top="0" tabpos="5">
 		<Cursor position="519" topLine="0" />
 	</File>
-	<File name="gerador.cpp" open="1" top="0" tabpos="1">
+	<File name="gerador.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="6722" topLine="194" />
 	</File>
 	<File name="gerador.h" open="0" top="0" tabpos="11">
@@ -37,7 +37,7 @@
 	<File name="../robo.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="7867" topLine="204" />
 	</File>
-	<File name="../robo.h" open="0" top="0" tabpos="5">
+	<File name="../robo.h" open="1" top="0" tabpos="5">
 		<Cursor position="0" topLine="30" />
 	</File>
 	<File name="../salas.cpp" open="0" top="0" tabpos="1">

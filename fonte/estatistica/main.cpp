@@ -75,13 +75,14 @@ main ( int argc, char *argv[] )
 
                     while(!arquivo.eof())
                     {
+                        //cout << s << "-" << P << "-" << visitas << endl;
                         sala.set_P(s, sala.get_P(s) + P);
                         sala.set_visitas(s, sala.get_visitas(s) + visitas);
 
                         arquivo.getline(buff, 256);
                         sscanf(buff, "%d %*s %*s %*s %*d  %*s %*s %d %*s %*s %d", &s, &P, &visitas);
                     }
-
+ //getchar();
                     arquivo.close();
                     qtde++;
 //                }else {cout << " NÃO" << endl;
