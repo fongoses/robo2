@@ -346,6 +346,8 @@ main ( int argc, char *argv[] )
                                 }
             sala.set_ultima_atualizacao(time(&tempo)-1);
             sala.atualizar(tempo);
+                    tempo_ER = tempo;
+                    //sala.imprimir();getchar();
                     while(tempo - inicio < TOTAL * 60) { /* rodar por TOTAL minutos */
 //                        cout << "Faltam " << TOTAL * 60 - (tempo - inicio) << "s\n";
 
@@ -388,12 +390,12 @@ main ( int argc, char *argv[] )
                         while(!robo1->chegou())
                         {
                             tempo += robo1->get_tempo_viagem();
-                            if(t_aux < tempo - 10)
-                            {
+                            //if(t_aux < tempo - 10)
+                            //{
                                 //Chance pra emergencia
-                                cout << "ER!!\n";
-                                t_aux = tempo;
-                            }
+                                //cout << "ER!!\n";
+                                //t_aux = tempo;
+                            //}
                         }
         //				time(&tempo);
     //                    cout << "Tempo: " << tempo - inicio << endl;
