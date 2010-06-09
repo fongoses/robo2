@@ -9,9 +9,9 @@
 %==========================================================
 \chapter{Grafos e Aplicações}
 \label{grafos_aplicacoes}
-Grafos e mapas topológicos, são muito utilizados na literatura para navegação de robôs móveis, como podemos ver em \cite{Adorno2005,Scatena2004,Thrun1996,Thrun1998,Thrun1998a,Neto2003}. Como o problema proposto (seção \ref{resultados}) diz respeito à busca de trajetória em um mapa topológico (grafo) uma das soluções se torna uma variação do problema do caixeiro viajante que trata, basicamente de encontrar o menor ciclo hamiltoniano em um grafo.
+Grafos e mapas topológicos, são muito utilizados na literatura para navegação de robôs móveis, como pode ser constatado em \cite{Adorno2005,Scatena2004,Thrun1996,Thrun1998,Thrun1998a,Neto2003}. Como o problema proposto (seção \ref{resultados}) diz respeito à busca de trajetória em um mapa topológico (grafo), uma das soluções se torna uma variação do problema do caixeiro viajante que trata, basicamente, de encontrar o menor ciclo hamiltoniano em um grafo.
 
-As seções seguintes contém uma explicação sobre grafos, mapas topológicos e o problema do caixeiro viajante.
+As seções seguintes contém uma explicação sobre grafos, mapas topológicos, ciclo hamiltoniano e o problema do caixeiro viajante.
 
 \section{Grafos}
 \label{grafos}
@@ -33,13 +33,13 @@ Um grafo é constituído de um conjunto de vértices e um conjunto de arestas que c
 
 Em um grafo direcionado, a aresta $(u, v)$ sai do vértice $u$ e entra no vértice $v$. Se $(u, v)$ é uma aresta do grafo $G = (V, A)$, então o vértice $v$ é adjacente ao vértice $u$. Quando o grafo não é direcionado, a relação de adjacência é simétrica \cite{Ziviani2004}.
 
-Em um grafo, um caminho $(v_0, v_1, \cdots, v_k)$ forma um clico se $v_0 = v_k$ e o caminho contém pelo menos uma aresta. O ciclo é simples se os vértices $v_1, v_2, \cdots, v_k$ são distintos. O \textit{self-loop} é um ciclo de tamanho 1. Na Figura \ref{fig:grafo_dir}, o caminho $(0, 1, 2, 3, 0)$ forma um ciclo. Dois caminhos $(v_0, v_1, \cdots, v_k)$ e $(v'_0, v'_1, \cdots, v'_k)$ formam o mesmo ciclo se existir um inteiro $j$ tal que $v'_i = v_{(j+i) mod k}$ para $i = 0, 1, \cdots, k - 1$. Na Figura \ref{fig:grafo_dir}, o caminho $(0, 1, 3, 0)$ forma o mesmo ciclo que os caminhos $(1, 3, 0, 1)$ e $(3, 0, 1, 3)$. Um grafo sem ciclos é um grafo acíclico \cite{Ziviani2004}.
+Em um grafo, um caminho $(v_0, v_1, \cdots, v_k)$ forma um ciclo se $v_0 = v_k$ e o caminho contém pelo menos uma aresta. O ciclo é simples se os vértices $v_1, v_2, \cdots, v_k$ são distintos. O \textit{self-loop} é um ciclo de tamanho 1. Na Figura \ref{fig:grafo_dir}, o caminho $(0, 1, 2, 3, 0)$ forma um ciclo. Dois caminhos $(v_0, v_1, \cdots, v_k)$ e $(v'_0, v'_1, \cdots, v'_k)$ formam o mesmo ciclo se existir um inteiro $j$ tal que $v'_i = v_{(j+i) mod k}$ para $i = 0, 1, \cdots, k - 1$. Na Figura \ref{fig:grafo_dir}, o caminho $(0, 1, 3, 0)$ forma o mesmo ciclo que os caminhos $(1, 3, 0, 1)$ e $(3, 0, 1, 3)$. Um grafo sem ciclos é um grafo acíclico \cite{Ziviani2004}.
 
-Um grafo $G$ é definido como \textit{Hamiltoniano} se possui um ciclo contendo todos os vértices de $G$. Esse nome foi dado pois, em 1856, Willian Rowan Hamilton inventou um jogo matemático que consistia em um dodecaedro no qual cada um dos vinte vértices recebeu o nome de uma cidade. O objetivo do jogo era viajar pelas arestas do dodecaedro, visitando cada cidade exatamente uma vez e retornando para o ponto inicial \cite{Beineke1978}. A Figura \ref{fig:dodecaedro_de_hamilton} mostra uma solução para o jogo.
+Um grafo $G$ é definido como \textit{Hamiltoniano} se possui um ciclo contendo todos os vértices de $G$. Esse nome foi dado, porque, em 1856, Willian Rowan Hamilton inventou um jogo matemático que consistia em um dodecaedro no qual cada um dos vinte vértices recebeu o nome de uma cidade. O objetivo do jogo era viajar pelas arestas do dodecaedro, visitando cada cidade exatamente uma vez e retornando para o ponto inicial \cite{Beineke1978}. A Figura \ref{fig:dodecaedro_de_hamilton} mostra uma solução para o jogo.
 
 \figura{../../imagens/dodecaedro_de_hamilton.jpg}{.5}{Dodecaedro de Hamilton.\cite{Beineke1978}}{fig:dodecaedro_de_hamilton}
 
-Definições segundo \cite{Gondran1984}:
+Definições segundo Gondran, Minoux e Vajda \cite{Gondran1984}:
 
 \begin{itemize}
 	\item Um caminho passando somente uma vez em cada vértice de $G$ é chamado Caminho Hamiltoniano e tem comprimento de $N - 1$
@@ -53,7 +53,7 @@ Um grafo não direcionado é conectado se cada par de vértices está conectado por 
 %
 \subsection{Algoritmo de Dijkstra}
 \label{algoritmo_de_dijkstra}
-Existem diversos algoritmos para buscas em grafo na literatura \cite{Cormen2001}. Neste trabalho foi utilizado o algoritmo de Dijkstra. O algoritmo de Dijkstra utiliza a técnica do relaxamento, que nada mais é que verificar se é possível melhorar o caminho obtido até o momento passando por um vértice diferente. O algoritmo de Dijkstra apresenta uma solução $O([m + n] × log(n))$ para a determinação do menor caminho \cite{Dudek2000}. E é composto por três passos.
+Existem diversos algoritmos para buscas em grafo na literatura \cite{Cormen2001}. Neste trabalho foi utilizado o algoritmo de Dijkstra. O algoritmo de Dijkstra utiliza a técnica do relaxamento, que nada mais é que verificar se é possível melhorar o caminho obtido até o momento passando por um vértice diferente. O algoritmo de Dijkstra apresenta uma solução $O([m + n] × log(n))$ para a determinação do menor caminho \cite{Dudek2000}, e é composto por três passos:
 
 \begin{itemize}
 	\item Passo 1: Iniciar os valores:
@@ -67,12 +67,14 @@ Existem diversos algoritmos para buscas em grafo na literatura \cite{Cormen2001}
 \end{algorithmic}
 
 	$V[G]$ é o conjunto de vértices $v$ que forma o grafo $G$.
+	
 	$d[v]$ é o vetor de distâncias do vértice $s$ até cada vértice $v$.
-	$\pi[v]$ identifica o vértice de onde se origina uma conexão até $v$ de maneira a formar um caminho mínimo.
+	
+	$\pi[v]$ identifica o vértice de onde se origina uma conexão até $v$ de maneira a formar um caminho mínimo;
 
-	\item Passo 2: Temos que usar dois conjuntos: $S$, que representa todos os vértices $v$ onde $d[v]$ já contém o custo do menor caminho e $Q$ que contém os vértices restantes.
+	\item Passo 2: Tem-se que usar dois conjuntos: $S$, que representa todos os vértices $v$ onde $d[v]$ já contém o custo do menor caminho e $Q$ que contém os vértices restantes;
 
-	\item Passo 3: Realizamos uma série de relaxamentos das arestas:
+	\item Passo 3: Realiza-se uma série de relaxamentos das arestas:
 \begin{algorithmic}
 	\WHILE {$Q \neq \emptyset $}
 		\STATE$u \gets$ \texttt{extraia-mín($Q$)}
@@ -93,11 +95,11 @@ Existem diversos algoritmos para buscas em grafo na literatura \cite{Cormen2001}
 \section{Caixeiro-Viajante}
 \label{caixeiro}
 
-O problema do caixeiro-viajante envolve um conjunto de cidades e é da classe de problemas de roteamento de nós, onde um caixeiro sai de uma cidade base, visita todas as cidades somente uma vez, e retorna à cidade base, otimizando um ou mais objetivos. Problemas de caixeiro-viajante são definidos em grafos orientados ou não orientados \cite{Arenales2007}
+O problema do caixeiro-viajante envolve um conjunto de cidades e é da classe de problemas de roteamento de nós, onde um caixeiro sai de uma cidade base, visita todas as cidades somente uma vez, e retorna à cidade base, otimizando um ou mais objetivos. Problemas de caixeiro-viajante são definidos em grafos orientados ou não orientados \cite{Arenales2007}.
 
-A definição do problema do caixeiro-viajante é: Considere um grafo não orientado $G = (N, E)$, em que o conjunto $N$ consistem em $n$ cidades e $E$ representa o conjunto de arestas entra essas cidades. Supondo que $G$ é um grafo completo, isto é, para qualquer par de cidades $i, j \in \mathbb{N}, i \neq j$, existe uma aresta $(i, j)$. A distância entre as cidades $i$, e $j$ é $c_{ij}$, e quando $c_{ij} = c_{ji}$, o problema é dito simétrico. Um caixeiro deve visitar $n$ cidades, passando por cada cidade somente uma vez, e retornar à cidade de partida. Esse percurso é denominado ciclo Hamiltoniano do grafo $G$, e o problema consiste em determinar o ciclo Hamiltoniano, ou rota, de distância mínima. Devido à sua aplicação em diversas áreas, este é um dos problemas combinatórios mais pesquisados \cite{Arenales2007}.
+A definição do problema do caixeiro-viajante é: Considera-se um grafo não orientado $G = (N, E)$, em que o conjunto $N$ consistem em $n$ cidades e $E$ representa o conjunto de arestas entre essas cidades. Supondo que $G$ é um grafo completo, isto é, para qualquer par de cidades $i, j \in \mathbb{N}, i \neq j$, existe uma aresta $(i, j)$. A distância entre as cidades $i$, e $j$ é $c_{ij}$, e quando $c_{ij} = c_{ji}$, o problema é dito simétrico. Um caixeiro deve visitar $n$ cidades, passando por cada cidade somente uma vez, e retornar à cidade de partida. Esse percurso é denominado ciclo Hamiltoniano do grafo $G$, e o problema consiste em determinar o ciclo Hamiltoniano, ou rota, de distância mínima. Devido à sua aplicação em diversas áreas, este é um dos problemas combinatórios mais pesquisados \cite{Arenales2007}.
 
-Defina as variáveis
+Define-se as variáveis
 
 \begin{center}
 $
@@ -108,7 +110,7 @@ x_{ij}=\left\{ \begin{array}{l}
 $
 \end{center}
 
-E considere o seguinte modelo:
+E considera-se o seguinte modelo:
 
 \begin{equation}
 	\mbox{min}\sum_{i=1}^n \sum_{j > i}c_{ij}x_{ij} 
@@ -125,29 +127,20 @@ E considere o seguinte modelo:
 	\label{eq:cv-restr2}
 \end{equation}
 
-A função objetivo (\ref{eq:cv-func_obj}) expressa a minimização da distância total da rota, e a restriçõe (\ref{eq:cv-restr1}) impõe que cada cidade tenha somente uma cidade sucessora imediata e uma cidade predecessora imediata, ou seja, é visitada uma única vez. Uma solução para o modelo anterior pode gerar sub-rotas desconexas (Figura \ref{fig:sub-rotas}) \cite{Arenales2007}.
+A função objetivo (\ref{eq:cv-func_obj}) expressa a minimização da distância total da rota, e a restrição (\ref{eq:cv-restr1}) impõe que cada cidade tenha somente uma cidade sucessora imediata e uma cidade predecessora imediata, ou seja, é visitada uma única vez. Uma solução para o modelo anterior pode gerar sub-rotas desconexas (Figura \ref{fig:sub-rotas}) \cite{Arenales2007}.
 
 \figura{../../imagens/sub-rotas.jpg}{.4}{Exemplo de possíveis sub-rotas.\cite{Arenales2007}}{fig:sub-rotas}
 
-Seja $S$ uma sub-rota, por exemplo, $S = {1. 2. 3. 4}$ na Figura \ref{fig:sub-rotas}. A eliminação de sub-rotas pode ser obtida através da restrição
+Seja $S$ uma sub-rota, por exemplo, $S = {1. 2. 3. 4}$ na Figura \ref{fig:sub-rotas}. A eliminação de sub-rotas pode ser obtida através da restrição:
 \begin{equation}
 	\sum_{i \in S} \sum_{i \ in S \\ j > i} \leq |S| - 1, S \subset \mathbb{N}, 3 \leq |S| \leq \left\lfloor \frac{n}{2} \right\rfloor
 	\label{eq:cv-el_sub-rotas1}
 \end{equation}
-que garante que, para cada conjunto $S$, existem no mínimo duas arestas que entram e/ou saem de $S$, ou seja, existem no mínimo duas arestas entre cidades de $S$ e cidades fora de $S$. A cardinalidade de $S$ é no mínimo 3 (pois ciclo em um grafo não orientado tem pelo menos 3 vértices) e no máximo $\left\lfloor\frac{n}{2}\right\rfloor$, pois ao se eliminar ciclos com $k$ vértices, eliminamos ciclos com $n - k$ vértices. A sub-rota $S = {1, 2, 3, 4}$ é eliminada.
+Que garante que, para cada conjunto $S$, existem no mínimo duas arestas que entram e/ou saem de $S$, ou seja, existem no mínimo duas arestas entre cidades de $S$ e cidades fora de $S$. A cardinalidade de $S$ é no mínimo 3 (pois ciclo em um grafo não orientado tem pelo menos 3 vértices) e no máximo $\left\lfloor\frac{n}{2}\right\rfloor$, pois ao se eliminar ciclos com $k$ vértices, elimina-se ciclos com $n - k$ vértices. A sub-rota $S = {1, 2, 3, 4}$ é eliminada.
 \begin{center}
 	$x_{15} + x_{16} + x_{17} + x_{25} + x_{26} + x_{27} + x_{35} + x_{36} + x_{37} + x_{45} + x_{46} + x_{47} \geq 2$
 \end{center}
 
-%Uma forma alternativa de eliminar sub-rotas é com a seguinte restrição
-%\begin{equation}
-%	\sum_{i \in S} \sum_{i \ in S \\ j > i} \leq |S| - 1, S \subset \mathbb{N}, 3 \leq |S| \leq \left\lfloor \frac{n}{2} \right\rfloor
-%	\label{eq:cv-el_sub-rotas2}
-%\end{equation}CONFERIR ESSA FORMULA EM \cite{Arenales2007}
-%que corresponde a eliminar uma aresta da sub-rota. A sub-rota $S = {1, 2, 3, 4}$ é eliminada.
-%\begin{center}
-%	$x_{12} + x_{23} + x_{34} + x_{14} \leq 3$
-%\end{center}
 
 Como o número de subconjuntos distintos de um conjunto de cardinalidade $k$ é $2^k$, a restrição \ref{eq:cv-el_sub-rotas1} %e \ref{eq:cv-el_sub-rotas2}
 têm cardinalidade da ordem de $2^k$, $k \geq 6$, ou seja, o crescimento é exponencial em função do número de cidades. Para $k \leq 5$, a restrição \ref{eq:cv-restr1} elimina sub-rotas \cite{Arenales2007}.
@@ -155,7 +148,4 @@ têm cardinalidade da ordem de $2^k$, $k \geq 6$, ou seja, o crescimento é expone
 \section{Considerações}
 \label{consideracoes_grafo}
 
-Como o mapa que é utilizado no projeto é um mapa baseado em grafo (mapa topológico), é possível utilizar algumas teorias de grafos presentes na literatura como base para se achar uma solução para o problema. Assim como foi utilizado o algoritmo de Dijkstra nas buscas de menor caminho para o robô fazer a menos trajetória de um vértice a outro, e a fundamentação matemática da teoria do caixeiro-viajante que foi utilizada como base para se achar uma solução \textit{offline}.
-
-COLOCAR UMA SEÇÃO DE CONSIDERAÇÕES PARA CONECTAR ESSE CAPÍTULO AO TRABALHO.
-COMENTAR QUE ESSA TEORIA FOI USADA COMO BASA PARA ACHAR A SOLUÇÃO. FEITO?
+Como o mapa que é utilizado no projeto é um mapa baseado em grafo (mapa topológico), é possível utilizar algumas teorias de grafos presentes na literatura como base para se achar uma solução para o problema. Assim como, foi utilizado o algoritmo de Dijkstra nas buscas de menor caminho para o robô fazer a menor trajetória de um vértice a outro, e a fundamentação matemática da teoria do caixeiro-viajante que foi utilizada como base para se achar uma solução \textit{offline}.

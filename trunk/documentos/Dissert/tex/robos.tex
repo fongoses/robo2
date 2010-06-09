@@ -25,7 +25,7 @@ Ao invés de se preocuparem com o equilíbrio, as pesquisas em robôs com rodas ten
 
 Existem quatro classes principais de rodas, como é mostrado na Figura \ref{fig:tipos_de_rodas}. Elas se diferenciam grandemente na sua cinemática, e portanto, a escolha da classe de roda tem um grande impacto na cinemática do robô móvel. A roda padrão e a roda castor têm um eixo primário de rotação e são portanto altamente direcionais. Para mover em uma direção diferente, a roda precisa ser direcionada primeiro ao longo do eixo vertical. A diferença entre essas duas rodas é que a roda padrão consegue concluir seu direcionamento sem efeitos colaterais; porque o centro de rotação passa pelo contato com o chão, ao passo que a roda castor rotaciona em torno de um eixo deslocado, causando uma força a ser transmitida para o chassi do robô durante o direcionamento \cite{Siegwart2004}.
 
-\figura{../../imagens/tipos_de_roda.png}{.6}{Quatro tipos básicos de roda. (a) Roda padrão. (b) Roda castor. (c) Roda sueca. (d) Bola ou roda esférica\cite{Siegwart2004}}{fig:tipos_de_rodas}
+\figura{../../imagens/tipos_de_roda.png}{.6}{Quatro tipos básicos de roda. (a) Roda padrão. (b) Roda castor. (c) Roda sueca. (d) Bola ou roda esférica\cite{Siegwart2004}.}{fig:tipos_de_rodas}
 
 As funções da roda sueca são as de uma roda normal, mas provêm baixa resistência em outra direção, algumas vezes perpendicular à direção convencional, como a Sueca 90, e algumas vezes em um ângulo intermediário, como a Sueca 45. Os pequenos roletes ao redor da roda são passivos. A vantagem principal desse modelo é que enquanto a rotação é provida somente através de um eixo principal, a roda pode cinematicamente mover-se com pouco atrito em diferentes possíveis trajetórias, não somente para frente e para trás \cite{Siegwart2004}.
 
@@ -73,29 +73,29 @@ O Pioneer 3 DX pode carregar até 23kg, chega até 1.6 m/s, possui rodas de 19cm, 
 \section{Player}
 \label{player}
 O Player é um servidor de rede para controlar robôs. Executando embarcado no robô, o Player provê uma interface simples e clara dos sensores e atuadores do robô sobre uma rede IP. O programa cliente ``conversa'' com o Player utilizando sockets TCP, lendo dados dos sensores, escrevendo comandos nos atuadores e configurando dispositivos em tempo de execução.
-O servidor Player foi desenvolvido para que seus clientes sejam independentes de linguagem e de plataforma. O programa cliente pode executar em qualquer máquina que tenha conexão de rede com o robô, e pode ser escrito em qualquer linguagem que suporte sockets TCP. Atualmente existem clientes disponíveis em C++, Tcl, Java e Phyton \cite{Player}. Futuramente, o Player não será indiferente sobre como o programa de controle do robô é estruturado, ou seja, poderá escrever desde programas multi-threads altamente concorrentes até programas sequências simples.
+O servidor Player foi desenvolvido para que seus clientes sejam independentes de linguagem e de plataforma. O programa cliente pode ser executado em qualquer máquina que tenha conexão de rede com o robô, e pode ser escrito em qualquer linguagem que suporte sockets TCP. Atualmente existem clientes disponíveis em C++, Tcl, Java e Phyton \cite{Player}. Futuramente o Player será indiferente sobre como o programa de controle do robô é estruturado, ou seja, poderá escrever desde programas \textit{multi-threads} altamente concorrentes até programas sequencias simples.
 
 \subsection{Interface dos Drivers}
 \label{player_interface}
-Usualmente as interfaces entre o programa do usuário e o robô se dá como mostra a Figura \ref{fig:interface_usual}, onde o programa do usuário tem que fazer a aquisição de dados diretamente dos sensores e tratar esses dados de modo que o planejador compreenda. E gerar os comandos para o motor, ou outros atuadores. Sendo que para cada modelo de motor os comandos diferentes, assim como cada câmera, LASER e outros sensores tem leituras diferentes de acordo com o modelo.
+Usualmente as interfaces entre o programa do usuário e o robô se dá como mostra a Figura \ref{fig:interface_usual}, onde o programa do usuário tem que fazer a aquisição de dados diretamente dos sensores e tratar esses dados de modo que o planejador compreenda. E gerar os comandos para o motor ou outros atuadores. Sendo que para cada modelo de motor, os comandos são diferentes, assim como cada câmera, LASER e outros sensores têm leituras diferentes de acordo com o modelo.
 
-\begin{figure}
+\begin{figure}[hb]
 	\centering
 		\includegraphics[width=1.00\textwidth]{../../imagens/player1.png}
 	\caption{Interface usual.}
 	\label{fig:interface_usual}
 \end{figure}
 
-O Player tem como função fazer essa interface entre os sensores e atuadores e o programa do usuário (Figura \ref{fig:player_interface}, lendo de qualquer modelo de um mesmo sensor (que seja aceito pelo Player) e fornecendo ao programa do usuário os dados já tratados, ou seja, para qualquer modelo de um mesmo sensor (que seja aceito pelo Player) o programa do usuário lê da mesma forma, assim como para os atuadores como mostra a Figura \ref{fig:modelo_cliente_servidor}. Por exemplo, para fazer com que o robô ande para frente na velocidade de 1 m/s, basta o programa do usuário informar a direção e velocidade, o comando vai ser o mesmo para diversos modelos de robôs, que possuem tamanhos e números de rodas diferentes, quem faz os cálculos para determinar qual a rotação da roda para atingir tal velocidade é a interface do Player, assim como para ler do sensor LASER, basta informar de qual ângulo quer ler.
+O Player tem como função fazer essa interface entre os sensores e atuadores e o programa do usuário (Figura \ref{fig:player_interface}), adquirindo os dados de qualquer modelo de um mesmo sensor (que seja aceito pelo Player) e fornecendo ao programa do usuário os dados já tratados, ou seja, para qualquer modelo de um mesmo sensor (que seja aceito pelo Player) o programa do usuário lê da mesma forma, assim como para os atuadores como mostra a Figura \ref{fig:modelo_cliente_servidor}. Por exemplo, para fazer com que o robô ande para frente na velocidade de 1 m/s, basta o programa do usuário informar a direção e velocidade, o comando vai ser o mesmo para diversos modelos de robôs, que possuem tamanhos e números de rodas diferentes, o que realiza os cálculos para determinar qual a rotação da roda para atingir tal velocidade é a interface do Player, assim como para ler do sensor LASER, basta informar de qual ângulo quer ler.
 
-\begin{figure}
+\begin{figure}[hb]
 	\centering
 		\includegraphics[width=1.00\textwidth]{../../imagens/player2.png}
 	\caption{Interface do Player}
 	\label{fig:player_interface}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[hb]
 	\centering
 		\includegraphics[width=1.00\textwidth]{../../imagens/modelo_cliente_servidor.png}
 	\caption{Interface e Modelo Cliente-Servidor}
@@ -104,7 +104,7 @@ O Player tem como função fazer essa interface entre os sensores e atuadores e o 
 
 A Figura \ref{fig:modelo_cliente_servidor} também ilustra o funcionamento do modo Cliente-Servidor do Player, como a comunicação é feita por meio de \textit{sockets} o programa cliente pode ser escrito em qualquer lingüagem que permita comunicação através de \textit{sockets}. Esse modo Cliente-Servidor também permite a fácil utilização de diversos simuladores, pois como a comunicação é a mesma, o programa cliente não sabe se está interagindo com o robô real ou com algum simulador (Figura \ref{fig:abstracao_de_hardware}).
 
-\begin{figure}
+\begin{figure}[hb]
 	\centering
 		\includegraphics[width=1.00\textwidth]{../../imagens/abstracao_de_hardware.png}
 	\caption{Abstração de Hardware}
@@ -116,20 +116,20 @@ Esse modelo Cliente-Servidor também trás outras vantagens como:
 \begin{itemize}
 	\item Clientes podem se conectar a múltiplos servidores;
 	\item Servidores aceitam conexão de múltiplos clientes;
-	\item Diferentes programas/processos/\textit{threads} podem processar dados de diferentes sensores do mesmo servidor;
+	\item Diferentes programas/processos/\textit{threads} podem processar dados de diferentes sensores do mesmo servidor.
 \end{itemize}
 
-Como mostrado na Figura \ref{fig:exemplo_cliente_servidor}, onde a letra 'P' indica que naquele dispositivo existe um programa Player sendo executado e a letra 'C' indica que naquele dispositivo está sendo executado um programa cliente.
+A Figura \ref{fig:exemplo_cliente_servidor} ilustra esse funcionamento, onde a letra 'P' indica que naquele dispositivo existe um programa Player sendo executado e a letra 'C' indica que naquele dispositivo está sendo executado um programa cliente.
 
-\begin{figure}
+\begin{figure}[hb]
 	\centering
 		\includegraphics[width=1.00\textwidth]{../../imagens/exemplo_cliente_servidor.png}
-	\caption{Exemplo de Clentes e Servidores}
+	\caption{Exemplo de Clientes e Servidores}
 	\label{fig:exemplo_cliente_servidor}
 \end{figure}
 
-\subsection{Stage}
+\section{Stage}
 \label{stage}
-O Stage é usado normalmente como um plugin para o Player, provendo uma série de dispositivos virtuais para os clientes Player. Os usuários escrevem as rotinas e algoritmos normalmente, como clientes para um servidor Player. Não é possível para clientes distinguir a diferença entre os dispositivos reais do robô e os equivalentes simulados pelo Player/Stage. Com isso clientes Player desenvolvidos usando o Stage precisarão de pouca ou nenhuma modificação para trabalhar com o robô real, e vice-versa. Em muitos casos basta somente mudar no cliente o endereço IP de onde está o servidor. O Stage também pode simular uma população de robôs móveis, sensores e objetos num ambiente bidimensional (Figura \ref{fig:stage}) \cite{Player}. Nesta dissertação será utilizado somente um robô e o sensor LASER.
+O Stage é usado normalmente como um \textit{plugin }para o Player, provendo uma série de dispositivos virtuais para os clientes Player. Os usuários escrevem as rotinas e algoritmos normalmente, como clientes para um servidor Player. Não é possível para clientes distinguir a diferença entre os dispositivos reais do robô e os equivalentes simulados pelo Player/Stage. Com isso clientes Player desenvolvidos usando o Stage precisarão de pouca ou nenhuma modificação para trabalhar com o robô real e vice-versa. Em muitos casos, basta somente mudar no cliente o endereço IP de onde está o servidor. O Stage também pode simular uma população de robôs móveis, sensores e objetos num ambiente bidimensional (Figura \ref{fig:stage}) \cite{Player}. Nesta dissertação será utilizado somente um robô e o sensor LASER.
 
-\figura{../../imagens/stage.jpg}{.5}{Simulação com 5 robôs, 2 objetos, LASER, sonar e blobfinder.}{fig:stage}
+\figura{../../imagens/stage.jpg}{.5}{Simulação com 5 robôs, 2 objetos, LASER, sonar e \textit{blobfinder}.}{fig:stage}
