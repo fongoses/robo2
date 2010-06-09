@@ -65,9 +65,9 @@ O segundo critério é um gráfico mostrando a progressão da somatória dos graus de
 %O controle do robô será desenvolvido utilizando-se a biblioteca Player/Stage \cite{Gerkey2003}, a qual permite que sejam realizadas simulações antes que os algoritmos %sejam testados com o robô real. Essas simulações são importantes para o aperfeiçoamento dos parâmetros como distâncias, velocidades, etc, antes do teste no Pioneer.
 %O método utilizado foi o VFH, por já vir implementado no Player e em testes se mostrou suficiente para o projeto.
 %#######################################################################################################
-Para a solução do problema descrito o robô tem uma descrição completa do ambiente em que atua (mapa). Foram utilizados somente dois sensores: Odômetro para localizar o robô no mapa e o LASER para o desvio de obstáculos. O controle do robô foi desenvolvido utilizando a biblioteca Player/Stage. E para desvio de obstáculos utilizou-se a técnica VFH que já vem implementada no Player e se mostrou suficiente para o projeto.
+Para a solução do problema descrito, o robô tem uma descrição completa do ambiente em que atua (mapa). Foram utilizados somente dois sensores: Odômetro para localizar o robô no mapa e o LASER para o desvio de obstáculos. O controle do robô foi desenvolvido utilizando a biblioteca Player/Stage. Para desvio de obstáculos utilizou-se a técnica VFH que já vem implementada no Player e se mostrou suficiente para o projeto.
 
-Cada ambiente tem um mapa topológico.% que será gerado utilizando o diagrama de Voronoi \ref{voronoi}). 
+Cada ambiente tem um mapa topológico. % que será gerado utilizando o diagrama de Voronoi \ref{voronoi}). 
 O robô deve utilizar esse mapa para se locomover de uma sala para outra no ambiente. Para os algoritmos e estratégias determinarem a seqüência de salas a serem visitadas, é considerado um grafo completo com todas as salas, pois para determinar o melhor caminho entre uma sala e outra será utilizado o algoritmo de Dijkstra no mapa topológico.
 
 Como um dos critérios de avaliação está relacionado ao tempo que o robô fica sem visitar as salas é possível deduzir que a solução seja um ciclo.
@@ -337,7 +337,26 @@ Suas chances de gerar uma emergência ficaram da seguinte forma:
 
 Para a solução em Tempo Real, por se tratar de uma solução baseada em números aleatórios, foram executados 100 repetições em cada mapa.
 
-Para os testes foram criados sete mapas, cada qual com uma peculiaridade diferente:
+Para os testes foram criados sete mapas, cada qual com uma peculiaridade diferente como mostra a tabela \ref{tab:mapas_para_testes}
+\begin{table}[ht]
+	\centering
+	\caption{Mapas para testes}
+		\begin{tabular}{|c|c|c|}
+			Designação & N\# de Salas & Prioridades \\
+			\hline
+			Quatro			& 4 & Iguais		 \\
+			Quatro Diff	& 4 & Diferentes \\
+			X						& 5 & Diferentes \\
+			X Incompleto& 5 & Diferentes \\
+			Espinha			& 6 & Iguais		 \\
+			Espinha Diff& 6 & Diferentes \\
+			Apartamento	& 8 & Diferentes \\
+		\end{tabular}
+	\label{tab:mapas_para_testes}
+\end{table}
+
+Na seqüência são mostrados os resultados em cada mapa:
+
 \begin{itemize}
 	\item Quatro: Com quatro salas de prioridades iguais (Tabela \ref{tab:P_quatro}) e ligação entre todas as salas (Figura \ref{fig:grafo_quatro}):
 
@@ -366,7 +385,7 @@ Para os testes foram criados sete mapas, cada qual com uma peculiaridade diferen
 
 A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 2 4 3.
 
-As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas inicias, como mostra a Tabela \ref{tab:Pr_quatro}.		
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_quatro}.		
  		
 \begin{table}[hb]		
 	\centering	
@@ -384,10 +403,11 @@ As prioridades relativas finais da solução em Tempo Real foram próximas às prior
 	\label{tab:Pr_quatro}	
 \end{table}		
  		
-A Tabela \ref{tab:Fr_quatro} mostra que as freqüências relativas tanto da solução \textit{Offline} quanto a em Tempo Real foram próximas às prioridades relativas. A tabela mostra também que a solução \textit{Offline} foi melhor que a solução em Tempo Real.
+A Tabela \ref{tab:Fr_quatro} mostra que as freqüências relativas tanto da solução \textit{Offline} quanto da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa. A tabela mostra também que a solução \textit{Offline} foi melhor que a solução em Tempo Real através da diferença quadrática.
  		
 \begin{table}		
 	\centering	
+	\caption{Freqüências Relativas do Mapa Quatro.}	
 	\begin{tabular}{cc|c|c|c|c|}	
 		\cline{3-6}
 		& & \multicolumn{2}{c|}{\textit{Offline}}& \multicolumn{2}{c|}{Tempo Real}\\
@@ -402,7 +422,6 @@ A Tabela \ref{tab:Fr_quatro} mostra que as freqüências relativas tanto da soluçã
 		\multicolumn{2}{|c|}{Diferença Quadrática} & \multicolumn{2}{c|}{0,00000} & \multicolumn{2}{c|}{0,00002} \\
 		\hline
 	\end{tabular}	
-	\caption{Freqüências Relativas do Mapa Quatro.}	
 	\label{tab:Fr_quatro}	
 \end{table}			
 
@@ -415,7 +434,8 @@ O gráfico (Figura \ref{fig:grafico_quatro}) mostra que a solução em Tempo Real d
 \end{figure}
 %
 
-Como o Mapa Quatro é pequeno (dois metros quadrados) e a seqüência gerada pela solução \textit{Offline} é visitar as salas no sentido anti-horário, o robô leva exatamente o mesmo tempo para ir de uma sala à outra. E como as prioridades são todas iguais e para gerar o gráfico foram tiradas medidas (Grau de Urgência Total) de dez em dez segundos, coincidiu de o robô a cada dez segundos estar no mesmo lugar no mapa, por isso o gráfico do Mapa Quatro para a solução \textit{Offline} é uma linha. Fato que não acontece no gráfico do Mapa Quatro Diff (Figura \ref{fig:grafico_quatro_diff}) pois as prioridades não são todas iguais.
+Como o Mapa Quatro é relativamente pequeno (dois metros quadrados) e a seqüência gerada pela solução \textit{Offline} é visitar as salas no sentido anti-horário, o robô leva exatamente o mesmo tempo para ir de uma sala à outra. Como as prioridades iniciais do mapa são todas iguais e para gerar o gráfico foram tiradas medidas (Grau de Urgência Total) de dez em dez segundos, coincidiu de o robô a cada dez segundos estar no mesmo lugar no mapa, por isso o gráfico do Mapa Quatro para a solução \textit{Offline} é uma linha. 
+%Fato que não acontece no gráfico do Mapa Quatro Diff (Figura \ref{fig:grafico_quatro_diff}), pois as prioridades não são todas iguais.
  
 	\item Quatro Diff: Com quatro salas com prioridades diferentes (Tabela \ref{tab:P_quatro_diff}) e ligação entre todas as salas (Figura \ref{fig:grafo_quatro}):
 	
@@ -437,7 +457,7 @@ Como o Mapa Quatro é pequeno (dois metros quadrados) e a seqüência gerada pela s
 
 A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 3 4 2 4 3.
 
-As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas inicias, como mostra a Tabela \ref{tab:Pr_quatro_diff}.		
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_quatro_diff}.		
  		
 \begin{table}[hb]		
 	\centering	
@@ -455,11 +475,12 @@ As prioridades relativas finais da solução em Tempo Real foram próximas às prior
 	\label{tab:Pr_quatro_diff}	
 \end{table}		
  		
-A Tabela \ref{tab:Fr_quatro_diff} mostra as freqüências relativas das soluções \textit{Offline} e em Tempo Real. Nota-se que as freqüências relativas das salas 1 e 2 da solução \textit{Offline} são aproximadamente o dobro das suas respectivas prioridades relativas, porém, em números, é uma diferença de aproximadamente 0,08. E as freqüências relativas da solução em Tempo Real são próximas às suas respectivas prioridades relativas. A tabela mostra também que a solução em Tempo Real foi melhor que a solução \textit{Offline}.
+A Tabela \ref{tab:Fr_quatro_diff} mostra as freqüências relativas das soluções \textit{Offline} e em Tempo Real. Nota-se que as freqüências relativas das salas 1 e 2 da solução \textit{Offline} são aproximadamente o dobro das suas respectivas prioridades relativas iniciais do mapa, porém, em números absolutos, é uma diferença de aproximadamente 0,08. E as freqüências relativas da solução em Tempo Real são próximas às suas respectivas prioridades relativas iniciais do mapa. A tabela mostra também que a solução em Tempo Real foi melhor que a solução \textit{Offline} através da diferença quadrática.
 
 		
 \begin{table}		
 	\centering	
+	\caption{Freqüências Relativas do Mapa Quatro Diff.}	
 	\begin{tabular}{cc|c|c|c|c|}	
 		\cline{3-6}
 		& & \multicolumn{2}{c|}{\textit{Offline}}& \multicolumn{2}{c|}{Tempo Real}\\
@@ -474,7 +495,6 @@ A Tabela \ref{tab:Fr_quatro_diff} mostra as freqüências relativas das soluções \
 		\multicolumn{2}{|c|}{Diferença Quadrática} & \multicolumn{2}{c|}{0,02785} & \multicolumn{2}{c|}{0,00121} \\
 		\hline
 	\end{tabular}	
-	\caption{Freqüências Relativas do Mapa Quatro Diff.}	
 	\label{tab:Fr_quatro_diff}	
 \end{table}		
 
@@ -487,7 +507,7 @@ O gráfico do Mapa Quatro Diff (Figura \ref{fig:grafico_quatro_diff}), diferentem
 \end{figure}
 
 
-\item X: Com cinco salas em que formam um X (Prioridades na Tabela \ref{tab:P_x}) com ligações entre as salas das pontas (Figura \ref{fig:grafo_x}):
+\item X: Com cinco salas que formam um X (Prioridades na Tabela \ref{tab:P_x}) com ligações entre as salas das pontas (Figura \ref{fig:grafo_x}):
 	
 \begin{figure}[htb]
 	\centering
@@ -514,7 +534,7 @@ O gráfico do Mapa Quatro Diff (Figura \ref{fig:grafico_quatro_diff}), diferentem
 
 A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 2 4 5 3 2 4 5 3.
 
-As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas inicias, como mostra a Tabela \ref{tab:Pr_x}.		
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_x}.		
  		
 \begin{table}[hb]		
 	\centering	
@@ -533,10 +553,11 @@ As prioridades relativas finais da solução em Tempo Real foram próximas às prior
 	\label{tab:Pr_x}	
 \end{table}		
  		
-A freqüência relativa da sala 1 na solução \textit{Offline} foi maior que o dobro da sua prioridade relativa, entretanto, a diferença numérica é aproximadamente 0,06. As freqüências relativas das salas restantes da solução \textit{Offline} e as freqüências relativas de todas as salas da solução em Tempo Real foram próximas às prioridades relativas, como mostra a Tabela \ref{tab:Fr_x}. A tabela mostra também que a solução Tempo Real foi melhor que a solução \textit{Offline}.
+A Tabela \ref{tab:Fr_x} mostra que freqüência relativa da sala 1 na solução \textit{Offline} foi maior que o dobro da sua prioridade relativa inicial do mapa, entretanto, a diferença numérica absoluta é aproximadamente 0,06. As freqüências relativas das salas restantes da solução \textit{Offline} e as freqüências relativas de todas as salas da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa. A tabela \ref{tab:Fr_x} mostra também que a solução Tempo Real foi melhor que a solução \textit{Offline} através da diferença quadrática.
 
 \begin{table}		
 	\centering	
+	\caption{Freqüências Relativas do Mapa X.}	
 	\begin{tabular}{cc|c|c|c|c|}	
 		\cline{3-6}
 		& & \multicolumn{2}{c|}{\textit{Offline}}& \multicolumn{2}{c|}{Tempo Real}\\
@@ -552,11 +573,11 @@ A freqüência relativa da sala 1 na solução \textit{Offline} foi maior que o dobr
 		\multicolumn{2}{|c|}{Diferença Quadrática} & \multicolumn{2}{c|}{0,00508} & \multicolumn{2}{c|}{0,00012} \\
 		\hline
 \end{tabular}	
-	\caption{Freqüências Relativas do Mapa X.}	
 	\label{tab:Fr_x}	
 \end{table}		
 
-O gráfico (Figura \ref{fig:grafico_x}) mostra que a solução \textit{Offline} depois de estabilizar teve um desempenho inferior à solução em Tempo Real.
+O gráfico (Figura \ref{fig:grafico_x}) mostra que a solução em Tempo Real depois de estabilizar teve um desempenho inferior à solução \textit{Offline}.
+
 \begin{figure}[htb]
 	\centering
 		\includegraphics[width=0.4\textwidth]{../../../resultados/graficos/x.png}
@@ -575,7 +596,7 @@ O gráfico (Figura \ref{fig:grafico_x}) mostra que a solução \textit{Offline} dep
 
 A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 2 3 4 5.
 
-As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas inicias, como mostra a Tabela \ref{tab:Pr_x_incompleto}.		
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_x_incompleto}.		
  		
 \begin{table}[hb]		
 	\centering	
@@ -594,10 +615,11 @@ As prioridades relativas finais da solução em Tempo Real foram próximas às prior
 	\label{tab:Pr_x_incompleto}	
 \end{table}		
  		
-A Tabela \ref{tab:Fr_x_incompleto} mostra que as freqüências relativas da solução \textit{Offline} foram aproximadamente todas iguais, isso se deve ao fato de que a seqüência de salas a serem visitadas gerada pelo \texttt{gerador} manda o robô visitar cada sala apenas uma única vez dentro do \textit{loop}. Na mesma tabela pode-se ver também que as prioridades relativas da solução em Tempo Real foram próximas às prioridades relativas.	A tabela mostra também que a solução Tempo Real foi melhor que a solução \textit{Offline}.
+A Tabela \ref{tab:Fr_x_incompleto} mostra que as freqüências relativas da solução \textit{Offline} foram aproximadamente todas iguais, isso se deve ao fato de que a seqüência de salas a serem visitadas gerada pelo \texttt{gerador} manda o robô visitar cada sala apenas uma única vez dentro do \textit{loop}. Na mesma tabela pode-se ver também que as freqüências relativas da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa. A tabela mostra também que a solução Tempo Real foi melhor que a solução \textit{Offline} através da diferença quadrática.
  		
 \begin{table}		
 	\centering	
+	\caption{Freqüências Relativas do Mapa X Incompleto.}	
 	\begin{tabular}{cc|c|c|c|c|}	
 		\cline{3-6}
 		& & \multicolumn{2}{c|}{\textit{Offline}}& \multicolumn{2}{c|}{Tempo Real}\\
@@ -613,11 +635,10 @@ A Tabela \ref{tab:Fr_x_incompleto} mostra que as freqüências relativas da soluçã
 		\multicolumn{2}{|c|}{Diferença Quadrática} & \multicolumn{2}{c|}{0,02906} & \multicolumn{2}{c|}{0,00009} \\
 		\hline
 	\end{tabular}	
-	\caption{Freqüências Relativas do Mapa X Incompleto.}	
 	\label{tab:Fr_x_incompleto}	
 \end{table}		
 
-O gráfico (Figura \ref{fig:grafico_x_incompleto}) mostra que a solução \textit{Offline} depois de estabilizar teve um desempenho inferior à solução em Tempo Real.
+O gráfico (Figura \ref{fig:grafico_x_incompleto}) mostra que a solução em Tempo Real depois de estabilizar teve um desempenho inferior à solução \textit{Offline}.
 \begin{figure}[htb]
 	\centering
 		\includegraphics[width=0.4\textwidth]{../../../resultados/graficos/x_incompleto.png}
@@ -655,7 +676,7 @@ O gráfico (Figura \ref{fig:grafico_x_incompleto}) mostra que a solução \textit{O
 
 A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 5 2 6 3 7.
 
-As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas inicias, como mostra a Tabela \ref{tab:Pr_espinha}.		
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_espinha}.		
  		
 \begin{table}[hb]		
 	\centering	
@@ -675,10 +696,11 @@ As prioridades relativas finais da solução em Tempo Real foram próximas às prior
 	\label{tab:Pr_espinha}	
 \end{table}		
  		
-A Tabela \ref{tab:Fr_espinha} mostra que as freqüências relativas tanto da solução \textit{Offline} quanto a em Tempo Real foram próximas às prioridades relativas.	A tabela mostra também que a solução \textit{Offline} foi melhor que a solução Tempo Real.	
+A Tabela \ref{tab:Fr_espinha} mostra que as freqüências relativas tanto da solução \textit{Offline} quanto a em Tempo Real foram próximas às prioridades relativas iniciais do mapa.	A Tabela \ref{tab:Fr_espinha} mostra também que a solução \textit{Offline} foi melhor que a solução Tempo Real através da diferença quadrática.	
  		
 \begin{table}		
 	\centering	
+	\caption{Freqüências Relativas do Mapa Espinha.}	
 	\begin{tabular}{cc|c|c|c|c|}	
 		\cline{3-6}
 		& & \multicolumn{2}{c|}{\textit{Offline}}& \multicolumn{2}{c|}{Tempo Real}\\
@@ -695,11 +717,10 @@ A Tabela \ref{tab:Fr_espinha} mostra que as freqüências relativas tanto da soluç
 		\multicolumn{2}{|c|}{Diferença Quadrática} & \multicolumn{2}{c|}{0} & \multicolumn{2}{c|}{0,00004} \\
 		\hline
 	\end{tabular}	
-	\caption{Freqüências Relativas do Mapa Espinha.}	
 	\label{tab:Fr_espinha}	
 \end{table}		
 
-O gráfico (Figura \ref{fig:grafico_espinha}) mostra que a solução \textit{Offline} depois de estabilizar teve um desempenho inferior à solução em Tempo Real.
+O gráfico (Figura \ref{fig:grafico_espinha}) mostra que a solução em Tempo Real depois de estabilizar teve um desempenho inferior à solução \textit{Offline}.
 \begin{figure}[htb]
 	\centering
 		\includegraphics[width=0.4\textwidth]{../../../resultados/graficos/espinha.png}
@@ -729,7 +750,7 @@ O gráfico (Figura \ref{fig:grafico_espinha}) mostra que a solução \textit{Offlin
 
 A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 2 6 5 1 7 3 5.
 
-As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas inicias, como mostra a Tabela \ref{tab:Pr_espinha_diff}.		
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_espinha_diff}.		
  		
 \begin{table}[hb]		
 	\centering	
@@ -749,10 +770,11 @@ As prioridades relativas finais da solução em Tempo Real foram próximas às prior
 	\label{tab:Pr_espinha_diff}	
 \end{table}		
  		
-A Tabela \ref{tab:Fr_espinha_diff} mostra que as freqüências relativas da solução \textit{Offline} foram diferentes das prioridades relativas, visitando as salas 1 e 5 o dobro de vezes que as demais salas, pois na seqüência determinada pelo \texttt{gerador} as salas 1 e 5 aparecem duas vezes cada uma. Todavia as freqüências relativas da solução em Tempo Real foram próximas às prioridades relativas. A tabela mostra também que a solução Tempo Real foi melhor que a solução \textit{Offline}.
+A Tabela \ref{tab:Fr_espinha_diff} mostra que as freqüências relativas da solução \textit{Offline} foram diferentes das prioridades relativas iniciais do mapa, visitando as salas 1 e 5 o dobro de vezes que as demais salas, pois na seqüência determinada pelo \texttt{gerador} as salas 1 e 5 aparecem duas vezes cada uma. Todavia as freqüências relativas da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa. A Tabela \ref{tab:Fr_espinha_diff} mostra também que a solução Tempo Real foi melhor que a solução \textit{Offline} através da diferença quadrática.
  		
 \begin{table}		
 	\centering	
+	\caption{Freqüências Relativas do Mapa Espinha Diff.}	
 	\begin{tabular}{cc|c|c|c|c|}	
 		\cline{3-6}
 		& & \multicolumn{2}{c|}{\textit{Offline}}& \multicolumn{2}{c|}{Tempo Real}\\
@@ -769,10 +791,10 @@ A Tabela \ref{tab:Fr_espinha_diff} mostra que as freqüências relativas da soluçã
 		\multicolumn{2}{|c|}{Diferença Quadrática} & \multicolumn{2}{c|}{0,04167} & \multicolumn{2}{c|}{0,00488} \\
 		\hline
 	\end{tabular}	
-	\caption{Freqüências Relativas do Mapa Espinha Diff.}	
 	\label{tab:Fr_espinha_diff}	
 \end{table}		
-O gráfico (Figura \ref{fig:grafico_espinha_diff}) mostra que a solução \textit{Offline} depois de estabilizar teve um desempenho inferior à solução em Tempo Real.
+O gráfico (Figura \ref{fig:grafico_espinha_diff}) mostra que a solução em Tempo Real depois de estabilizar teve um desempenho inferior à solução \textit{Offline}.
+
 \begin{figure}[htb]
 	\centering
 		\includegraphics[width=0.4\textwidth]{../../../resultados/graficos/espinha_diff.png}
@@ -812,7 +834,7 @@ O gráfico (Figura \ref{fig:grafico_espinha_diff}) mostra que a solução \textit{O
 
 A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 12 9 11 5 7 3 4.
 
-As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas inicias, como mostra a Tabela \ref{tab:Pr_ap}.		
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_ap}.		
  		
 \begin{table}[hb]		
 	\centering	
@@ -834,10 +856,11 @@ As prioridades relativas finais da solução em Tempo Real foram próximas às prior
 	\label{tab:Pr_ap}	
 \end{table}		
  		
-A Tabela \ref{tab:Fr_ap} mostra que as freqüências relativas tanto da solução \textit{Offline} foram aproximadamente todas iguais, isso se deve ao fato de que a seqüência de salas a serem visitadas gerada pelo \texttt{gerador} manda o robô visitar cada sala apenas uma única vez dentro do \textit{loop}, porém as maiores diferenças numéricas são as das sala 3 e 4 que são aproximadamente 0,03. Na mesma tabela pode-se ver também que as prioridades relativas da solução em Tempo Real foram próximas às prioridades relativas.	A tabela mostra também que a solução Tempo Real foi melhor que a solução \textit{Offline}.
+A Tabela \ref{tab:Fr_ap} mostra que as freqüências relativas da solução \textit{Offline} foram aproximadamente todas iguais, isso se deve ao fato de que a seqüência de salas a serem visitadas gerada pelo \texttt{gerador} manda o robô visitar cada sala apenas uma única vez dentro do \textit{loop}, porém as maiores diferenças numéricas são as das sala 4 e 5 que são aproximadamente 0,03. Na mesma tabela pode-se ver também que as freqüencias relativas da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa.	A Tabela \ref{tab:Fr_ap} mostra também que a solução em Tempo Real foi melhor que a solução \textit{Offline} através da diferença quadrática.
  		
 \begin{table}		
 	\centering	
+	\caption{Freqüências Relativas do Mapa Apartamento.}	
 	\begin{tabular}{cc|c|c|c|c|}	
 		\cline{3-6}
 		& & \multicolumn{2}{c|}{\textit{Offline}}& \multicolumn{2}{c|}{Tempo Real}\\
@@ -856,11 +879,11 @@ A Tabela \ref{tab:Fr_ap} mostra que as freqüências relativas tanto da solução \t
 		\multicolumn{2}{|c|}{Diferença Quadrática} & \multicolumn{2}{c|}{0,00446} & \multicolumn{2}{c|}{0,00016} \\
 		\hline
 	\end{tabular}	
-	\caption{Freqüências Relativas do Mapa Apartamento.}	
 	\label{tab:Fr_ap}	
 \end{table}		
 
-O gráfico (Figura \ref{fig:grafico_ap}) mostra que a solução \textit{Offline} depois de estabilizar teve um desempenho inferior à solução em Tempo Real.
+O gráfico (Figura \ref{fig:grafico_ap}) mostra que a solução em Tempo Real depois de estabilizar teve um desempenho inferior à solução \textit{Offline}.
+
 \begin{figure}[htb]
 	\centering
 		\includegraphics[width=0.4\textwidth]{../../../resultados/graficos/ap.png}
@@ -868,9 +891,11 @@ O gráfico (Figura \ref{fig:grafico_ap}) mostra que a solução \textit{Offline} de
 	\label{fig:grafico_ap}
 \end{figure}
 
-Foi calculado uma média de cada solução em cada mapa com os últimos Dez mil segundos (Tabela \ref{tab:media_final}), analisando essa média nota-se que existe uma tendência de que quanto maior o número de salas mais eficiente será a solução \textit{Offline} em relação à solução em Tempo Real, como mostra o gráfico na Figura \ref{fig:grafico_tendencia}.
+\subsection{Análise Comparativa}
+Foi calculada uma média do Grau de Urgência Total de cada solução em cada mapa com os últimos dez mil segundos (Tabela \ref{tab:media_final}); analisando essa média nota-se que existe uma tendência de que quanto maior o número de salas mais eficiente será a solução \textit{Offline} em relação à solução em Tempo Real, como mostra o gráfico na Figura \ref{fig:grafico_tendencia}.
 \begin{table}[!ht]
 	\centering
+	\caption{Média dos Últimos Dez Mil Segundos.}
 		\begin{tabular}{|c|c|c|}
 			\hline			
 			Mapa & & \\ 
@@ -885,7 +910,6 @@ Foi calculado uma média de cada solução em cada mapa com os últimos Dez mil segu
 			Apartamento (8)	& 73,318 &100,217 \\
 			\hline			
 		\end{tabular}
-	\caption{Média dos Últimos Dez Mil Segundos}
 	\label{tab:media_final}
 \end{table}
 
@@ -904,10 +928,10 @@ Foi calculado uma média de cada solução em cada mapa com os últimos Dez mil segu
 Analisando os testes pode-se constatar que:
 
 \begin{itemize}
-	\item Segundo o critério de avaliação de freqüência relativa a solução em Tempo Real foi superior à solução \textit{Offline}, pois for mais eficiente em cinco dos sete testes e na soma total das diferenças quadráticas (0,10812 da solução \textit{Offline} contra 0,00652 da solução em Tempo Real);
-	\item Segundo o critério de avaliação de Grau de Urgência Total a solução \textit{Offline} foi melhor em todos os testes realizados.
+	\item Segundo o critério de avaliação de freqüência relativa, a solução em Tempo Real foi superior à solução \textit{Offline}, pois foi mais eficiente em cinco dos sete testes e na soma total das diferenças quadráticas (0,10812 da solução \textit{Offline} contra 0,00652 da solução em Tempo Real);
+	\item Segundo o critério de avaliação de Grau de Urgência Total a solução \textit{Offline} foi melhor que a solução em Tempo Real em todos os testes realizados e o gráfico da Figura \ref{fig:grafico_tendencia} mostrou que existe um tendência de que quanto maior o número de salas maior será a eficiência da solução \textit{Offline} em relação à solução em Tempo Real.
 \end{itemize}
 
-Era esperado que a solução \textit{Offline} tivesse um desempenho pior que a solução em Tempo Real no critério de avaliação de freqüência relativa, pois a avaliação das seqüências de salas à visitar é baseada somente no Grau de Urgência Total. E o desempenho das soluções segundo o critério de avaliação de Grau de Urgência Total mostra que o robô seguindo uma heurística simples tem um desempenho inferior do que uma solução que determina a seqüência de salas a serem visitadas antes de colocar o robô no ambiente.
+Era esperado que a solução \textit{Offline} tivesse um desempenho pior que a solução em Tempo Real no critério de avaliação de freqüência relativa, pois a avaliação das seqüências de salas à visitar é baseada somente no Grau de Urgência Total; e o desempenho das soluções segundo o critério de avaliação de Grau de Urgência Total mostra que o robô, seguindo uma heurística simples, tem um desempenho inferior do que uma solução que determina a seqüência de salas a serem visitadas, baseada no Grau de Urgência Total, antes de colocar o robô no ambiente.
 
-Por fim, o que determina qual solução deve ser utilizada depende da aplicação. Se para a aplicação a freqüência relativa for mais importante do que manter o Grau de Urgência baixo, deve-se escolher a solução em Tempo Real, porém se para a aplicação for mais importante manter o Grau de Urgência baixo deve-se escolher a solução \textit{Offline}.
+Por fim, o que determina qual solução deve ser utilizada depende da aplicação. Se para a aplicação a freqüência relativa for mais importante do que manter o Grau de Urgência baixo, deve-se escolher a solução em Tempo Real, porém se para a aplicação for mais importante manter o Grau de Urgência baixo deve-se escolher a solução \textit{Offline}, que foi baseada no Grau de Urgência Total.
