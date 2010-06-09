@@ -14,6 +14,8 @@
 \usepackage{monoproj}
 
 \begin{document}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
 	
 	%--------------------------------------------------------
 	% Capa e Folha de Rosto
@@ -33,24 +35,24 @@
 	%--------------------------------------------------------
 	% Agradecimento
 	%--------------------------------------------------------
-%	\include{agradecimento}
+	\include{agradecimento}
 	%--------------------------------------------------------
 	% Dedicatória
 	%--------------------------------------------------------
-%	\include{dedicatoria}
+	\include{dedicatoria}
 	%--------------------------------------------------------
 	% Resumo
 	%--------------------------------------------------------
-	%\include{resumo}
+	\include{resumo}
 	%--------------------------------------------------------
 	
 	%--------------------------------------------------------
 	% Sumario e Lista de Figuras, Tabelas, Algoritmos etc.
 	%--------------------------------------------------------
-	%\tableofcontents
-	%\listoffigures
-%	\listoftables
-	%\listofalgorithms
+	\tableofcontents
+	\listoffigures
+	\listoftables
+	\listofalgorithms
 	%--------------------------------------------------------
 	
 	\cleardoublepage
@@ -70,10 +72,10 @@
 	%--------------------------------------------------------
 	% Referencias Bibliograficas
 	%--------------------------------------------------------
-	%\pagestyle{referencest}
-	%\bibliographystyle{plain}
+	\pagestyle{referencest}
+	\bibliographystyle{plain}
 %	\bibliographystyle{cell}
-	%\bibliography{bibliografia} 
+	\bibliography{bibliografia} 
 	%--------------------------------------------------------
 	
 	%--------------------------------------------------------
