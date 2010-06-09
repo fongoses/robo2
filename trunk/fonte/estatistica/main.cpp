@@ -70,19 +70,21 @@ main ( int argc, char *argv[] )
                     arquivo.open(arqnome.c_str());
                     if(!arquivo.is_open()) {cerr << "Problemas para abrir " << arqnome << endl;}
                     arquivo.getline(buff, 256);
-                    sscanf(buff, "%d %*s %*s %*s %*d  %*s %*s %d %*s %*s %d", &s, &P, &visitas);
+                    arquivo.getline(buff, 256);
+//                    sscanf(buff, "%*s %*s %*s %*s %*s");
+                    sscanf(buff, "%d %*d %d %d %*f %*f", &s, &P, &visitas);
 
 
                     while(!arquivo.eof())
                     {
-                        //cout << s << "-" << P << "-" << visitas << endl;
+                        cout << s << "-" << P << "-" << visitas << endl;
                         sala.set_P(s, sala.get_P(s) + P);
                         sala.set_visitas(s, sala.get_visitas(s) + visitas);
 
                         arquivo.getline(buff, 256);
-                        sscanf(buff, "%d %*s %*s %*s %*d  %*s %*s %d %*s %*s %d", &s, &P, &visitas);
+                        sscanf(buff, "%d %*d %d %d %*f %*f", &s, &P, &visitas);
                     }
- //getchar();
+//sala.imprimir();getchar();
                     arquivo.close();
                     qtde++;
 //                }else {cout << " NÃO" << endl;
@@ -105,21 +107,22 @@ main ( int argc, char *argv[] )
                 total_visitas += it_s->second.visitas;
                 total_P += it_s->second.P;
             }
+            saida << "Sala\tVertice\tP\tvisitas\tP/Pt\tv/vt\n";
+            cout << "Sala\tVertice\tP\tvisitas\tP/Pt\tv/vt\n";
 
             for(it_s = sala.get_salas_completo().begin(); it_s != sala.get_salas_completo().end(); it_s++) {
-                saida << it_s->first << " => vertice = " << it_s->second.vertice <<
-                                              "\tP = " << (float)it_s->second.P / qtde<<
-                                        "\tvisitas = " << (float)it_s->second.visitas / qtde<<
-                                        "\tP/Pt = " << (float)it_s->second.P / total_P <<
-                                        "\tv/vt = " << (float)it_s->second.visitas / total_visitas <<
-                                        endl;
-                /*cout << it_s->first << " => vertice = " << it_s->second.vertice <<
-                                              "\tP = " << (float)it_s->second.P / qtde<<
-                                              "\tU = " << it_s->second.U <<
-                                        "\tvisitas = " << (float)it_s->second.visitas / qtde<<
-                                        "\tP/Pt = " << (float)it_s->second.P / total_P <<
-                                        "\tv/vt = " << (float)it_s->second.visitas / total_visitas <<
-                                        endl;*/
+                saida   << it_s->first << "\t"
+                        << it_s->second.vertice << "\t"
+                        << (float)it_s->second.P / qtde<< "\t"
+                        << (float)it_s->second.visitas / qtde<< "\t"
+                        << (float)it_s->second.P / total_P << "\t"
+                        << (float)it_s->second.visitas / total_visitas << endl;
+                /*cout    << it_s->first << "\t"
+                        << it_s->second.vertice << "\t"
+                        << (float)it_s->second.P / qtde<< "\t"
+                        << (float)it_s->second.visitas / qtde<< "\t"
+                        << (float)it_s->second.P / total_P << "\t"
+                        << (float)it_s->second.visitas / total_visitas << endl;getchar();*/
 
             }
             saida.close();
