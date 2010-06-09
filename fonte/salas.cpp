@@ -356,11 +356,14 @@ Salas::imprimir ( )
 {
 	MapaSala::iterator it_s;
 
+	cout << "Sala\tVertice\tP\tU\tVisitas\n";
+
 	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
-		cout << it_s->first << " => vertice = " << it_s->second.vertice <<
-															"\tP = " << it_s->second.P <<
-															"\tU = " << it_s->second.U <<
-															"\tvisitas = "<< it_s->second.visitas << endl;
+		cout    << it_s->first << "\t"
+                << it_s->second.vertice << "\t"
+                << it_s->second.P << "\t"
+                << it_s->second.U << "\t"
+                << it_s->second.visitas << endl;
 
 	}
 	return ;
@@ -382,13 +385,14 @@ Salas::salvar (string nome )
         total_visitas += it_s->second.visitas;
 	}
 
+	arq << "Sala\tVertice\tP\tVisitas\tP/Pt\tv/vt\n";
 	for(it_s = sala.begin(); it_s != sala.end(); it_s++) {
-		arq << it_s->first << " => vertice = " << it_s->second.vertice <<
-                                      "\tP = " << it_s->second.P <<
-                                "\tvisitas = " << it_s->second.visitas <<
-                                "\tP/Pt = " << (float)it_s->second.P / total_P <<
-                                "\tv/vt = " << (float)it_s->second.visitas / total_visitas <<
-                                endl;
+		arq << it_s->first << "\t"
+            << it_s->second.vertice << "\t"
+            << it_s->second.P << "\t"
+            << it_s->second.visitas << "\t"
+            << (float)it_s->second.P / total_P << "\t"
+            << (float)it_s->second.visitas / total_visitas << endl;
 		/*cout << it_s->first << " => vertice = " << it_s->second.vertice <<
                                       "\tP = " << it_s->second.P <<
                                       "\tU = " << it_s->second.U <<
