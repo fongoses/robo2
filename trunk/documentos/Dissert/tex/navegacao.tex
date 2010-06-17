@@ -8,9 +8,7 @@
 
 \chapter{Navegação de Robôs Móveis} 
 \label{navegacao} 
-Existem diversos problemas em aberto na robótica móvel.  Uma dessas questões ainda não resolvida consiste em um robô com a habilidade de navegar em seu ambiente \cite{Jones1999}.  A navegação é a ciência, arte, prática ou tecnologia de planejar e percorrer uma trajetória de um ponto de origem até um ponto de destino. 
-
-Em robótica, navegação é a ciência de direcionar o percurso de um robô móvel enquanto percorre o meio ambiente (terra, água, ou ar).  Inerente em qualquer esquema de navegação é o desejo de alcançar um destino sem se perder ou colidir com algum obstáculo \cite{Mckerrow1991}. Vagar é uma forma de navegação que consiste em o robô andar sempre em frente e desviando dos obstáculos.  Em geral, navegação é um processo incremental que, segundo Murphy \cite{Murphy2000}, pode ser resolvido respondendo a quatro perguntas:
+Em robótica, navegação é a ciência, arte, prática ou tecnologia de planejar e direcionar o percurso de um robô móvel enquanto percorre o meio ambiente (terra, água, ou ar).  Inerente em qualquer esquema de navegação é o desejo de alcançar um destino sem se perder ou colidir com algum obstáculo \cite{Mckerrow1991}. Vagar é uma forma de navegação que consiste em o robô andar sempre em frente e desviando dos obstáculos.  Em geral, navegação é um processo incremental que, segundo Murphy \cite{Murphy2000}, pode ser resolvido respondendo a quatro perguntas:
 
 \begin{itemize} 
 	\item \textbf{Para onde estou indo?} Geralmente determinado por um humano ou uma missão; 
@@ -30,7 +28,7 @@ Essas questões podem ser sumarizadas em quatro passos segundo Goldberg \cite{Gol
 
 A relação entre esses passos pode ser vista na Figura \ref{fig:fluxo_navegacao} \cite{Mckerrow1991}.
 
-\figura{../../imagens/fluxo_navegacao.jpg}{.4}{Hierarquia do controle de um robô móvel mostrando o fluxo de informação.}{fig:fluxo_navegacao}
+\figura{../../imagens/fluxo_navegacao.jpg}{.4}{Hierarquia do controle de um robô móvel mostrando o fluxo de informação \cite{Mckerrow1991}.}{fig:fluxo_navegacao}
 
 Navegação é a instância do paradigma geral da robótica ``perceber - decidir - agir''.  A implementação da tarefa de navegação pode ser mais ou menos complexa dependendo do contexto em que a tarefa vai ser executada \cite{Goldberg1995}.
 
@@ -57,7 +55,7 @@ O mapa do ambiente pode ser obtido automaticamente por um robô que seria respons
 	\item Permitirem a integração da leitura de vários sensores diferentes, porque a fusão sensorial aumenta a confiabilidade do sistema compensando, assim,  os possíveis ruídos.
 \end{itemize}
 
-\section{Representação do Mapa}
+\section{Mapeamento}
 \label{mapa}
 Representar o ambiente onde o robô se encontra é importante pois, decisões baseadas na representação do ambiente podem ter impacto nas escolhas disponíveis para a representação da posição do robô. Muitas vezes a fidelidade da representação da posição é limitada pela fidelidade do mapa \cite{Siegwart2004}.
 
@@ -74,7 +72,7 @@ Os mapas comumente conhecidos, que são vistos em guias ou na \textit{internet}, 
 
 \begin{figure}[ht]
   \centering
-	\subfigure[Mapa Métrico]{
+	\subfigure[Mapa Métrico \cite{Google2010}]{
 		\includegraphics[width=0.6\textwidth]{../../imagens/mapa_google.png}
 		\label{fig:exemplo_mapa_metrico}}
 	\subfigure[Mapa Topológico]{
@@ -105,19 +103,17 @@ Vários métodos propostos foram baseados nessa idéia, dentre eles: grafos de visi
 \label{voronoi} 
 É um método completo de mapa de rotas que tende a maximizar a distância entre o robô e os obstáculos no mapa.  Para cada ponto livre no mapa é calculada a distância para o obstáculo mais próximo. O diagrama de Voronoi consiste nos pontos que são equidistantes de um ou mais obstáculos.  Um exemplo de diagrama de Voronoi em um mapa pode ser visto na Figura \ref{fig:exemplo_voronoi} \cite{Siegwart2004}.
 
-\figura{../../imagens/exemplo_voronoi.jpg}{.4}{Exemplo de um diagrama de Voronoi.\cite{Siegwart2004}}{fig:exemplo_voronoi}
+\figura{../../imagens/exemplo_voronoi.jpg}{.4}{Exemplo de um diagrama de Voronoi \cite{Siegwart2004}.}{fig:exemplo_voronoi}
 
-O diagrama de Voronoi tem uma fraqueza importante, sensores de localização com alcance limitado.  Como o algoritmo maximiza a distância entre o robô e um objeto no ambiente, qualquer sensor de curto alcance no robô poderá falhar para perceber o mundo ao seu redor. Se o sensor de curto alcance está sendo usado para localização, então, o caminho designado pelo diagrama de Voronoi será pobre no ponto de vista para localização \cite{Siegwart2004}.
+O diagrama de Voronoi tem uma deficiência importante, sensores de localização com alcance limitado.  Como o algoritmo maximiza a distância entre o robô e um objeto no ambiente, qualquer sensor de curto alcance no robô poderá falhar para perceber o mundo ao seu redor. Se o sensor de curto alcance está sendo usado para localização, então, o caminho designado pelo diagrama de Voronoi será pobre no ponto de vista para localização \cite{Siegwart2004}. Por outro lado, como por definição, o caminho é criado baseado em um ponto equidistante dos obstáculos, isso garante um rota segura do robô pelo mapa.
 
-Por outro lado, como por definição, o caminho é criado baseado em um ponto equidistante dos obstáculos, isso garante um rota segura do robô pelo mapa.
-
-\subsection{Decomposição em Células}:
+\subsection{Decomposição em Células}
 \label{decomposicao_celulas} 
 Este método consiste em dividir o espaço livre do mapa em células, de forma que um caminho entre quaisquer duas células possa ser facilmente obtido. Um grafo, chamado \textit{grafo de conectividade}, representa a relação de adjacência entre as células; onde os vértices representam as células extraídas do espaço livre.  Somente existe uma aresta entre dois vértices se, e somente se, as células correspondentes foram adjacentes.  O resultado de um caminho é uma seqüência de células denominada \textit{canal}, de onde pode ser computado um caminho contínuo \cite{Ottoni2000}.  A Figura \ref{fig:decomposicao_celulas} demonstra um exemplo de mapa utilizando decomposição em células.
 
-\figura{../../imagens/decomposicao_celulas.jpg}{.5}{Exemplo de um mapa com decomposição em células.}{fig:decomposicao_celulas}
+\figura{../../imagens/decomposicao_celulas.jpg}{.5}{Exemplo de um mapa com decomposição em células \cite{Siegwart2004}.}{fig:decomposicao_celulas}
 
-\subsection{Campos Potenciais}:
+\subsection{Campos Potenciais}
 \label{campos_potenciais}
 Neste método, o espaço livre é discretizado em uma fina grade, a cada posição é associada uma função com a qual pode-se fazer uma analogia a um campo potencial.  Como o tamanho da grade é grande, pois ela é fina, são utilizados métodos heurísticos para encontrar um caminho. A analogia que o método sugere é que o robô seja uma partícula movendo-se sob a influência de um campo potencial gerado pelos obstáculos e pelo seu ponto de destino. O ponto de destino gera um campo potencial que atrai o robô, enquanto os obstáculos geram um campo que repele o robô. O caminho final é dado pela força resultante desses campos potenciais. 
 
@@ -163,3 +159,7 @@ No primeiro estágio da redução de dados é mapeada a grade de histograma do ambie
 
 \figura{../../imagens/polar_histogram.png}{.4}{(a) Densidade polar de obstáculo em um histograma polar relativo à posição do robô em $O$ (Figura \ref{fig:histogram_grid}(b)). (b) O mesmo histograma polar de (a) mostrado em forma polar e por cima da grade de histograma da Figura \ref{fig:histogram_grid}(b).\cite{Borenstein1991}}{fig:polar_histogram}
 
+\section{Considerações}
+\label{consideracores_robo}
+
+Neste projeto para o robô monitorar os ambientes ele deve ser capaz de navegar com segurança nos mesmos. Para isso são necessários os conceitos apresentados nessa seção. Saber onde o robô está no mapa, conhecer o mapa, planejar a melhor trajetória para chegar ao destino e desviar dos obstáculos no caminho. 

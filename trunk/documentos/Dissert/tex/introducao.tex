@@ -27,23 +27,23 @@ Dentre as muitas definições de robô podemos destacar:
 
 Inicialmente os robôs eram utilizados somente para automação industrial, fixados em posições específicas na linha de montagem, os braços robóticos podem mover-se a uma grande velocidade e precisão para realizar tarefas repetitivas. No entanto esses robôs apresentam uma fundamental desvantagem que é a falta de mobilidade. Um manipulador fixo tem alcance limitado que depende de onde foi colocado enquanto que robôs móveis são capazes de locomoverem-se pela fábrica \cite{Siegwart2004}. Com a evolução tecnológica os robôs passaram a ser utilizados em outras áreas como: medicina de precisão, ambientes perigosos, ambientes insalubres, na área de entretenimento, serviços domésticos, etc. Nesse contexto surgiram as pesquisas para o desenvolvimento de robôs móveis autônomos, que sejam capazes de atuar em ambientes reais e reagir a situações desconhecidas de forma inteligente \cite{Thrun2002}.
 
-Entre todas essas diversas aplicações da robótica móvel, pode-se citar o robô Sojourner (Figura \ref{fig:sojourner}) da NASA, que explorou e enviou fotos e outras muitas informações do planeta Marte para a Terra \cite{NASA}, e o robô desenvolvido pela universidade Carnegie Mellon, chamado Groundhog, que explora minas abandonadas, que além do risco de desabamento, em muitos casos também contém gases tóxicos \cite{Thrun2004}.
+Entre todas essas diversas aplicações da robótica móvel, pode-se citar o robô Sojourner (Figura \ref{fig:sojourner}) da NASA, que explorou e enviou fotos e outras muitas informações do planeta Marte para a Terra \cite{NASA2010}, e o robô desenvolvido pela universidade Carnegie Mellon, chamado Groundhog, que explora minas abandonadas, que além do risco de desabamento, em muitos casos também contém gases tóxicos \cite{Thrun2004}.
 
 A comunidade científica aposta que sistemas robóticos estejam cada vez mais presentes em nossa vida cotidiana, o que torna esta área de pesquisa extremamente promissora e desafiadora. Segundo Bill Gates \cite{Gates2007}, a humanidade está entrando numa nova era da computação, comparando os robôs industriais com os \textit{mainframes} de antigamente, e este autor prevê que existirá um robô em cada casa no futuro.
 
 A robótica consiste em uma área multidisciplinar de pesquisa, envolvendo desde elementos de engenharia mecânica, elétrica, computação até áreas de humanas como psicologia e estudos comportamentais. O que diferencia a robótica móvel de outras áreas de pesquisa em robótica, é a sua ênfase nos problemas relacionados com locomoção em ambientes complexos, que se modificam dinamicamente, compostos tanto por obstáculos fixos quanto por obstáculos móveis. Para operar nesses ambientes o robô deve ser capaz de adquirir e utilizar conhecimento sobre o ambiente, tais como: estimar posições dentro do ambiente (sua posição, de um obstáculo, de um \textit{landmark}, de uma meta), reconhecer obstáculos, e responder em tempo real às situações que podem ocorrer nesses ambientes. As tarefas de perceber o ambiente, localizar-se no ambiente e mover pelo ambiente são problemas fundamentais da robótica móvel \cite{Heinen2002}. 
 
-A robótica móvel, além de ser uma área de grande potencial científico, tem atraído a atenção de empresas de tecnologia que cada vez mais investem no desenvolvimento de produtos; como por exemplo os robôs que realizam trabalhos domésticos autonomamente,  entre os quais o aspirador de pó Roomba da IRobot \cite{IRobot} (Figura \ref{fig:roomba}) e o robô cortador de grama Robomow (Figura \ref{fig:robomow}) da Friendly Robotics \cite{FriendlyRobotics}. Ambos apresentam sucesso comercial. 
+A robótica móvel, além de ser uma área de grande potencial científico, tem atraído a atenção de empresas de tecnologia que cada vez mais investem no desenvolvimento de produtos; como por exemplo os robôs que realizam trabalhos domésticos autonomamente,  entre os quais o aspirador de pó Roomba da IRobot \cite{IRobot2010} (Figura \ref{fig:roomba}) e o robô cortador de grama Robomow (Figura \ref{fig:robomow}) da Friendly Robotics \cite{FriendlyRobotics2010}. Ambos apresentam sucesso comercial. 
 
 \begin{figure}[ht]
   \centering
-	\subfigure[Sojourner]{
+	\subfigure[Sojourner \cite{NASA2010}]{
     \includegraphics[width=0.4\textwidth]{../../imagens/sojourner.jpg}
 		\label{fig:sojourner}}	
-	\subfigure[Roomba]{
+	\subfigure[Roomba \cite{IRobot2010}]{
 	  \includegraphics[width=0.4\textwidth]{../../imagens/roomba.jpg}
 		\label{fig:roomba}}
-	\subfigure[Robomow]{
+	\subfigure[Robomow \cite{FriendlyRobotics2010}]{
 	  \includegraphics[width=0.4\textwidth]{../../imagens/robomow.jpg}
 		\label{fig:robomow}}
 	\label{fig:exemplo_de_robos}
@@ -64,5 +64,4 @@ A motivação desta dissertação de mestrado é desenvolver um sistema de monitorame
 
 \section{Objetivos}
 \label{objetivos}
-A proposta desta dissertação é desenvolver soluções de robótica móvel para o monitoramento de ambientes internos, onde normalmente, nesses ambientes, existem regiões críticas para serem monitoradas, cada qual com sua prioridade. A prioridade (urgência) da visita de cada uma dessas regiões aumenta conforme o tempo passa e essa região não é visitada. Ao ser visitada, a urgência de uma determinada região é, então, zerada. 
-
+Esta dissertação tem como objetivo o desenvolvimento de uma estratégia eficiente para determinar uma seqüência de áreas a serem visitadas em ambientes internos com a finalidade de monitoramento destes ambientes utilizando um robô móvel. O problema a ser resolvido consiste na divisão de um ambiente previamente conhecido em áreas de interesse. A cada uma dessas áreas é atribuído um valor (peso) referente à sua importância de monitoramento. A prioridade com que o robô deve visitar determinadas áreas é calculada com base na importância dessas áreas e no tempo decorrido desde a sua última visita. Áreas de maior importância devem ser visitadas mais freqüentemente. 
