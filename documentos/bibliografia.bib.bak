@@ -1,4 +1,4 @@
-% This file was created with JabRef 2.5.
+% This file was created with JabRef 2.6.
 % Encoding: UTF8
 
 @ARTICLE{Adorno2005,
@@ -32,6 +32,16 @@
   publisher = {{MIT} Press},
   year = {1998},
   author = {R. C. Arkin}
+}
+
+@ARTICLE{Baguinski,
+  author = {Artm Baguinski},
+  title = {Laser Measurement System Object For Max},
+  journal = {V2},
+  howpublished = {http://www.v2.nl/},
+  owner = {Heitor},
+  timestamp = {2010.06.17},
+  url = {http://www.v2.nl/lab/projects/laser-measurement-system-object-for-max/intro}
 }
 
 @INPROCEEDINGS{Becker2005,
@@ -386,6 +396,16 @@
 	que atua sobre as velocidades linear e angular desenvolvidas pelo
 	rob\^{o} m\'{o}vel. },
   url = {http://lakh.unm.edu/handle/10229/14268}
+}
+
+@ARTICLE{PennsylvaniaStateUniversityRobotics2010,
+  author = {{Pennsylvania State University Robotics}},
+  title = {Player/Stage Overview},
+  journal = {PSU Robotics},
+  year = {2010},
+  owner = {Heitor},
+  timestamp = {2010.06.17},
+  url = {http://psurobotics.org/wiki/index.php?title=Player/Stage_Overview}
 }
 
 @MISC{Player,
