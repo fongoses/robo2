@@ -8,8 +8,9 @@
 % Prof. Dr. Denis Fernando Wolf
 %==========================================================
 
-\chapter{Resultados Obtidos}
+\chapter{Desenvolvimento e Resultados}
 \label{resultados_obitdos}
+Esta dissertação tem como objetivo o desenvolvimento de uma estratégia eficiente para determinar uma seqüência de áreas a serem visitadas em ambientes internos com a finalidade de monitoramento destes ambientes utilizando um robô móvel. O problema a ser resolvido consiste na divisão de um ambiente previamente conhecido em áreas de interesse. A cada uma dessas áreas é atribuído um valor (peso) referente à sua importância de monitoramento. A prioridade com que o robô deve visitar determinadas áreas é calculada com base na importância dessas áreas e no tempo decorrido desde a sua última visita. Áreas de maior importância devem ser visitadas mais freqüentemente. 
 
 Para determinar a trajetória do robô foram criadas duas soluções, uma \textit{Offline} (seção \ref{offline}) e outra em Tempo Real seção (\ref{tempo_real}), essas soluções serão confrontadas em dois critérios de avaliação (seção \ref{criterios}), um baseado no Grau de Urgência Total e o outro baseado na freqüência relativa de cada sala.
 
@@ -175,6 +176,8 @@ Após feito isso o \texttt{gerador} recomeça o ciclo, removendo o primeiro \texti
 	\label{fig:gerador5}
 \end{figure}
 
+O \texttt{gerador} permanece nesse ciclo até que não exista mais \textit{agente} na fila.
+
 \subsubsection{Avaliador}
 \label{avaliador}
 
@@ -332,7 +335,7 @@ Na seqüência são mostrados os resultados em cada mapa:
 \begin{figure}[htb]
 	\centering
 		\includegraphics[width=0.25\textwidth]{../../imagens/mapa_quatro.png}
-	\caption{Grafo do Mapa A.}
+	\caption{Grafo do Mapa A e B.}
 	\label{fig:grafo_quatro}
 \end{figure}
 
@@ -491,7 +494,7 @@ O gráfico do Mapa B (Figura \ref{fig:grafico_quatro_diff}), diferentemente do gr
 
 \begin{table}[hb]
 	\centering
-	\caption{Prioridades do Mapa C.}
+	\caption{Prioridades do Mapa C e D.}
  	\begin{tabular}{|c|c|c|}
 		\hline
 		Sala & Prioridade\\
@@ -628,7 +631,7 @@ O gráfico (Figura \ref{fig:grafico_x_incompleto}) mostra que a solução em Tempo 
 \begin{figure}[!htb]
 	\centering
 		\includegraphics[width=0.3\textwidth]{../../imagens/mapa_espinha.png}
-	\caption{Grafo do Mapa E.}
+	\caption{Grafo do Mapa E e F.}
 	\label{fig:grafo_espinha}
 \end{figure}
 
@@ -902,9 +905,8 @@ Foi calculada uma média do Grau de Urgência Total de cada solução em cada mapa c
 \end{figure}
 \end{itemize}
 \clearpage
-\chapter{Conclusão e Trabalhos Futuros}
-\label{conclusao}
 
+\section{Considerações}
 Analisando os testes pode-se constatar que:
 
 \begin{itemize}
@@ -915,5 +917,10 @@ Analisando os testes pode-se constatar que:
 Era esperado que a solução \textit{Offline} tivesse um desempenho pior que a solução em Tempo Real no critério de avaliação de freqüência relativa, pois a avaliação das seqüências de salas à visitar é baseada somente no Grau de Urgência Total; e o desempenho das soluções segundo o critério de avaliação de Grau de Urgência Total mostra que o robô, seguindo uma heurística simples, tem um desempenho inferior do que uma solução que determina a seqüência de salas a serem visitadas, baseada no Grau de Urgência Total, antes de colocar o robô no ambiente.
 
 Por fim, o que determina qual solução deve ser utilizada depende da aplicação. Se para a aplicação a freqüência relativa for mais importante do que manter o Grau de Urgência baixo, deve-se escolher a solução em Tempo Real, porém se para a aplicação for mais importante manter o Grau de Urgência baixo deve-se escolher a solução \textit{Offline}, que foi baseada no Grau de Urgência Total.
+
+\chapter{Conclusão e Trabalhos Futuros}
+\label{conclusao}
+
+CONCLUSAO
 
 Para dar continuidade ao projeto o próximo é explorar a utilização de mais de um robô para realizar a tarefa, cada robô monitorar um conjunto de salas divididas por prioridade ou proximidade, ou todos os robôs podem monitorar todas as salas etc.
