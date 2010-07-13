@@ -1,0 +1,1390 @@
+
+%% bare_conf.tex
+%% V1.3
+%% 2007/01/11
+%% by Michael Shell
+%% See:
+%% http://www.michaelshell.org/
+%% for current contact information.
+%%
+%% This is a skeleton file demonstrating the use of IEEEtran.cls
+%% (requires IEEEtran.cls version 1.7 or later) with an IEEE conference paper.
+%%
+%% Support sites:
+%% http://www.michaelshell.org/tex/ieeetran/
+%% http://www.ctan.org/tex-archive/macros/latex/contrib/IEEEtran/
+%% and
+%% http://www.ieee.org/
+
+%%*************************************************************************
+%% Legal Notice:
+%% This code is offered as-is without any warranty either expressed or
+%% implied; without even the implied warranty of MERCHANTABILITY or
+%% FITNESS FOR A PARTICULAR PURPOSE! 
+%% User assumes all risk.
+%% In no event shall IEEE or any contributor to this code be liable for
+%% any damages or losses, including, but not limited to, incidental,
+%% consequential, or any other damages, resulting from the use or misuse
+%% of any information contained here.
+%%
+%% All comments are the opinions of their respective authors and are not
+%% necessarily endorsed by the IEEE.
+%%
+%% This work is distributed under the LaTeX Project Public License (LPPL)
+%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
+%% distributed and modified. A copy of the LPPL, version 1.3, is included
+%% in the base LaTeX documentation of all distributions of LaTeX released
+%% 2003/12/01 or later.
+%% Retain all contribution notices and credits.
+%% ** Modified files should be clearly indicated as such, including  **
+%% ** renaming them and changing author support contact information. **
+%%
+%% File list of work: IEEEtran.cls, IEEEtran_HOWTO.pdf, bare_adv.tex,
+%%                    bare_conf.tex, bare_jrnl.tex, bare_jrnl_compsoc.tex
+%%*************************************************************************
+
+% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
+% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
+% *** with production work. IEEE's font choices can trigger bugs that do  ***
+% *** not appear when using other class files.                            ***
+% The testflow support page is at:
+% http://www.michaelshell.org/tex/testflow/
+
+
+
+% Note that the a4paper option is mainly intended so that authors in
+% countries using A4 can easily print to A4 and see how their papers will
+% look in print - the typesetting of the document will not typically be
+% affected with changes in paper size (but the bottom and side margins will).
+% Use the testflow package mentioned above to verify correct handling of
+% both paper sizes by the user's LaTeX system.
+%
+% Also note that the "draftcls" or "draftclsnofoot", not "draft", option
+% should be used if it is desired that the figures are to be displayed in
+% draft mode.
+%
+\documentclass[10pt, conference, compsocconf]{IEEEtran}
+% Add the compsocconf option for Computer Society conferences.
+%
+% If IEEEtran.cls has not been installed into the LaTeX system files,
+% manually specify the path to it like:
+% \documentclass[conference]{../sty/IEEEtran}
+
+
+
+
+
+% Some very useful LaTeX packages include:
+% (uncomment the ones you want to load)
+
+
+% *** MISC UTILITY PACKAGES ***
+%
+%\usepackage{ifpdf}
+% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
+% compilation based on whether the output is pdf or dvi.
+% usage:
+% \ifpdf
+%   % pdf code
+% \else
+%   % dvi code
+% \fi
+% The latest version of ifpdf.sty can be obtained from:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/oberdiek/
+% Also, note that IEEEtran.cls V1.7 and later provides a builtin
+% \ifCLASSINFOpdf conditional that works the same way.
+% When switching from latex to pdflatex and vice-versa, the compiler may
+% have to be run twice to clear warning/error messages.
+
+
+\usepackage[brazilian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{ae}
+\usepackage[ansinew]{inputenc}
+\usepackage[pdftex]{graphicx}
+\usepackage[pdftex]{geometry}
+%\usepackage{indentfirst}
+%\usepackage{setspaceb}
+%\usepackage{titlesec}
+%\usepackage{textfit}
+%\usepackage{url}
+%\usepackage{amsfonts}%, amsthm, amssymb}
+%\usepackage{notescnd}
+%\usepackage{boxedminipage}
+\usepackage{cite}
+
+
+
+
+% *** CITATION PACKAGES ***
+%
+%\usepackage{cite}
+% cite.sty was written by Donald Arseneau
+% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
+% \cite{} output to follow that of IEEE. Loading the cite package will
+% result in citation numbers being automatically sorted and properly
+% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
+% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
+% \cite will automatically add leading space, if needed. Use cite.sty's
+% noadjust option (cite.sty V3.8 and later) if you want to turn this off.
+% cite.sty is already installed on most LaTeX systems. Be sure and use
+% version 4.0 (2003-05-27) and later if using hyperref.sty. cite.sty does
+% not currently provide for hyperlinked citations.
+% The latest version can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/cite/
+% The documentation is contained in the cite.sty file itself.
+
+
+
+
+
+
+% *** GRAPHICS RELATED PACKAGES ***
+%
+\ifCLASSINFOpdf
+  % \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+% graphicx was written by David Carlisle and Sebastian Rahtz. It is
+% required if you want graphics, photos, etc. graphicx.sty is already
+% installed on most LaTeX systems. The latest version and documentation can
+% be obtained at: 
+% http://www.ctan.org/tex-archive/macros/latex/required/graphics/
+% Another good source of documentation is "Using Imported Graphics in
+% LaTeX2e" by Keith Reckdahl which can be found as epslatex.ps or
+% epslatex.pdf at: http://www.ctan.org/tex-archive/info/
+%
+% latex, and pdflatex in dvi mode, support graphics in encapsulated
+% postscript (.eps) format. pdflatex in pdf mode supports graphics
+% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
+% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
+% not a bitmapped formats (.jpeg, .png). IEEE frowns on bitmapped formats
+% which can result in "jaggedy"/blurry rendering of lines and letters as
+% well as large increases in file sizes.
+%
+% You can find documentation about the pdfTeX application at:
+% http://www.tug.org/applications/pdftex
+
+
+
+
+
+% *** MATH PACKAGES ***
+%
+%\usepackage[cmex10]{amsmath}
+% A popular package from the American Mathematical Society that provides
+% many useful and powerful commands for dealing with mathematics. If using
+% it, be sure to load this package with the cmex10 option to ensure that
+% only type 1 fonts will utilized at all point sizes. Without this option,
+% it is possible that some math symbols, particularly those within
+% footnotes, will be rendered in bitmap form which will result in a
+% document that can not be IEEE Xplore compliant!
+%
+% Also, note that the amsmath package sets \interdisplaylinepenalty to 10000
+% thus preventing page breaks from occurring within multiline equations. Use:
+%\interdisplaylinepenalty=2500
+% after loading amsmath to restore such page breaks as IEEEtran.cls normally
+% does. amsmath.sty is already installed on most LaTeX systems. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/amslatex/math/
+
+
+
+
+
+% *** SPECIALIZED LIST PACKAGES ***
+%
+%\usepackage{algorithmic}
+% algorithmic.sty was written by Peter Williams and Rogerio Brito.
+% This package provides an algorithmic environment fo describing algorithms.
+% You can use the algorithmic environment in-text or within a figure
+% environment to provide for a floating algorithm. Do NOT use the algorithm
+% floating environment provided by algorithm.sty (by the same authors) or
+% algorithm2e.sty (by Christophe Fiorio) as IEEE does not use dedicated
+% algorithm float types and packages that provide these will not provide
+% correct IEEE style captions. The latest version and documentation of
+% algorithmic.sty can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithms/
+% There is also a support site at:
+% http://algorithms.berlios.de/index.html
+% Also of interest may be the (relatively newer and more customizable)
+% algorithmicx.sty package by Szasz Janos:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithmicx/
+
+
+
+
+% *** ALIGNMENT PACKAGES ***
+%
+%\usepackage{array}
+% Frank Mittelbach's and David Carlisle's array.sty patches and improves
+% the standard LaTeX2e array and tabular environments to provide better
+% appearance and additional user controls. As the default LaTeX2e table
+% generation code is lacking to the point of almost being broken with
+% respect to the quality of the end results, all users are strongly
+% advised to use an enhanced (at the very least that provided by array.sty)
+% set of table tools. array.sty is already installed on most systems. The
+% latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/tools/
+
+
+%\usepackage{mdwmath}
+%\usepackage{mdwtab}
+% Also highly recommended is Mark Wooding's extremely powerful MDW tools,
+% especially mdwmath.sty and mdwtab.sty which are used to format equations
+% and tables, respectively. The MDWtools set is already installed on most
+% LaTeX systems. The lastest version and documentation is available at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/mdwtools/
+
+
+% IEEEtran contains the IEEEeqnarray family of commands that can be used to
+% generate multiline equations as well as matrices, tables, etc., of high
+% quality.
+
+
+%\usepackage{eqparbox}
+% Also of notable interest is Scott Pakin's eqparbox package for creating
+% (automatically sized) equal width boxes - aka "natural width parboxes".
+% Available at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/eqparbox/
+
+
+
+
+
+% *** SUBFIGURE PACKAGES ***
+%\usepackage[tight,footnotesize]{subfigure}
+% subfigure.sty was written by Steven Douglas Cochran. This package makes it
+% easy to put subfigures in your figures. e.g., "Figure 1a and 1b". For IEEE
+% work, it is a good idea to load it with the tight package option to reduce
+% the amount of white space around the subfigures. subfigure.sty is already
+% installed on most LaTeX systems. The latest version and documentation can
+% be obtained at:
+% http://www.ctan.org/tex-archive/obsolete/macros/latex/contrib/subfigure/
+% subfigure.sty has been superceeded by subfig.sty.
+
+
+
+%\usepackage[caption=false]{caption}
+%\usepackage[font=footnotesize]{subfig}
+% subfig.sty, also written by Steven Douglas Cochran, is the modern
+% replacement for subfigure.sty. However, subfig.sty requires and
+% automatically loads Axel Sommerfeldt's caption.sty which will override
+% IEEEtran.cls handling of captions and this will result in nonIEEE style
+% figure/table captions. To prevent this problem, be sure and preload
+% caption.sty with its "caption=false" package option. This is will preserve
+% IEEEtran.cls handing of captions. Version 1.3 (2005/06/28) and later 
+% (recommended due to many improvements over 1.2) of subfig.sty supports
+% the caption=false option directly:
+%\usepackage[caption=false,font=footnotesize]{subfig}
+%
+% The latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/subfig/
+% The latest version and documentation of caption.sty can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/caption/
+
+
+
+
+% *** FLOAT PACKAGES ***
+%
+%\usepackage{fixltx2e}
+% fixltx2e, the successor to the earlier fix2col.sty, was written by
+% Frank Mittelbach and David Carlisle. This package corrects a few problems
+% in the LaTeX2e kernel, the most notable of which is that in current
+% LaTeX2e releases, the ordering of single and double column floats is not
+% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
+% single column figure to be placed prior to an earlier double column
+% figure. The latest version and documentation can be found at:
+% http://www.ctan.org/tex-archive/macros/latex/base/
+
+
+
+%\usepackage{stfloats}
+% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
+% the ability to do double column floats at the bottom of the page as well
+% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
+% LaTeX2e). It also provides a command:
+%\fnbelowfloat
+% to enable the placement of footnotes below bottom floats (the standard
+% LaTeX2e kernel puts them above bottom floats). This is an invasive package
+% which rewrites many portions of the LaTeX2e float routines. It may not work
+% with other packages that modify the LaTeX2e float routines. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/sttools/
+% Documentation is contained in the stfloats.sty comments as well as in the
+% presfull.pdf file. Do not use the stfloats baselinefloat ability as IEEE
+% does not allow \baselineskip to stretch. Authors submitting work to the
+% IEEE should note that IEEE rarely uses double column equations and
+% that authors should try to avoid such use. Do not be tempted to use the
+% cuted.sty or midfloat.sty packages (also by Sigitas Tolusis) as IEEE does
+% not format its papers in such ways.
+
+
+
+
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+%\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/misc/
+% Read the url.sty source comments for usage information. Basically,
+% \url{my_url_here}.
+
+
+
+
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+% *** Do not use packages that alter fonts (such as pslatex).         ***
+% There should be no need to do such things with IEEEtran.cls V1.6 and later.
+% (Unless specifically asked to do so by the journal or conference you plan
+% to submit to, of course. )
+
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\begin{document}
+%
+% paper title
+% can use linebreaks \\ within to get better formatting as desired
+\title{Desenvolvimento de Rotas para Monitorar Ambientes Internos}
+
+
+% author names and affiliations
+% use a multiple column layout for up to two different
+% affiliations
+
+\author{\IEEEauthorblockN{Heitor L. Polidoro}
+\IEEEauthorblockA{Universidade de São Paulo\\
+ICMC - Instituto de Ciências Matemáticas\\ e de Computação\\
+São Carlos - SP, Brasil\\
+heitor.polidoro@gmail.com}
+\and
+\IEEEauthorblockN{Dr. Prof. Denis F. Wolf}
+\IEEEauthorblockA{Universidade de São Paulo\\
+ICMC - Instituto de Ciências Matemáticas\\ e de Computação\\
+São Carlos - SP, Brasil\\
+denis@icmc.usp.br}
+}
+
+% conference papers do not typically use \thanks and this command
+% is locked out in conference mode. If really needed, such as for
+% the acknowledgment of grants, issue a \IEEEoverridecommandlockouts
+% after \documentclass
+
+% for over three affiliations, or if they all won't fit within the width
+% of the page, use this alternative format:
+% 
+%\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
+%Homer Simpson\IEEEauthorrefmark{2},
+%James Kirk\IEEEauthorrefmark{3}, 
+%Montgomery Scott\IEEEauthorrefmark{3} and
+%Eldon Tyrell\IEEEauthorrefmark{4}}
+%\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
+%Georgia Institute of Technology,
+%Atlanta, Georgia 30332--0250\\ Email: see http://www.michaelshell.org/contact.html}
+%\IEEEauthorblockA{\IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA\\
+%Email: homer@thesimpsons.com}
+%\IEEEauthorblockA{\IEEEauthorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
+%Telephone: (800) 555--1212, Fax: (888) 555--1212}
+%\IEEEauthorblockA{\IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
+
+
+
+
+% use for special paper notices
+%\IEEEspecialpapernotice{(Invited Paper)}
+
+
+
+
+% make the title area
+\maketitle
+
+
+\begin{abstract}
+A robótica móvel é uma área de pesquisa que está obtendo grande atenção da comunidade científica. O desenvolvimento de robôs móveis autônomos, que sejam capazes de interagir com o ambiente, aprender e tomar decisões corretas para que suas tarefas sejam executadas com êxito é o maior desafio em robótica móvel. O desenvolvimento destes sistemas inteligentes e autônomos consiste em uma área de pesquisa multidisciplinar considerada recente e extremamente promissora que envolve; por exemplo, inteligência artificial, aprendizado de máquina, estimação estatística e sistemas embarcados. Dentro desse contexto, esse trabalho aborda o problema de navegação e monitoramento de ambientes utilizando robôs móveis. Dada uma representação do ambiente (mapa topológico) e uma lista com urgências de cada uma das regiões do mapa, o robô deve estimar qual o percurso mais eficiente para monitorar esse ambiente. Uma vez que a urgência de cada região não visitada aumenta com o tempo, o trajeto do robô deve se adaptar a essas alterações. Entre as diversas aplicações práticas desse tipo de algoritmo, destaca-se o desenvolvimento de sistemas de segurança móveis inteligentes. 
+\end{abstract}
+
+\begin{IEEEkeywords}
+Robótica Móvel; Monitoramento; Ambiente Interno;
+
+\end{IEEEkeywords}
+
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+\IEEEpeerreviewmaketitle
+
+
+
+\section{Introduction}
+A robótica é uma tecnologia utilizada para auxiliar ou substituir o homem em tarefas que o ser humano não é capaz de executar; em tarefas que podem ser automatizadas; em tarefas em ambientes com alto grau de periculosidade, como fundo do mar, incêndios, desarmamento de bombas, áreas com contaminação radioativa ou com gases tóxicos e em tarefas repetitivas como uma linha de produção industrial, por exemplo.
+
+Dentre as muitas definições de robô podemos destacar:
+\begin{itemize}
+	\item Dispositivo ou máquina que realiza funções normalmente associadas a seres humanos \cite{Medeiros1998};
+	\item Máquinas que, além de serem capazes de reproduzir tarefas	e movimentos implícitos em sua construção, complementam a parte mecânica com dispositivos eletrônicos inteligentes \cite{Medeiros1998};
+	\item Órgão mecânico versátil equipado com atuadores e sensores sob o controle de um sistema computacional \cite{Latombe1991} e
+	\item Simplesmente um agente artificial e ativo cujo ambiente é o mundo físico \cite{Russell2003}.
+\end{itemize}
+
+Inicialmente os robôs eram utilizados somente para automação industrial, fixados em posições específicas na linha de montagem, os braços robóticos podem mover-se a uma grande velocidade e precisão para realizar tarefas repetitivas. No entanto esses robôs apresentam uma fundamental desvantagem que é a falta de mobilidade. Um manipulador fixo tem alcance limitado que depende de onde foi colocado enquanto que robôs móveis são capazes de locomoverem-se pela fábrica \cite{Siegwart2004}. Com a evolução tecnológica os robôs passaram a ser utilizados em outras áreas como: medicina de precisão, ambientes perigosos, ambientes insalubres, na área de entretenimento, serviços domésticos, etc. Nesse contexto surgiram as pesquisas para o desenvolvimento de robôs móveis autônomos, que sejam capazes de atuar em ambientes reais e reagir a situações desconhecidas de forma inteligente \cite{Thrun2002}.
+
+Entre todas essas diversas aplicações da robótica móvel, pode-se citar o robô Sojourner da NASA, que explorou e enviou fotos e outras muitas informações do planeta Marte para a Terra \cite{NASA2010}, e o robô desenvolvido pela universidade Carnegie Mellon, chamado Groundhog, que explora minas abandonadas, que além do risco de desabamento, em muitos casos também contém gases tóxicos \cite{Thrun2004}.
+
+A robótica consiste em uma área multidisciplinar de pesquisa, envolvendo desde elementos de engenharia mecânica, elétrica, computação até áreas de humanas como psicologia e estudos comportamentais. O que diferencia a robótica móvel de outras áreas de pesquisa em robótica, é a sua ênfase nos problemas relacionados com locomoção em ambientes complexos, que se modificam dinamicamente, compostos tanto por obstáculos fixos quanto por obstáculos móveis. Para operar nesses ambientes o robô deve ser capaz de adquirir e utilizar conhecimento sobre o ambiente, tais como: estimar posições dentro do ambiente (sua posição, de um obstáculo, de um \textit{landmark}, de uma meta), reconhecer obstáculos, e responder em tempo real às situações que podem ocorrer nesses ambientes. As tarefas de perceber o ambiente, localizar-se no ambiente e mover pelo ambiente são problemas fundamentais da robótica móvel \cite{Heinen2002}. 
+
+A robótica móvel, além de ser uma área de grande potencial científico, tem atraído a atenção de empresas de tecnologia que cada vez mais investem no desenvolvimento de produtos; como por exemplo os robôs que realizam trabalhos domésticos autonomamente,  entre os quais o aspirador de pó Roomba da IRobot \cite{IRobot2010} e o robô cortador de grama Robomow da Friendly Robotics \cite{FriendlyRobotics2010}. Ambos apresentam sucesso comercial. 
+
+Robôs móveis podem ser classificados quanto à sua mobilidade como: humanóides, com pernas, com rodas, com esferas, aéreos e aquáticos. Robôs com rodas são mais simples de serem construídos e mais fáceis de controlar, as rodas permitem uma maior praticidade de locomoção e dão um maior suporte estático aos robôs terrestres \cite{Russell2003}. A autonomia de robôs móveis é essencial em ambientes remotos, tais como outros planetas, onde, devido à distância, o tempo de comunicação entre o robô e seu operador não permite a execução de ações em tempo real.
+
+Normalmente, a navegação é a principal tarefa a ser executada por um robô móvel. Esta consiste na localização do robô no ambiente, planejamento de um caminho entre a posição inicial e o destino final e a execução do movimento pelo caminho planejado. Esta tarefa pode ser mais, ou menos complexa, dependendo do ambiente em que o robô se encontra \cite{Pedrosa2001} e das informações que ele possui.
+
+A motivação deste projeto é desenvolver um sistema de monitoramento de ambientes internos. Existem diversas aplicações práticas para esse tipo de aplicação. Dentre elas, pode-se citar o desenvolvimento de um robô vigia que monitora um ambiente, dando ênfase para áreas de maior importância; um robô que monitora a temperatura e umidade de ambientes onde esse fator é crítico; um robô que faz coleta de lixo ou correspondência; um robô para fazer limpeza de ambientes; um robô para fazer entregas de remédios a pacientes em um hospital e etc.
+
+Este projeto tem como objetivo o desenvolvimento de uma estratégia eficiente para determinar uma seqüência de áreas a serem visitadas em ambientes internos com a finalidade de monitoramento destes ambientes utilizando um robô móvel. O problema a ser resolvido consiste na divisão de um ambiente previamente conhecido em áreas de interesse. A cada uma dessas áreas é atribuído um valor (peso) referente à sua importância de monitoramento. A prioridade com que o robô deve visitar determinadas áreas é calculada com base na importância dessas áreas e no tempo decorrido desde a sua última visita. Áreas de maior importância devem ser visitadas mais freqüentemente. 
+
+%==========================================================
+% Resultados Obtidos.
+% 
+% Autor
+% Heitor Luis Polidoro
+% 
+% Orientador
+% Prof. Dr. Denis Fernando Wolf
+%==========================================================
+
+\section{Desenvolvimento e Resultados}
+\label{resultados_obitdos}
+Esta dissertação tem como objetivo o desenvolvimento de uma estratégia eficiente para determinar uma seqüência de áreas a serem visitadas em ambientes internos com a finalidade de monitoramento destes ambientes utilizando um robô móvel. O problema a ser resolvido consiste na divisão de um ambiente previamente conhecido em áreas de interesse. A cada uma dessas áreas é atribuído um valor (peso) referente à sua importância de monitoramento. A prioridade com que o robô deve visitar determinadas áreas é calculada com base na importância dessas áreas e no tempo decorrido desde a sua última visita. Áreas de maior importância devem ser visitadas mais freqüentemente. 
+
+Para determinar a trajetória do robô foram criadas duas soluções, uma \textit{Offline} (seção \ref{offline}) e outra em Tempo Real seção (\ref{tempo_real}), essas soluções serão confrontadas em dois critérios de avaliação (seção \ref{criterios}), um baseado no Grau de Urgência Total e o outro baseado na freqüência relativa de cada sala.
+
+\subsection{Critérios de Avaliação}
+\label{criterios}
+Os algoritmos e estratégias serão então testados e avaliados. As avaliações consistem na comparação dos algoritmos e estratégias. Serão utilizados dois critérios de comparação, um critério comparando a freqüência relativa de cada sala com sua prioridade relativa, onde o melhor resultado é aquele em que a freqüência relativa se aproximar mais da prioridade relativa, pois se uma sala (a) possui uma prioridade com valor duas vezes maior que uma sala (b), a sala (a) deve ser visitada com o dobro de freqüência do que a sala (b). Esse cálculo é feito somando as diferenças quadráticas entre a prioridade relativa e a freqüência relativa de cada sala ($\sum_{i=0}^n (P_i/P_t - F_i/F_t)^2$). Isto indica que o algoritmo ou estratégia se manteve fiel à definição do problema: \textit{ Áreas de maior importância devem ser visitadas mais frequentemente}.
+
+O segundo critério é um gráfico mostrando a progressão da somatória dos graus de urgência de todas as salas $(\sum_{i=0}^n U_i)$ , no qual o melhor resultado consiste em manter o menor valor da somatória dos graus de urgência; mostrando que o algoritmo ou estratégia levou o robô às salas com maior eficiência. O grau de urgência $U$ é calculado multiplicando-se a prioridade relatica da sala $P/P_t$ pelo tempo decorrido desde a última visita $t$ $(U_i = P_i/P_t \times t_i)$. A casa visita o $t$ é zerado.
+
+\subsection{Metodologia}
+\label{metodologia}
+%#######################################################################################################
+%Para a solução do problema descrito anteriormente, supõe-se que o robô tenha uma descrição do ambiente em que atua (mapa). 
+%Os sensores que foram utilizados no projeto foram LASER e odômetro.
+%\subsection{Controle do Robô}
+%\label{controle_do_robo}
+%O controle do robô será desenvolvido utilizando-se a biblioteca Player/Stage \cite{Gerkey2003}, a qual permite que sejam realizadas simulações antes que os algoritmos %sejam testados com o robô real. Essas simulações são importantes para o aperfeiçoamento dos parâmetros como distâncias, velocidades, etc, antes do teste no Pioneer.
+%O método utilizado foi o VFH, por já vir implementado no Player e em testes se mostrou suficiente para o projeto.
+%#######################################################################################################
+Para a solução do problema descrito, o robô tem uma descrição completa do ambiente em que atua (mapa). Foram utilizados somente dois sensores: Odômetro para localizar o robô no mapa e o LASER para o desvio de obstáculos. O controle do robô foi desenvolvido utilizando a biblioteca Player/Stage. Para desvio de obstáculos utilizou-se a técnica VFH que já vem implementada no Player e se mostrou suficiente para o projeto.
+
+Cada ambiente tem um mapa topológico. % que será gerado utilizando o diagrama de Voronoi \ref{voronoi}). 
+O robô deve utilizar esse mapa para se locomover de uma sala para outra no ambiente. Para os algoritmos e estratégias determinarem a seqüência de salas a serem visitadas, é considerado um grafo completo com todas as salas, pois para determinar o melhor caminho entre uma sala e outra será utilizado o algoritmo de Dijkstra no mapa topológico.
+
+Como um dos critérios de avaliação está relacionado ao tempo que o robô fica sem visitar as salas é possível deduzir que a solução seja um ciclo.
+
+Considera-se:
+\begin{itemize}
+	\item Um ambiente com $S$ salas;
+	\item Um ciclo hamiltoniano $C$ qualquer;
+	\item $C_i$ é a i-ésima sala visitada no ciclo;
+	\item Uma velocidade constante do robô (tanto linear quanto angular);
+	\item $\Delta t_i$ o tempo para sair da sala $i$ e chegar na sala $i+1$.
+\end{itemize}
+
+Como o tempo de viagem entre as mesmas salas é constante todos os $\Delta t_i$ são constantes, portanto o tempo total do ciclo $T$ é constante $(\sum_{i=1}^S \Delta t_i = cte)$. Se o tempo do ciclo é constante, o tempo que o robô demora para revisitar cada sala é constante igual a $T$. Mas isso não é interessante para solução do problema pois o grau de urgência de cada sala é diferente, então se uma sala tem uma prioridade muito alta, seu grau de urgência vai ser muito alto até o robô revisitá-la. 
+
+Para resolver esse problema, basta fazer com que o robô revisite essa(s) sala(s) mais de uma vez no ciclo. Então supondo um ciclo de tamanho $n$ sendo $n \geq S$ o tempo total do ciclo continua constante $(\sum_{i=1}^n \Delta t_i = cte)$. Portanto a solução do problema consiste em encontrar esse ciclo.
+
+\subsection{Soluções}
+\label{solucoes}
+
+Foram definidos dois tipos de soluções: uma solução \textbf{\textit{offline}}, ou seja, a solução é calculada em um computador e depois informada ao robô qual seqüência de sala ele deve seguir, essa seqüência não é alterada. E a outra é uma solução \textbf{tempo real}, ou seja, o robô define para qual sala deve ir durante a execução do algoritmo, baseando suas decisões no que está acontecendo no momento. A solução \textit{\textbf{offline}} é dividida em duas partes: \textbf{Gerador}, que cria possíveis seqüências de salas ótimas, e o \textbf{Avaliador} que analisa e computa uma nota para as seqüências de salas criadas pelo \textbf{Gerador}
+
+\subsubsection{\textit{Offline}}
+\label{offline}
+Esse método consiste em explorar as diversas possíveis combinações de seqüências de salas para encontrar a seqüência ótima antes de informar ao robô qual seqüência de salas deve seguir. Um programa chamado \texttt{gerador}, seguindo uma determinada heurística, gera as possíveis seqüências de salas, essas seqüências são fornecidas ao programa \texttt{avaliador} que, baseado no critério de maior Grau de Urgência Total, analisa a seqüência e retorna uma avaliação ao \texttt{gerador} que tomará a decisão de: descartar a seqüência, preservar a seqüência para gerar futuras seqüências ou guardar a seqüência como possível seqüência ótima.
+
+
+\subsubsection{Gerador}
+\label{gerador}
+
+O programa chamado \texttt{gerador} é utilizado para gerar os candidatos à seqüência de salas ótima do mapa analisado. Esses candidatos são avaliados pelo programa \texttt{avaliador} e de acordo com a avaliação o \texttt{gerador} irá guardar a seqüência como possível ótima, descartar ou continuar utilizando essa seqüência para gerar novas seqüências. 
+
+O programa \texttt{gerador} utiliza uma classe (tipo de variável) chamada $Agente$ contendo os seguintes atributos:
+
+\begin{itemize}
+	\item \texttt{vertice}: Vértice no qual o agente se encontra no momento;
+	\item \texttt{caminho}: Vetor de salas que guarda a seqüência de salas que o agente percorreu até chegar no vértice atual;
+	\item \texttt{avaliacao}: Avaliação da seqüência de salas do agente;
+	\item \texttt{tempo}: Tempo em segundos que o robô levou para percorrer a seqüência de salas até o vértice atual.
+\end{itemize}
+
+O \texttt{gerador} recebe apenas um parâmetro como entrada: o nome do mapa que quer achar a seqüência ótima. O programa inicia criando uma seqüência percorrendo as salas na ordem numérica (Sala 1, sala 2..) e classificada como possível ótima. A seguir o programa cria um $Agente$ em cada sala do mapa para explorar as possibilidades do robô começar em cada sala, esses $agentes$ são organizados em uma fila de candidatos.
+
+O laço principal do programa consiste em retirar um $agente$ da fila e para cada sala $i$ é criado um novo $agente$, simulando que o $agente$ retirado da fila navegou até a sala $i$. Em cada novo $agente$ é atualizada a seqüência de salas visitadas e o agente é reavaliado. Se a avaliação for um valor negativo o $agente$ é inserido na fila de $agentes$. Se o valor retornado for 0 (zero) o $agente$ é descartado. Caso o avaliador retorne um valor positivo e esse valor é menor que a avaliação da atual seqüência ótima, o novo $agente$ contendo a seqüência melhor é guardado como possível seqüência ótima. Como o algoritmo somente insere na fila os $agentes$ que podem gerar seqüências ótimas, o critério de parada é quando não existe mais $agentes$ na fila, o programa então retorna o $agente$ com a seqüência ótima.
+
+Exemplo: Em ambiente com quatro salas o gerador vai criar um $agente$ e coloca-lo em cada sala. Então a fila de $agentes$ ficaria da seguinte forma ($Agente$/caminho): 
+\begin{equation}
+(A/1) (B/2) (C/3) (D/4)	
+\end{equation}
+
+Seguindo o laço principal, o \textit{gerador} remove o primeiro \textit{agente} da fila, no caso é o \textit{agente} \textbf{A}, cria uma cópia do \textit{agente} \textbf{A} para cada sala, e simula que esses \textit{agentes} navegaram até sua sala correspondente, atualizando o caminho que esse \textit{agente} percorreu para chegar a essa sala e a avaliação desse caminho.
+
+\begin{equation}
+(B/2) (C/3) (D/4)	(E/1, 2) (F/1, 3) (G/1, 4)
+\end{equation}
+
+Após feito isso o \texttt{gerador} recomeça o ciclo, removendo o primeiro \textit{agente} da fila (no caso \textit{agente} \textbf{B}), criando outros \textit{agentes} e inserindo-os na fila de acordo com a avaliação adquirida (\textit{agentes} \textbf{H}, \textbf{I} e \textbf{J}).
+
+\begin{equation}
+\begin{array}{l}
+			(C/3) (D/4)	(E/1, 2) (F/1, 3) (G/1, 4) \\ (H/2, 1) (I/2, 3) (J/2, 4)
+		\end{array}
+\end{equation}
+
+O \texttt{gerador} permanece nesse ciclo até que não exista mais \textit{agente} na fila.
+
+\subsubsection{Avaliador}
+\label{avaliador}
+
+O programa chamado \texttt{avaliador} é utilizado para avaliar os candidatos a seqüência de salas ótima do mapa analisado gerado pelo programa \texttt{gerador} (Seção \ref{gerador}) e retorna para o \texttt{gerador} um valor numérico. Baseado nesse valor o \texttt{gerador} irá guardar a seqüência como possível ótima, descartar ou continuar utilizando essa seqüência para gerar novas seqüência.
+
+%\subsubsection{Funcionamento}
+%\paragraph{Funcionamento}
+
+O \texttt{avaliador} recebe três parâmetros como entrada:
+\begin{itemize}
+	\item O nome do mapa onde o caminho será avaliado;
+	\item Um vetor de vértices, representando a seqüência de salas a ser avaliada;
+	\item Um valor opcional de limite para a avaliação.
+\end{itemize}
+
+Com esses parâmetros o \texttt{avaliador} inicia a simulação do robô navegando pelo mapa. A velocidade linear, que determina a velocidade com que o robô anda para frente ou para trás, é definida pela constante \texttt{SIMULACAO\_VEL} como 1 m/s. A velocidade angular, que determina a velocidade com que o robô vira, é definida pela constante \texttt{SIMULACAO\_ROT} como 0,5 rad/s. O tempo que o robô demora para visitar uma sala é definido pela constante \texttt{VISITAR\_SALA} como 5 s. Todos esses valores foram definidos arbritrariamente.
+
+Durante a simulação, a cada visita de sala o \texttt{avaliador} mede o Grau de Urgência Total e salva o maior valor, esse valor vai ser a avaliação do caminho neste mapa. Após a simulação o \texttt{avaliador} verifica se a avaliação do caminho for maior que o limite fornecido o valor 0 (zero) é retornado, se nenhum limite for fornecido o \texttt{avaliador} utiliza o valor do maior inteiro do compilador. Se o caminho não visita todas as salas o \texttt{avaliador} retorna a avaliação com valor negativo, se todas as salas foram visitadas o \texttt{avaliador} verifica se o caminho é um \textit{loop}, ou seja, se o caminho começa e termina no mesmo vértice, caso contrário ele também retorna a avaliação em valor negativo.  Se o caminho for um \textit{loop}, visita todas as salas e o valor da avaliação for menor que o limite fornecido (ou menor que o maior inteiro do compilador), o valor da avaliação, maior Grau de Urgência Total em todo o percurso, é retornado pelo \texttt{avaliador}.
+
+Para critério de parada o \texttt{avaliador} compara o estado das salas, ou seja, se para cada sala, o Grau de Urgência e o número de visitas é o mesmo ao término do caminho.
+
+\subsubsection{Tempo Real}
+\label{tempo_real}
+A solução em tempo real inicia as prioridades de todas as salas em zero, cada sala recebe um valor correspondente à chance dessa sala gerar uma emergência. Emergência é quando a sala solicita que o robô vá visitá-la, como uma lixeira cheia ou a sala não ser visitada por um tempo mínimo determinado por exemplo. A cada emergência gerada a prioridade da sala é acrescida de uma unidade. O robô segue o paradigma de ir à sala de maior grau de urgência, visita a sala e procura a próxima sala de maior grau de urgência.
+
+A chance de emergência que cada sala recebe é proporcional às prioridades, para fazer o cálculo basta dividir a prioridade da sala pela soma das prioridades do mapa.
+
+\begin{equation}
+	p_s = \frac{P_s}{\sum_{i=1}^{TotalSalas} P_i}
+	\label{eq:calc-chances}	
+\end{equation}
+
+Isso faz com que a soma das chances seja igual a um. Por exemplo, se em um mapa de quatro salas as prioridades forem (Tabela \ref{tab:ExemploDePrioridades}):
+
+\begin{table}[hb]
+	\caption{Exemplo de prioridades}
+	\centering
+		\begin{tabular}
+			{|c|c|}
+			\hline
+			Sala & Prioridade \\
+			\hline
+			1&5\\
+			2&1\\
+			3&4\\
+			4&5\\					
+			\hline
+		\end{tabular}
+	\label{tab:ExemploDePrioridades}
+\end{table}
+
+Suas chances de gerar uma emergência ficaram da seguinte forma (Tabela \ref{tab:ExemploDeChancesDeEmergência}):
+
+\begin{table}[hb]
+	\caption{Exemplo de chances de emergência}
+	\centering
+		\begin{tabular}
+			{|c|c|}
+			\hline
+			Sala & Chance \\
+			\hline
+			1&0,333\\
+			2&0,067\\
+			3&0,267\\
+			4&0,333\\					
+			\hline
+		\end{tabular}
+	\label{tab:ExemploDeChancesDeEmergência}
+\end{table}
+
+\subsection{Resultados}
+\label{resultados}
+
+Para a solução em Tempo Real, por se tratar de uma solução baseada em números aleatórios, foram executados 100 repetições em cada mapa.
+
+Para os testes foram criados sete mapas, cada qual com uma peculiaridade diferente como mostra a tabela \ref{tab:mapas_para_testes}
+\begin{table}[ht]
+	\centering
+	\caption{Mapas para testes}
+		\begin{tabular}{|c|c|c|}
+			\hline
+			Designação & N\# de Salas & Prioridades \\
+			\hline
+			A	& 4 & Iguais		 \\
+			B	& 4 & Diferentes \\
+			C	& 5 & Diferentes \\
+			D	& 5 & Diferentes \\
+			E	& 6 & Iguais		 \\
+			F	& 6 & Diferentes \\
+			G	& 8 & Diferentes \\
+			\hline
+		\end{tabular}
+	\label{tab:mapas_para_testes}
+\end{table}
+
+Na seqüência são mostrados os resultados em cada mapa:
+
+\begin{itemize}
+	\item Mapa A: Com quatro salas de prioridades iguais (Tabela \ref{tab:P_quatro}) e ligação entre todas as salas (Figura \ref{fig:grafo_quatro}):
+
+\begin{figure}[htb]
+	\centering
+		\includegraphics{../../imagens/mapa_quatro.png}
+	\caption{Grafo do Mapa A e B.}
+	\label{fig:grafo_quatro}
+\end{figure}
+
+\begin{table}[hb]
+	\centering
+	\caption{Prioridades do Mapa A.}
+ 	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & Prioridade\\
+		\hline
+		1& 1 \\
+		2& 1 \\
+		3& 1 \\
+		4& 1 \\
+		\hline
+  \end{tabular}
+  \label{tab:P_quatro}
+\end{table}
+
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 2 4 3.
+
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_quatro}.		
+ 		
+\begin{table}[!ht]		
+	\centering	
+	\caption{Prioridades relativas do Mapa A.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1 & 0,25 & 0,24989 \\
+		2 & 0,25 & 0,24860 \\
+		3 & 0,25 & 0,25224 \\
+		4 & 0,25 & 0,24927 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Pr_quatro}	
+\end{table}		
+ 		
+A Tabela \ref{tab:Fr_quatro} mostra que as freqüências relativas tanto da solução \textit{Offline} quanto da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa. A tabela mostra também que a solução \textit{Offline} foi melhor que a solução em Tempo Real através da diferença quadrática.
+ 		
+\begin{table}[ht]
+	\centering	
+	\caption{Freqüências Relativas do Mapa A.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline}& Tempo Real\\
+		\hline
+		\multicolumn{1}{|c|}{1} & 0,25021 & 0,25114 \\
+		\multicolumn{1}{|c|}{2} & 0,24993 & 0,25263 \\
+		\multicolumn{1}{|c|}{3} & 0,24993 & 0,24877 \\
+		\multicolumn{1}{|c|}{4} & 0,24993 & 0,24746 \\
+		\hline
+		\multicolumn{1}{|c|}{Dif. Quad.} & 0,00000 & 0,00002 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Fr_quatro}	
+\end{table}			
+
+O gráfico (Figura \ref{fig:grafico_quatro}) mostra que a solução em Tempo Real depois de estabilizar teve um desempenho inferior à solução \textit{Offline}.
+\begin{figure}[!hb]
+	\centering
+		\includegraphics[width=0.5\textwidth]{../../../resultados/graficos/quatro.png}
+	\caption{Gráfico do Mapa A.}
+	\label{fig:grafico_quatro}
+\end{figure}
+
+%\newpage
+
+
+Como o Mapa A é relativamente pequeno (dois metros quadrados) e a seqüência gerada pela solução \textit{Offline} é visitar as salas no sentido anti-horário, o robô leva exatamente o mesmo tempo para ir de uma sala à outra. Como as prioridades iniciais do mapa são todas iguais e para gerar o gráfico foram tiradas medidas (Grau de Urgência Total) de dez em dez segundos, coincidiu de o robô a cada dez segundos estar no mesmo lugar no mapa, por isso o gráfico do Mapa A para a solução \textit{Offline} é uma linha. 
+%Fato que não acontece no gráfico do Mapa B (Figura \ref{fig:grafico_quatro_diff}), pois as prioridades não são todas iguais.
+ 
+	\item Mapa B: Com quatro salas com prioridades diferentes (Tabela \ref{tab:P_quatro_diff}) e ligação entre todas as salas (Figura \ref{fig:grafo_quatro}):
+	
+\begin{table}[hb]
+	\centering
+	\caption{Prioridades do Mapa B.}
+ 	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & Prioridade\\
+		\hline
+			1& 1 \\
+			2& 1 \\
+			3& 5 \\
+			4& 5 \\
+		\hline
+  \end{tabular}
+  \label{tab:P_quatro_diff}
+\end{table}
+
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 3 4 2 4 3.
+
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_quatro_diff}.		
+ 		
+\begin{table}[hb]		
+	\centering	
+	\caption{Prioridades relativas do Mapa B.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1 & 0,08333 & 0,08470 \\
+		2 & 0,08333 & 0,08331 \\
+		3 & 0,41667 & 0,41141 \\
+		4 & 0,41667 & 0,42058 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Pr_quatro_diff}	
+\end{table}		
+ 		
+A Tabela \ref{tab:Fr_quatro_diff} mostra as freqüências relativas das soluções \textit{Offline} e em Tempo Real. Nota-se que as freqüências relativas das salas 1 e 2 da solução \textit{Offline} são aproximadamente o dobro das suas respectivas prioridades relativas iniciais do mapa, porém, em números absolutos, é uma diferença de aproximadamente 0,08. E as freqüências relativas da solução em Tempo Real são próximas às suas respectivas prioridades relativas iniciais do mapa. A tabela mostra também que a solução em Tempo Real foi melhor que a solução \textit{Offline} através da diferença quadrática.
+
+		
+\begin{table}		
+	\centering	
+	\caption{Freqüências Relativas do Mapa B.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline}& Tempo Real\\
+		\hline
+		\multicolumn{1}{|c|}{1} & 0,16677 & 0,10130 \\
+		\multicolumn{1}{|c|}{2} & 0,16677 & 0,09994 \\
+		\multicolumn{1}{|c|}{3} & 0,33323 & 0,40206 \\
+		\multicolumn{1}{|c|}{4} & 0,33323 & 0,39670 \\
+		\hline
+		\multicolumn{1}{|c|}{Dif. Quad.} & 0,02785 & 0,00121\\
+		\hline
+	\end{tabular}	
+	\label{tab:Fr_quatro_diff}	
+\end{table}		
+
+O gráfico do Mapa B (Figura \ref{fig:grafico_quatro_diff}), diferentemente do gráfico do Mapa A (Figura \ref{fig:grafico_quatro}), ilustra que a solução \textit{Offline} manteve o Grau de Urgência Total dentro de uma faixa, entre dez e trinta aproximadamente, mas seu desempenho também foi superior à solução em Tempo Real.
+\begin{figure}[htb]
+	\centering
+		\includegraphics[width=0.5\textwidth]{../../../resultados/graficos/quatro_diff.png}
+	\caption{Gráfico do Mapa B.}
+	\label{fig:grafico_quatro_diff}
+\end{figure}
+
+
+\item Mapa C: Com cinco salas que formam um X (Prioridades na Tabela \ref{tab:P_x}) com ligações entre as salas das pontas (Figura \ref{fig:grafo_x}):
+	
+\begin{figure}[!hb]
+	\centering
+		\includegraphics[width=0.29\textwidth]{../../imagens/mapa_x.png}
+	\caption{Grafo do Mapa C.}
+	\label{fig:grafo_x}
+\end{figure}
+
+
+
+\begin{table}[hb]
+	\centering
+	\caption{Prioridades do Mapa C e D.}
+ 	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & Prioridade\\
+		\hline
+			1& 1 \\
+			2& 5 \\
+			3& 5 \\
+			4& 5 \\
+			5& 5 \\
+		\hline
+  \end{tabular}
+  \label{tab:P_x}
+\end{table}
+
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 2 4 5 3 2 4 5 3.
+
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_x}.		
+ 		
+\begin{table}[hb]		
+	\centering	
+	\caption{Prioridades relativas do Mapa C.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1 & 0,04762 & 0,04983 \\
+		2 & 0,23810 & 0,24044 \\
+		3 & 0,23810 & 0,23870 \\
+		4 & 0,23810 & 0,23501 \\
+		5 & 0,23810 & 0,23602 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Pr_x}	
+\end{table}		
+ 		
+A Tabela \ref{tab:Fr_x} mostra que freqüência relativa da sala 1 na solução \textit{Offline} foi maior que o dobro da sua prioridade relativa inicial do mapa, entretanto, a diferença numérica absoluta é aproximadamente 0,06. As freqüências relativas das salas restantes da solução \textit{Offline} e as freqüências relativas de todas as salas da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa. A tabela \ref{tab:Fr_x} mostra também que a solução Tempo Real foi melhor que a solução \textit{Offline} através da diferença quadrática.
+
+\begin{table}[!hb]
+	\centering	
+	\caption{Freqüências Relativas do Mapa C.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline}& Tempo Real\\
+		\hline
+		\multicolumn{1}{|c|}{1} & 0,11134 & 0,05670 \\
+		\multicolumn{1}{|c|}{2} & 0,22234 & 0,23729 \\
+		\multicolumn{1}{|c|}{3} & 0,22200 & 0,23807 \\
+		\multicolumn{1}{|c|}{4} & 0,22234 & 0,23210 \\
+		\multicolumn{1}{|c|}{5} & 0,22200 & 0,23583 \\
+		\hline
+		\multicolumn{1}{|c|}{Dif. Quad.} & 0,00508 & 0,00012\\
+		\hline
+\end{tabular}	
+	\label{tab:Fr_x}	
+\end{table}		
+
+O gráfico (Figura \ref{fig:grafico_x}) mostra que a solução em Tempo Real depois de estabilizar teve um desempenho inferior à solução \textit{Offline}.
+
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=0.5\textwidth]{../../../resultados/graficos/x.png}
+	\caption{Gráfico do Mapa C.}
+	\label{fig:grafico_x}
+\end{figure}
+
+
+
+	\item Mapa D: Com cinco salas em formato de X (Prioridades iguais ao mapa anterior indicados na Tabela \ref{tab:P_x}) com somente a sala do meio ligando as outras (Figura \ref{fig:grafo_x_incompleto}):
+	
+\begin{figure}[htb]
+	\centering
+		\includegraphics[width=0.3\textwidth]{../../imagens/mapa_x_incompleto.png}
+	\caption{Grafo do Mapa D.}
+	\label{fig:grafo_x_incompleto}
+\end{figure}
+
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 2 3 4 5.
+
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_x_incompleto}.		
+ 		
+\begin{table}[!hbt]		
+	\centering	
+	\caption{Prioridades relativas do Mapa D.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1 & 0,04762 & 0,04598 \\
+		2 & 0,23810 & 0,23794 \\
+		3 & 0,23810 & 0,24530 \\
+		4 & 0,23810 & 0,23984 \\
+		5 & 0,23810 & 0,23094 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Pr_x_incompleto}	
+\end{table}		
+ 		
+A Tabela \ref{tab:Fr_x_incompleto} mostra que as freqüências relativas da solução \textit{Offline} foram aproximadamente todas iguais, isso se deve ao fato de que a seqüência de salas a serem visitadas gerada pelo \texttt{gerador} manda o robô visitar cada sala apenas uma única vez dentro do \textit{loop}. Na mesma tabela pode-se ver também que as freqüências relativas da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa. A tabela mostra também que a solução Tempo Real foi melhor que a solução \textit{Offline} através da diferença quadrática.
+ 		
+\begin{table}[!hbt]
+	\centering	
+	\caption{Freqüências Relativas do Mapa D.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline}& Tempo Real\\
+		\hline
+		\multicolumn{1}{|c|}{1} & 0,20009 & 0,05481 \\
+		\multicolumn{1}{|c|}{2} & 0,20009 & 0,23908 \\
+		\multicolumn{1}{|c|}{3} & 0,20009 & 0,23633 \\
+		\multicolumn{1}{|c|}{4} & 0,20009 & 0,23275 \\
+		\multicolumn{1}{|c|}{5} & 0,19965 & 0,23703 \\
+		\hline
+		\multicolumn{1}{|c|}{Dif. Quad.} & 0,02906 & 0,00009\\
+		\hline
+	\end{tabular}	
+	\label{tab:Fr_x_incompleto}	
+\end{table}		
+
+O gráfico (Figura \ref{fig:grafico_x_incompleto}) mostra que a solução em Tempo Real depois de estabilizar teve um desempenho inferior à solução \textit{Offline}.
+\begin{figure}[htb]
+	\centering
+		\includegraphics[width=0.5\textwidth]{../../../resultados/graficos/x_incompleto.png}
+	\caption{Gráfico do Mapa D.}
+	\label{fig:grafico_x_incompleto}
+\end{figure}
+
+
+	\item Mapa E: Com seis salas de prioridades iguais (Tabela \ref{tab:P_espinha}) em formato de espinha de peixe (Figura \ref{fig:grafo_espinha}):
+
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=0.3\textwidth]{../../imagens/mapa_espinha.png}
+	\caption{Grafo do Mapa E e F.}
+	\label{fig:grafo_espinha}
+\end{figure}
+
+\begin{table}[!htb]
+	\centering
+	\caption{Prioridades do Mapa E.}
+ 	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & Prioridade\\
+		\hline
+		1& 2 \\
+		2& 2 \\
+		3& 2 \\
+		5& 2 \\
+		6& 2 \\
+		7& 2 \\
+		\hline
+  \end{tabular}
+  \label{tab:P_espinha}
+\end{table}
+
+
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 5 2 6 3 7.
+
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_espinha}.		
+ 
+\begin{table}[!hbt]		
+	\centering	
+	\caption{Prioridades relativas do Mapa E.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1 & 0,16667 & 0,16990 \\
+		2 & 0,16667 & 0,16613 \\
+		3 & 0,16667 & 0,16571 \\
+		5 & 0,16667 & 0,16339 \\
+		6 & 0,16667 & 0,16720 \\
+		7 & 0,16667 & 0,16768 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Pr_espinha}	
+\end{table}		
+ 		
+
+
+A Tabela \ref{tab:Fr_espinha} mostra que as freqüências relativas tanto da solução \textit{Offline} quanto a em Tempo Real foram próximas às prioridades relativas iniciais do mapa.	A Tabela \ref{tab:Fr_espinha} mostra também que a solução \textit{Offline} foi melhor que a solução Tempo Real através da diferença quadrática.	
+ 		
+\begin{table}[!hbt]
+	\centering	
+	\caption{Freqüências Relativas do Mapa E.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline}& Tempo Real\\
+		\hline
+		\multicolumn{1}{|c|}{1} & 0,16694 & 0,16869 \\
+		\multicolumn{1}{|c|}{2} & 0,16694 & 0,16483 \\
+		\multicolumn{1}{|c|}{3} & 0,16640 & 0,16692 \\
+		\multicolumn{1}{|c|}{5} & 0,16694 & 0,16832 \\
+		\multicolumn{1}{|c|}{6} & 0,16640 & 0,16179 \\
+		\multicolumn{1}{|c|}{7} & 0,16640 & 0,16945 \\
+		\hline
+		\multicolumn{1}{|c|}{Dif. Quad.} & 0 & 0,00004 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Fr_espinha}	
+\end{table}		
+
+O gráfico (Figura \ref{fig:grafico_espinha}) mostra que a solução em Tempo Real depois de estabilizar teve um desempenho inferior à solução \textit{Offline}.
+\begin{figure}[htb]
+	\centering
+		\includegraphics[width=0.5\textwidth]{../../../resultados/graficos/espinha.png}
+	\caption{Gráfico do Mapa E.}
+	\label{fig:grafico_espinha}
+\end{figure}
+
+
+	\item Mapa F: Com seis salas de prioridades diferentes (Tabela \ref{tab:P_espinha_diff}) em formato de espinha de peixe (Figura \ref{fig:grafo_espinha}):
+
+\begin{table}[!htb]
+	\centering
+	\caption{Prioridades do Mapa F.}
+ 	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & Prioridade\\
+		\hline
+			1& 5 \\
+			2& 1 \\
+			3& 2 \\
+			5& 2 \\
+			6& 1 \\
+			7& 1 \\
+		\hline
+  \end{tabular}
+  \label{tab:P_espinha_diff}
+\end{table}
+
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 2 6 5 1 7 3 5.
+
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_espinha_diff}.		
+ 		
+\begin{table}[!hbt]		
+	\centering	
+	\caption{Prioridades relativas do Mapa F.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1 & 0,41667 & 0,41297 \\
+		2 & 0,08333 & 0,08386 \\
+		3 & 0,16667 & 0,16624 \\
+		5 & 0,16667 & 0,17418 \\
+		6 & 0,08333 & 0,07849 \\
+		7 & 0,08333 & 0,08427 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Pr_espinha_diff}	
+\end{table}		
+ 		
+A Tabela \ref{tab:Fr_espinha_diff} mostra que as freqüências relativas da solução \textit{Offline} foram diferentes das prioridades relativas iniciais do mapa, visitando as salas 1 e 5 o dobro de vezes que as demais salas, pois na seqüência determinada pelo \texttt{gerador} as salas 1 e 5 aparecem duas vezes cada uma. Todavia as freqüências relativas da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa. A Tabela \ref{tab:Fr_espinha_diff} mostra também que a solução Tempo Real foi melhor que a solução \textit{Offline} através da diferença quadrática.
+ 		
+\begin{table}[!hbt]
+	\centering	
+	\caption{Freqüências Relativas do Mapa F.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline}& Tempo Real\\
+		\hline
+		\multicolumn{1}{|c|}{1} & 0,25000 & 0,35364 \\
+		\multicolumn{1}{|c|}{2} & 0,12500 & 0,10119 \\
+		\multicolumn{1}{|c|}{3} & 0,12500 & 0,17144 \\
+		\multicolumn{1}{|c|}{5} & 0,25000 & 0,17798 \\
+		\multicolumn{1}{|c|}{6} & 0,12500 & 0,09488 \\
+		\multicolumn{1}{|c|}{7} & 0,12500 & 0,10087 \\
+		\hline
+		\multicolumn{1}{|c|}{Dif. Quad.} & 0,04167 & 0,00488 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Fr_espinha_diff}	
+\end{table}		
+O gráfico (Figura \ref{fig:grafico_espinha_diff}) mostra que a solução em Tempo Real depois de estabilizar teve um desempenho inferior à solução \textit{Offline}.
+
+\begin{figure}[!hbt]
+	\centering
+		\includegraphics[width=0.5\textwidth]{../../../resultados/graficos/espinha_diff.png}
+	\caption{Gráfico do Mapa F.}
+	\label{fig:grafico_espinha_diff}
+\end{figure}
+	
+	\item Mapa G: Com oito salas de prioridades diferentes (Tabela \ref{tab:P_ap}) simulando um apartamento real (Figura \ref{fig:grafo_ap}):
+
+\begin{figure}[!hbt]
+	\centering
+		\includegraphics[width=0.5\textwidth]{../../imagens/mapa_ap.png}
+	\caption{Grafo do Mapa G.}
+	\label{fig:grafo_ap}
+\end{figure}
+
+
+\begin{table}[!hbt]
+	\centering
+	\caption{Prioridades do Mapa G.}
+ 	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & Prioridade\\
+		\hline
+		1 & 5 \\
+		3 & 5 \\
+		4 & 3 \\
+		5 & 3 \\
+		7 & 5 \\
+		9 & 4 \\
+		11& 4 \\
+		12& 4 \\
+		\hline
+  \end{tabular}
+  \label{tab:P_ap}
+\end{table}
+
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 12 9 11 5 7 3 4.
+
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_ap}.		
+ 		
+\begin{table}[!hbt]
+	\centering	
+	\caption{Prioridades relativas do Mapa G.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1 & 0,15152 & 0,15426 \\
+		3 & 0,15152 & 0,15233 \\
+		4 & 0,09091 & 0,08996 \\
+		5 & 0,09091 & 0,08924 \\
+		7 & 0,15152 & 0,14934 \\
+		9 & 0,12121 & 0,12566 \\
+		11& 0,12121 & 0,12133 \\
+		12& 0,12121 & 0,11789 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Pr_ap}	
+\end{table}		
+ 		
+A Tabela \ref{tab:Fr_ap} mostra que as freqüências relativas da solução \textit{Offline} foram aproximadamente todas iguais, isso se deve ao fato de que a seqüência de salas a serem visitadas gerada pelo \texttt{gerador} manda o robô visitar cada sala apenas uma única vez dentro do \textit{loop}, porém as maiores diferenças numéricas são as das sala 4 e 5 que são aproximadamente 0,03. Na mesma tabela pode-se ver também que as freqüencias relativas da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa.	A Tabela \ref{tab:Fr_ap} mostra também que a solução em Tempo Real foi melhor que a solução \textit{Offline} através da diferença quadrática.
+ 		
+\begin{table}[!hbt]
+	\centering	
+	\caption{Freqüências Relativas do Mapa G.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline}& Tempo Real\\
+		\hline
+		\multicolumn{1}{|c|}{1} & 0,12525 & 0,14970 \\
+		\multicolumn{1}{|c|}{3} & 0,12475 & 0,15172 \\
+		\multicolumn{1}{|c|}{4} & 0,12475 & 0,09717 \\
+		\multicolumn{1}{|c|}{5} & 0,12475 & 0,09447 \\
+		\multicolumn{1}{|c|}{7} & 0,12475 & 0,14197 \\
+		\multicolumn{1}{|c|}{9} & 0,12525 & 0,12442 \\
+		\multicolumn{1}{|c|}{11}& 0,12525 & 0,12004 \\
+		\multicolumn{1}{|c|}{12}& 0,12525 & 0,12050 \\
+		\hline
+		\multicolumn{1}{|c|}{Dif. Quad.} & 0,00446 & 0,00016 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Fr_ap}	
+\end{table}		
+
+O gráfico (Figura \ref{fig:grafico_ap}) mostra que a solução em Tempo Real depois de estabilizar teve um desempenho inferior à solução \textit{Offline}.
+
+\begin{figure}[!hbt]
+	\centering
+		\includegraphics[width=0.5\textwidth]{../../../resultados/graficos/ap.png}
+	\caption{Gráfico do Mapa G.}
+	\label{fig:grafico_ap}
+\end{figure}
+
+\subsubsection{Análise Comparativa}
+Foi calculada uma média do Grau de Urgência Total de cada solução em cada mapa com os últimos dez mil segundos (Tabela \ref{tab:media_final}); analisando essa média nota-se que existe uma tendência de que quanto maior o número de salas mais eficiente será a solução \textit{Offline} em relação à solução em Tempo Real, como mostra o gráfico na Figura \ref{fig:grafico_tendencia}.
+\begin{table}[!hbt]
+	\centering
+	\caption{Média dos Últimos Dez Mil Segundos.}
+		\begin{tabular}{|c|c|c|}
+			\hline			
+			Mapa & & \\ 
+			(N\# de Salas) & \textit{Offline} & Tempo Real \\
+			\hline
+			A (4) 			& 25,000 & 28,150 \\
+			B (4) & 20,980 & 28,346 \\
+			C (5) 					& 28,905 & 38,753 \\
+			D (5)& 39,719 & 50,326 \\
+			E (6)			& 58,527 & 72.622 \\
+			F (6)& 55,557 & 66,711 \\
+			G (8)	& 73,318 &100,217 \\
+			\hline			
+		\end{tabular}
+	\label{tab:media_final}
+\end{table}
+
+
+\begin{figure}[!hbt]
+	\centering
+		\includegraphics[width=0.5\textwidth]{../../imagens/tendencia.png}
+	\caption{Tendência de Desempenho}
+	\label{fig:grafico_tendencia}
+\end{figure}
+\end{itemize}
+
+
+\subsection{Considerações}
+Analisando os testes pode-se constatar que:
+
+\begin{itemize}
+	\item Segundo o critério de avaliação de freqüência relativa, a solução em Tempo Real foi superior à solução \textit{Offline}, pois foi mais eficiente em cinco dos sete testes e na soma total das diferenças quadráticas (0,10812 da solução \textit{Offline} contra 0,00652 da solução em Tempo Real);
+	\item Segundo o critério de avaliação de Grau de Urgência Total a solução \textit{Offline} foi melhor que a solução em Tempo Real em todos os testes realizados e o gráfico da Figura \ref{fig:grafico_tendencia} mostrou que existe um tendência de que quanto maior o número de salas maior será a eficiência da solução \textit{Offline} em relação à solução em Tempo Real.
+\end{itemize}
+
+Era esperado que a solução \textit{Offline} tivesse um desempenho pior que a solução em Tempo Real no critério de avaliação de freqüência relativa, pois a avaliação das seqüências de salas à visitar é baseada somente no Grau de Urgência Total; e o desempenho das soluções segundo o critério de avaliação de Grau de Urgência Total mostra que o robô, seguindo uma heurística simples, tem um desempenho inferior do que uma solução que determina a seqüência de salas a serem visitadas, baseada no Grau de Urgência Total, antes de colocar o robô no ambiente.
+
+Por fim, o que determina qual solução deve ser utilizada depende da aplicação. Se para a aplicação a freqüência relativa for mais importante do que manter o Grau de Urgência baixo, deve-se escolher a solução em Tempo Real, porém se para a aplicação for mais importante manter o Grau de Urgência baixo deve-se escolher a solução \textit{Offline}, que foi baseada no Grau de Urgência Total.
+
+\section{Conclusão e Trabalhos Futuros}
+\label{conclusao}
+
+CONCLUSAO
+
+Para dar continuidade ao projeto o próximo é explorar a utilização de mais de um robô para realizar a tarefa, cada robô monitorar um conjunto de salas divididas por prioridade ou proximidade, ou todos os robôs podem monitorar todas as salas etc.
+
+% An example of a floating figure using the graphicx package.
+% Note that \label must occur AFTER (or within) \caption.
+% For figures, \caption should occur after the \includegraphics.
+% Note that IEEEtran v1.7 and later has special internal code that
+% is designed to preserve the operation of \label within \caption
+% even when the captionsoff option is in effect. However, because
+% of issues like this, it may be the safest practice to put all your
+% \label just after \caption rather than within \caption{}.
+%
+% Reminder: the "draftcls" or "draftclsnofoot", not "draft", class
+% option should be used if it is desired that the figures are to be
+% displayed while in draft mode.
+%
+%\begin{figure}[!t]
+%\centering
+%\includegraphics[width=2.5in]{myfigure}
+% where an .eps filename suffix will be assumed under latex, 
+% and a .pdf suffix will be assumed for pdflatex; or what has been declared
+% via \DeclareGraphicsExtensions.
+%\caption{Simulation Results}
+%\label{fig_sim}
+%\end{figure}
+
+% Note that IEEE typically puts floats only at the top, even when this
+% results in a large percentage of a column being occupied by floats.
+
+
+% An example of a double column floating figure using two subfigures.
+% (The subfig.sty package must be loaded for this to work.)
+% The subfigure \label commands are set within each subfloat command, the
+% \label for the overall figure must come after \caption.
+% \hfil must be used as a separator to get equal spacing.
+% The subfigure.sty package works much the same way, except \subfigure is
+% used instead of \subfloat.
+%
+%\begin{figure*}[!t]
+%\centerline{\subfloat[Case I]\includegraphics[width=2.5in]{subfigcase1}%
+%\label{fig_first_case}}
+%\hfil
+%\subfloat[Case II]{\includegraphics[width=2.5in]{subfigcase2}%
+%\label{fig_second_case}}}
+%\caption{Simulation results}
+%\label{fig_sim}
+%\end{figure*}
+%
+% Note that often IEEE papers with subfigures do not employ subfigure
+% captions (using the optional argument to \subfloat), but instead will
+% reference/describe all of them (a), (b), etc., within the main caption.
+
+
+% An example of a floating table. Note that, for IEEE style tables, the 
+% \caption command should come BEFORE the table. Table text will default to
+% \footnotesize as IEEE normally uses this smaller font for tables.
+% The \label must come after \caption as always.
+%
+%\begin{table}[!t]
+%% increase table row spacing, adjust to taste
+%\renewcommand{\arraystretch}{1.3}
+% if using array.sty, it might be a good idea to tweak the value of
+% \extrarowheight as needed to properly center the text within the cells
+%\caption{An Example of a Table}
+%\label{table_example}
+%\centering
+%% Some packages, such as MDW tools, offer better commands for making tables
+%% than the plain LaTeX2e tabular which is used here.
+%\begin{tabular}{|c||c|}
+%\hline
+%One & Two\\
+%\hline
+%Three & Four\\
+%\hline
+%\end{tabular}
+%\end{table}
+
+
+% Note that IEEE does not put floats in the very first column - or typically
+% anywhere on the first page for that matter. Also, in-text middle ("here")
+% positioning is not used. Most IEEE journals/conferences use top floats
+% exclusively. Note that, LaTeX2e, unlike IEEE journals/conferences, places
+% footnotes above bottom floats. This can be corrected via the \fnbelowfloat
+% command of the stfloats package.
+
+
+
+\section{Conclusion}
+The conclusion goes here. this is more of the conclusion
+
+% conference papers do not normally have an appendix
+
+
+% use section* for acknowledgement
+\section*{Acknowledgment}
+
+
+The authors would like to thank...
+more thanks here
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+\bibliographystyle{IEEEtran}
+%\bibliographystyle{plain}
+% argument is your BibTeX string definitions and bibliography database(s)
+\bibliography{../../bibliografia}
+	
+% <OR> manually copy in the resultant .bbl file
+% set second argument of \begin to the number of references
+% (used to reserve space for the reference number labels box)
+%\begin{thebibliography}{1}
+%
+%\bibitem{IEEEhowto:kopka}
+%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+%
+%\end{thebibliography}
+
+
+
+
+% that's all folks
+\end{document}
+
+
+
