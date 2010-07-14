@@ -67,8 +67,12 @@ main ( int argc, char *argv[] )
 	mapas_teste.push_back("espinha_diff");
 	mapas_teste.push_back("ap");
 	arq_gnu.open("/home/heitor/robo2/resultados/graficos/gnu_conf.plt", ifstream::trunc);
-    arq_gnu << "set term png size 1024,768\n";
-
+	arq_gnu << "set term png size 640,480\n";
+	arq_gnu << "set style line 1 linecolor rgb \"gray60\"\n";
+	arq_gnu << "set style line 2 linecolor rgb \"black\"\n";
+	arq_gnu << "set key inside center bottom\n";
+	arq_gnu << "set xlabel \"Tempo (s)\"\n";
+	arq_gnu << "set ylabel \"Grau de Urgência Total\"\n";
 
 	for(unsigned int m = 0;m < mapas_teste.size();m++)
 	{
@@ -427,15 +431,15 @@ main ( int argc, char *argv[] )
             sala.salvar("/home/heitor/robo2/resultados/salas/" + mapas_teste[m] + "_" + s_alg + "_salas.txt");
         }
         arq_gnu << "set output '/home/heitor/robo2/resultados/graficos/" << mapas_teste[m] << ".png' ; ";
-        arq_gnu << "plot '/home/heitor/robo2/resultados/curvas/" << mapas_teste[m] << "_3_curva.txt' with lines, ";
-        arq_gnu <<      "'/home/heitor/robo2/resultados/curvas/" << mapas_teste[m] << "_4_curva.txt' with lines\n";
+        arq_gnu << "plot '/home/heitor/robo2/resultados/curvas/" << mapas_teste[m] << "_3_curva.txt' with lines ls 1 t \"Offline\", ";
+        arq_gnu <<      "'/home/heitor/robo2/resultados/curvas/" << mapas_teste[m] << "_4_curva.txt' with lines ls 2 t \"Tempo Real\"\n";
 
         //s_aux = "/home/heitor/robo2/resultados/curvas/" + mapas_teste[m] + "_4_curva.txt";
         //arq.open(s_aux.c_str(), ifstream::trunc);
         //for(int i = 0; i < TESTES; i++)
         //{
         //}
-    getchar();
+    //getchar();
 	}
 	arq_gnu.close();
 

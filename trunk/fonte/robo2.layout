@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
+	<File name="mapa.h" open="0" top="0" tabpos="0">
+		<Cursor position="2627" topLine="62" />
+	</File>
 	<File name="principal.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="19285" topLine="407" />
+		<Cursor position="19204" topLine="405" />
 	</File>
 	<File name="robo.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="1723" topLine="32" />
+		<Cursor position="10515" topLine="301" />
 	</File>
 	<File name="robo.h" open="0" top="0" tabpos="0">
 		<Cursor position="535" topLine="3" />
-	</File>
-	<File name="salas.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="12012" topLine="351" />
-	</File>
-	<File name="salas.h" open="0" top="0" tabpos="0">
-		<Cursor position="792" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>
