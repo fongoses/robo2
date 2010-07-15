@@ -113,8 +113,8 @@
 %\usepackage{notescnd}
 %\usepackage{boxedminipage}
 \usepackage{cite}
-\usepackage{multirow}
-\usepackage{booktabs}
+
+
 
 
 % *** CITATION PACKAGES ***
@@ -528,7 +528,7 @@ Foram definidos dois tipos de soluções: uma solução \textbf{\textit{offline}}, o
 Esse método consiste em explorar as diversas possíveis combinações de seqüências de salas para encontrar a seqüência ótima antes de informar ao robô qual seqüência de salas deve seguir. Um programa chamado \texttt{gerador}, seguindo uma determinada heurística, gera as possíveis seqüências de salas, essas seqüências são fornecidas ao programa \texttt{avaliador} que, baseado no critério de maior Grau de Urgência Total, analisa a seqüência e retorna uma avaliação ao \texttt{gerador} que tomará a decisão de: descartar a seqüência, preservar a seqüência para gerar futuras seqüências ou guardar a seqüência como possível seqüência ótima.
 
 
-\paragraph{Gerador}
+\subsubsection{Gerador}
 \label{gerador}
 
 O programa chamado \texttt{gerador} é utilizado para gerar os candidatos à seqüência de salas ótima do mapa analisado. Esses candidatos são avaliados pelo programa \texttt{avaliador} e de acordo com a avaliação o \texttt{gerador} irá guardar a seqüência como possível ótima, descartar ou continuar utilizando essa seqüência para gerar novas seqüências. 
@@ -567,7 +567,7 @@ Após feito isso o \texttt{gerador} recomeça o ciclo, removendo o primeiro \texti
 
 O \texttt{gerador} permanece nesse ciclo até que não exista mais \textit{agente} na fila.
 
-\paragraph{Avaliador}
+\subsubsection{Avaliador}
 \label{avaliador}
 
 O programa chamado \texttt{avaliador} é utilizado para avaliar os candidatos a seqüência de salas ótima do mapa analisado gerado pelo programa \texttt{gerador} (Seção \ref{gerador}) e retorna para o \texttt{gerador} um valor numérico. Baseado nesse valor o \texttt{gerador} irá guardar a seqüência como possível ótima, descartar ou continuar utilizando essa seqüência para gerar novas seqüência.
@@ -662,9 +662,25 @@ Para os testes foram criados sete mapas, cada qual com uma peculiaridade diferen
 	\label{tab:mapas_para_testes}
 \end{table}
 
-Na seqüência são mostrados os grafos de cada mapa:
+Na seqüência são mostrados os resultados em cada mapa:
 
-Mapas A e B com quatro salas com ligação entre todas as salas (Figura \ref{fig:grafo_quatro}):
+Mapa A: Com quatro salas de prioridades iguais (Tabela \ref{tab:P_quatro}) e ligação entre todas as salas (Figura \ref{fig:grafo_quatro}):
+
+\begin{table}[!hbt]
+	\centering
+	\caption{Prioridades do Mapa A.}
+ 	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & Prioridade\\
+		\hline
+		1& 1 \\
+		2& 1 \\
+		3& 1 \\
+		4& 1 \\
+		\hline
+  \end{tabular}
+  \label{tab:P_quatro}
+\end{table}
 
 \begin{figure}[!hbt]
 	\centering
@@ -672,9 +688,148 @@ Mapas A e B com quatro salas com ligação entre todas as salas (Figura \ref{fig:g
 	\caption{Grafo do Mapa A e B.}
 	\label{fig:grafo_quatro}
 \end{figure}
+
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 2 4 3.
+
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_quatro}.		
+ 		
+\begin{table}[!hbt]		
+	\centering	
+	\caption{Prioridades relativas do Mapa A.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1 & 0,25 & 0,24989 \\
+		2 & 0,25 & 0,24860 \\
+		3 & 0,25 & 0,25224 \\
+		4 & 0,25 & 0,24927 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Pr_quatro}	
+\end{table}		
+ 		
+A Tabela \ref{tab:Fr_quatro} mostra que as freqüências relativas tanto da solução \textit{Offline} quanto da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa. A tabela mostra também que a solução \textit{Offline} foi melhor que a solução em Tempo Real através da diferença quadrática.
+ 		
+\begin{table}[!hbt]
+	\centering	
+	\caption{Freqüências Relativas do Mapa A.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline}& Tempo Real\\
+		\hline
+		\multicolumn{1}{|c|}{1} & 0,25021 & 0,25114 \\
+		\multicolumn{1}{|c|}{2} & 0,24993 & 0,25263 \\
+		\multicolumn{1}{|c|}{3} & 0,24993 & 0,24877 \\
+		\multicolumn{1}{|c|}{4} & 0,24993 & 0,24746 \\
+		\hline
+		\multicolumn{1}{|c|}{Dif. Quad.} & 0,00000 & 0,00002 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Fr_quatro}	
+\end{table}			
+
+O gráfico (Figura \ref{fig:grafico_quatro}) mostra que a solução em Tempo Real depois de estabilizar teve um desempenho inferior à solução \textit{Offline}.
+\begin{figure}[!hbt]
+	\centering
+		\includegraphics[width=0.45\textwidth]{../../../resultados/graficos/quatro.png}
+	\caption{Gráfico do Mapa A.}
+	\label{fig:grafico_quatro}
+\end{figure}
+
+%\newpage
+
+
+Como o Mapa A é relativamente pequeno (dois metros quadrados) e a seqüência gerada pela solução \textit{Offline} é visitar as salas no sentido anti-horário, o robô leva exatamente o mesmo tempo para ir de uma sala à outra. Como as prioridades iniciais do mapa são todas iguais e para gerar o gráfico foram tiradas medidas (Grau de Urgência Total) de dez em dez segundos, coincidiu de o robô a cada dez segundos estar no mesmo lugar no mapa, por isso o gráfico do Mapa A para a solução \textit{Offline} é uma linha. 
+%Fato que não acontece no gráfico do Mapa B (Figura \ref{fig:grafico_quatro_diff}), pois as prioridades não são todas iguais.
+ 
+Mapa B: Com quatro salas com prioridades diferentes (Tabela \ref{tab:P_quatro_diff}) e ligação entre todas as salas (Figura \ref{fig:grafo_quatro}):
 	
-Mapa C com cinco salas que formam um X com ligações entre as salas das pontas (Figura \ref{fig:grafo_x}):
+\begin{table}[!hbt]
+	\centering
+	\caption{Prioridades do Mapa B.}
+ 	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & Prioridade\\
+		\hline
+			1& 1 \\
+			2& 1 \\
+			3& 5 \\
+			4& 5 \\
+		\hline
+  \end{tabular}
+  \label{tab:P_quatro_diff}
+\end{table}
+
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 3 4 2 4 3.
+
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_quatro_diff}.		
+ 		
+\begin{table}[!hbt]		
+	\centering	
+	\caption{Prioridades relativas do Mapa B.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1 & 0,08333 & 0,08470 \\
+		2 & 0,08333 & 0,08331 \\
+		3 & 0,41667 & 0,41141 \\
+		4 & 0,41667 & 0,42058 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Pr_quatro_diff}	
+\end{table}		
+ 		
+A Tabela \ref{tab:Fr_quatro_diff} mostra as freqüências relativas das soluções \textit{Offline} e em Tempo Real. Nota-se que as freqüências relativas das salas 1 e 2 da solução \textit{Offline} são aproximadamente o dobro das suas respectivas prioridades relativas iniciais do mapa, porém, em números absolutos, é uma diferença de aproximadamente 0,08. E as freqüências relativas da solução em Tempo Real são próximas às suas respectivas prioridades relativas iniciais do mapa. A tabela mostra também que a solução em Tempo Real foi melhor que a solução \textit{Offline} através da diferença quadrática.
+
+		
+\begin{table}[!hbt]		
+	\centering	
+	\caption{Freqüências Relativas do Mapa B.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline}& Tempo Real\\
+		\hline
+		\multicolumn{1}{|c|}{1} & 0,16677 & 0,10130 \\
+		\multicolumn{1}{|c|}{2} & 0,16677 & 0,09994 \\
+		\multicolumn{1}{|c|}{3} & 0,33323 & 0,40206 \\
+		\multicolumn{1}{|c|}{4} & 0,33323 & 0,39670 \\
+		\hline
+		\multicolumn{1}{|c|}{Dif. Quad.} & 0,02785 & 0,00121\\
+		\hline
+	\end{tabular}	
+	\label{tab:Fr_quatro_diff}	
+\end{table}		
+
+O gráfico do Mapa B (Figura \ref{fig:grafico_quatro_diff}), diferentemente do gráfico do Mapa A (Figura \ref{fig:grafico_quatro}), ilustra que a solução \textit{Offline} manteve o Grau de Urgência Total dentro de uma faixa, entre dez e trinta aproximadamente, mas seu desempenho também foi superior à solução em Tempo Real.
+\begin{figure}[!hbt]
+	\centering
+		\includegraphics[width=0.45\textwidth]{../../../resultados/graficos/quatro_diff.png}
+	\caption{Gráfico do Mapa B.}
+	\label{fig:grafico_quatro_diff}
+\end{figure}
+
+
+Mapa C: Com cinco salas que formam um X (Prioridades na Tabela \ref{tab:P_x}) com ligações entre as salas das pontas (Figura \ref{fig:grafo_x}):
 	
+\begin{table}[!hbt]
+	\centering
+	\caption{Prioridades do Mapa C e D.}
+ 	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & Prioridade\\
+		\hline
+			1& 1 \\
+			2& 5 \\
+			3& 5 \\
+			4& 5 \\
+			5& 5 \\
+		\hline
+  \end{tabular}
+  \label{tab:P_x}
+\end{table}
+
 \begin{figure}[!hbt]
 	\centering
 		\includegraphics[width=0.13\textwidth]{../../imagens/mapa_x.jpg}
@@ -682,7 +837,60 @@ Mapa C com cinco salas que formam um X com ligações entre as salas das pontas (F
 	\label{fig:grafo_x}
 \end{figure}
 
-Mapa D com cinco salas em formato de X com somente a sala do meio ligando as outras (Figura \ref{fig:grafo_x_incompleto}):
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 2 4 5 3 2 4 5 3.
+
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_x}.		
+ 		
+\begin{table}[!hbt]		
+	\centering	
+	\caption{Prioridades relativas do Mapa C.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1 & 0,04762 & 0,04983 \\
+		2 & 0,23810 & 0,24044 \\
+		3 & 0,23810 & 0,23870 \\
+		4 & 0,23810 & 0,23501 \\
+		5 & 0,23810 & 0,23602 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Pr_x}	
+\end{table}		
+ 		
+A Tabela \ref{tab:Fr_x} mostra que freqüência relativa da sala 1 na solução \textit{Offline} foi maior que o dobro da sua prioridade relativa inicial do mapa, entretanto, a diferença numérica absoluta é aproximadamente 0,06. As freqüências relativas das salas restantes da solução \textit{Offline} e as freqüências relativas de todas as salas da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa. A tabela \ref{tab:Fr_x} mostra também que a solução Tempo Real foi melhor que a solução \textit{Offline} através da diferença quadrática.
+
+\begin{table}[!hbt]
+	\centering	
+	\caption{Freqüências Relativas do Mapa C.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline}& Tempo Real\\
+		\hline
+		\multicolumn{1}{|c|}{1} & 0,11134 & 0,05670 \\
+		\multicolumn{1}{|c|}{2} & 0,22234 & 0,23729 \\
+		\multicolumn{1}{|c|}{3} & 0,22200 & 0,23807 \\
+		\multicolumn{1}{|c|}{4} & 0,22234 & 0,23210 \\
+		\multicolumn{1}{|c|}{5} & 0,22200 & 0,23583 \\
+		\hline
+		\multicolumn{1}{|c|}{Dif. Quad.} & 0,00508 & 0,00012\\
+		\hline
+\end{tabular}	
+	\label{tab:Fr_x}	
+\end{table}		
+
+O gráfico (Figura \ref{fig:grafico_x}) mostra que a solução em Tempo Real depois de estabilizar teve um desempenho inferior à solução \textit{Offline}.
+
+\begin{figure}[!hbt]
+	\centering
+		\includegraphics[width=0.45\textwidth]{../../../resultados/graficos/x.png}
+	\caption{Gráfico do Mapa C.}
+	\label{fig:grafico_x}
+\end{figure}
+
+
+
+Mapa D: Com cinco salas em formato de X (Prioridades iguais ao mapa anterior indicados na Tabela \ref{tab:P_x}) com somente a sala do meio ligando as outras (Figura \ref{fig:grafo_x_incompleto}):
 	
 \begin{figure}[!hbt]
 	\centering
@@ -691,7 +899,76 @@ Mapa D com cinco salas em formato de X com somente a sala do meio ligando as out
 	\label{fig:grafo_x_incompleto}
 \end{figure}
 
-Mapas E e F com seis salas em formato de espinha de peixe (Figura \ref{fig:grafo_espinha}):
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 2 3 4 5.
+
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_x_incompleto}.		
+ 		
+\begin{table}[!hbt]		
+	\centering	
+	\caption{Prioridades relativas do Mapa D.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1 & 0,04762 & 0,04598 \\
+		2 & 0,23810 & 0,23794 \\
+		3 & 0,23810 & 0,24530 \\
+		4 & 0,23810 & 0,23984 \\
+		5 & 0,23810 & 0,23094 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Pr_x_incompleto}	
+\end{table}		
+ 		
+A Tabela \ref{tab:Fr_x_incompleto} mostra que as freqüências relativas da solução \textit{Offline} foram aproximadamente todas iguais, isso se deve ao fato de que a seqüência de salas a serem visitadas gerada pelo \texttt{gerador} manda o robô visitar cada sala apenas uma única vez dentro do \textit{loop}. Na mesma tabela pode-se ver também que as freqüências relativas da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa. A tabela mostra também que a solução Tempo Real foi melhor que a solução \textit{Offline} através da diferença quadrática.
+ 		
+\begin{table}[!hbt]
+	\centering	
+	\caption{Freqüências Relativas do Mapa D.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline}& Tempo Real\\
+		\hline
+		\multicolumn{1}{|c|}{1} & 0,20009 & 0,05481 \\
+		\multicolumn{1}{|c|}{2} & 0,20009 & 0,23908 \\
+		\multicolumn{1}{|c|}{3} & 0,20009 & 0,23633 \\
+		\multicolumn{1}{|c|}{4} & 0,20009 & 0,23275 \\
+		\multicolumn{1}{|c|}{5} & 0,19965 & 0,23703 \\
+		\hline
+		\multicolumn{1}{|c|}{Dif. Quad.} & 0,02906 & 0,00009\\
+		\hline
+	\end{tabular}	
+	\label{tab:Fr_x_incompleto}	
+\end{table}		
+
+O gráfico (Figura \ref{fig:grafico_x_incompleto}) mostra que a solução em Tempo Real depois de estabilizar teve um desempenho inferior à solução \textit{Offline}.
+\begin{figure}[!hbt]
+	\centering
+		\includegraphics[width=0.45\textwidth]{../../../resultados/graficos/x_incompleto.png}
+	\caption{Gráfico do Mapa D.}
+	\label{fig:grafico_x_incompleto}
+\end{figure}
+
+
+Mapa E: Com seis salas de prioridades iguais (Tabela \ref{tab:P_espinha}) em formato de espinha de peixe (Figura \ref{fig:grafo_espinha}):
+
+\begin{table}[!htb]
+	\centering
+	\caption{Prioridades do Mapa E.}
+ 	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & Prioridade\\
+		\hline
+		1& 2 \\
+		2& 2 \\
+		3& 2 \\
+		5& 2 \\
+		6& 2 \\
+		7& 2 \\
+		\hline
+  \end{tabular}
+  \label{tab:P_espinha}
+\end{table}
 
 \begin{figure}[!hbt]
 	\centering
@@ -700,7 +977,154 @@ Mapas E e F com seis salas em formato de espinha de peixe (Figura \ref{fig:grafo
 	\label{fig:grafo_espinha}
 \end{figure}
 
-Mapa G com oito salas simulando um apartamento real (Figura \ref{fig:grafo_ap}):
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 5 2 6 3 7.
+
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_espinha}.		
+ 
+\begin{table}[!hbt]		
+	\centering	
+	\caption{Prioridades relativas do Mapa E.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1 & 0,16667 & 0,16990 \\
+		2 & 0,16667 & 0,16613 \\
+		3 & 0,16667 & 0,16571 \\
+		5 & 0,16667 & 0,16339 \\
+		6 & 0,16667 & 0,16720 \\
+		7 & 0,16667 & 0,16768 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Pr_espinha}	
+\end{table}		
+ 		
+
+
+A Tabela \ref{tab:Fr_espinha} mostra que as freqüências relativas tanto da solução \textit{Offline} quanto a em Tempo Real foram próximas às prioridades relativas iniciais do mapa.	A Tabela \ref{tab:Fr_espinha} mostra também que a solução \textit{Offline} foi melhor que a solução Tempo Real através da diferença quadrática.	
+ 		
+\begin{table}[!hbt]
+	\centering	
+	\caption{Freqüências Relativas do Mapa E.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline}& Tempo Real\\
+		\hline
+		\multicolumn{1}{|c|}{1} & 0,16694 & 0,16869 \\
+		\multicolumn{1}{|c|}{2} & 0,16694 & 0,16483 \\
+		\multicolumn{1}{|c|}{3} & 0,16640 & 0,16692 \\
+		\multicolumn{1}{|c|}{5} & 0,16694 & 0,16832 \\
+		\multicolumn{1}{|c|}{6} & 0,16640 & 0,16179 \\
+		\multicolumn{1}{|c|}{7} & 0,16640 & 0,16945 \\
+		\hline
+		\multicolumn{1}{|c|}{Dif. Quad.} & 0 & 0,00004 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Fr_espinha}	
+\end{table}		
+
+O gráfico (Figura \ref{fig:grafico_espinha}) mostra que a solução em Tempo Real depois de estabilizar teve um desempenho inferior à solução \textit{Offline}.
+\begin{figure}[!hbt]
+	\centering
+		\includegraphics[width=0.45\textwidth]{../../../resultados/graficos/espinha.png}
+	\caption{Gráfico do Mapa E.}
+	\label{fig:grafico_espinha}
+\end{figure}
+
+
+Mapa F: Com seis salas de prioridades diferentes (Tabela \ref{tab:P_espinha_diff}) em formato de espinha de peixe (Figura \ref{fig:grafo_espinha}):
+
+\begin{table}[!hbt]
+	\centering
+	\caption{Prioridades do Mapa F.}
+ 	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & Prioridade\\
+		\hline
+			1& 5 \\
+			2& 1 \\
+			3& 2 \\
+			5& 2 \\
+			6& 1 \\
+			7& 1 \\
+		\hline
+  \end{tabular}
+  \label{tab:P_espinha_diff}
+\end{table}
+
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 2 6 5 1 7 3 5.
+
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_espinha_diff}.		
+ 		
+\begin{table}[!hbt]		
+	\centering	
+	\caption{Prioridades relativas do Mapa F.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1 & 0,41667 & 0,41297 \\
+		2 & 0,08333 & 0,08386 \\
+		3 & 0,16667 & 0,16624 \\
+		5 & 0,16667 & 0,17418 \\
+		6 & 0,08333 & 0,07849 \\
+		7 & 0,08333 & 0,08427 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Pr_espinha_diff}	
+\end{table}		
+ 		
+A Tabela \ref{tab:Fr_espinha_diff} mostra que as freqüências relativas da solução \textit{Offline} foram diferentes das prioridades relativas iniciais do mapa, visitando as salas 1 e 5 o dobro de vezes que as demais salas, pois na seqüência determinada pelo \texttt{gerador} as salas 1 e 5 aparecem duas vezes cada uma. Todavia as freqüências relativas da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa. A Tabela \ref{tab:Fr_espinha_diff} mostra também que a solução Tempo Real foi melhor que a solução \textit{Offline} através da diferença quadrática.
+ 		
+\begin{table}[!hbt]
+	\centering	
+	\caption{Freqüências Relativas do Mapa F.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline}& Tempo Real\\
+		\hline
+		\multicolumn{1}{|c|}{1} & 0,25000 & 0,35364 \\
+		\multicolumn{1}{|c|}{2} & 0,12500 & 0,10119 \\
+		\multicolumn{1}{|c|}{3} & 0,12500 & 0,17144 \\
+		\multicolumn{1}{|c|}{5} & 0,25000 & 0,17798 \\
+		\multicolumn{1}{|c|}{6} & 0,12500 & 0,09488 \\
+		\multicolumn{1}{|c|}{7} & 0,12500 & 0,10087 \\
+		\hline
+		\multicolumn{1}{|c|}{Dif. Quad.} & 0,04167 & 0,00488 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Fr_espinha_diff}	
+\end{table}		
+O gráfico (Figura \ref{fig:grafico_espinha_diff}) mostra que a solução em Tempo Real depois de estabilizar teve um desempenho inferior à solução \textit{Offline}.
+
+\begin{figure}[!hbt]
+	\centering
+		\includegraphics[width=0.45\textwidth]{../../../resultados/graficos/espinha_diff.png}
+	\caption{Gráfico do Mapa F.}
+	\label{fig:grafico_espinha_diff}
+\end{figure}
+	
+Mapa G: Com oito salas de prioridades diferentes (Tabela \ref{tab:P_ap}) simulando um apartamento real (Figura \ref{fig:grafo_ap}):
+
+\begin{table}[!hbt]
+	\centering
+	\caption{Prioridades do Mapa G.}
+ 	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & Prioridade\\
+		\hline
+		1 & 5 \\
+		3 & 5 \\
+		4 & 3 \\
+		5 & 3 \\
+		7 & 5 \\
+		9 & 4 \\
+		11& 4 \\
+		12& 4 \\
+		\hline
+  \end{tabular}
+  \label{tab:P_ap}
+\end{table}
 
 \begin{figure}[!hbt]
 	\centering
@@ -709,114 +1133,62 @@ Mapa G com oito salas simulando um apartamento real (Figura \ref{fig:grafo_ap}):
 	\label{fig:grafo_ap}
 \end{figure}
 
-A Tabela \ref{tab:sequencia} mostra as seqüência de salas geradas pelo programa \texttt{gerador}.
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 12 9 11 5 7 3 4.
 
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_ap}.		
+ 		
 \begin{table}[!hbt]
-	\centering
-	\caption{Seqüências de salas geradas pelo \texttt{gerador}}
-		\begin{tabular}{|c|c|}
-			\hline
-			Mapa & Seqüência de Salas \\
-			\hline
-			A	& 1 2 4 3\\
-			B	& 1 3 4 2 4 3 \\
-			C	& 1 2 4 5 3 2 4 5 3 \\
-			D	& 1 2 3 4 5 \\
-			E	& 1 5 2 6 3 7 \\
-			F	& 1 2 6 5 1 7 3 5 \\
-			G	& 1 12 9 11 5 7 3 4 \\
-			\hline
-		\end{tabular}
-	\label{tab:sequencia}
-\end{table}
-
-As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, em todos os mapas, como mostra a Tabela \ref{tab:resultados}.
-
-\begin{table*}[!hbt]
-	\caption{Resultados}
-	\centering
-	\begin{tabular}{|c|c|c|c|c|c|c|}
-		\cline{4-7}
-		\multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c|}{} & \multicolumn{2}{c|}{Prioridades Relativas} & \multicolumn{2}{c|}{Freqüências Relativas} \\
+	\centering	
+	\caption{Prioridades relativas do Mapa G.}	
+	\begin{tabular}{|c|c|c|}	
 		\hline
-		Mapa & Sala & Prioridade & Offline & Tempo Real & Offline & Tempo Real\\
+		Sala & \textit{Offline} & Tempo Real \\
 		\hline
-		\multirow{5}{*}{A}
-			&	1	&	1	&	0,25000	&	0,24989	&	0,25021	&	0,25114	\\
-			&	2	&	1	&	0,25000	&	0,24860	&	0,24993	&	0,25263	\\
-			&	3	&	1	&	0,25000	&	0,25224	&	0,24993	&	0,24877	\\
-			&	4	&	1	&	0,25000	&	0,24927	&	0,24993	&	0,24746	\\
-			\cline{2-7}
-			&	\multicolumn{4}{|c|}{Diferença	Quadrática}	&	0,00000	&	0,00002	\\
-			\hline\hline
-		\multirow{5}{*}{B}
-			&	1	&	1	&	0,08333	&	0,08470	&	0,16670	&	0,10130	\\
-			&	2	&	1	&	0,08333	&	0,08331	&	0,16670	&	0,09994	\\
-			&	3	&	5	&	0,41666	&	0,41141	&	0,33323	&	0,40206	\\
-			&	4	&	5	&	0,41666	&	0,42058	&	0,33323	&	0,39670	\\
-			\cline{2-7}
-			&	\multicolumn{4}{|c|}{Diferença	Quadrática}	&	0,02782	&	0,00121	\\
-			\hline\hline
-		\multirow{6}{*}{C}
-			&	1	&	1	&	0,04762	&	0,04983	&	0,11134	&	0,05670	\\
-			&	2	&	5	&	0,23810	&	0,24044	&	0,22234	&	0,23729	\\
-			&	3	&	5	&	0,23810	&	0,23870	&	0,22200	&	0,23807	\\
-			&	4	&	5	&	0,23810	&	0,23501	&	0,22234	&	0,23210	\\
-			&	5	&	5	&	0,23810	&	0,23602	&	0,22200	&	0,23583	\\
-			\cline{2-7}
-			&	\multicolumn{4}{|c|}{Diferença	Quadrática}	&	0,00507	&	0,00012	\\
-			\hline\hline
-		\multirow{6}{*}{D}
-			&	1	&	1	&	0,04762	&	0,04598	&	0,20009	&	0,05481	\\
-			&	2	&	5	&	0,23810	&	0,23794	&	0,20009	&	0,23908	\\
-			&	3	&	5	&	0,23810	&	0,24530	&	0,20009	&	0,23633	\\
-			&	4	&	5	&	0,23810	&	0,23984	&	0,20009	&	0,23275	\\
-			&	5	&	5	&	0,23810	&	0,23094	&	0,19965	&	0,23703	\\
-			\cline{2-7}
-			&	\multicolumn{4}{|c|}{Diferença	Quadrática}	&	0,02906	&	0,00009	\\
-			\hline\hline
-		\multirow{7}{*}{E}
-			&	1	&	2	&	0,16667	&	0,16990	&	0,16694	&	0,16869	\\
-			&	2	&	2	&	0,16667	&	0,16613	&	0,16694	&	0,16483	\\
-			&	3	&	2	&	0,16667	&	0,16571	&	0,16640	&	0,16692	\\
-			&	5	&	2	&	0,16667	&	0,16339	&	0,16694	&	0,16832	\\
-			&	6	&	2	&	0,16667	&	0,16720	&	0,16640	&	0,16179	\\
-			&	7	&	2	&	0,16667	&	0,16768	&	0,16640	&	0,16945	\\
-			\cline{2-7}
-			&	\multicolumn{4}{|c|}{Diferença	Quadrática}	&	0,00000	&	0,00004	\\
-			\hline\hline
-		\multirow{7}{*}{F}
-			&	1	&	5	&	0,41667	&	0,41297	&	0,25000	&	0,35364	\\
-			&	2	&	1	&	0,08333	&	0,09396	&	0,12500	&	0,10120	\\
-			&	3	&	2	&	0,16667	&	0,16624	&	0,12500	&	0,17144	\\
-			&	5	&	2	&	0,16667	&	0,17418	&	0,25000	&	0,17798	\\
-			&	6	&	1	&	0,08333	&	0,07849	&	0,12500	&	0,09488	\\
-			&	7	&	1	&	0,08333	&	0,08427	&	0,12500	&	0,10087	\\
-			\cline{2-7}
-			&	\multicolumn{4}{|c|}{Diferença	Quadrática}	&	0,04167	&	0,00488	\\
-			\hline\hline
-		\multirow{9}{*}{G}
-			&	1	&	5	&	0,15152	&	0,15426	&	0,12525	&	0,14970	\\
-			&	3	&	5	&	0,15152	&	0,15233	&	0,12475	&	0,15172	\\
-			&	4	&	3	&	0,09091	&	0,08996	&	0,12475	&	0,09717	\\
-			&	5	&	3	&	0,09091	&	0,08924	&	0,12475	&	0,09447	\\
-			&	7	&	5	&	0,15152	&	0,14934	&	0,12475	&	0,14197	\\
-			&	9	&	4	&	0,12121	&	0,12566	&	0,12525	&	0,12442	\\
-			&	11&	4	&	0,12121	&	0,12133	&	0,12525	&	0,12004	\\
-			&	12&	4	&	0,12121	&	0,11789	&	0,12525	&	0,12050	\\
-			\cline{2-7}
-			&	\multicolumn{4}{|c|}{Diferença	Quadrática}	&	0,00446	&	0,00016	\\	
-			\hline
-			\end{tabular}			
-	\label{tab:resultados}
-\end{table*}
+		1 & 0,15152 & 0,15426 \\
+		3 & 0,15152 & 0,15233 \\
+		4 & 0,09091 & 0,08996 \\
+		5 & 0,09091 & 0,08924 \\
+		7 & 0,15152 & 0,14934 \\
+		9 & 0,12121 & 0,12566 \\
+		11& 0,12121 & 0,12133 \\
+		12& 0,12121 & 0,11789 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Pr_ap}	
+\end{table}		
+ 		
+A Tabela \ref{tab:Fr_ap} mostra que as freqüências relativas da solução \textit{Offline} foram aproximadamente todas iguais, isso se deve ao fato de que a seqüência de salas a serem visitadas gerada pelo \texttt{gerador} manda o robô visitar cada sala apenas uma única vez dentro do \textit{loop}, porém as maiores diferenças numéricas são as das sala 4 e 5 que são aproximadamente 0,03. Na mesma tabela pode-se ver também que as freqüencias relativas da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa.	A Tabela \ref{tab:Fr_ap} mostra também que a solução em Tempo Real foi melhor que a solução \textit{Offline} através da diferença quadrática.
+ 		
+\begin{table}[!hbt]
+	\centering	
+	\caption{Freqüências Relativas do Mapa G.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline}& Tempo Real\\
+		\hline
+		\multicolumn{1}{|c|}{1} & 0,12525 & 0,14970 \\
+		\multicolumn{1}{|c|}{3} & 0,12475 & 0,15172 \\
+		\multicolumn{1}{|c|}{4} & 0,12475 & 0,09717 \\
+		\multicolumn{1}{|c|}{5} & 0,12475 & 0,09447 \\
+		\multicolumn{1}{|c|}{7} & 0,12475 & 0,14197 \\
+		\multicolumn{1}{|c|}{9} & 0,12525 & 0,12442 \\
+		\multicolumn{1}{|c|}{11}& 0,12525 & 0,12004 \\
+		\multicolumn{1}{|c|}{12}& 0,12525 & 0,12050 \\
+		\hline
+		\multicolumn{1}{|c|}{Dif. Quad.} & 0,00446 & 0,00016 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Fr_ap}	
+\end{table}		
 
-A Tabela \ref{tab:resultados} mostrou também que as freqüências relativas dos todos os mapas, tanto da solução \textit{Offline} quanto a em Tempo Real, foram próximas às prioridades relativas iniciais do mapa excetuando-se: no mapa B as freqüências relativas das salas 1 e 2 da solução \textit{Offline} são aproximadamente o dobro das suas respectivas prioridades relativas iniciais do mapa, porém, em números absolutos, é uma diferença de aproximadamente 0,08; no mapa C a sala 1 da solução \textit{Offline} foi maior que o dobro da sua prioridade relativa inicial do mapa, entretanto, a diferença numérica absoluta é de aproximadamente 0,06; nos mapas D e G as freqüências relativas da solução \textit{Offline} foram aproximadamente todas iguais, isse se deve ao fato de que a seqüência de salas a serem visitadas gerada pelo \texttt{gerador} manda o robô visitar cada sala apenas uma única vez dentro do \textit{loop} e no mapa F as freqüências relativas da solução \textit{Offline} foram diferentes das prioridades relativas iniciais do mapa, visitando as salas 1 e 5 o dobro de vezes que as demais salas, pois na seqüência determinada pelo \texttt{gerador} as salas 1 e 5 aparecem duas vezes cada uma.
+O gráfico (Figura \ref{fig:grafico_ap}) mostra que a solução em Tempo Real depois de estabilizar teve um desempenho inferior à solução \textit{Offline}.
 
-Por fim, a Tabela \ref{tab:resultados} mostrou também que nos mapas A e E a solução \textit{Offline} foi melhor que a solução em Tempo Real através da diferença quadrática e nos mapas B, C, D, F e G a solução em Tempo Real foi melhor que a solução \textit{Offline} através da diferença quadrática.
-
-GRAFICOS
-
+\begin{figure}[!hbt]
+	\centering
+		\includegraphics[width=0.45\textwidth]{../../../resultados/graficos/ap.png}
+	\caption{Gráfico do Mapa G.}
+	\label{fig:grafico_ap}
+\end{figure}
 
 \subsubsection{Análise Comparativa}
 Foi calculada uma média do Grau de Urgência Total de cada solução em cada mapa com os últimos dez mil segundos (Tabela \ref{tab:media_final}); analisando essa média nota-se que existe uma tendência de que quanto maior o número de salas mais eficiente será a solução \textit{Offline} em relação à solução em Tempo Real, como mostra o gráfico na Figura \ref{fig:grafico_tendencia}.
