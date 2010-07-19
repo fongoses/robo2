@@ -381,7 +381,7 @@ ICMC - Instituto de Ciências Matemáticas\\ e de Computação\\
 São Carlos - SP, Brasil\\
 heitor.polidoro@gmail.com}
 \and
-\IEEEauthorblockN{Dr. Prof. Denis F. Wolf}
+\IEEEauthorblockN{Denis F. Wolf}
 \IEEEauthorblockA{Universidade de São Paulo\\
 ICMC - Instituto de Ciências Matemáticas\\ e de Computação\\
 São Carlos - SP, Brasil\\
@@ -445,24 +445,10 @@ Robótica Móvel; Prioridades dinâmicas;
 
 
 
-\section{Introduction}
+\section{Introdução}
 A robótica é uma tecnologia utilizada para auxiliar ou substituir o homem em tarefas que o ser humano não é capaz de executar; em tarefas que podem ser automatizadas; em tarefas em ambientes com alto grau de periculosidade, como fundo do mar, incêndios, desarmamento de bombas, áreas com contaminação radioativa ou com gases tóxicos e em tarefas repetitivas como uma linha de produção industrial, por exemplo.
 
-Dentre as muitas definições de robô podemos destacar:
-\begin{itemize}
-	\item Dispositivo ou máquina que realiza funções normalmente associadas a seres humanos \cite{Medeiros1998};
-	\item Máquinas que, além de serem capazes de reproduzir tarefas	e movimentos implícitos em sua construção, complementam a parte mecânica com dispositivos eletrônicos inteligentes \cite{Medeiros1998};
-	\item Órgão mecânico versátil equipado com atuadores e sensores sob o controle de um sistema computacional \cite{Latombe1991} e
-	\item Simplesmente um agente artificial e ativo cujo ambiente é o mundo físico \cite{Russell2003}.
-\end{itemize}
-
-Inicialmente os robôs eram utilizados somente para automação industrial, fixados em posições específicas na linha de montagem, os braços robóticos podem mover-se a uma grande velocidade e precisão para realizar tarefas repetitivas. No entanto esses robôs apresentam uma fundamental desvantagem que é a falta de mobilidade. Um manipulador fixo tem alcance limitado que depende de onde foi colocado enquanto que robôs móveis são capazes de locomoverem-se pela fábrica \cite{Siegwart2004}. Com a evolução tecnológica os robôs passaram a ser utilizados em outras áreas como: medicina de precisão, ambientes perigosos, ambientes insalubres, na área de entretenimento, serviços domésticos, etc. Nesse contexto surgiram as pesquisas para o desenvolvimento de robôs móveis autônomos, que sejam capazes de atuar em ambientes reais e reagir a situações desconhecidas de forma inteligente \cite{Thrun2002}.
-
 A robótica consiste em uma área multidisciplinar de pesquisa, envolvendo desde elementos de engenharia mecânica, elétrica, computação até áreas de humanas como psicologia e estudos comportamentais. O que diferencia a robótica móvel de outras áreas de pesquisa em robótica, é a sua ênfase nos problemas relacionados com locomoção em ambientes complexos, que se modificam dinamicamente, compostos tanto por obstáculos fixos quanto por obstáculos móveis. Para operar nesses ambientes o robô deve ser capaz de adquirir e utilizar conhecimento sobre o ambiente, tais como: estimar posições dentro do ambiente (sua posição, de um obstáculo, de um \textit{landmark}, de uma meta), reconhecer obstáculos, e responder em tempo real às situações que podem ocorrer nesses ambientes. As tarefas de perceber o ambiente, localizar-se no ambiente e mover pelo ambiente são problemas fundamentais da robótica móvel \cite{Heinen2002}. 
-
-A robótica móvel, além de ser uma área de grande potencial científico, tem atraído a atenção de empresas de tecnologia que cada vez mais investem no desenvolvimento de produtos; como por exemplo os robôs que realizam trabalhos domésticos autonomamente,  entre os quais o robô aspirador de pó e o robô cortador de grama.
-
-Normalmente, a navegação é a principal tarefa a ser executada por um robô móvel. Esta consiste na localização do robô no ambiente, planejamento de um caminho entre a posição inicial e o destino final e a execução do movimento pelo caminho planejado. Esta tarefa pode ser mais, ou menos complexa, dependendo do ambiente em que o robô se encontra \cite{Pedrosa2001} e das informações que ele possui.
 
 A motivação deste projeto é desenvolver um sistema de monitoramento de ambientes internos. Existem diversas aplicações práticas para esse tipo de aplicação. Dentre elas, pode-se citar o desenvolvimento de um robô vigia que monitora um ambiente, dando ênfase para áreas de maior importância; um robô que monitora a temperatura e umidade de ambientes onde esse fator é crítico; um robô que faz coleta de lixo ou correspondência; um robô para fazer limpeza de ambientes; um robô para fazer entregas de remédios a pacientes em um hospital e etc.
 
@@ -480,13 +466,13 @@ A motivação deste projeto é desenvolver um sistema de monitoramento de ambientes
 
 \section{Desenvolvimento e Resultados}
 \label{resultados_obitdos}
-Para determinar a trajetória do robô foram criadas duas soluções, uma \textit{Offline} (seção \ref{offline}) e outra em Tempo Real seção (\ref{tempo_real}), essas soluções serão confrontadas em dois critérios de avaliação (seção \ref{criterios}), um baseado no Grau de Urgência Total e o outro baseado na freqüência relativa de cada sala.
+Para determinar a trajetória do robô foram criadas duas soluções, uma \textit{Offline} e outra em Tempo Real, essas soluções serão confrontadas em dois critérios de avaliação, um baseado no Grau de Urgência Total e o outro baseado na freqüência relativa de cada sala.
 
 \subsection{Critérios de Avaliação}
 \label{criterios}
-Os algoritmos e estratégias serão então testados e avaliados. As avaliações consistem na comparação dos algoritmos e estratégias. Serão utilizados dois critérios de comparação, um critério comparando a freqüência relativa de cada sala com sua prioridade relativa, onde o melhor resultado é aquele em que a freqüência relativa se aproximar mais da prioridade relativa, pois se uma sala (a) possui uma prioridade com valor duas vezes maior que uma sala (b), a sala (a) deve ser visitada com o dobro de freqüência do que a sala (b). Esse cálculo é feito somando as diferenças quadráticas entre a prioridade relativa e a freqüência relativa de cada sala ($\sum_{i=0}^n (P_i/P_t - F_i/F_t)^2$). Isto indica que o algoritmo ou estratégia se manteve fiel à definição do problema: \textit{ Áreas de maior importância devem ser visitadas mais frequentemente}.
+Os algoritmos e estratégias serão então testados e avaliados. Serão utilizados dois critérios de comparação, um critério comparando a freqüência relativa de cada sala com sua prioridade relativa, onde o melhor resultado é aquele em que a freqüência relativa se aproximar mais da prioridade relativa. Esse cálculo é feito somando as diferenças quadráticas entre a prioridade relativa e a freqüência relativa de cada sala ($\sum_{i=0}^n (P_i/P_t - F_i/F_t)^2$). Isto indica que o algoritmo ou estratégia se manteve fiel à definição do problema: \textit{ Áreas de maior importância devem ser visitadas mais frequentemente}.
 
-O segundo critério é um gráfico mostrando a progressão da somatória dos graus de urgência de todas as salas $(\sum_{i=0}^n U_i)$ , no qual o melhor resultado consiste em manter o menor valor da somatória dos graus de urgência; mostrando que o algoritmo ou estratégia levou o robô às salas com maior eficiência. O grau de urgência $U$ é calculado multiplicando-se a prioridade relatica da sala $P/P_t$ pelo tempo decorrido desde a última visita $t$ $(U_i = P_i/P_t \times t_i)$. A casa visita o $t$ é zerado.
+O segundo critério é um gráfico mostrando a progressão da somatória dos graus de urgência de todas as salas (Grau de Urgência Total $\sum_{i=0}^n U_i$) , no qual o melhor resultado consiste em manter o menor valor da somatória dos graus de urgência; mostrando que o algoritmo ou estratégia levou o robô às salas com maior eficiência. O grau de urgência $U$ é calculado multiplicando-se a prioridade relatica da sala $P/P_t$ pelo tempo decorrido desde a última visita $t$ $(U_i = P_i/P_t \times t_i)$. A casa visita o $t$ é zerado.
 
 \subsection{Metodologia}
 \label{metodologia}
@@ -498,93 +484,39 @@ O segundo critério é um gráfico mostrando a progressão da somatória dos graus de
 %O controle do robô será desenvolvido utilizando-se a biblioteca Player/Stage \cite{Gerkey2003}, a qual permite que sejam realizadas simulações antes que os algoritmos %sejam testados com o robô real. Essas simulações são importantes para o aperfeiçoamento dos parâmetros como distâncias, velocidades, etc, antes do teste no Pioneer.
 %O método utilizado foi o VFH, por já vir implementado no Player e em testes se mostrou suficiente para o projeto.
 %#######################################################################################################
-Para a solução do problema descrito, o robô tem uma descrição completa do ambiente em que atua (mapa). Foram utilizados somente dois sensores: Odômetro para localizar o robô no mapa e o LASER para o desvio de obstáculos. O controle do robô foi desenvolvido utilizando a biblioteca Player/Stage. Para desvio de obstáculos utilizou-se a técnica VFH que já vem implementada no Player e se mostrou suficiente para o projeto.
+Para a solução do problema descrito, o robô tem uma descrição completa do ambiente em que atua (mapa). Foram utilizados somente dois sensores: Odômetro para localizar o robô no mapa e o LASER para o desvio de obstáculos. O controle do robô foi desenvolvido utilizando a biblioteca Player/Stage\cite{Player2010}. Para desvio de obstáculos utilizou-se a técnica VFH que já vem implementada no Player e se mostrou suficiente para o projeto.
 
-Cada ambiente tem um mapa topológico. % que será gerado utilizando o diagrama de Voronoi \ref{voronoi}). 
-O robô deve utilizar esse mapa para se locomover de uma sala para outra no ambiente. Para os algoritmos e estratégias determinarem a seqüência de salas a serem visitadas, é considerado um grafo completo com todas as salas, pois para determinar o melhor caminho entre uma sala e outra será utilizado o algoritmo de Dijkstra no mapa topológico.
+Cada ambiente tem um mapa topológico\cite{Siegwart2004}. % que será gerado utilizando o diagrama de Voronoi \ref{voronoi}). 
+O robô deve utilizar esse mapa para se locomover de uma sala para outra no ambiente. Para os algoritmos e estratégias determinarem a seqüência de salas a serem visitadas, é considerado um grafo completo com todas as salas, pois para determinar o melhor caminho entre uma sala e outra será utilizado o algoritmo de Dijkstra \cite{Dudek2000} no mapa topológico.
 
 Como um dos critérios de avaliação está relacionado ao tempo que o robô fica sem visitar as salas é possível deduzir que a solução seja um ciclo.
 
-Considera-se:
-\begin{itemize}
-	\item Um ambiente com $S$ salas;
-	\item Um ciclo hamiltoniano $C$ qualquer;
-	\item $C_i$ é a i-ésima sala visitada no ciclo;
-	\item Uma velocidade constante do robô (tanto linear quanto angular);
-	\item $\Delta t_i$ o tempo para sair da sala $i$ e chegar na sala $i+1$.
-\end{itemize}
-
-Como o tempo de viagem entre as mesmas salas é constante todos os $\Delta t_i$ são constantes, portanto o tempo total do ciclo $T$ é constante $(\sum_{i=1}^S \Delta t_i = cte)$. Se o tempo do ciclo é constante, o tempo que o robô demora para revisitar cada sala é constante igual a $T$. Mas isso não é interessante para solução do problema pois o grau de urgência de cada sala é diferente, então se uma sala tem uma prioridade muito alta, seu grau de urgência vai ser muito alto até o robô revisitá-la. 
+Considerando: um ambiente com $S$ salas; um ciclo hamiltoniano $C$ qualquer\cite{Arenales2007}; $C_i$ é a i-ésima sala visitada no ciclo; uma velocidade constante do robô (tanto linear quanto angular) e $\Delta t_i$ o tempo para sair da sala $i$ e chegar na sala $i+1$. Como o tempo de viagem entre as mesmas salas é constante todos os $\Delta t_i$ são constantes, portanto o tempo total do ciclo $T$ é constante $(\sum_{i=1}^S \Delta t_i = cte)$. Se o tempo do ciclo é constante, o tempo que o robô demora para revisitar cada sala é constante igual a $T$. Mas isso não é interessante para solução do problema pois o grau de urgência de cada sala é diferente, então se uma sala tem uma prioridade muito alta, seu grau de urgência vai ser muito alto até o robô revisitá-la. 
 
 Para resolver esse problema, basta fazer com que o robô revisite essa(s) sala(s) mais de uma vez no ciclo. Então supondo um ciclo de tamanho $n$ sendo $n \geq S$ o tempo total do ciclo continua constante $(\sum_{i=1}^n \Delta t_i = cte)$. Portanto a solução do problema consiste em encontrar esse ciclo.
 
 \subsection{Soluções}
 \label{solucoes}
 
-Foram definidos dois tipos de soluções: uma solução \textbf{\textit{offline}}, ou seja, a solução é calculada em um computador e depois informada ao robô qual seqüência de sala ele deve seguir, essa seqüência não é alterada. E a outra é uma solução \textbf{tempo real}, ou seja, o robô define para qual sala deve ir durante a execução do algoritmo, baseando suas decisões no que está acontecendo no momento. A solução \textit{\textbf{offline}} é dividida em duas partes: \textbf{Gerador}, que cria possíveis seqüências de salas ótimas, e o \textbf{Avaliador} que analisa e computa uma nota para as seqüências de salas criadas pelo \textbf{Gerador}
+Foram definidos dois tipos de soluções: uma solução \textbf{\textit{offline}}, ou seja, a solução é calculada em um computador e depois informada ao robô qual seqüência de sala ele deve seguir, essa seqüência não é alterada. E a outra é uma solução \textbf{tempo real} em que o robô define para qual sala deve ir durante a execução do algoritmo, baseando suas decisões no que está acontecendo no momento.
 
 \subsubsection{\textit{Offline}}
 \label{offline}
-Esse método consiste em explorar as diversas possíveis combinações de seqüências de salas para encontrar a seqüência ótima antes de informar ao robô qual seqüência de salas deve seguir. Um programa chamado \texttt{gerador}, seguindo uma determinada heurística, gera as possíveis seqüências de salas, essas seqüências são fornecidas ao programa \texttt{avaliador} que, baseado no critério de maior Grau de Urgência Total, analisa a seqüência e retorna uma avaliação ao \texttt{gerador} que tomará a decisão de: descartar a seqüência, preservar a seqüência para gerar futuras seqüências ou guardar a seqüência como possível seqüência ótima.
+Esse método consiste em explorar as diversas possíveis combinações de seqüências de salas para encontrar a seqüência ótima antes de informar ao robô qual seqüência de salas deve seguir. Um programa chamado \texttt{gerador} gera as possíveis seqüências de salas, essas seqüências são fornecidas ao programa \texttt{avaliador} que, baseado no critério de maior Grau de Urgência Total, analisa a seqüência e retorna uma avaliação ao \texttt{gerador} que tomará a decisão de: descartar a seqüência, preservar a seqüência para gerar futuras seqüências ou guardar a seqüência como possível seqüência ótima.
 
 
 \paragraph{Gerador}
 \label{gerador}
+O programa \texttt{gerador} utiliza uma classe (tipo de variável) chamada $Agente$ contendo 4 atributos: \texttt{vertice}, vértice no qual o agente se encontra no momento; \texttt{caminho}, vetor de salas que guarda a seqüência de salas que o agente percorreu até chegar no vértice atual; \texttt{avaliacao}, avaliação da seqüência de salas do agente e \texttt{tempo}, tempo em segundos que o robô levou para percorrer a seqüência de salas até o vértice atual.
 
-O programa chamado \texttt{gerador} é utilizado para gerar os candidatos à seqüência de salas ótima do mapa analisado. Esses candidatos são avaliados pelo programa \texttt{avaliador} e de acordo com a avaliação o \texttt{gerador} irá guardar a seqüência como possível ótima, descartar ou continuar utilizando essa seqüência para gerar novas seqüências. 
-
-O programa \texttt{gerador} utiliza uma classe (tipo de variável) chamada $Agente$ contendo os seguintes atributos:
-
-\begin{itemize}
-	\item \texttt{vertice}: Vértice no qual o agente se encontra no momento;
-	\item \texttt{caminho}: Vetor de salas que guarda a seqüência de salas que o agente percorreu até chegar no vértice atual;
-	\item \texttt{avaliacao}: Avaliação da seqüência de salas do agente;
-	\item \texttt{tempo}: Tempo em segundos que o robô levou para percorrer a seqüência de salas até o vértice atual.
-\end{itemize}
-
-O \texttt{gerador} recebe apenas um parâmetro como entrada: o nome do mapa que quer achar a seqüência ótima. O programa inicia criando uma seqüência percorrendo as salas na ordem numérica (Sala 1, sala 2..) e classificada como possível ótima. A seguir o programa cria um $Agente$ em cada sala do mapa para explorar as possibilidades do robô começar em cada sala, esses $agentes$ são organizados em uma fila de candidatos.
-
-O laço principal do programa consiste em retirar um $agente$ da fila e para cada sala $i$ é criado um novo $agente$, simulando que o $agente$ retirado da fila navegou até a sala $i$. Em cada novo $agente$ é atualizada a seqüência de salas visitadas e o agente é reavaliado. Se a avaliação for um valor negativo o $agente$ é inserido na fila de $agentes$. Se o valor retornado for 0 (zero) o $agente$ é descartado. Caso o avaliador retorne um valor positivo e esse valor é menor que a avaliação da atual seqüência ótima, o novo $agente$ contendo a seqüência melhor é guardado como possível seqüência ótima. Como o algoritmo somente insere na fila os $agentes$ que podem gerar seqüências ótimas, o critério de parada é quando não existe mais $agentes$ na fila, o programa então retorna o $agente$ com a seqüência ótima.
-
-Exemplo: Em ambiente com quatro salas o gerador vai criar um $agente$ e coloca-lo em cada sala. Então a fila de $agentes$ ficaria da seguinte forma ($Agente$/caminho): 
-\begin{equation}
-(A/1) (B/2) (C/3) (D/4)	
-\end{equation}
-
-Seguindo o laço principal, o \textit{gerador} remove o primeiro \textit{agente} da fila, no caso é o \textit{agente} \textbf{A}, cria uma cópia do \textit{agente} \textbf{A} para cada sala, e simula que esses \textit{agentes} navegaram até sua sala correspondente, atualizando o caminho que esse \textit{agente} percorreu para chegar a essa sala e a avaliação desse caminho.
-
-\begin{equation}
-(B/2) (C/3) (D/4)	(E/1, 2) (F/1, 3) (G/1, 4)
-\end{equation}
-
-Após feito isso o \texttt{gerador} recomeça o ciclo, removendo o primeiro \textit{agente} da fila (no caso \textit{agente} \textbf{B}), criando outros \textit{agentes} e inserindo-os na fila de acordo com a avaliação adquirida (\textit{agentes} \textbf{H}, \textbf{I} e \textbf{J}).
-
-\begin{equation}
-\begin{array}{l}
-			(C/3) (D/4)	(E/1, 2) (F/1, 3) (G/1, 4) \\ (H/2, 1) (I/2, 3) (J/2, 4)
-		\end{array}
-\end{equation}
-
-O \texttt{gerador} permanece nesse ciclo até que não exista mais \textit{agente} na fila.
+O programa inicia criando um $Agente$ em cada sala do mapa para explorar as possibilidades do robô começar em cada sala, esses $agentes$ são organizados em uma fila de candidatos. O laço principal do programa consiste em retirar um $agente$ da fila e para cada sala $i$ é criado um novo $agente$, simulando que o $agente$ retirado da fila navegou até a sala $i$. Em cada novo $agente$ é atualizada a seqüência de salas visitadas e o agente é reavaliado. Se a avaliação for um valor negativo o $agente$ é inserido na fila de $agentes$. Se o valor retornado for 0 (zero) o $agente$ é descartado. Caso o avaliador retorne um valor positivo e esse valor é menor que a avaliação da atual seqüência ótima, o novo $agente$ contendo a seqüência melhor é guardado como possível seqüência ótima. Como o algoritmo somente insere na fila os $agentes$ que podem gerar seqüências ótimas, o critério de parada é quando não existe mais $agentes$ na fila, o programa então retorna o $agente$ com a seqüência ótima.
 
 \paragraph{Avaliador}
 \label{avaliador}
 
-O programa chamado \texttt{avaliador} é utilizado para avaliar os candidatos a seqüência de salas ótima do mapa analisado gerado pelo programa \texttt{gerador} (Seção \ref{gerador}) e retorna para o \texttt{gerador} um valor numérico. Baseado nesse valor o \texttt{gerador} irá guardar a seqüência como possível ótima, descartar ou continuar utilizando essa seqüência para gerar novas seqüência.
+O programa chamado \texttt{avaliador} é utilizado para avaliar os candidatos a seqüência de salas ótima do mapa analisado gerado pelo programa \texttt{gerador} e retornando ao mesmo um valor numérico.
 
-%\subsubsection{Funcionamento}
-%\paragraph{Funcionamento}
-
-O \texttt{avaliador} recebe três parâmetros como entrada:
-\begin{itemize}
-	\item O nome do mapa onde o caminho será avaliado;
-	\item Um vetor de vértices, representando a seqüência de salas a ser avaliada;
-	\item Um valor opcional de limite para a avaliação.
-\end{itemize}
-
-Com esses parâmetros o \texttt{avaliador} inicia a simulação do robô navegando pelo mapa. A velocidade linear, que determina a velocidade com que o robô anda para frente ou para trás, é definida pela constante \texttt{SIMULACAO\_VEL} como 1 m/s. A velocidade angular, que determina a velocidade com que o robô vira, é definida pela constante \texttt{SIMULACAO\_ROT} como 0,5 rad/s. O tempo que o robô demora para visitar uma sala é definido pela constante \texttt{VISITAR\_SALA} como 5 s. Todos esses valores foram definidos arbritrariamente.
-
-Durante a simulação, a cada visita de sala o \texttt{avaliador} mede o Grau de Urgência Total e salva o maior valor, esse valor vai ser a avaliação do caminho neste mapa. Após a simulação o \texttt{avaliador} verifica se a avaliação do caminho for maior que o limite fornecido o valor 0 (zero) é retornado, se nenhum limite for fornecido o \texttt{avaliador} utiliza o valor do maior inteiro do compilador. Se o caminho não visita todas as salas o \texttt{avaliador} retorna a avaliação com valor negativo, se todas as salas foram visitadas o \texttt{avaliador} verifica se o caminho é um \textit{loop}, ou seja, se o caminho começa e termina no mesmo vértice, caso contrário ele também retorna a avaliação em valor negativo.  Se o caminho for um \textit{loop}, visita todas as salas e o valor da avaliação for menor que o limite fornecido (ou menor que o maior inteiro do compilador), o valor da avaliação, maior Grau de Urgência Total em todo o percurso, é retornado pelo \texttt{avaliador}.
+O \texttt{avaliador} inicia a simulação do robô navegando pelo mapa. Durante a simulação, a cada visita de sala o \texttt{avaliador} mede o Grau de Urgência Total e salva o maior valor, esse valor vai ser a avaliação do caminho neste mapa. Após a simulação o \texttt{avaliador} verifica se o caminho não visita todas as salas o \texttt{avaliador} retorna a avaliação com valor negativo, se todas as salas foram visitadas o \texttt{avaliador} verifica se o caminho é um \textit{loop}, ou seja, se o caminho começa e termina no mesmo vértice, caso contrário ele também retorna a avaliação em valor negativo.  Se o caminho for um \textit{loop} e visita todas as salas o \texttt{avaliador} retorna o valor da avaliação.
 
 Para critério de parada o \texttt{avaliador} compara o estado das salas, ou seja, se para cada sala, o Grau de Urgência e o número de visitas é o mesmo ao término do caminho.
 
@@ -599,43 +531,7 @@ A chance de emergência que cada sala recebe é proporcional às prioridades, para 
 	\label{eq:calc-chances}	
 \end{equation}
 
-Isso faz com que a soma das chances seja igual a um. Por exemplo, se em um mapa de quatro salas as prioridades forem (Tabela \ref{tab:ExemploDePrioridades}):
-
-\begin{table}[!hbt]
-	\caption{Exemplo de prioridades}
-	\centering
-		\begin{tabular}
-			{|c|c|}
-			\hline
-			Sala & Prioridade \\
-			\hline
-			1&5\\
-			2&1\\
-			3&4\\
-			4&5\\					
-			\hline
-		\end{tabular}
-	\label{tab:ExemploDePrioridades}
-\end{table}
-
-Suas chances de gerar uma emergência ficaram da seguinte forma (Tabela \ref{tab:ExemploDeChancesDeEmergência}):
-
-\begin{table}[!hbt]
-	\caption{Exemplo de chances de emergência}
-	\centering
-		\begin{tabular}
-			{|c|c|}
-			\hline
-			Sala & Chance \\
-			\hline
-			1&0,333\\
-			2&0,067\\
-			3&0,267\\
-			4&0,333\\					
-			\hline
-		\end{tabular}
-	\label{tab:ExemploDeChancesDeEmergência}
-\end{table}
+Isso faz com que a soma das chances seja igual a um. 
 
 \subsection{Resultados}
 \label{resultados}
@@ -646,68 +542,30 @@ Para os testes foram criados sete mapas, cada qual com uma peculiaridade diferen
 \begin{table}[!hbt]
 	\centering
 	\caption{Mapas para testes}
-		\begin{tabular}{|c|c|c|}
+		\begin{tabular}{|@{\hspace{0.05cm}}p{0.8cm}@{\hspace{0.01cm}}
+										|@{\hspace{0.05cm}}p{1.0cm}@{\hspace{0.01cm}}
+										|@{\hspace{0.05cm}}p{1.5cm}@{\hspace{0.01cm}}
+										|@{\hspace{0.05cm}}p{3.5cm}@{\hspace{0.01cm}}|}
 			\hline
-			Designação & N\# de Salas & Prioridades \\
+			Nome & N\# de Salas & Prioridades & Formato\\
 			\hline
-			A	& 4 & Iguais		 \\
-			B	& 4 & Diferentes \\
-			C	& 5 & Diferentes \\
-			D	& 5 & Diferentes \\
-			E	& 6 & Iguais		 \\
-			F	& 6 & Diferentes \\
-			G	& 8 & Diferentes \\
+			\center A	& \center 4 & \center Iguais 		 & Quadrado com ligação entre todas as salas.\\
+			\hline
+			\center B	& \center 4 & \center Diferentes & Idem ao mapa B.\\
+			\hline
+			\center C	& \center 5 & \center Diferentes & Cinco salas em formato um X com ligações entre as salas das pontas.\\
+			\hline
+			\center D	& \center 5 & \center Diferentes & Cinco salas em formato de X com somente a sala do meio ligando as outras.\\
+			\hline
+			\center E	& \center 6 & \center Iguais		 & Seis salas em formato de espinha de peixe.\\
+			\hline
+			\center F	& \center 6 & \center Diferentes & Idem ao Mapa F.\\
+			\hline
+			\center G	& \center 8 & \center Diferentes & Oito salas simulando um apartamento real.\\
 			\hline
 		\end{tabular}
 	\label{tab:mapas_para_testes}
 \end{table}
-
-Na seqüência são mostrados os grafos de cada mapa:
-
-Mapas A e B com quatro salas com ligação entre todas as salas (Figura \ref{fig:grafo_quatro}):
-
-\begin{figure}[!hbt]
-	\centering
-		\includegraphics[width=0.1\textwidth]{../../imagens/mapa_quatro.jpg}
-	\caption{Grafo do Mapa A e B.}
-	\label{fig:grafo_quatro}
-\end{figure}
-	
-Mapa C com cinco salas que formam um X com ligações entre as salas das pontas (Figura \ref{fig:grafo_x}):
-	
-\begin{figure}[!hbt]
-	\centering
-		\includegraphics[width=0.13\textwidth]{../../imagens/mapa_x.jpg}
-	\caption{Grafo do Mapa C.}
-	\label{fig:grafo_x}
-\end{figure}
-
-Mapa D com cinco salas em formato de X com somente a sala do meio ligando as outras (Figura \ref{fig:grafo_x_incompleto}):
-	
-\begin{figure}[!hbt]
-	\centering
-		\includegraphics[width=0.13\textwidth]{../../imagens/mapa_x_incompleto.jpg}
-	\caption{Grafo do Mapa D.}
-	\label{fig:grafo_x_incompleto}
-\end{figure}
-
-Mapas E e F com seis salas em formato de espinha de peixe (Figura \ref{fig:grafo_espinha}):
-
-\begin{figure}[!hbt]
-	\centering
-		\includegraphics[width=0.13\textwidth]{../../imagens/mapa_espinha.jpg}
-	\caption{Grafo do Mapa E e F.}
-	\label{fig:grafo_espinha}
-\end{figure}
-
-Mapa G com oito salas simulando um apartamento real (Figura \ref{fig:grafo_ap}):
-
-\begin{figure}[!hbt]
-	\centering
-		\includegraphics[width=0.4\textwidth]{../../imagens/mapa_ap.jpg}
-	\caption{Grafo do Mapa G.}
-	\label{fig:grafo_ap}
-\end{figure}
 
 A Tabela \ref{tab:sequencia} mostra as seqüência de salas geradas pelo programa \texttt{gerador}.
 
@@ -815,7 +673,14 @@ A Tabela \ref{tab:resultados} mostrou também que as freqüências relativas dos to
 
 Por fim, a Tabela \ref{tab:resultados} mostrou também que nos mapas A e E a solução \textit{Offline} foi melhor que a solução em Tempo Real através da diferença quadrática e nos mapas B, C, D, F e G a solução em Tempo Real foi melhor que a solução \textit{Offline} através da diferença quadrática.
 
-GRAFICOS
+Todos os gráficos tiveram o mesmo comportamento, a solução \textit{Offline} mantendo os valores dentro de uma faixa e a solução em Tempo Real subindo e estabilizando-se em uma faixa com valores superiores à solução \textit{Offline} (Figura \ref{fig:grafico}).
+
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=0.45\textwidth]{../../../resultados/graficos/ap.png}
+	\caption{Gráfico do Mapa G}
+	\label{fig:grafico}
+\end{figure}
 
 
 \subsubsection{Análise Comparativa}
@@ -843,7 +708,7 @@ Foi calculada uma média do Grau de Urgência Total de cada solução em cada mapa c
 
 \begin{figure}[!hbt]
 	\centering
-		\includegraphics[width=0.4\textwidth]{../../imagens/tendencia.png}
+		\includegraphics[width=0.3\textwidth]{../../imagens/tendencia.png}
 	\caption{Tendência de Desempenho}
 	\label{fig:grafico_tendencia}
 \end{figure}
@@ -934,16 +799,11 @@ Foi calculada uma média do Grau de Urgência Total de cada solução em cada mapa c
 
 
 \section{Conclusão}
-Analisando os testes pode-se constatar que:
-
-\begin{itemize}
-	\item Segundo o critério de avaliação de freqüência relativa, a solução em Tempo Real foi superior à solução \textit{Offline}, pois foi mais eficiente em cinco dos sete testes e na soma total das diferenças quadráticas (0,10812 da solução \textit{Offline} contra 0,00652 da solução em Tempo Real);
-	\item Segundo o critério de avaliação de Grau de Urgência Total a solução \textit{Offline} foi melhor que a solução em Tempo Real em todos os testes realizados e o gráfico da Figura \ref{fig:grafico_tendencia} mostrou que existe um tendência de que quanto maior o número de salas maior será a eficiência da solução \textit{Offline} em relação à solução em Tempo Real.
-\end{itemize}
+Segundo o critério de avaliação de freqüência relativa, a solução em Tempo Real foi superior à solução \textit{Offline}, pois foi mais eficiente em cinco dos sete testes e na soma total das diferenças quadráticas (0,10812 da solução \textit{Offline} contra 0,00652 da solução em Tempo Real) e segundo o critério de avaliação de Grau de Urgência Total a solução \textit{Offline} foi melhor que a solução em Tempo Real em todos os testes realizados e o gráfico da Figura \ref{fig:grafico_tendencia} mostrou que existe um tendência de que quanto maior o número de salas maior será a eficiência da solução \textit{Offline} em relação à solução em Tempo Real.
 
 Era esperado que a solução \textit{Offline} tivesse um desempenho pior que a solução em Tempo Real no critério de avaliação de freqüência relativa, pois a avaliação das seqüências de salas à visitar é baseada somente no Grau de Urgência Total; e o desempenho das soluções segundo o critério de avaliação de Grau de Urgência Total mostra que o robô, seguindo uma heurística simples, tem um desempenho inferior do que uma solução que determina a seqüência de salas a serem visitadas, baseada no Grau de Urgência Total, antes de colocar o robô no ambiente.
 
-Por fim, o que determina qual solução deve ser utilizada depende da aplicação. Se para a aplicação a freqüência relativa for mais importante do que manter o Grau de Urgência baixo, deve-se escolher a solução em Tempo Real, porém se para a aplicação for mais importante manter o Grau de Urgência baixo deve-se escolher a solução \textit{Offline}, que foi baseada no Grau de Urgência Total.
+Por fim, o que determina qual solução deve ser utilizada depende da aplicação. Se para a aplicação a freqüência relativa for mais importante do que manter o Grau de Urgência baixo, deve-se escolher a solução em Tempo Real, porém se para a aplicação for mais importante manter o Grau de Urgência baixo deve-se escolher a solução \textit{Offline}.
 
 Para dar continuidade ao projeto o próximo é explorar a utilização de mais de um robô para realizar a tarefa, cada robô monitorar um conjunto de salas divididas por prioridade ou proximidade, ou todos os robôs podem monitorar todas as salas etc.
 
