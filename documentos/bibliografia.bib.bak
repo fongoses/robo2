@@ -3,13 +3,13 @@
 
 @ARTICLE{Adorno2005,
   author = {B. V. Ad\^{o}rno and C. S. R. Aguiar and G. A. Borges},
-  title = {{PLANEJAMENTO} {DE} {TRAJET\'{O}RIA} {PARA} O {ROB\^{O}} {OMNI} {UTILIZANDO}
-	O {ALGORITMO} {MAPA} {DE} {ROTAS} {PROBABIL\'{I}STICO}},
+  title = {Planejamento de Trajet\'{o}ria para o Rob\^{o} Omni Utilizando o
+	Algoritmo Mapa de Rotas Probabil\'{i}stico},
   year = {2005}
 }
 
 @ARTICLE{Andreasson2007,
-  author = {Andreasson, H and Treptow, A and Duckettm t.},
+  author = {Andreasson, H. and Treptow, A. and Duckettm T.},
   title = {Self-localization in non-stationary environments using omni-directional
 	vision.},
   journal = {Robotics and Autonomous System},
@@ -24,7 +24,7 @@
   title = {Pesquisa operacional},
   publisher = {Elsevier Campus},
   year = {2007},
-  author = {M. N. Arenales and V. {ARMENTANO} and R. {MORABITO} and H. {YANASSE}}
+  author = {M. N. Arenales and V. Armentano and R. Morabito and H. Yanasse}
 }
 
 @BOOK{Arkin1998,
@@ -35,7 +35,7 @@
 }
 
 @ARTICLE{Baguinski,
-  author = {Artm Baguinski},
+  author = {A. Baguinski},
   title = {Laser Measurement System Object For Max},
   journal = {V2},
   howpublished = {http://www.v2.nl/},
@@ -156,10 +156,11 @@
   author = {G. Dudek and M. Jenkin}
 }
 
-@MISC{FriendlyRobotics,
+@MISC{FriendlyRobotics2010,
   author = {{FriendlyRobotics}},
   title = {Robomow{\textregistered} Lawn Mower - Automatic Lawnmower},
   howpublished = {http://www.friendlyrobotics.com/},
+  year = {2010},
   url = {http://www.friendlyrobotics.com/}
 }
 
@@ -193,10 +194,20 @@
   title = {Graphs and algorithms},
   publisher = {John Wiley {\textbackslash}\&amp; Sons, Inc.},
   year = {1984},
-  author = {Michel Gondran and Michel Minoux and Steven Vajda},
+  author = {M. Gondran and M. Minoux and S. Vajda},
   pages = {650},
   isbn = {0471-10374-8},
   url = {http://portal.acm.org/citation.cfm?id=SERIES10548.817}
+}
+
+@MISC{Google2010,
+  author = {Google},
+  title = {Google Maps},
+  howpublished = {http://maps.google.com/},
+  year = {2010},
+  owner = {Heitor},
+  timestamp = {2010.06.17},
+  url = {http://maps.google.com/maps?f=q&source=s_q&hl=pt-BR&geocode=&q=sao+carlos&sll=-23.205099,-45.903588&sspn=0.014594,0.027874&ie=UTF8&hq=&hnear=S%C3%A3o+Carlos+-+S%C3%A3o+Paulo,+Brasil&ll=-22.010024,-47.895219&spn=0.014721,0.027874&z=16}
 }
 
 @ARTICLE{Heinen2002,
@@ -262,10 +273,11 @@
 	na presen\c{c}a de obst\'{a}culos est\'{a}ticos e/ou m\'{o}veis imprevistos.}
 }
 
-@MISC{IRobot,
+@MISC{IRobot2010,
   author = {{IRobot}},
   title = {{iRobot} Corporation},
   howpublished = {http://store.irobot.com/corp/index.jsp},
+  year = {2010},
   url = {http://store.irobot.com/corp/index.jsp}
 }
 
@@ -291,7 +303,7 @@
 }
 
 @INPROCEEDINGS{Medeiros1998,
-  author = {Adelardo A. D. Medeiros},
+  author = {A. A. D. Medeiros},
   title = {Introdu\c{c}\~{a}o \`{a} Rob\'{o}tica},
   year = {1998},
   pages = {56--65},
@@ -299,10 +311,11 @@
   month = jul
 }
 
-@MISC{MobileRobots,
+@MISC{MobileRobots2010,
   author = {{MobileRobots}},
   title = {Pioneer},
   howpublished = {{http://www.activrobots.com/ROBOTS/p2dx.html}},
+  year = {2010},
   url = {http://www.activrobots.com/ROBOTS/p2dx.html}
 }
 
@@ -313,22 +326,23 @@
   author = {R. Murphy}
 }
 
-@MISC{NASA,
+@MISC{NASA2010,
   author = {{NASA}},
   title = {Mars Pathfinder},
   howpublished = {http://mpfwww.jpl.nasa.gov/default.html},
+  year = {2010},
   url = {http://mpfwww.jpl.nasa.gov/default.html}
 }
 
 @ARTICLE{Neto2003,
-  author = {Gon\c{c}alo Neto and Hugo Costelha},
-  title = {{NAVEGA\c{C}\~{A}O} {TOPOL\'{O}GICA} {PARA} {FUTEBOL} {ROB\'{O}TICO}},
-  journal = {{UNIVERSIDADE} {T\'{E}CNICA} {DE} {LISBOA}},
+  author = {G. Neto and H. Costelha},
+  title = {Navegação Topológica para Futebol Robótico.},
+  journal = {Universidade Técnica de Lisboa},
   year = {2003}
 }
 
 @MASTERSTHESIS{Oliveira2010,
-  author = {Janderson Rodrigo de Oliveira},
+  author = {J. R. Oliveira},
   title = {Um sistema integrado para navega\c{c}\~{a}o aut\^{o}noma de rob\^{o}s
 	m\'{o}veis},
   school = {ICMC-USP},
@@ -357,8 +371,7 @@
 }
 
 @ARTICLE{Pedrosa2001,
-  author = {Diogo Pinheiro Fernandes Pedrosa and Adelardo Adelino Dantas Medeiros
-	and Pablo Javier Alsina},
+  author = {D. P. F. Pedrosa and A. A. D. Medeiros and P. J. Alsina},
   title = {Sistema de navega\c{c}\~{a}o para rob\^{o}s m\'{o}veis aut\^{o}nomos},
   journal = {Latin American Knowledge Harvester},
   year = {2001},
@@ -408,10 +421,11 @@
   url = {http://psurobotics.org/wiki/index.php?title=Player/Stage_Overview}
 }
 
-@MISC{Player,
+@MISC{Player2010,
   author = {Player},
   title = {Player Project},
   howpublished = {http://playerstage.sourceforge.net/},
+  year = {2010},
   url = {http://playerstage.sourceforge.net/}
 }
 
@@ -427,14 +441,13 @@
   title = {Artificial Intelligence},
   publisher = {Prentice Hall},
   year = {2003},
-  author = {Stuart Jonathan Russell and Peter Norvig and John F. Canny and Peter
-	Norvig, John F. Canny},
+  author = {S. J. Russell and P. Norvig and J. F. Canny},
   pages = {1080},
   isbn = {0137903952, 9780137903955}
 }
 
 @ARTICLE{Scatena2004,
-  author = {Jean Miler Scatena and Eduardo Marques},
+  author = {J. M. Scatena and E. Marques},
   title = {Implementa\c{c}\~{a}o de Mapas Topol\'{o}gicos para Navega\c{c}\~{a}o
 	de Rob\^{o}s M\'{o}veis Baseada em Computa\c{c}\~{a}o Reconfigur\'{a}vel.},
   journal = {Simp\'{o}sio Latino Americano em Aplica\c{c}\~{o}es de L\'{o}gica
@@ -479,7 +492,7 @@
 }
 
 @ARTICLE{Thrun2002,
-  author = {Sebastian Thrun},
+  author = {S. Thrun},
   title = {Probabilistic robotics},
   journal = {Commun. {ACM}},
   year = {2002},
@@ -515,8 +528,7 @@
 @INPROCEEDINGS{Thrun1996,
   author = {S. Thrun and A. B\"{u}cken},
   title = {Integrating grid-based and topological maps for mobile robot navigation},
-  booktitle = {{PROCEEDINGS} {OF} {THE} {NATIONAL} {CONFERENCE} {ON} {ARTIFICIAL}
-	{INTELLIGENCE}},
+  booktitle = {Proceeding of the National Conference on Artificial Intelligence},
   year = {1996},
   pages = {944--951}
 }
