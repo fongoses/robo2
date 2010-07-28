@@ -1,0 +1,45 @@
+\select@language {brazilian}
+\contentsline {section}{Sum\'ario}{xiv}{chapter*.5}
+\contentsline {section}{Lista de Figuras}{xvi}{chapter*.6}
+\contentsline {section}{Lista de Tabelas}{xvii}{chapter*.7}
+\contentsline {chapter}{\numberline {1}Introdu\c c\~ao}{1}{chapter.8}
+\contentsline {section}{\numberline {1.1}Contextualiza\c c\~ao}{1}{section.9}
+\contentsline {section}{\numberline {1.2}Motiva\c c\~ao}{3}{section.15}
+\contentsline {section}{\numberline {1.3}Objetivos}{4}{section.16}
+\contentsline {chapter}{\numberline {2}Rob\^os M\'oveis}{5}{chapter.17}
+\contentsline {section}{\numberline {2.1}Locomo\c c\~ao}{5}{section.18}
+\contentsline {section}{\numberline {2.2}Sensores}{7}{section.23}
+\contentsline {subsection}{\numberline {2.2.1}Od\^ometro}{8}{subsection.24}
+\contentsline {subsection}{\numberline {2.2.2}LASER}{8}{subsection.25}
+\contentsline {section}{\numberline {2.3}Rob\^o Pioneer}{9}{section.28}
+\contentsline {section}{\numberline {2.4}Player}{10}{section.31}
+\contentsline {subsection}{\numberline {2.4.1}Interface dos Drivers}{10}{subsection.32}
+\contentsline {subsection}{\numberline {2.4.2}Stage}{12}{subsection.43}
+\contentsline {chapter}{\numberline {3}Navega\c c\~ao de Rob\^os M\'oveis}{15}{chapter.46}
+\contentsline {section}{\numberline {3.1}Localiza\c c\~ao}{17}{section.49}
+\contentsline {section}{\numberline {3.2}Mapeamento}{17}{section.50}
+\contentsline {section}{\numberline {3.3}Planejamento de Trajet\'oria}{19}{section.55}
+\contentsline {subsection}{\numberline {3.3.1}\textit {Roadmap}}{19}{subsection.56}
+\contentsline {paragraph}{Diagrama de Voronoi}{19}{paragraph*.57}
+\contentsline {subsection}{\numberline {3.3.2}Decomposi\c c\~ao em C\'elulas}{20}{subsection.60}
+\contentsline {subsection}{\numberline {3.3.3}Campos Potenciais}{20}{subsection.63}
+\contentsline {section}{\numberline {3.4}Desvio de Obst\'aculos}{21}{section.66}
+\contentsline {subsection}{\numberline {3.4.1}\textit {Vector Field Histogram}}{22}{subsection.67}
+\contentsline {section}{\numberline {3.5}Considera\c c\~oes}{24}{section.72}
+\contentsline {chapter}{\numberline {4}Grafos e Aplica\c c\~oes}{25}{chapter.73}
+\contentsline {section}{\numberline {4.1}Grafos}{25}{section.74}
+\contentsline {section}{\numberline {4.2}Busca do Menor Caminho}{27}{section.81}
+\contentsline {subsection}{\numberline {4.2.1}Algoritmo de Dijkstra}{27}{subsection.82}
+\contentsline {section}{\numberline {4.3}Caixeiro-Viajante}{28}{section.97}
+\contentsline {section}{\numberline {4.4}Considera\c c\~oes}{29}{section.104}
+\contentsline {chapter}{\numberline {5}Desenvolvimento e Resultados}{31}{chapter.105}
+\contentsline {section}{\numberline {5.1}Crit\'erios de Avalia\c c\~ao}{31}{section.106}
+\contentsline {section}{\numberline {5.2}Metodologia}{32}{section.107}
+\contentsline {section}{\numberline {5.3}Solu\c c\~oes}{33}{section.108}
+\contentsline {subsection}{\numberline {5.3.1}\textit {Offline}}{33}{subsection.109}
+\contentsline {subsection}{\numberline {5.3.2}Tempo Real}{38}{subsection.176}
+\contentsline {section}{\numberline {5.4}Resultados}{40}{section.182}
+\contentsline {subsection}{\numberline {5.4.1}An\'alise Comparativa}{53}{subsection.249}
+\contentsline {section}{\numberline {5.5}Considera\c c\~oes}{54}{section.254}
+\contentsline {chapter}{\numberline {6}Conclus\~ao e Trabalhos Futuros}{55}{chapter.255}
+\contentsline {chapter}{Refer\^encias}{59}{chapter*.256}

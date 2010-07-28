@@ -1,0 +1,925 @@
+%==========================================================
+% Resultados Obtidos.
+% 
+% Autor
+% Heitor Luis Polidoro
+% 
+% Orientador
+% Prof. Dr. Denis Fernando Wolf
+%==========================================================
+
+\chapter{Desenvolvimento e Resultados}
+\label{resultados_obitdos}
+Esta dissertação tem como objetivo o desenvolvimento de uma estratégia eficiente para determinar uma seqüência de áreas a serem visitadas em ambientes internos com a finalidade de monitoramento destes ambientes utilizando um robô móvel. O problema a ser resolvido consiste na divisão de um ambiente previamente conhecido em áreas de interesse. A cada uma dessas áreas é atribuído um valor (peso) referente à sua importância de monitoramento. A prioridade com que o robô deve visitar determinadas áreas é calculada com base na importância dessas áreas e no tempo decorrido desde a sua última visita. Áreas de maior importância devem ser visitadas mais freqüentemente. 
+
+Para determinar a trajetória do robô foram criadas duas soluções, uma \textit{Offline} (seção \ref{offline}) e outra em Tempo Real seção (\ref{tempo_real}), essas soluções serão confrontadas em dois critérios de avaliação (seção \ref{criterios}), um baseado no Grau de Urgência Total e o outro baseado na freqüência relativa de cada sala.
+
+\section{Critérios de Avaliação}
+\label{criterios}
+Os algoritmos e estratégias serão então testados e avaliados. As avaliações consistem na comparação dos algoritmos e estratégias. Serão utilizados dois critérios de comparação, um critério comparando a freqüência relativa de cada sala com sua prioridade relativa, onde o melhor resultado é aquele em que a freqüência relativa se aproximar mais da prioridade relativa, pois se uma sala (a) possui uma prioridade com valor duas vezes maior que uma sala (b), a sala (a) deve ser visitada com o dobro de freqüência do que a sala (b). Esse cálculo é feito somando as diferenças quadráticas entre a prioridade relativa e a freqüência relativa de cada sala ($\sum_{i=0}^n (P_i/P_t - F_i/F_t)^2$). Isto indica que o algoritmo ou estratégia se manteve fiel à definição do problema: \textit{ Áreas de maior importância devem ser visitadas mais frequentemente}.
+
+O segundo critério é um gráfico mostrando a progressão da somatória dos graus de urgência de todas as salas (Grau de Urgência Total, $\sum_{i=0}^n U_i$) , no qual o melhor resultado consiste em manter o menor valor da somatória dos graus de urgência; mostrando que o algoritmo ou estratégia levou o robô às salas com maior eficiência. O grau de urgência $U$ é calculado multiplicando-se a prioridade relatica da sala $P/P_t$ pelo tempo decorrido desde a última visita $t$ $(U_i = P_i/P_t \times t_i)$. A casa visita o $t$ é zerado.
+
+\section{Metodologia}
+\label{metodologia}
+%#######################################################################################################
+%Para a solução do problema descrito anteriormente, supõe-se que o robô tenha uma descrição do ambiente em que atua (mapa). 
+%Os sensores que foram utilizados no projeto foram LASER e odômetro.
+%\section{Controle do Robô}
+%\label{controle_do_robo}
+%O controle do robô será desenvolvido utilizando-se a biblioteca Player/Stage \cite{Gerkey2003}, a qual permite que sejam realizadas simulações antes que os algoritmos %sejam testados com o robô real. Essas simulações são importantes para o aperfeiçoamento dos parâmetros como distâncias, velocidades, etc, antes do teste no Pioneer.
+%O método utilizado foi o VFH, por já vir implementado no Player e em testes se mostrou suficiente para o projeto.
+%#######################################################################################################
+Para a solução do problema descrito, o robô tem uma descrição completa do ambiente em que atua (mapa). Foram utilizados somente dois sensores: Odômetro para localizar o robô no mapa e o LASER para o desvio de obstáculos. O controle do robô foi desenvolvido utilizando a biblioteca Player/Stage. Para desvio de obstáculos utilizou-se a técnica VFH que já vem implementada no Player e se mostrou suficiente para o projeto.
+
+Cada ambiente tem um mapa topológico. % que será gerado utilizando o diagrama de Voronoi \ref{voronoi}). 
+O robô deve utilizar esse mapa para se locomover de uma sala para outra no ambiente. Para os algoritmos e estratégias determinarem a seqüência de salas a serem visitadas, é considerado um grafo completo com todas as salas, pois para determinar o melhor caminho entre uma sala e outra será utilizado o algoritmo de Dijkstra no mapa topológico.
+
+Como um dos critérios de avaliação está relacionado ao tempo que o robô fica sem visitar as salas é possível deduzir que a solução seja um ciclo.
+
+Considera-se:
+\begin{itemize}
+	\item Um ambiente com $S$ salas;
+	\item Um ciclo hamiltoniano $C$ qualquer;
+	\item $C_i$ é a i-ésima sala visitada no ciclo;
+	\item Uma velocidade constante do robô (tanto linear quanto angular);
+	\item $\Delta t_i$ o tempo para sair da sala $i$ e chegar na sala $i+1$.
+\end{itemize}
+
+
+Como o tempo de viagem entre as mesmas salas é constante todos os $\Delta t_i$ são constantes, portanto o tempo total do ciclo $T$ é constante $(\sum_{i=1}^S \Delta t_i = cte)$. Se o tempo do ciclo é constante, o tempo que o robô demora para revisitar cada sala é constante igual a $T$. Mas isso não é interessante para solução do problema pois o grau de urgência de cada sala é diferente, então se uma sala tem uma prioridade muito alta, seu grau de urgência vai ser muito alto até o robô revisitá-la. Para resolver esse problema, basta fazer com que o robô revisite essa(s) sala(s) mais de uma vez no ciclo. Então supondo um ciclo de tamanho $n$ ($n \geq S$) o tempo total do ciclo continua constante $(\sum_{i=1}^n \Delta t_i = cte)$. Portanto a solução do problema consiste em encontrar esse ciclo.
+
+\section{Soluções}
+\label{solucoes}
+
+Foram definidos dois tipos de soluções: uma solução \textbf{\textit{offline}}, ou seja, a solução é calculada em um computador e depois informada ao robô qual seqüência de sala ele deve seguir, essa seqüência não é alterada. E a outra é uma solução \textbf{tempo real}, ou seja, o robô define para qual sala deve ir durante a execução do algoritmo, baseando suas decisões no que está acontecendo no momento. A solução \textit{\textbf{offline}} é dividida em duas partes: \textbf{Gerador}, que cria possíveis seqüências de salas ótimas, e o \textbf{Avaliador} que analisa e computa uma nota para as seqüências de salas criadas pelo \textbf{Gerador}
+
+\subsection{\textit{Offline}}
+\label{offline}
+Esse método consiste em explorar as diversas possíveis combinações de seqüências de salas para encontrar a seqüência ótima antes de informar ao robô qual seqüência de salas deve seguir. Um programa chamado \texttt{gerador}, seguindo uma determinada heurística, gera as possíveis seqüências de salas, essas seqüências são fornecidas ao programa \texttt{avaliador} que, baseado no critério de maior Grau de Urgência Total, analisa a seqüência e retorna uma avaliação ao \texttt{gerador} que tomará a decisão de: descartar a seqüência, preservar a seqüência para gerar futuras seqüências ou guardar a seqüência como possível seqüência ótima.
+
+
+%\subsubsection{Gerador}
+\textbf{Gerador}
+\label{gerador}
+
+O programa chamado \texttt{gerador} é utilizado para gerar os candidatos à seqüência de salas ótima do mapa analisado. Esses candidatos são avaliados pelo programa \texttt{avaliador} e de acordo com a avaliação o \texttt{gerador} irá guardar a seqüência como possível ótima, descartar ou continuar utilizando essa seqüência para gerar novas seqüências. O programa \texttt{gerador} utiliza uma classe (tipo de variável) chamada $Agente$ contendo os seguintes atributos:
+
+\begin{itemize}
+	\item \texttt{vertice}: Vértice no qual o agente se encontra no momento;
+	\item \texttt{caminho}: Vetor de salas que guarda a seqüência de salas que o agente percorreu até chegar no vértice atual;
+	\item \texttt{avaliacao}: Avaliação da seqüência de salas do agente;
+	\item \texttt{tempo}: Tempo que o robô levou para percorrer a seqüência de salas até o vértice atual.
+\end{itemize}
+
+O \texttt{gerador} recebe apenas um parâmetro como entrada: o nome do mapa que quer achar a seqüência ótima. O programa inicia criando uma seqüência percorrendo as salas na ordem numérica (Sala 1, sala 2..) e classificada como possível ótima. A seguir o programa cria um $Agente$ em cada sala do mapa para explorar as possibilidades do robô começar em cada sala, esses $agentes$ são organizados em uma fila de candidatos.
+
+O laço principal do programa consiste em retirar um $agente$ da fila e para cada sala $i$ é criado um novo $agente$, simulando que o $agente$ retirado da fila navegou até a sala $i$. Em cada novo $agente$ é atualizada a seqüência de salas visitadas e o agente é reavaliado. Se a avaliação for um valor negativo o $agente$ é inserido na fila de $agentes$. Se o valor retornado for 0 (zero) o $agente$ é descartado. Caso o avaliador retorne um valor positivo e esse valor é menor que a avaliação da atual seqüência ótima, o novo $agente$ contendo a seqüência melhor é guardado como possível seqüência ótima. Como o algoritmo somente insere na fila os $agentes$ que podem gerar seqüências ótimas, o critério de parada é quando não existe mais $agentes$ na fila, o programa então retorna o $agente$ com a seqüência ótima. A Figura \ref{fig:fluxograma_gerador} mostra o fluxograma do programa \texttt{gerador} e o algoritmo \ref{alg:gerador} contém seu pseudocódigo.
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=.9\textwidth]{../../imagens/fluxograma_gerador.png}
+	\caption{Fluxograma do \texttt{gerador}}
+	\label{fig:fluxograma_gerador}
+\end{figure}
+
+\begin{algorithm}[!htb]
+\caption{\texttt{gerador}}
+\label{alg:gerador}
+\begin{algorithmic}[1]
+\REQUIRE  mapa
+\ENSURE $melhor\_agente$
+	\STATE $agente\_otimo.vertice \leftarrow 1$
+	\STATE $agente\_otimo.caminho \leftarrow 1, 2, 3...$
+	\STATE $agente\_otimo.avaliacao \leftarrow avaliar(agente\_otimo)$
+	\FORALL {sala $s$ do mapa}
+		\STATE Inicia $agente$ na sala $s$
+		\STATE Adiciona $agente$ na $fila$
+	\ENDFOR
+
+	\REPEAT
+		\STATE Retira o $agente$ do topo da fila
+		\FORALL {sala $s$ do mapa}
+			\STATE $novo\_agente \leftarrow agente$
+			\STATE Atualiza o vértice do $agente$ com a sala $s$
+			\STATE Adiciona a sala $s$ ao caminho do $novo\_agente$
+			\STATE Avalia o $novo\_agente$ como o caminho atual
+			
+			\IF {A avaliação for negativa}
+				\STATE \COMMENT {\textit{$novo\_agente$ não visitou todas as salas ou não é um loop}}
+				\STATE Adiciona o $novo\_agente$ no fim da $fila$
+			\ENDIF
+			\IF {A avaliação for positiva}
+				\STATE \COMMENT {\textit{$novo\_agente$ é melhor que o ótimo atual}}
+%				\STATE Coloca o $agente\_otimo$ no fim da fila \COMMENT {\textit{$agente\_otimo$ pode gerar um caminho ótimo}}
+				\STATE $agente\_otimo \leftarrow novo\_agente$ \COMMENT {\textit{Atualiza o $agente\_otimo$ com o $novo\_agente$}}
+			\ENDIF
+		\ENDFOR
+	\UNTIL Não exista $agente$ na fila
+	\RETURN $agente\_otimo$
+
+\end{algorithmic}
+\end{algorithm}
+
+A seguir, uma explicação mais detalhada de como o \texttt{gerador} cria as possíveis seqüências de salas para serem avaliadas. Será usado como exemplo um ambiente com quatro salas. Independente do mapa topológico, o gerador trabalha utilizando um grafo completo contendo somente as salas (Figura \ref{fig:gerador1}).
+
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=1.00\textwidth]{../../imagens/gerador1.png}
+	\caption{Grafo completo das salas.}
+	\label{fig:gerador1}
+\end{figure}
+
+%\newpage
+%\clearpage
+\pagebreak
+
+O \texttt{gerador} então cria um \textit{agente} em cada sala como mostra a Figura \ref{fig:gerador2}.
+
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=.90\textwidth]{../../imagens/gerador2.png}
+	\caption{Um agente em cada sala, e a fila de \textit{agentes}.}
+	\label{fig:gerador2}
+\end{figure}
+
+Seguindo o laço principal, o \textit{gerador} remove o primeiro \textit{agente} da fila, no caso é o \textit{agente} \textbf{a} (Figura \ref{fig:gerador3}).
+
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=.9\textwidth]{../../imagens/gerador3.png}
+	\caption{Removendo o \textit{agente} \textbf{a}.}
+	\label{fig:gerador3}
+\end{figure}
+
+Em seguida o \texttt{gerador} cria uma cópia do \textit{agente} \textbf{a} para cada sala, e simula que esses \textit{agentes} navegaram até sua sala correspondente (Figura \ref{fig:gerador4}). Atualizando o caminho que esse agente percorreu para chegar a essa sala e a avaliação desse caminho.
+
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=.9\textwidth]{../../imagens/gerador4.png}
+	\caption{Inserindo os \textit{agentes} \textbf{e}, \textbf{f} e \textbf{g}.}
+	\label{fig:gerador4}
+\end{figure}
+
+Após feito isso o \texttt{gerador} recomeça o ciclo, removendo o primeiro \textit{agente} da fila (no caso \textit{agente} \textbf{b}), criando outros \textit{agentes} e inserindo-os na fila de acordo com a avaliação adquirida (\textit{agentes} \textbf{h}, \textbf{i} e \textbf{j}) como mostra a Figura \ref{fig:gerador5}.
+
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=.9\textwidth]{../../imagens/gerador5.png}
+	\caption{Removendo o \textit{agente} \textbf{b} e inserindo os \textit{agentes} \textbf{h}, \textbf{i} e \textbf{j}.}
+	\label{fig:gerador5}
+\end{figure}
+
+O \texttt{gerador} permanece nesse ciclo até que não exista mais \textit{agente} na fila.
+
+%\subsubsection{Avaliador}
+\textbf{Avaliador}
+\label{avaliador}
+
+O programa chamado \texttt{avaliador} é utilizado para avaliar os candidatos a seqüência de salas ótima do mapa analisado gerado pelo programa \texttt{gerador} e retorna para o \texttt{gerador} um valor numérico. Baseado nesse valor o \texttt{gerador} irá guardar a seqüência como possível ótima, descartar ou continuar utilizando essa seqüência para gerar novas seqüência.
+
+O \texttt{avaliador} recebe três parâmetros como entrada:
+\begin{itemize}
+	\item O nome do mapa onde o caminho será avaliado;
+	\item Um vetor de vértices, representando a seqüência de salas a ser avaliada;
+	\item Um valor opcional de limite para a avaliação.
+\end{itemize}
+
+Com esses parâmetros o \texttt{avaliador} inicia a simulação do robô navegando pelo mapa. A velocidade linear, que determina a velocidade com que o robô anda para frente ou para trás, é definida pela constante \texttt{SIMULACAO\_VEL} como 1 m/s. A velocidade angular, que determina a velocidade com que o robô vira, é definida pela constante \texttt{SIMULACAO\_ROT} como 0,5 rad/s. O tempo que o robô demora para visitar uma sala é definido pela constante \texttt{VISITAR\_SALA} como 5 s. Todos esses valores foram definidos arbritrariamente.
+
+Durante a simulação, a cada visita de sala o \texttt{avaliador} mede o Grau de Urgência Total e salva o maior valor, esse valor vai ser a avaliação do caminho neste mapa. Após a simulação o \texttt{avaliador} verifica se a avaliação do caminho for maior que o limite fornecido o valor 0 (zero) é retornado, se nenhum limite for fornecido o \texttt{avaliador} utiliza o valor do maior inteiro do compilador. Se o caminho não visita todas as salas o \texttt{avaliador} retorna a avaliação com valor negativo, se todas as salas foram visitadas o \texttt{avaliador} verifica se o caminho é um \textit{loop}, ou seja, se o caminho começa e termina no mesmo vértice, caso contrário ele também retorna a avaliação em valor negativo.  Se o caminho for um \textit{loop}, visita todas as salas e o valor da avaliação for menor que o limite fornecido (ou menor que o maior inteiro do compilador), o valor da avaliação, maior Grau de Urgência Total em todo o percurso, é retornado pelo \texttt{avaliador}.
+
+Para critério de parada o \texttt{avaliador} compara o estado das salas, ou seja, se para cada sala, o Grau de Urgência e o número de visitas é o mesmo ao término do caminho. A Figura \ref{fig:fluxograma_avaliador} mostra o fluxograma do programa \texttt{avaliador} e o algoritmo \ref{alg:avaliador} contém seu pseudocódigo.
+
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=.8\textwidth]{../../imagens/fluxograma_avaliador.png}
+	\caption{Fluxograma do \texttt{avaliador}}
+	\label{fig:fluxograma_avaliador}
+\end{figure}
+
+\begin{algorithm}[!htb]
+\caption{\texttt{avaliador}}
+\label{alg:avaliador}
+\begin{algorithmic}[1]
+\REQUIRE mapa, caminho, limite = \texttt{INT\_MAX} 
+\ENSURE A avaliação do $caminho$ no $mapa$
+	\STATE carregar ($mapa$)
+	\STATE $aval \leftarrow 0$
+	\REPEAT
+		\STATE $salas\_anterior \leftarrow salas\_atual$
+		\FORALL {vértice $v$ em $caminho$}
+			\STATE Calcula o tempo necessário para o robô chegar ao vértice $v$
+			\STATE Soma a esse tempo o tempo para visitar a sala do vértice $v$
+			\STATE Atualiza os Graus de Urgência das salas com o tempo calculado
+			\IF {Grau de Urgência atual > $maior$}
+				\STATE $maior \leftarrow$ Grau de Urgência atual
+			\ENDIF
+			\STATE Visita a sala do vértice $v$
+		\ENDFOR
+
+		\IF {$aval$ > $limite$}
+			\RETURN 0
+		\ENDIF
+
+		\IF {Caminho não visita todas as salas do mapa}
+			\RETURN $-aval$
+		\ENDIF
+
+		\IF {Primeiro vértice do caminho diferente do último vértice do caminho} 
+		\STATE \COMMENT{\textit{Ou seja, não é considerado um loop}}
+			\RETURN $-aval$
+		\ENDIF
+	
+	\UNTIL $salas\_anterior$ = $salas\_atual$
+
+	\RETURN $aval$
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Tempo Real}
+\label{tempo_real}
+A solução em tempo real inicia as prioridades de todas as salas em zero, cada sala recebe um valor correspondente à chance dessa sala gerar uma emergência. Emergência é quando a sala solicita que o robô vá visitá-la, como uma lixeira cheia ou a sala não ser visitada por um tempo mínimo determinado por exemplo. A cada emergência gerada a prioridade da sala é acrescida de uma unidade. O robô segue o paradigma de ir à sala de maior grau de urgência, visita a sala e procura a próxima sala de maior grau de urgência.
+
+A chance de emergência que cada sala recebe é proporcional às prioridades, para fazer o cálculo basta dividir a prioridade da sala pela soma das prioridades do mapa.
+
+\begin{equation}
+	p_s = \frac{P_s}{\sum_{i=1}^{TotalSalas} P_i}
+	\label{eq:calc-chances}	
+\end{equation}
+
+Isso faz com que a soma das chances seja igual a um. A Tabela \ref{tab:ExemploDePrioridades} mostra um exemplo de um mapa com quatro salas.
+
+\begin{table}[!htb]
+	\caption{Exemplo de prioridades}
+	\centering
+		\begin{tabular}
+			{|c|c|}
+			\hline
+			Sala & Prioridade \\
+			\hline
+			1&5\\
+			2&1\\
+			3&4\\
+			4&5\\					
+			\hline
+		\end{tabular}
+	\label{tab:ExemploDePrioridades}
+\end{table}
+
+Suas chances de gerar uma emergência ficariam da seguinte forma (Tabela \ref{tab:ExemploDeChancesDeEmergência}):
+
+\begin{table}[!htb]
+	\caption{Exemplo de chances de emergência}
+	\centering
+		\begin{tabular}
+			{|c|c|}
+			\hline
+			Sala & Chance \\
+			\hline
+			1&0,333\\
+			2&0,067\\
+			3&0,267\\
+			4&0,333\\					
+			\hline
+		\end{tabular}
+	\label{tab:ExemploDeChancesDeEmergência}
+\end{table}
+
+\section{Resultados}
+\label{resultados}
+
+Para a solução em Tempo Real, por se tratar de uma solução baseada em números aleatórios, foram executados 100 repetições em cada mapa.
+
+Para os testes foram criados sete mapas, cada qual com uma peculiaridade diferente como mostra a tabela \ref{tab:mapas_para_testes}
+\begin{table}[!htb]
+	\centering
+	\caption{Mapas para testes}
+		\begin{tabular}{|c|c|c|}
+			\hline
+			Designação & N\# de Salas & Prioridades \\
+			\hline
+			A			& 4 & Iguais		 \\
+			B	& 4 & Diferentes \\
+			C						& 5 & Diferentes \\
+			D& 5 & Diferentes \\
+			E			& 6 & Iguais		 \\
+			F& 6 & Diferentes \\
+			G	& 8 & Diferentes \\
+			\hline
+		\end{tabular}
+	\label{tab:mapas_para_testes}
+\end{table}
+
+Na seqüência são mostrados os resultados em cada mapa:
+
+\begin{itemize}
+	\item Mapa A: Com quatro salas de prioridades iguais (Tabela \ref{tab:P_quatro}) e ligação entre todas as salas (Figura \ref{fig:grafo_quatro}):
+
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=0.25\textwidth]{../../imagens/mapa_quatro.png}
+	\caption{Grafo do Mapa A e B.}
+	\label{fig:grafo_quatro}
+\end{figure}
+
+\begin{table}[!htb]
+	\centering
+	\caption{Prioridades do Mapa A.}
+ 	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & Prioridade\\
+		\hline
+		1& 1 \\
+		2& 1 \\
+		3& 1 \\
+		4& 1 \\
+		\hline
+  \end{tabular}
+  \label{tab:P_quatro}
+\end{table}
+
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 2 4 3.
+
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_quatro}.		
+ 		
+\begin{table}[!htb]		
+	\centering	
+	\caption{Prioridades relativas do Mapa A.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1 & 0,25 & 0,24989 \\
+		2 & 0,25 & 0,24860 \\
+		3 & 0,25 & 0,25224 \\
+		4 & 0,25 & 0,24927 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Pr_quatro}	
+\end{table}		
+ 		
+A Tabela \ref{tab:Fr_quatro} mostra que as freqüências relativas tanto da solução \textit{Offline} quanto da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa. A tabela mostra também que a solução \textit{Offline} foi melhor que a solução em Tempo Real através da diferença quadrática.
+ 		
+\begin{table}[!htb]
+	\centering	
+	\caption{Freqüências Relativas do Mapa A.}	
+	\begin{tabular}{cc|c|c|c|c|}	
+		\cline{3-6}
+		& & \multicolumn{2}{c|}{\textit{Offline}}& \multicolumn{2}{c|}{Tempo Real}\\
+		\hline
+		\multicolumn{1}{|c|}{Sala} & Prioridade Rel. & Freq. & Freq. Rel. & Freq. & Freq. Rel. \\
+		\hline
+		\multicolumn{1}{|c|}{1} & 0,25 & 901 & 0,25021 & 771,31 & 0,25114 \\
+		\multicolumn{1}{|c|}{2} & 0,25 & 900 & 0,24993 & 775,88 & 0,25263 \\
+		\multicolumn{1}{|c|}{3} & 0,25 & 900 & 0,24993 & 764,04 & 0,24877 \\
+		\multicolumn{1}{|c|}{4} & 0,25 & 900 & 0,24993 & 760,02 & 0,24746 \\
+		\hline
+		\multicolumn{2}{|c|}{Diferença Quadrática} & \multicolumn{2}{c|}{0,00000} & \multicolumn{2}{c|}{0,00002} \\
+		\hline
+	\end{tabular}	
+	\label{tab:Fr_quatro}	
+\end{table}			
+
+O gráfico (Figura \ref{fig:grafico_quatro}) mostra que a solução em Tempo Real depois de estabilizar teve um desempenho inferior à solução \textit{Offline}.
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=1\textwidth]{../../../resultados/graficos/quatro.png}
+	\caption{Gráfico do Mapa A.}
+	\label{fig:grafico_quatro}
+\end{figure}
+
+Como o Mapa A é relativamente pequeno (dois metros quadrados) e a seqüência gerada pela solução \textit{Offline} é visitar as salas no sentido anti-horário, o robô leva exatamente o mesmo tempo para ir de uma sala à outra. Como as prioridades iniciais do mapa são todas iguais e para gerar o gráfico foram tiradas medidas (Grau de Urgência Total) de dez em dez segundos, coincidiu de o robô a cada dez segundos estar no mesmo lugar no mapa, por isso o gráfico do Mapa A para a solução \textit{Offline} é uma linha. 
+%Fato que não acontece no gráfico do Mapa B (Figura \ref{fig:grafico_quatro_diff}), pois as prioridades não são todas iguais.
+ 
+	\item Mapa B: Com quatro salas com prioridades diferentes (Tabela \ref{tab:P_quatro_diff}) e ligação entre todas as salas (Figura \ref{fig:grafo_quatro}):
+	
+\begin{table}[!htb]
+	\centering
+	\caption{Prioridades do Mapa B.}
+ 	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & Prioridade\\
+		\hline
+			1& 1 \\
+			2& 1 \\
+			3& 5 \\
+			4& 5 \\
+		\hline
+  \end{tabular}
+  \label{tab:P_quatro_diff}
+\end{table}
+
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 3 4 2 4 3.
+
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_quatro_diff}.		
+ 		
+\begin{table}[!htb]		
+	\centering	
+	\caption{Prioridades relativas do Mapa B.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1 & 0,08333 & 0,08470 \\
+		2 & 0,08333 & 0,08331 \\
+		3 & 0,41667 & 0,41141 \\
+		4 & 0,41667 & 0,42058 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Pr_quatro_diff}	
+\end{table}		
+ 		
+A Tabela \ref{tab:Fr_quatro_diff} mostra as freqüências relativas das soluções \textit{Offline} e em Tempo Real. Nota-se que as freqüências relativas das salas 1 e 2 da solução \textit{Offline} são aproximadamente o dobro das suas respectivas prioridades relativas iniciais do mapa, porém, em números absolutos, é uma diferença de aproximadamente 0,08. E as freqüências relativas da solução em Tempo Real são próximas às suas respectivas prioridades relativas iniciais do mapa. A tabela mostra também que a solução em Tempo Real foi melhor que a solução \textit{Offline} através da diferença quadrática.
+		
+\begin{table}[!htb]	
+	\centering	
+	\caption{Freqüências Relativas do Mapa B.}	
+	\begin{tabular}{cc|c|c|c|c|}	
+		\cline{3-6}
+		& & \multicolumn{2}{c|}{\textit{Offline}}& \multicolumn{2}{c|}{Tempo Real}\\
+		\hline
+		\multicolumn{1}{|c|}{Sala} & Prioridade Rel. & Freq. & Freq. Rel. & Freq. & Freq. Rel. \\
+		\hline
+		\multicolumn{1}{|c|}{1} & 0,08333 & 546 & 0,16677 & 300,37 & 0,10130 \\
+		\multicolumn{1}{|c|}{2} & 0,08333 & 546 & 0,16677 & 296,35 & 0,09994 \\
+		\multicolumn{1}{|c|}{3} & 0,41667 & 1091 & 0,33323 & 1192,15 & 0,40206 \\
+		\multicolumn{1}{|c|}{4} & 0,41667 & 1091 & 0,33323 & 1176,27 & 0,39670 \\
+		\hline
+		\multicolumn{2}{|c|}{Diferença Quadrática} & \multicolumn{2}{c|}{0,02785} & \multicolumn{2}{c|}{0,00121} \\
+		\hline
+	\end{tabular}	
+	\label{tab:Fr_quatro_diff}	
+\end{table}		
+
+O gráfico do Mapa B (Figura \ref{fig:grafico_quatro_diff}), diferentemente do gráfico do Mapa A (Figura \ref{fig:grafico_quatro}), ilustra que a solução \textit{Offline} manteve o Grau de Urgência Total dentro de uma faixa, entre dez e trinta aproximadamente, mas seu desempenho também foi superior à solução em Tempo Real.
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=1\textwidth]{../../../resultados/graficos/quatro_diff.png}
+	\caption{Gráfico do Mapa B.}
+	\label{fig:grafico_quatro_diff}
+\end{figure}
+
+\pagebreak
+
+\item Mapa C: Com cinco salas que formam um X (Prioridades na Tabela \ref{tab:P_x}) com ligações entre as salas das pontas (Figura \ref{fig:grafo_x}):
+	
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=0.25\textwidth]{../../imagens/mapa_x.png}
+	\caption{Grafo do Mapa C.}
+	\label{fig:grafo_x}
+\end{figure}
+
+
+\begin{table}[!htb]
+	\centering
+	\caption{Prioridades do Mapa C e D.}
+ 	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & Prioridade\\
+		\hline
+			1& 1 \\
+			2& 5 \\
+			3& 5 \\
+			4& 5 \\
+			5& 5 \\
+		\hline
+  \end{tabular}
+  \label{tab:P_x}
+\end{table}
+
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 2 4 5 3 2 4 5 3.
+
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_x}.		
+ 		
+\begin{table}[!htb]		
+	\centering	
+	\caption{Prioridades relativas do Mapa C.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1 & 0,04762 & 0,04983 \\
+		2 & 0,23810 & 0,24044 \\
+		3 & 0,23810 & 0,23870 \\
+		4 & 0,23810 & 0,23501 \\
+		5 & 0,23810 & 0,23602 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Pr_x}	
+\end{table}		
+ 		
+A Tabela \ref{tab:Fr_x} mostra que freqüência relativa da sala 1 na solução \textit{Offline} foi maior que o dobro da sua prioridade relativa inicial do mapa, entretanto, a diferença numérica absoluta é aproximadamente 0,06. As freqüências relativas das salas restantes da solução \textit{Offline} e as freqüências relativas de todas as salas da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa. A tabela \ref{tab:Fr_x} mostra também que a solução Tempo Real foi melhor que a solução \textit{Offline} através da diferença quadrática.
+
+\begin{table}[!htb]
+	\centering	
+	\caption{Freqüências Relativas do Mapa C.}	
+	\begin{tabular}{cc|c|c|c|c|}	
+		\cline{3-6}
+		& & \multicolumn{2}{c|}{\textit{Offline}}& \multicolumn{2}{c|}{Tempo Real}\\
+		\hline
+		\multicolumn{1}{|c|}{Sala} & Prioridade Rel. & Freq. & Freq. Rel. & Freq. & Freq. Rel. \\
+		\hline
+		\multicolumn{1}{|c|}{1} & 0,04762 & 328 & 0,11134 & 151,35 & 0,05670 \\
+		\multicolumn{1}{|c|}{2} & 0,23810 & 655 & 0,22234 & 633,44 & 0,23729 \\
+		\multicolumn{1}{|c|}{3} & 0,23810 & 654 & 0,22200 & 635,52 & 0,23807 \\
+		\multicolumn{1}{|c|}{4} & 0,23810 & 655 & 0,22234 & 619,58 & 0,23210 \\
+		\multicolumn{1}{|c|}{5} & 0,23810 & 654 & 0,22200 & 629,54 & 0,23583 \\
+		\hline
+		\multicolumn{2}{|c|}{Diferença Quadrática} & \multicolumn{2}{c|}{0,00508} & \multicolumn{2}{c|}{0,00012} \\
+		\hline
+\end{tabular}	
+	\label{tab:Fr_x}	
+\end{table}		
+
+O gráfico (Figura \ref{fig:grafico_x}) mostra que a solução em Tempo Real depois de estabilizar teve um desempenho inferior à solução \textit{Offline}.
+
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=1\textwidth]{../../../resultados/graficos/x.png}
+	\caption{Gráfico do Mapa C.}
+	\label{fig:grafico_x}
+\end{figure}
+
+\pagebreak
+
+	\item Mapa D: Com cinco salas em formato de X (Prioridades iguais ao mapa anterior indicados na Tabela \ref{tab:P_x}) com somente a sala do meio ligando as outras (Figura \ref{fig:grafo_x_incompleto}):
+	
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=0.25\textwidth]{../../imagens/mapa_x_incompleto.png}
+	\caption{Grafo do Mapa D.}
+	\label{fig:grafo_x_incompleto}
+\end{figure}
+
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 2 3 4 5.
+
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_x_incompleto}.		
+ 		
+\begin{table}[!htb]		
+	\centering	
+	\caption{Prioridades relativas do Mapa D.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1 & 0,04762 & 0,04598 \\
+		2 & 0,23810 & 0,23794 \\
+		3 & 0,23810 & 0,24530 \\
+		4 & 0,23810 & 0,23984 \\
+		5 & 0,23810 & 0,23094 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Pr_x_incompleto}	
+\end{table}		
+
+\pagebreak
+ 		
+A Tabela \ref{tab:Fr_x_incompleto} mostra que as freqüências relativas da solução \textit{Offline} foram aproximadamente todas iguais, isso se deve ao fato de que a seqüência de salas a serem visitadas gerada pelo \texttt{gerador} manda o robô visitar cada sala apenas uma única vez dentro do \textit{loop}. Na mesma tabela pode-se ver também que as freqüências relativas da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa. A tabela mostra também que a solução Tempo Real foi melhor que a solução \textit{Offline} através da diferença quadrática.
+ 		
+\begin{table}[!htb]
+	\centering	
+	\caption{Freqüências Relativas do Mapa D.}	
+	\begin{tabular}{cc|c|c|c|c|}	
+		\cline{3-6}
+		& & \multicolumn{2}{c|}{\textit{Offline}}& \multicolumn{2}{c|}{Tempo Real}\\
+		\hline
+		\multicolumn{1}{|c|}{Sala} & Prioridade Rel. & Freq. & Freq. Rel. & Freq. & Freq. Rel. \\
+		\hline
+		\multicolumn{1}{|c|}{1} & 0,04762 & 456 & 0,20009 & 107,18 & 0,05481 \\
+		\multicolumn{1}{|c|}{2} & 0,23810 & 456 & 0,20009 & 467,55 & 0,23908 \\
+		\multicolumn{1}{|c|}{3} & 0,23810 & 456 & 0,20009 & 462,17 & 0,23633 \\
+		\multicolumn{1}{|c|}{4} & 0,23810 & 456 & 0,20009 & 455,16 & 0,23275 \\
+		\multicolumn{1}{|c|}{5} & 0,23810 & 455 & 0,19965 & 463,53 & 0,23703 \\
+		\hline
+		\multicolumn{2}{|c|}{Diferença Quadrática} & \multicolumn{2}{c|}{0,02906} & \multicolumn{2}{c|}{0,00009} \\
+		\hline
+	\end{tabular}	
+	\label{tab:Fr_x_incompleto}	
+\end{table}		
+
+O gráfico (Figura \ref{fig:grafico_x_incompleto}) mostra que a solução em Tempo Real depois de estabilizar teve um desempenho inferior à solução \textit{Offline}.
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=1\textwidth]{../../../resultados/graficos/x_incompleto.png}
+	\caption{Gráfico do Mapa D.}
+	\label{fig:grafico_x_incompleto}
+\end{figure}
+
+
+	\item Mapa E: Com seis salas de prioridades iguais (Tabela \ref{tab:P_espinha}) em formato de espinha de peixe (Figura \ref{fig:grafo_espinha}):
+
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=0.25\textwidth]{../../imagens/mapa_espinha.png}
+	\caption{Grafo do Mapa E e F.}
+	\label{fig:grafo_espinha}
+\end{figure}
+
+\begin{table}[!htb]
+	\centering
+	\caption{Prioridades do Mapa E.}
+ 	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & Prioridade\\
+		\hline
+		1& 2 \\
+		2& 2 \\
+		3& 2 \\
+		5& 2 \\
+		6& 2 \\
+		7& 2 \\
+		\hline
+  \end{tabular}
+  \label{tab:P_espinha}
+\end{table}
+
+
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 5 2 6 3 7.
+
+\pagebreak
+
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_espinha}.		
+ 
+\begin{table}[!htb]		
+	\centering	
+	\caption{Prioridades relativas do Mapa E.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1 & 0,16667 & 0,16990 \\
+		2 & 0,16667 & 0,16613 \\
+		3 & 0,16667 & 0,16571 \\
+		5 & 0,16667 & 0,16339 \\
+		6 & 0,16667 & 0,16720 \\
+		7 & 0,16667 & 0,16768 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Pr_espinha}	
+\end{table}		
+ 		
+
+
+A Tabela \ref{tab:Fr_espinha} mostra que as freqüências relativas tanto da solução \textit{Offline} quanto a em Tempo Real foram próximas às prioridades relativas iniciais do mapa.	A Tabela \ref{tab:Fr_espinha} mostra também que a solução \textit{Offline} foi melhor que a solução Tempo Real através da diferença quadrática.	
+ 		
+\begin{table}[!htb]
+	\centering	
+	\caption{Freqüências Relativas do Mapa E.}	
+	\begin{tabular}{cc|c|c|c|c|}	
+		\cline{3-6}
+		& & \multicolumn{2}{c|}{\textit{Offline}}& \multicolumn{2}{c|}{Tempo Real}\\
+		\hline
+		\multicolumn{1}{|c|}{Sala} & Prioridade Rel. & Freq. & Freq. Rel. & Freq. & Freq. Rel. \\
+		\hline
+		\multicolumn{1}{|c|}{1} & 0,16667 & 311 & 0,16694 & 274,01 & 0,16869 \\
+		\multicolumn{1}{|c|}{2} & 0,16667 & 311 & 0,16694 & 267,74 & 0,16483 \\
+		\multicolumn{1}{|c|}{3} & 0,16667 & 310 & 0,16640 & 271,14 & 0,16692 \\
+		\multicolumn{1}{|c|}{5} & 0,16667 & 311 & 0,16694 & 273,42 & 0,16832 \\
+		\multicolumn{1}{|c|}{6} & 0,16667 & 310 & 0,16640 & 262,80 & 0,16179 \\
+		\multicolumn{1}{|c|}{7} & 0,16667 & 310 & 0,16640 & 275,25 & 0,16945 \\
+		\hline
+		\multicolumn{2}{|c|}{Diferença Quadrática} & \multicolumn{2}{c|}{0} & \multicolumn{2}{c|}{0,00004} \\
+		\hline
+	\end{tabular}	
+	\label{tab:Fr_espinha}	
+\end{table}		
+
+O gráfico (Figura \ref{fig:grafico_espinha}) mostra que a solução em Tempo Real depois de estabilizar teve um desempenho inferior à solução \textit{Offline}.
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=1\textwidth]{../../../resultados/graficos/espinha.png}
+	\caption{Gráfico do Mapa E.}
+	\label{fig:grafico_espinha}
+\end{figure}
+
+\pagebreak
+
+	\item Mapa F: Com seis salas de prioridades diferentes (Tabela \ref{tab:P_espinha_diff}) em formato de espinha de peixe (Figura \ref{fig:grafo_espinha}):
+
+\begin{table}[!htb]
+	\centering
+	\caption{Prioridades do Mapa F.}
+ 	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & Prioridade\\
+		\hline
+			1& 5 \\
+			2& 1 \\
+			3& 2 \\
+			5& 2 \\
+			6& 1 \\
+			7& 1 \\
+		\hline
+  \end{tabular}
+  \label{tab:P_espinha_diff}
+\end{table}
+
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 2 6 5 1 7 3 5.
+
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_espinha_diff}.		
+ 		
+\begin{table}[!htb]		
+	\centering	
+	\caption{Prioridades relativas do Mapa F.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1 & 0,41667 & 0,41297 \\
+		2 & 0,08333 & 0,08386 \\
+		3 & 0,16667 & 0,16624 \\
+		5 & 0,16667 & 0,17418 \\
+		6 & 0,08333 & 0,07849 \\
+		7 & 0,08333 & 0,08427 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Pr_espinha_diff}	
+\end{table}		
+ 		
+A Tabela \ref{tab:Fr_espinha_diff} mostra que as freqüências relativas da solução \textit{Offline} foram diferentes das prioridades relativas iniciais do mapa, visitando as salas 1 e 5 o dobro de vezes que as demais salas, pois na seqüência determinada pelo \texttt{gerador} as salas 1 e 5 aparecem duas vezes cada uma. Todavia as freqüências relativas da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa. A Tabela \ref{tab:Fr_espinha_diff} mostra também que a solução Tempo Real foi melhor que a solução \textit{Offline} através da diferença quadrática.
+ 		
+\begin{table}[!htb]
+	\centering	
+	\caption{Freqüências Relativas do Mapa F.}	
+	\begin{tabular}{cc|c|c|c|c|}	
+		\cline{3-6}
+		& & \multicolumn{2}{c|}{\textit{Offline}}& \multicolumn{2}{c|}{Tempo Real}\\
+		\hline
+		\multicolumn{1}{|c|}{Sala} & Prioridade Rel. & Freq. & Freq. Rel. & Freq. & Freq. Rel. \\
+		\hline
+		\multicolumn{1}{|c|}{1} & 0,41667 & 462 & 0,25000 & 585,01 & 0,35364 \\
+		\multicolumn{1}{|c|}{2} & 0,08333 & 231 & 0,12500 & 167,40 & 0,10119 \\
+		\multicolumn{1}{|c|}{3} & 0,16667 & 231 & 0,12500 & 283,61 & 0,17144 \\
+		\multicolumn{1}{|c|}{5} & 0,16667 & 462 & 0,25000 & 294,42 & 0,17798 \\
+		\multicolumn{1}{|c|}{6} & 0,08333 & 231 & 0,12500 & 156,95 & 0,09488 \\
+		\multicolumn{1}{|c|}{7} & 0,08333 & 231 & 0,12500 & 166,87 & 0,10087 \\
+		\hline
+		\multicolumn{2}{|c|}{Diferença Quadrática} & \multicolumn{2}{c|}{0,04167} & \multicolumn{2}{c|}{0,00488} \\
+		\hline
+	\end{tabular}	
+	\label{tab:Fr_espinha_diff}	
+\end{table}		
+O gráfico (Figura \ref{fig:grafico_espinha_diff}) mostra que a solução em Tempo Real depois de estabilizar teve um desempenho inferior à solução \textit{Offline}.
+
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=1\textwidth]{../../../resultados/graficos/espinha_diff.png}
+	\caption{Gráfico do Mapa F.}
+	\label{fig:grafico_espinha_diff}
+\end{figure}
+	
+	\item Mapa G: Com oito salas de prioridades diferentes (Tabela \ref{tab:P_ap}) simulando um apartamento real (Figura \ref{fig:grafo_ap}):
+
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=0.8\textwidth]{../../imagens/mapa_ap.png}
+	\caption{Grafo do Mapa G.}
+	\label{fig:grafo_ap}
+\end{figure}
+
+
+\begin{table}[!hbt]
+	\centering
+	\caption{Prioridades do Mapa G.}
+ 	\begin{tabular}{|c|c|c|}
+		\hline
+		Sala & Prioridade\\
+		\hline
+		1 & 5 \\
+		3 & 5 \\
+		4 & 3 \\
+		5 & 3 \\
+		7 & 5 \\
+		9 & 4 \\
+		11& 4 \\
+		12& 4 \\
+		\hline
+  \end{tabular}
+  \label{tab:P_ap}
+\end{table}
+
+A seqüência de salas a serem visitadas gerada pelo \texttt{gerador} foi: 1 12 9 11 5 7 3 4.
+
+\pagebreak
+
+As prioridades relativas finais da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa, como mostra a Tabela \ref{tab:Pr_ap}.		
+ 		
+\begin{table}[!htb]
+	\centering	
+	\caption{Prioridades relativas do Mapa G.}	
+	\begin{tabular}{|c|c|c|}	
+		\hline
+		Sala & \textit{Offline} & Tempo Real \\
+		\hline
+		1 & 0,15152 & 0,15426 \\
+		3 & 0,15152 & 0,15233 \\
+		4 & 0,09091 & 0,08996 \\
+		5 & 0,09091 & 0,08924 \\
+		7 & 0,15152 & 0,14934 \\
+		9 & 0,12121 & 0,12566 \\
+		11& 0,12121 & 0,12133 \\
+		12& 0,12121 & 0,11789 \\
+		\hline
+	\end{tabular}	
+	\label{tab:Pr_ap}	
+\end{table}		
+ 		
+A Tabela \ref{tab:Fr_ap} mostra que as freqüências relativas da solução \textit{Offline} foram aproximadamente todas iguais, isso se deve ao fato de que a seqüência de salas a serem visitadas gerada pelo \texttt{gerador} manda o robô visitar cada sala apenas uma única vez dentro do \textit{loop}, porém as maiores diferenças numéricas são as das sala 4 e 5 que são aproximadamente 0,03. Na mesma tabela pode-se ver também que as freqüencias relativas da solução em Tempo Real foram próximas às prioridades relativas iniciais do mapa.	A Tabela \ref{tab:Fr_ap} mostra também que a solução em Tempo Real foi melhor que a solução \textit{Offline} através da diferença quadrática.
+ 		
+\begin{table}[!htb]
+	\centering	
+	\caption{Freqüências Relativas do Mapa G.}	
+	\begin{tabular}{cc|c|c|c|c|}	
+		\cline{3-6}
+		& & \multicolumn{2}{c|}{\textit{Offline}}& \multicolumn{2}{c|}{Tempo Real}\\
+		\hline
+		\multicolumn{1}{|c|}{Sala} & Prioridade Rel. & Freq. & Freq. Rel. & Freq. & Freq. Rel. \\
+		\hline
+		\multicolumn{1}{|c|}{1} & 0,15152 & 247 & 0,12525 & 234,33 & 0,14970 \\
+		\multicolumn{1}{|c|}{3} & 0,15152 & 246 & 0,12475 & 237,48 & 0,15172 \\
+		\multicolumn{1}{|c|}{4} & 0,09091 & 246 & 0,12475 & 152,10 & 0,09717 \\
+		\multicolumn{1}{|c|}{5} & 0,09091 & 246 & 0,12475 & 147,87 & 0,09447 \\
+		\multicolumn{1}{|c|}{7} & 0,15152 & 246 & 0,12475 & 222,23 & 0,14197 \\
+		\multicolumn{1}{|c|}{9} & 0,12121 & 247 & 0,12525 & 194,75 & 0,12442 \\
+		\multicolumn{1}{|c|}{11}& 0,12121 & 247 & 0,12525 & 187,90 & 0,12004 \\
+		\multicolumn{1}{|c|}{12}& 0,12121 & 247 & 0,12525 & 188,62 & 0,12050 \\
+		\hline
+		\multicolumn{2}{|c|}{Diferença Quadrática} & \multicolumn{2}{c|}{0,00446} & \multicolumn{2}{c|}{0,00016} \\
+		\hline
+	\end{tabular}	
+	\label{tab:Fr_ap}	
+\end{table}		
+
+\pagebreak
+
+O gráfico (Figura \ref{fig:grafico_ap}) mostra que a solução em Tempo Real depois de estabilizar teve um desempenho inferior à solução \textit{Offline}.
+
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=1\textwidth]{../../../resultados/graficos/ap.png}
+	\caption{Gráfico do Mapa G.}
+	\label{fig:grafico_ap}
+\end{figure}
+
+\pagebreak
+
+\subsection{Análise Comparativa}
+Foi calculada uma média do Grau de Urgência Total de cada solução em cada mapa com os últimos dez mil segundos (Tabela \ref{tab:media_final}); analisando essa média nota-se que existe uma tendência de que quanto maior o número de salas mais eficiente será a solução \textit{Offline} em relação à solução em Tempo Real, como mostra o gráfico na Figura \ref{fig:grafico_tendencia}.
+\begin{table}[!htb]
+	\centering
+	\caption{Média dos Últimos Dez Mil Segundos.}
+		\begin{tabular}{|c|c|c|}
+			\hline			
+			Mapa & & \\ 
+			(N\# de Salas) & \textit{Offline} & Tempo Real \\
+			\hline
+			A (4) 			& 25,000 & 28,150 \\
+			B (4) & 20,980 & 28,346 \\
+			C (5) 					& 28,905 & 38,753 \\
+			D (5)& 39,719 & 50,326 \\
+			E (6)			& 58,527 & 72.622 \\
+			F (6)& 55,557 & 66,711 \\
+			G (8)	& 73,318 &100,217 \\
+			\hline			
+		\end{tabular}
+	\label{tab:media_final}
+\end{table}
+
+
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=.7\textwidth]{../../imagens/tendencia.png}
+	\caption{Tendência de Desempenho}
+	\label{fig:grafico_tendencia}
+\end{figure}
+\end{itemize}
+
+\pagebreak
+
+\section{Considerações}
+Analisando os testes pode-se constatar que:
+
+\begin{itemize}
+	\item Segundo o critério de avaliação de freqüência relativa, a solução em Tempo Real foi superior à solução \textit{Offline}, pois foi mais eficiente em cinco dos sete testes e na soma total das diferenças quadráticas (0,10812 da solução \textit{Offline} contra 0,00652 da solução em Tempo Real);
+	\item Segundo o critério de avaliação de Grau de Urgência Total a solução \textit{Offline} foi melhor que a solução em Tempo Real em todos os testes realizados e o gráfico da Figura \ref{fig:grafico_tendencia} mostrou que existe um tendência de que quanto maior o número de salas maior será a eficiência da solução \textit{Offline} em relação à solução em Tempo Real.
+\end{itemize}
+
+Era esperado que a solução \textit{Offline} tivesse um desempenho pior que a solução em Tempo Real no critério de avaliação de freqüência relativa, pois a avaliação das seqüências de salas à visitar é baseada somente no Grau de Urgência Total; e o desempenho das soluções segundo o critério de avaliação de Grau de Urgência Total mostra que o robô, seguindo uma heurística simples, tem um desempenho inferior do que uma solução que determina a seqüência de salas a serem visitadas, baseada no Grau de Urgência Total, antes de colocar o robô no ambiente.
+
+Por fim, o que determina qual solução deve ser utilizada depende da aplicação. Se para a aplicação a freqüência relativa for mais importante do que manter o Grau de Urgência baixo, deve-se escolher a solução em Tempo Real, porém se para a aplicação for mais importante manter o Grau de Urgência baixo deve-se escolher a solução \textit{Offline}, que foi baseada no Grau de Urgência Total.
+
+\chapter{Conclusão e Trabalhos Futuros}
+\label{conclusao}
+
+A proposta dessa dissertação é o desenvolvimento de estratégias de monitoramento de ambientes internos. Essas estratégias podem ser utilizadas em diversas aplicações. Dentre elas, um robô vigia que monitora um ambiente; um robô que monitora a temperatura e umidade de ambientes onde esse fator é crítico; um robô que faz coleta de lixo ou correspondência; um robô para fazer limpeza de ambientes; um robô para fazer entregas de remédios a pacientes em um hospital e etc., sempre dando ênfase para áreas de maior importância.
+
+Para solucionar esse problema o ambiente à ser monitorado é dividido em áreas de interesse, relacionando uma prioridade (peso) à cada área referente à sua importância no monitoramento. A urgência com que o robô deve visitar cada área é calculada com base na prioridade da áreas e no tempo decorrido desde a sua última visita do robô. Áreas de maior importância devem ser visitadas mais freqüentemente. 
+
+Para determinar a trajetória do robô foram criadas duas soluções, uma \textit{Offline} e outra em Tempo Real. A solução \textit{Offline} consiste em fazer uma busca nas diversas possíveis combinações de seqüências de salas para encontrar a seqüência ótima antes de informar ao robô qual seqüência de salas deve seguir. O programa chamado \texttt{gerador} gera as possíveis seqüências de salas, essas seqüências avaliadas pelo programa \texttt{avaliador} que, baseado no critério de maior Grau de Urgência Total, analisa a seqüência e retorna a avaliação ao \texttt{gerador} que tomará a decisão de: descartar a seqüência, preservar a seqüência para gerar futuras seqüências ou guardar a seqüência como possível seqüência ótima. A solução em tempo real inicia as prioridades de todas as salas em zero e cada sala recebe uma chance de gerar uma emergência. A cada emergência gerada a prioridade da sala é acrescida de uma unidade. O robô segue o paradigma de ir à sala de maior grau de urgência, visita a sala e procura a próxima sala de maior grau de urgência.
+
+As soluções são comparadas em dois critérios de avaliação, um critério comparando a freqüência relativa de cada sala com sua prioridade relativa, onde o melhor resultado é aquele em que a freqüência relativa se aproximar mais da prioridade relativa. Isto indica que a solução se manteve fiel à definição do problema: \textit{ Áreas de maior importância devem ser visitadas mais frequentemente}. O segundo critério é um gráfico mostrando a progressão do Grau de Urgência Total, no qual o melhor resultado consiste em manter o menor Grau de Urgência Total, mostrando que a solução levou o robô às salas com maior eficiência. 
+
+Os testes mostraram que é possível utilizar tanto a solução \textit{Offline} quanto a solução em Tempo Real dependendo da aplicação, pois cada uma foi eficiente em um critério específico. A solução \textit{Offline} foi melhor no critério de Grau de Urgência total e a solução em Tempo Real foi melhor no critério de freqüência relativa.
+
+Para dar continuidade ao projeto o próximo é explorar a utilização de mais de um robô para realizar a tarefa, cada robô monitorar um conjunto de salas divididas por prioridade ou proximidade, ou todos os robôs podem monitorar todas as salas etc.

@@ -1,0 +1,197 @@
+%========================================================== 
+% Navegação de Robôs Móveis.
+% 
+% Autor Heitor Luis Polidoro
+% 
+% Orientador Prof.  Dr.  Denis Fernando Wolf
+%==========================================================
+
+\chapter{Navegação de Robôs Móveis} 
+\label{navegacao} 
+Em robótica, navegação é a ciência, arte, prática ou tecnologia de planejar e direcionar o percurso de um robô móvel enquanto percorre o meio ambiente (terra, água, ou ar).  Inerente em qualquer esquema de navegação é o desejo de alcançar um destino sem se perder ou colidir com algum obstáculo \cite{Mckerrow1991}. Vagar é uma forma de navegação que consiste em o robô andar sempre em frente e desviando dos obstáculos.  Em geral, navegação é um processo incremental que, segundo Murphy \cite{Murphy2000}, pode ser resolvido respondendo a quatro perguntas:
+
+\begin{itemize} 
+	\item \textbf{Para onde estou indo?} Geralmente determinado por um humano ou uma missão; 
+	\item \textbf{Qual o melhor caminho?} Esse é o problema de planejamento de trajetória e é a área da navegação que recebe mais atenção; 
+	\item \textbf{Por onde passei?} Enquanto o robô explora o ambiente, pode ser parte da missão mapear esse ambiente; 
+	\item \textbf{Onde estou?} Para seguir uma trajetória ou construir um mapa o robô precisa saber onde ele está.  
+\end{itemize}
+
+Essas questões podem ser sumarizadas em quatro passos segundo Goldberg \cite{Goldberg1995}:
+
+\begin{itemize} 
+	\item Percepção e modelagem do ambiente; 
+	\item Localização; 
+	\item Planejamento e decisão do movimento; 
+	\item Execução do movimento; 
+\end{itemize}
+
+A relação entre esses passos pode ser vista na Figura \ref{fig:fluxo_navegacao} \cite{Mckerrow1991}.
+
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=0.9\textwidth]{../../imagens/fluxo_navegacao.jpg}
+	\caption{Hierarquia do controle de um robô móvel mostrando o fluxo de informação \cite{Mckerrow1991}.}
+	\label{fig:fluxo_navegacao}
+\end{figure}
+
+Navegação é a instância do paradigma geral da robótica ``perceber - decidir - agir''.  A implementação da tarefa de navegação pode ser mais ou menos complexa dependendo do contexto em que a tarefa vai ser executada \cite{Goldberg1995}.
+
+\begin{itemize} 
+	\item \textbf{O ambiente:} pode ser inicialmente conhecido, parcialmente conhecido ou completamente desconhecido, pode ser estático ou com objetos móveis; 
+	\item \textbf{A meta:} pode ser especificada por \textit{landmarks} ou coordenadas; 
+	\item \textbf{A navegação em si:} pode ter restrições como tempo e melhor caminho; 
+	\item \textbf{As habilidades do robô:} poder de computação, sensores e suas incertezas, tamanho do robô e sua cinemática.  
+\end{itemize}
+
+A solução para o problema de navegação vai depender de todas essas restrições \cite{Goldberg1995}.
+
+A navegação pode ser dividida em duas grandes áreas: planejamento de trajetória e desvio de obstáculos.  Para o planejamento da trajetória o robô utiliza uma representação do ambiente (total ou parcial) e planeja uma trajetória que o leve de seu ponto de origem até seu destino, atendendo a requisitos como menor caminho ou  menos curvas, por exemplo.  O desvio de obstáculos é utilizado principalmente em ambientes dinâmicos, onde possam haver obstáculos móveis; sua função é fazer com que o robô chegue em seu destino de forma segura, ou seja, não colida com obstáculos que podem ser móveis ou não, utilizando sensores geralmente de distância, como LASERs e sonares, ou até mesmo utilizando câmeras.
+
+\section{Localização}
+\label{localizacao}
+Localização de robôs móveis é o processo de se estimar a posição de um robô dentro do ambiente no qual está inserido \cite{Olson2000}. Para fazê-lo é necessário que o robô utilize um mapa que modele o mundo ao seu redor e estime através deste modelo sua posição corrente e sua orientação. Sendo assim, a habilidade de estimar sua posição, através de seus sensores, é uma das pré-condições básicas para a autonomia de robôs móveis \cite{Burgard1996, Wolf2005, Andreasson2007}.
+
+O mapa do ambiente pode ser obtido automaticamente por um robô que seria responsável por explorar previamente o ambiente ou manualmente projetado por um ser humano \cite{Oliveira2010}. Para as técnicas de localização serem consideradas robustas, elas devem apresentar os seguintes requisitos \cite{Burgard1996, Wolf2005, Andreasson2007}:
+
+\begin{itemize}
+	\item Serem capazes de lidar com incertezas, pois os mapas que modelam o ambiente são geralmente imprecisos e os sensores, muitas vezes, não são perfeitos;
+	\item Lidarem com simetria, uma vez que muitos locais possuem mapas que não podem ser diferenciados com apenas uma medida. Por exemplo, corredores em um escritório;
+	\item Permitirem a integração da leitura de vários sensores diferentes, porque a fusão sensorial aumenta a confiabilidade do sistema compensando, assim,  os possíveis ruídos.
+\end{itemize}
+
+\section{Mapeamento}
+\label{mapa}
+Representar o ambiente onde o robô se encontra é importante pois, decisões baseadas na representação do ambiente podem ter impacto nas escolhas disponíveis para a representação da posição do robô. Muitas vezes a fidelidade da representação da posição é limitada pela fidelidade do mapa \cite{Siegwart2004}.
+
+Segundo Siegwart e Nourbakhsh \cite{Siegwart2004}, três relações fundamentais têm de ser entendidas quando se escolhe uma representação particular de mapa:
+\begin{itemize}
+	\item A precisão do mapa precisa ser compatível com a precisão da necessidade do robô para atingir seus objetivos;
+	\item A precisão do mapa e o tipo de dados dos recursos representados precisam ser compatíveis com a precisão e os tipo de dados retornados pelos sensores do robô;
+	\item A complexidade da representação do mapa tem impacto direto com a complexidade computacional.	
+\end{itemize}
+
+Existem várias maneiras de representar um mapa: Decomposição por célula, decomposição fixa, decomposição adaptada (com variação de célula), \textit{occupancy grid} e representação topológica etc. \cite{Siegwart2004}.
+
+Os mapas comumente conhecidos, que são vistos em guias ou na \textit{internet}, são os mapas métricos, onde as distâncias entre os pontos desejados podem ser medidas com uma régua e aplicando a escala indicada no mapa, se tem a exata distância entre esses pontos. Os mapas topológicos não representam o mapa como um todo, representam apenas pontos de interesse e a conectividade entre esses pontos. Mapas topológicos são representados em forma de grafos, onde os vértices são os pontos que se desejam representar e as arestas indicam sua conectividade, se é possível ir de um ponto à outro, qual a distância (indicada no peso da aresta) e a direção, ou seja, é possível ir do vértice \textbf{a} ao vértice \textbf{b} e vice-versa. A Figura \ref{fig:exemplo_de_mapas} traz exemplos de mapas métrico e topológico.
+
+\begin{figure}[!htb]
+  \centering
+	\subfigure[Mapa Métrico \cite{Google2010}]{
+		\includegraphics[width=0.6\textwidth]{../../imagens/mapa_google.png}
+		\label{fig:exemplo_mapa_metrico}}
+	\subfigure[Mapa Topológico]{
+		\includegraphics[width=0.3\textwidth]{../../imagens/exemplo_mapa_topológico.png}
+		\label{fig:exemplo_mapa_topologico}}	
+	\label{fig:exemplo_de_mapas}
+	\caption{Exemplos de mapas.}
+\end{figure}
+
+
+\section{Planejamento de Trajetória} 
+\label{planejamento} 
+O primeiro passo para planejar uma trajetória é transformar um possível modelo contínuo do ambiente em um mapa discreto compatível com o algoritmo de planejamento de trajetória escolhido.  É possível identificar três estratégias gerais de composição \cite{Siegwart2004}: 
+
+\begin{itemize} 
+	\item \textit{Roadmap}: identificar um conjunto de rotas nos espaços livres; 
+	\item Decomposição em células: discriminar entre células livres e ocupadas; 
+	\item Campos potenciais: impor uma função matemática sobre o espaço.  
+\end{itemize}
+
+\subsection{\textit{Roadmap}} 
+\label{roadmap} 
+A técnica de \textit{roadmap} para planejamento de trajetórias consiste em capturar a conectividade do espaço livre do ambiente em uma rede de curvas.  Essa rede é vista como um conjunto padrão de caminhos.  O planejamento da trajetória então se reduz à conectar os pontos inicial e final do robô no \textit{roadmap} e buscar neste um caminho entre esses dois pontos. Se existir um caminho ele será dado pela junção de três subcaminhos: um subcaminho entre o ponto inicial até algum ponto do \textit{roadmap}, um subcaminho do \textit{roadmap} e um subcaminho do \textit{roadmap} até o ponto final \cite{Ottoni2000}.
+
+Vários métodos propostos foram baseados nessa idéia, dentre eles: grafos de visibilidade, diagrama de Voronoi, rede de caminho livre e silhueta.  Nesta dissertação será utilizado o diagrama de Voronoi. 
+
+\paragraph{Diagrama de Voronoi}:
+\label{voronoi} 
+É um método completo de mapa de rotas que tende a maximizar a distância entre o robô e os obstáculos no mapa.  Para cada ponto livre no mapa é calculada a distância para o obstáculo mais próximo. O diagrama de Voronoi consiste nos pontos que são equidistantes de um ou mais obstáculos.  Um exemplo de diagrama de Voronoi em um mapa pode ser visto na Figura \ref{fig:exemplo_voronoi} \cite{Siegwart2004}.
+
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=0.4\textwidth]{../../imagens/exemplo_voronoi.jpg}
+	\caption{Exemplo de um diagrama de Voronoi \cite{Siegwart2004}.}
+	\label{fig:exemplo_voronoi}
+\end{figure}
+
+O diagrama de Voronoi tem uma deficiência importante, sensores de localização com alcance limitado.  Como o algoritmo maximiza a distância entre o robô e um objeto no ambiente, qualquer sensor de curto alcance no robô poderá falhar para perceber o mundo ao seu redor. Se o sensor de curto alcance está sendo usado para localização, então, o caminho designado pelo diagrama de Voronoi será pobre no ponto de vista para localização \cite{Siegwart2004}. Por outro lado, como por definição, o caminho é criado baseado em um ponto equidistante dos obstáculos, isso garante um rota segura do robô pelo mapa.
+
+\subsection{Decomposição em Células}
+\label{decomposicao_celulas} 
+Este método consiste em dividir o espaço livre do mapa em células, de forma que um caminho entre quaisquer duas células possa ser facilmente obtido. Um grafo, chamado \textit{grafo de conectividade}, representa a relação de adjacência entre as células; onde os vértices representam as células extraídas do espaço livre.  Somente existe uma aresta entre dois vértices se, e somente se, as células correspondentes foram adjacentes.  O resultado de um caminho é uma seqüência de células denominada \textit{canal}, de onde pode ser computado um caminho contínuo \cite{Ottoni2000}.  A Figura \ref{fig:decomposicao_celulas} demonstra um exemplo de mapa utilizando decomposição em células.
+
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=0.5\textwidth]{../../imagens/decomposicao_celulas.jpg}
+	\caption{Exemplo de um mapa com decomposição em células \cite{Siegwart2004}.}
+	\label{fig:decomposicao_celulas}
+\end{figure}
+
+\subsection{Campos Potenciais}
+\label{campos_potenciais}
+Neste método, o espaço livre é discretizado em uma fina grade, a cada posição é associada uma função com a qual pode-se fazer uma analogia a um campo potencial.  Como o tamanho da grade é grande, pois ela é fina, são utilizados métodos heurísticos para encontrar um caminho. A analogia que o método sugere é que o robô seja uma partícula movendo-se sob a influência de um campo potencial gerado pelos obstáculos e pelo seu ponto de destino. O ponto de destino gera um campo potencial que atrai o robô, enquanto os obstáculos geram um campo que repele o robô. O caminho final é dado pela força resultante desses campos potenciais. 
+
+Um exemplo de campos potenciais é mostrado na Figura \ref{fig:campos_potenciais}.  O campo potencial atrativo (b) é um parabolóide com ponto de mínimo localizado na posição do objetivo.  O campo potencial repulsivo (c) é diferente de zero somente a partir de uma determinada distância dos obstáculos. O caminho (e) é construído pela direção oposta a do gradiente do potencial resultante (d). Em (f) tem-se uma matriz de orientações do vetor gradiente, que são as orientações das forças induzidas pelo campo potencial \cite{Ottoni2000}.
+
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=0.7\textwidth]{../../imagens/campos_potenciais.jpg}
+	\caption{Exemplo de um mapa com campos potenciais.\cite{Ottoni2000}}
+	\label{fig:campos_potenciais}
+\end{figure}
+
+\section{Desvio de Obstáculos} 
+\label{desvio} 
+Recentemente, muitas pesquisas voltaram sua atenção para o problema de desvio de obstáculos.  Entretanto, existem alguns métodos clássicos de desvio de obstáculos que devem ser citados \cite{Borenstein1991}: Detecção de borda, \textit{certainty grid}, campos potenciais, campo de força virtual e \textit{vector field histogram}. 
+
+Detecção de borda é um método bem popular que extrai as bordas verticais do objeto e guia o robô ao redor dessas bordas. 
+
+\textit{Certainty grid} é um método de representação probabilístico de obstáculos que modela o mundo em uma grade, onde a área de trabalho do robô é modelada em um arranjo de quadrados em 2D, chamadas de células.  Cada célula tem um valor de certeza que indica o grau de confiança de que algum objeto está na área dessa célula. 
+
+O método de campos potenciais funciona tanto para planejamento de trajetória quanto para desvio de obstáculos, para isso basta calcular a força potencial resultante em tempo de execução, com isso o robô poderá desviar de obstáculos móveis.
+
+O campo de força virtual (do inglês \textit{Virtual Force Field} - VFF) é um método para veículos que necessitam de uma resposta mais rápida para fazerem curvas. É um método baseado na \textit{certainty grid}, onde uma grade de histograma cartesiano 2D é usado para representar a probabilidade de cada célula conter um obstáculo, depois a idéia de campos potenciais é aplicada ao histograma.
+
+E, por fim, o método de \textit{vector field histogram} - VFH, que cria um mapa de \textit{certainty grid} local e, ao invés de utilizar um histograma cartesiano 2D, utiliza um histograma polar ($\alpha-P$), onde $\alpha$ é o ângulo do sensor e $P$ é a probabilidade de haver um obstáculo nessa direção. O VFH é explicado melhor a seguir.
+
+\subsection{\textit{Vector Field Histogram}}
+\label{VFH}
+Analisando melhor o método VFF percebe-se um problema que é a redução drástica excessiva dos dados quando forças de repulsão individuais do histograma da grade de células são somadas para calcular o vetor resultante. Centenas de pontos de dados são reduzidos em um passo para direção e magnitude. Conseqüentemente, informações detalhadas sobre a distribuição local do obstáculo é perdida. Para evitar essa situação, foi desenvolvido um novo método chamado \textit{Vector Field Histogram} - VFH. O Método VFH utiliza dois estágios de redução de dados \cite{Borenstein1991}.
+
+O VFH mantém um mapa métrico probabilístico simplificado baseado em malhas, semelhante ao \textit{Certainty grid}, porém utiliza valores inteiros entre zero e cinco, no lugar de valores reais entre zero e um, como no \textit{Certainty grid} \cite{Oliveira2010}.
+
+Outra diferença entre o VFH e o \textit{Certainty grid} é em relação à maneira como o mapa é gerado, pois para conseguir operar com rapidez para desviar de obstáculos em velocidades elevadas, o custo para a manutenção do mapa tem que ser baixo, ou seja, ocupar pouco tempo do processador. Para isso o mapa é obtido através de amostragem rápida, onde cada célula é iniciada em zero e é incrementada em um cada vez que um sensor detectar um obstáculo naquela posição, até que alcance cinco (valor máximo) e não mudará mais \cite{Oliveira2010}.
+
+A cada iteração do algoritmo é realizada uma amostragem rápida, criando um histograma polar. Esse histograma é criado de tal forma que as regiões ao redor do robô são divididas em $k$ setores, contendo cada um sua densidade de ocupação. Esse histograma não é feito no mapa todo, e sim somente em uma região ativa, cujo centro é o robô \cite{Oliveira2010}.
+
+Existem três níveis de representação de dados \cite{Borenstein1991}:
+
+\begin{itemize}
+	\item O nível mais alto contém uma descrição detalhada do ambiente do robô;
+	\item No nível intermediário é armazenado um histograma polar unidimensional sobre a localização momentânea do robô;
+	\item O nível mais baixo é a saída do algoritmo VFH, valores de referência para o controle de movimento do robô.
+\end{itemize}
+
+No primeiro estágio da redução de dados é mapeada a grade de histograma do ambiente (Figura \ref{fig:histogram_grid}) em um histograma polar (Figura \ref{fig:polar_histogram}). E no segundo estágio é calculado o ângulo $\Omega$ entre o robô e a meta; para isso, escolhe-se o setor $k$, referente ao ângulo mais próximo de $\Omega$, com a densidade de ocupação menor que uma constante pré-definida. Sendo assim, o ângulo $\theta$, referente a esse setor, determina para onde o robô deve virar. E a velocidade linear pode ser calculada com heurísticas que utilizam as densidades de ocupação próximas ao ângulo $\theta$ \cite{Oliveira2010}.
+
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=0.8\textwidth]{../../imagens/histogram_grid.png}
+	\caption{(a) Exemplo de um mapa. (b) Grade de histograma correspondente.\cite{Borenstein1991}}
+	\label{fig:histogram_grid}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=0.9\textwidth]{../../imagens/polar_histogram.png}
+	\caption{(a) Densidade polar de obstáculo em um histograma polar relativo à posição do robô em $O$ (Figura \ref{fig:histogram_grid}(b)). (b) O mesmo histograma polar de (a) mostrado em forma polar e por cima da grade de histograma da Figura \ref{fig:histogram_grid}(b).\cite{Borenstein1991}}
+	\label{fig:polar_histogram}
+\end{figure}
+
+\newpage
+
+\section{Considerações}
+\label{consideracores_robo}
+
+Neste projeto para o robô monitorar os ambientes ele deve ser capaz de navegar com segurança nos mesmos. Para isso são necessários os conceitos apresentados nessa seção. Saber onde o robô está no mapa, conhecer o mapa, planejar a melhor trajetória para chegar ao destino e desviar dos obstáculos no caminho. 
