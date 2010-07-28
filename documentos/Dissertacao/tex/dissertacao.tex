@@ -1,0 +1,216 @@
+
+\documentclass[12pt,twoside]{book}
+
+\usepackage[brazilian]{babel}
+\usepackage[T1]{fontenc} 
+\usepackage{ae}
+\usepackage[latin1]{inputenc}
+%\usepackage[portuges,brazilian]{babel}
+\usepackage{subfigure}
+\usepackage{natbib}
+\usepackage{latexsym}
+\usepackage{setspace}
+\usepackage{xspace}
+\usepackage{acronym}
+\usepackage[brazil]{varioref}                 %%% referencias com página \vref
+\usepackage{indentfirst}                      %%% identa primeiro parágrafo
+\usepackage{subfigure}                        %%% figuras um ao lado do outro
+\usepackage[sf,sl,outermarks]{titlesec}       %%% definir títulos de seção
+\usepackage{graphicx}
+
+
+%%% boxes
+\usepackage{fancybox}
+\usepackage{fancyvrb}
+\usepackage{color}
+
+%%% dimensões do documento
+\usepackage[pdftex]{geometry}
+  \geometry{a4paper,left=3cm,right=2cm,top=2.0cm,bottom=2cm,twoside}
+%%% cria links no arquivo .pdf
+%%% comentar as linhas na versão para impressao
+%\usepackage[pdftex,pdfpagelabels,pagebackref]{hyperref}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=black,hypertexnames=false}
+
+%%fonte
+\usepackage{bookman}
+\usepackage[T1]{fontenc}
+
+
+%%para os numeros reais
+\usepackage{amsfonts}
+
+\DeclareFixedFont{\numberfont}{T1}{phv}{bx}{n}{2cm}
+
+
+%%%
+%%% Algoritmos, for human beings
+%%%
+
+\usepackage[chapter]{algorithm}
+\usepackage{algorithmic}
+
+\renewcommand{\algorithmicend}{\textbf{fim}}
+\renewcommand{\algorithmicif}{\textbf{se}}
+\renewcommand{\algorithmicthen}{\textbf{então}}
+\renewcommand{\algorithmicelse}{\textbf{senão}}
+\renewcommand{\algorithmicfor}{\textbf{para cada}}
+\renewcommand{\algorithmicforall}{\textbf{para todos}}
+\renewcommand{\algorithmicdo}{\textbf{faça}}
+\renewcommand{\algorithmicwhile}{\textbf{enquanto}}
+\renewcommand{\algorithmicrepeat}{\textbf{repetir}}
+\renewcommand{\algorithmicuntil}{\textbf{até}}
+\floatname{algorithm}{Algoritmo}
+
+%%%
+%%% redefine o formato do título
+%%%
+
+\titleformat{\chapter}[display]
+  {\normalfont\Large\sffamily
+  }
+  {%\titlerule[3pt]%
+   \filright
+   \rule[32pt]{.7\linewidth}{4pt}
+   \hspace{-11pt}
+   \shadowbox{
+   \begin{minipage}{.18\linewidth}
+     \begin{center}
+       \textsc{\Large\chaptertitlename}\\
+       \vspace{1ex}
+       {\numberfont\color[gray]{0.5} \thechapter}\\
+       \vspace{1ex}
+     \end{center}
+   \end{minipage}}
+  }
+  {0pt}
+  {\filcenter
+   \Huge
+   }
+  [\hfill\rule{.8\textwidth}{0.5pt}\\
+     \vskip-1.8ex\hfill\rule{.7\textwidth}{3pt}]
+
+
+%%% macro para destacar a(s) primeira(s) letra do texto
+%%% é necessário ter a fonte courier instalada
+%
+%  um texto do tipo:
+%
+%  \begin{document}
+%    \versal{IN} THE beginning God created the heaven and the earth.  Now the
+%    earth was unformed and void, and darkness was upon the face of the
+%    deep; and the spirit of God hovered over the face of the waters.
+%  \end{document}
+%
+%  irá produzir algo como:
+%
+%  I I\  I THE beginning God  created the heaven and  the earth.
+%  I I \ I Now the earth was unformed and void, and darkness was
+%  I I  \I upon the face of the deep; and the spirit of God hov-
+%  ered over the face of the waters.
+
+%\font\largefont= pzcmi scaled 6500
+
+\newcommand{\versal}[1]{{\noindent
+    \setbox0\hbox{\largefont #1 }%
+    \count0=\ht0                   % height of versal
+    \count1=\baselineskip          % baselineskip
+    \divide\count0 by \count1      % versal height/baselineskip
+    \dimen1 = \count0\baselineskip % distance to drop versal
+    \advance\count0 by 1\relax     % no of indented lines
+    \dimen0=\wd0                   % width of versal
+    \global\hangindent\dimen0      % set indentation distance
+    \global\hangafter-\count0      % set no of indented lines
+    \hskip-\dimen0\setbox0\hbox to\dimen0{\raise-\dimen1\box0\hss}%
+    \dp0=0in\ht0=0in\box0}}
+
+\include{macros}
+
+\begin{document}
+
+\pagestyle{empty}
+\pagenumbering{roman}
+
+%%% insere a capa
+%%% edite os campos para título, data, orientador e nome
+
+\newcommand{\titulo}{Planejamento de trajetória em ambientes com prioridades dinâmicas}
+
+\input{capa}
+
+\pagestyle{plain}
+
+\onehalfspacing
+
+%%% insere a dedicatoria
+
+\input{dedicatoria}
+\cleardoublepage
+
+%%% insere os agradecimentos
+
+\input{agradecimentos}
+\cleardoublepage
+
+%%% insere a citacao
+
+\input{citacao}
+\cleardoublepage
+
+%%% insere o resumo
+
+\input{resumo}
+\cleardoublepage
+\tableofcontents
+\addcontentsline{toc}{section}{Sumário}
+\cleardoublepage
+
+\listoffigures
+\addcontentsline{toc}{section}{Lista de Figuras}
+\cleardoublepage
+
+\listoftables
+\addcontentsline{toc}{section}{Lista de Tabelas}
+\cleardoublepage
+
+%\input{acron}
+%\addcontentsline{toc}{section}{Lista de Abreviaturas}
+%\cleardoublepage
+
+%\listofalgorithms
+%\addcontentsline{toc}{section}{Lista de Algoritmos}
+%\cleardoublepage
+
+%%% inserir resumo
+%\input{resumo}
+
+
+%%% corpo do texto
+
+\pagenumbering{arabic}
+
+%%% inclua os arquivos a partir daqui
+
+\include{introducao}
+\include{robos}
+\include{navegacao}
+\include{grafos}
+\include{resultados}
+%\appendix
+
+%
+% Para ajustar padrão... C:\Program Files (x86)\MiKTeX 2.8\bibtex\bst\apalike\apalike.bst
+%
+%
+
+%\bibliographystyle{apalike}
+\bibliographystyle{plain}
+
+\bibliography{../../bibliografia}
+\addcontentsline{toc}{chapter}{Referências}
+
+\end{document}
+
+
+ 
